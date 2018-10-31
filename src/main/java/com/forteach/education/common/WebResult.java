@@ -94,6 +94,7 @@ public class WebResult implements Serializable {
     public static WebResult failResult(int code) {
         return failResult(code, "");
     }
+    
 
     public static WebResult failResult(int code, Object object) {
         Map<String, String> propertiesmap = PropertiesUtil.getMapForProperties();
