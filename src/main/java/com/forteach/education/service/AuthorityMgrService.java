@@ -80,7 +80,7 @@ public interface AuthorityMgrService {
      * @param colId
      * @return
      */
-    List<Integer> findRoleColActIds(String roleId, String colId);
+    List<String> findRoleColActIds(String roleId, String colId);
 
     /**
      * 保存对应角色对应栏目的动作
