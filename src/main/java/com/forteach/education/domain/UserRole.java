@@ -15,7 +15,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "user_role",indexes = {@Index(columnList = "role_id")})
+@Table(name = "user_role", indexes = {@Index(columnList = "role_id")})
 @IdClass(UserRoleFundPrimarykey.class)
 public class UserRole extends Entitys implements Serializable {
 
@@ -28,25 +28,4 @@ public class UserRole extends Entitys implements Serializable {
 
     private String roleId;
 
-}
-
-@Data
-@Embeddable
-class UserRoleFundPrimarykey implements Serializable{
-
-    private static final long serialVersionUID = 1L;
-
-    @Column(name = "user_id",columnDefinition = "varchar(32) COMMENT '用户编号'",insertable = false,updatable = false)
-    private String userId;
-
-    @Column(name = "role_id",columnDefinition = "varchar(32) COMMENT '角色编号'",insertable = false,updatable = false)
-    private String roleId;
-
-    public UserRoleFundPrimarykey() {
-    }
-
-    public UserRoleFundPrimarykey(String userId, String roleId) {
-        this.userId = userId;
-        this.roleId = roleId;
-    }
 }

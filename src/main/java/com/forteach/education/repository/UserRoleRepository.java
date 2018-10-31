@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * @Description:
@@ -16,11 +17,21 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
 
     /**
      * 删除权限角色
+     *
      * @param roleId
      */
     @Modifying
     @Transactional(rollbackOn = Exception.class)
     void deleteByRoleId(String roleId);
+
+    /**
+     * 删除权限角色
+     *
+     * @param userIds
+     */
+    @Modifying
+    @Transactional(rollbackOn = Exception.class)
+    void deleteByUserIdIn(List<String> userIds);
 
     UserRole findByUserIdIs(String userId);
 

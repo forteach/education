@@ -20,7 +20,7 @@ public interface RoleColActRepository extends JpaRepository<RoleColAct, Long> {
     List<RoleColAct> findByColIdAndRoleId(String colId,String roleId);
 
     @Modifying
-    @Transactional(rollbackOn = Exception.class)
+    @Transactional(11.class)
     void deleteByRoleIdIs(String roleId);
 
 }
