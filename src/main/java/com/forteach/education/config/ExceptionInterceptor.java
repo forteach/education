@@ -1,15 +1,19 @@
 package com.forteach.education.config;
 
-import com.forteach.education.common.WebResult;
+import java.sql.SQLException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
+import com.forteach.education.common.WebResult;
+import com.forteach.education.exception.AssertErrorException;
 
 /**
  * @Description:
@@ -49,5 +53,10 @@ public class ExceptionInterceptor {
         return WebResult.failResult(9100);
     }
 
-
+    @ExceptionHandler(AssertErrorException.class)
+    @ResponseBody
+    public WebResult serverExceptionHandler(AssertErrorException ex) {
+        log.error("----------------"+ex.getMessage(),ex);
+        return WebResult.failResult(ex.getErrorCode(),ex.getMessage(),null);
+    }
 }
