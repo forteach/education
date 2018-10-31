@@ -44,5 +44,19 @@ public class AuthorityMgrServiceTest {
         log.info("---------------------------------------------");
     }
 
+    @Test
+    public void findColumnByRoleId(){
+        log.info("---------------------------------------------");
+        log.warn("{}", JSON.toJSONString(authorityMgrService.findColumnByRoleId("0")));
+        log.info("---------------------------------------------");
+    }
+
+    @Test
+    public void findColumnIdsByRoleId(){
+        log.info("---------------------------------------------");
+        log.warn("{}", JSON.toJSONString(authorityMgrService.findColumnIdsByRoleId("0")));
+        log.info("---------------------------------------------");
+    }
+
 
 }

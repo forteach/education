@@ -22,4 +22,6 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
     @Transactional(rollbackOn = Exception.class)
     void deleteByRoleId(String roleId);
 
+    UserRole findByUserIdIs(String userId);
+
 }
