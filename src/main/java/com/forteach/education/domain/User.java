@@ -32,6 +32,9 @@ public class User extends Entitys implements Serializable {
     @Column(name = "user_name", columnDefinition = "varchar(40) COMMENT '用户名称'")
     private String userName;
 
+    @Column(name = "account", columnDefinition = "varchar(40) COMMENT '用户账号'")
+    private String account;
+
     @Column(name = "register_phone", columnDefinition = "varchar(20) COMMENT '注册手机号'")
     private String registerPhone;
 
@@ -62,7 +65,7 @@ public class User extends Entitys implements Serializable {
     @Column(name = "u_time", columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
     private Date uTime;
 
-    @Column(name = "c_time", columnDefinition = "timestamp COMMENT '创建时间'")
+    @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
     private Date cTime;
 
 

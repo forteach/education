@@ -1,11 +1,9 @@
 package com.forteach.education.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,11 +16,13 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "sys_role")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class SysRole extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(generator = "jpa-uuid")
     @Column(name = "role_id", columnDefinition = "varchar(255) COMMENT '角色编号'")
     private String roleId;
 
@@ -38,7 +38,7 @@ public class SysRole extends Entitys implements Serializable {
     @Column(name = "u_time", columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
     private Date uTime;
 
-    @Column(name = "c_time", columnDefinition = "timestamp COMMENT '创建时间'")
+    @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
     private Date cTime;
 
 }

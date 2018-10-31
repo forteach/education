@@ -14,6 +14,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "user_role",indexes = {@Index(columnList = "role_id")})
+@IdClass(UserRoleFundPrimarykey.class)
 public class UserRole extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,6 +22,9 @@ public class UserRole extends Entitys implements Serializable {
     @EmbeddedId
     private UserRoleFundPrimarykey userRoleFundPrimarykey;
 
+    private String userId;
+
+    private String roleId;
 
 }
 
@@ -30,10 +34,10 @@ class UserRoleFundPrimarykey implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "user_id",columnDefinition = "varchar(32) COMMENT '用户编号'")
+    @Column(name = "user_id",columnDefinition = "varchar(32) COMMENT '用户编号'",insertable = false,updatable = false)
     private String userId;
 
-    @Column(name = "role_id",columnDefinition = "varchar(32) COMMENT '角色编号'")
+    @Column(name = "role_id",columnDefinition = "varchar(32) COMMENT '角色编号'",insertable = false,updatable = false)
     private String roleId;
 
     public UserRoleFundPrimarykey() {

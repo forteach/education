@@ -14,7 +14,8 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "role_col_act",indexes = {@Index(columnList = "sys_act_id"),@Index(columnList = "role_id")})
+@Table(name = "role_col_act", indexes = {@Index(columnList = "sys_act_id"), @Index(columnList = "role_id")})
+@IdClass(RoleColActFundPrimarykey.class)
 public class RoleColAct extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,10 +23,16 @@ public class RoleColAct extends Entitys implements Serializable {
     @EmbeddedId
     private RoleColActFundPrimarykey roleColActFundPrimarykey;
 
-    @Column(name = "u_time",columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
+    private String colId;
+
+    private String sysActId;
+
+    private String roleId;
+
+    @Column(name = "u_time", columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
     private Date uTime;
 
-    @Column(name = "c_time",columnDefinition = "timestamp COMMENT '创建时间'")
+    @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
     private Date cTime;
 }
 
@@ -41,13 +48,13 @@ class RoleColActFundPrimarykey implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "col_id",columnDefinition = "varchar(32) COMMENT '栏目编号'")
+    @Column(name = "col_id", columnDefinition = "varchar(32) COMMENT '栏目编号'",insertable = false,updatable = false)
     private String colId;
 
-    @Column(name = "sys_act_id",columnDefinition = "int(11) COMMENT '动作编号'")
+    @Column(name = "sys_act_id", columnDefinition = "int(11) COMMENT '动作编号'",insertable = false,updatable = false)
     private String sysActId;
 
-    @Column(name = "role_id",columnDefinition = "varchar(32) COMMENT '角色编号'")
+    @Column(name = "role_id", columnDefinition = "varchar(32) COMMENT '角色编号'",insertable = false,updatable = false)
     private String roleId;
 
     public RoleColActFundPrimarykey() {
