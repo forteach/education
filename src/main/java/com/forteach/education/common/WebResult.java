@@ -83,7 +83,7 @@ public class WebResult implements Serializable {
      * @return WebResult    返回类型
      * @author WangKai
      */
-    public static WebResult okResult(int code, Object data, String params[]) {
+    public static WebResult okResult(int code, Object data, String[] params) {
         return backResult(getOkCode(), String.valueOf(code), data, params);
     }
 
@@ -94,6 +94,7 @@ public class WebResult implements Serializable {
     public static WebResult failResult(int code) {
         return failResult(code, "");
     }
+    
 
     public static WebResult failResult(int code, Object object) {
         Map<String, String> propertiesmap = PropertiesUtil.getMapForProperties();
@@ -104,7 +105,7 @@ public class WebResult implements Serializable {
         return wr;
     }
 
-    public static WebResult failResult(int code, Object data, String params[]) {
+    public static WebResult failResult(int code, Object data, String[] params) {
         return failResult(code, String.valueOf(code), data, params);
     }
 
@@ -130,11 +131,11 @@ public class WebResult implements Serializable {
      * @return WebResult    返回类型
      * @author WangKai
      */
-    private static WebResult failResult(int code, String windowCode, Object data, String params[]) {
+    private static WebResult failResult(int code, String windowCode, Object data, String[] params) {
         return backResult(code, windowCode, data, params);
     }
 
-    private static WebResult backResult(int code, String windowCode, Object data, String params[]) {
+    private static WebResult backResult(int code, String windowCode, Object data, String[] params) {
         Map<String, String> map = PropertiesUtil.getMapForProperties();
         WebResult wr = new WebResult();
         wr.setRet(code);

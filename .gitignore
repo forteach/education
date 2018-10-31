@@ -1,5 +1,7 @@
-/target/
-!.mvn/wrapper/maven-wrapper.jar
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+!webResult.properties
 
 ### STS ###
 .apt_generated
@@ -10,19 +12,39 @@
 .springBeans
 .sts4-cache
 
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-#*.yml
-*.mvn
-lib
+/out/
 
 ### NetBeans ###
 /nbproject/private/
-/build/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Eclipse project files ###
+.classpath
+.project
+.DS_Store
+/target/
+/.settings/
+
+# Java class files
+*.class
+*.jar
+*.properties
+*.yml
+
+### generated files ###
+/bin/
+gen/
+
+### Log Files ###
+ *.log
+src/main/java/com/forteach/education/assertions/
+src/main/resources/static/
