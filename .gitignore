@@ -1,6 +1,7 @@
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
+!webResult.properties
 
 ### STS ###
 .apt_generated
@@ -44,4 +45,6 @@
 gen/
 
 ### Log Files ###
- *.log 
+ *.log
+src/main/java/com/forteach/education/assertions/
+src/main/resources/static/
