@@ -3,12 +3,10 @@ package com.forteach.education.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Description:
@@ -57,5 +55,8 @@ public class ActionColumn extends Entitys implements Serializable {
 
     @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
     private Date cTime;
+
+    @Transient
+    private List<ActionColumn> children;
 
 }

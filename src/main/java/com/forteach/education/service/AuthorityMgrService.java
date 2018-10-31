@@ -1,6 +1,7 @@
 package com.forteach.education.service;
 
 import com.forteach.education.domain.ActionColumn;
+import com.forteach.education.web.vo.ColumnOperationVo;
 
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public interface AuthorityMgrService {
      * @param colId
      * @return
      */
-    List<Map<String, Object>> findColumnOperationByLeafNode(String colId);
+    List<ColumnOperationVo> findColumnOperationByLeafNode(String colId);
 
     /**
      * 根据角色获取其对应的权限(栏目)
@@ -65,6 +66,12 @@ public interface AuthorityMgrService {
      * @return
      */
     List findTreeTop();
+
+    /**
+     * 获取所有的树
+     * @return
+     */
+    List<ActionColumn> findTreeAll();
 
     /**
      * 获取角色栏目对应的动作
