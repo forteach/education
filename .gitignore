@@ -33,13 +33,14 @@
 /target/
 /.settings/
 
-
 # Java class files
 *.class
 *.jar
+*.properties
+*.yml
 
 ### generated files ###
-bin/
+/bin/
 gen/
 
 ### Log Files ###
