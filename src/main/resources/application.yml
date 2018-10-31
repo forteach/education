@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/education?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&useSSL=false
+    username: root
+    password: 123456
+    hikari:
+      max-lifetime: 60000
+      connection-timeout: 30000
+
+  redis:
+    host: localhost
+    port: 6379
+   # password: 123456
+    database: 1
+    lettuce:
+      pool:
+        max-active: 1500
+        max-idle: 1000
+        max-wait: 5000ms
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
