@@ -1,6 +1,7 @@
 package com.forteach.education.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Date;
  * @version: V1.0
  * @date: 2018/10/30 15:51
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "user")

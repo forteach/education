@@ -14,8 +14,12 @@ import javax.transaction.Transactional;
  */
 public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
 
+    /**
+     * 删除权限角色
+     * @param roleId
+     */
     @Modifying
-    @Transactional
-    Long deleteByRoleId(String roleId);
+    @Transactional(rollbackOn = Exception.class)
+    void deleteByRoleId(String roleId);
 
 }

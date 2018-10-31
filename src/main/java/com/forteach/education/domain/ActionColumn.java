@@ -1,6 +1,7 @@
 package com.forteach.education.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import java.util.Date;
  * @version: V1.0
  * @date: 2018/10/31 9:30
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "action_column")

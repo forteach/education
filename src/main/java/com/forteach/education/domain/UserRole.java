@@ -1,6 +1,7 @@
 package com.forteach.education.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @version: V1.0
  * @date: 2018/10/31 9:19
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "user_role",indexes = {@Index(columnList = "role_id")})

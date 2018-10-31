@@ -15,13 +15,37 @@ import java.util.List;
  */
 public interface SysRoleRepository extends JpaRepository<SysRole, Long> {
 
-    SysRole findSysRoleByRoleNameAndIsValidated(String roleName,String isValidated);
+    /**
+     * 判断角色名称是否存在
+     *
+     * @param roleName
+     * @param isValidated
+     * @return
+     */
+    SysRole findSysRoleByRoleNameAndIsValidated(String roleName, String isValidated);
 
+    /**
+     * 找到可用的权限角色
+     *
+     * @param isValidated
+     * @return
+     */
     List<SysRole> findByIsValidatedEquals(String isValidated);
 
+    /**
+     * 根据id找到角色
+     *
+     * @param id
+     * @return
+     */
     SysRole findByRoleId(String id);
 
+    /**
+     * 删除权限角色
+     *
+     * @param id
+     */
     @Modifying
-    @Transactional
-    Long deleteByRoleId(String id);
+    @Transactional(rollbackOn = Exception.class)
+    void deleteByRoleId(String id);
 }

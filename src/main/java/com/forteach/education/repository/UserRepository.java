@@ -13,6 +13,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    /**
+     * 找到生效的用户列表
+     * @param isValidated
+     * @param pageable
+     * @return
+     */
     Page<User> findByIsValidatedEquals(String isValidated, Pageable pageable);
 
 }

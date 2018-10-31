@@ -22,6 +22,9 @@ public interface RoleService {
     /**
      * 用户列表
      *
+     * @param page 分页位
+     * @param size 分页数量
+     * @param sorting 排序（倒叙）
      * @return
      */
     List<Map<String, Object>> findUsersInfo(int page, int size, String sorting);
