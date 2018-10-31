@@ -9,6 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * @Description:
+ * @author: liu zhenming
+ * @version: V1.0
+ * @date: 2018/10/30 9:30
+ */
 @Slf4j
 public class PropertiesUtil {
 
