@@ -1,9 +1,10 @@
-package com.forteach.education.service;
+package com.forteach.education.service.impl;
 
 import com.forteach.education.domain.User;
 import com.forteach.education.domain.UserRole;
 import com.forteach.education.repository.UserRepository;
 import com.forteach.education.repository.UserRoleRepository;
+import com.forteach.education.service.UserMgrService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,7 @@ public class UserMgrServiceImpl implements UserMgrService {
     private UserRepository userRepository;
 
     @Override
+    @Transactional( rollbackFor = Exception.class)
     public void updateUserRole(String roleId, List<String> userIds) {
         userRoleRepository.deleteByUserIdIn(userIds);
         //存入新的用户角色信息

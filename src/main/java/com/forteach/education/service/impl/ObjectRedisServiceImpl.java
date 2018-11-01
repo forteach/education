@@ -1,5 +1,6 @@
-package com.forteach.education.service;
+package com.forteach.education.service.impl;
 
+import com.forteach.education.service.ObjectRedisService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.forteach.education.service;
+package com.forteach.education.service.impl;
 
 import com.forteach.education.domain.SysRole;
 import com.forteach.education.domain.User;
@@ -6,11 +6,13 @@ import com.forteach.education.exception.RoleException;
 import com.forteach.education.repository.SysRoleRepository;
 import com.forteach.education.repository.UserRepository;
 import com.forteach.education.repository.UserRoleRepository;
+import com.forteach.education.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -79,6 +81,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteRole(String roleId) {
 
         userRoleRepository.deleteByRoleId(roleId);
@@ -92,6 +95,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @Transactional( rollbackFor = Exception.class)
     public SysRole edit(SysRole role) {
         SysRole sysRole = sysRoleRepository.findByRoleId(role.getRoleId());
         role.setUTime(new Date());
