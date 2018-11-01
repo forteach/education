@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -79,6 +80,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteRole(String roleId) {
 
         userRoleRepository.deleteByRoleId(roleId);
@@ -92,6 +94,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @Transactional( rollbackFor = Exception.class)
     public SysRole edit(SysRole role) {
         SysRole sysRole = sysRoleRepository.findByRoleId(role.getRoleId());
         role.setUTime(new Date());

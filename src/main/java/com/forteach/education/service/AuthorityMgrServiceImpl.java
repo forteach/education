@@ -11,6 +11,7 @@ import com.forteach.education.web.vo.ColumnOperationVo;
 import com.forteach.education.web.vo.OperationInfoVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -223,6 +224,7 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
      * @param json
      */
     @Override
+    @Transactional( rollbackFor = Exception.class)
     public void saveRoleColAct(String json) {
         List<Map<String, Object>> listMap = (List<Map<String, Object>>) JSONObject.parse(json);
         listMap.forEach(m -> {
