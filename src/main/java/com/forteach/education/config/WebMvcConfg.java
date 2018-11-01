@@ -7,10 +7,12 @@ import com.forteach.education.filter.SysUserLoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 /**
@@ -26,6 +28,7 @@ public class WebMvcConfg implements WebMvcConfigurer {
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         FastJsonConfig config = new FastJsonConfig();
+        config.setCharset(Charset.forName("UTF-8"));
         config.setSerializerFeatures(
                 SerializerFeature.DisableCircularReferenceDetect,
                 SerializerFeature.WriteBigDecimalAsPlain,
@@ -35,6 +38,12 @@ public class WebMvcConfg implements WebMvcConfigurer {
                 SerializerFeature.WriteNullStringAsEmpty);
         converter.setFastJsonConfig(config);
         converters.add(converter);
+    }
+
+    @Bean
+    public HttpMessageConverter<String> responseBodyConverter() {
+        return new StringHttpMessageConverter(
+                Charset.forName("UTF-8"));
     }
 
     @Override
