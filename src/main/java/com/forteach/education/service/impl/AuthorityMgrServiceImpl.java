@@ -1,4 +1,4 @@
-package com.forteach.education.service;
+package com.forteach.education.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.domain.ActionColumn;
@@ -7,6 +7,7 @@ import com.forteach.education.domain.UserRole;
 import com.forteach.education.repository.ActionColumnRepository;
 import com.forteach.education.repository.RoleColActRepository;
 import com.forteach.education.repository.UserRoleRepository;
+import com.forteach.education.service.AuthorityMgrService;
 import com.forteach.education.web.vo.ColumnOperationVo;
 import com.forteach.education.web.vo.OperationInfoVo;
 import lombok.extern.slf4j.Slf4j;

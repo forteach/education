@@ -1,4 +1,4 @@
-package com.forteach.education.service;
+package com.forteach.education.service.impl;
 
 import com.forteach.education.domain.SysRole;
 import com.forteach.education.domain.User;
@@ -6,6 +6,7 @@ import com.forteach.education.exception.RoleException;
 import com.forteach.education.repository.SysRoleRepository;
 import com.forteach.education.repository.UserRepository;
 import com.forteach.education.repository.UserRoleRepository;
+import com.forteach.education.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
