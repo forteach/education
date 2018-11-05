@@ -17,9 +17,9 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "user")
+@Table(name = "sys_users")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class User extends Entitys implements Serializable {
+public class SysUsers extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

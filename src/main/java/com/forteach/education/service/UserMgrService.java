@@ -1,6 +1,6 @@
 package com.forteach.education.service;
 
-import com.forteach.education.domain.User;
+import com.forteach.education.domain.SysUsers;
 
 import java.util.List;
 
@@ -18,5 +18,5 @@ public interface UserMgrService {
      */
     void updateUserRole(String roleId, List<String> userIds);
 
-    User edit(User user);
+    SysUsers edit(SysUsers user);
 }

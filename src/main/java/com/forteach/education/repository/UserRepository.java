@@ -1,6 +1,6 @@
 package com.forteach.education.repository;
 
-import com.forteach.education.domain.User;
+import com.forteach.education.domain.SysUsers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version: V1.0
  * @date: 2018/10/31 9:57
  */
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<SysUsers, Long> {
 
     /**
      * 找到生效的用户列表
@@ -19,6 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param pageable
      * @return
      */
-    Page<User> findByIsValidatedEquals(String isValidated, Pageable pageable);
+    Page<SysUsers> findByIsValidatedEquals(String isValidated, Pageable pageable);
 
 }
