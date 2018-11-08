@@ -1,6 +1,6 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.domain.User;
+import com.forteach.education.domain.SysUsers;
 import com.forteach.education.domain.UserRole;
 import com.forteach.education.repository.UserRepository;
 import com.forteach.education.repository.UserRoleRepository;
@@ -50,7 +50,7 @@ public class UserMgrServiceImpl implements UserMgrService {
      */
     @Override
     @Transactional( rollbackFor = Exception.class)
-    public User edit(User user) {
+    public SysUsers edit(SysUsers user) {
         user.setUTime(new Date());
         user.setCTime(new Date());
        return userRepository.save(user);

@@ -1,7 +1,7 @@
 package com.forteach.education.service.impl;
 
 import com.forteach.education.domain.SysRole;
-import com.forteach.education.domain.User;
+import com.forteach.education.domain.SysUsers;
 import com.forteach.education.exception.RoleException;
 import com.forteach.education.repository.SysRoleRepository;
 import com.forteach.education.repository.UserRepository;
@@ -58,7 +58,7 @@ public class RoleServiceImpl implements RoleService {
 
         Sort sort = new Sort(Sort.Direction.DESC, sorting);
 
-        Page<User> userList = userRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN, PageRequest.of(page, size, sort));
+        Page<SysUsers> userList = userRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN, PageRequest.of(page, size, sort));
         List<Map<String, Object>> list = new ArrayList<>();
 
         userList.forEach(m -> {
@@ -67,7 +67,6 @@ public class RoleServiceImpl implements RoleService {
             resultMap.put("userName", m.getUserName());
             resultMap.put("email", m.getEmail());
             resultMap.put("account", m.getAccount());
-            resultMap.put("introduction", m.getIntroduction());
             resultMap.put("register_phone", m.getRegisterPhone());
             list.add(resultMap);
         });
@@ -95,7 +94,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    @Transactional( rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public SysRole edit(SysRole role) {
         SysRole sysRole = sysRoleRepository.findByRoleId(role.getRoleId());
         role.setUTime(new Date());

@@ -1,7 +1,7 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.forteach.education.domain.User;
+import com.forteach.education.domain.SysUsers;
 import com.forteach.education.exception.TokenException;
 import com.forteach.education.util.TokenUtil;
 import com.forteach.education.web.vo.CheckTokenVo;
@@ -29,7 +29,7 @@ public class BaseController {
      * @param request request
      * @return 用户信息
      */
-    protected User getUserCache(HttpServletRequest request) {
+    protected SysUsers getUserCache(HttpServletRequest request) {
         String token = request.getHeader("token");
         return getUserCache(token);
     }
@@ -40,7 +40,7 @@ public class BaseController {
      * @param token
      * @return 用户信息
      */
-    protected User getUserCache(String token) {
+    protected SysUsers getUserCache(String token) {
         if (Objects.equals(null, token) || Objects.equals("", token)) {
             return null;
         }
@@ -48,7 +48,7 @@ public class BaseController {
         if (u == null) {
             return null;
         }
-        return JSONObject.parseObject(u.toString(), User.class);
+        return JSONObject.parseObject(u.toString(), SysUsers.class);
     }
 
     /**
@@ -68,7 +68,7 @@ public class BaseController {
      * @return 用户ID
      */
     protected String getUserIdFromCache(HttpServletRequest request) {
-        User user = getUserCache(request);
+        SysUsers user = getUserCache(request);
         if (Objects.equals(null, user)) {
             return null;
         }
@@ -82,7 +82,7 @@ public class BaseController {
      * @return 用户ID
      */
     protected String getUserIdFromCache(String token) {
-        User user = getUserCache(token);
+        SysUsers user = getUserCache(token);
         if (Objects.equals(null, user)) {
             return null;
         }
@@ -96,7 +96,7 @@ public class BaseController {
      * @return 用户ID
      */
     protected CheckTokenVo isToken(String token) {
-        User user = getUserCache(token);
+        SysUsers user = getUserCache(token);
         if (Objects.equals(null, user)) {
             throw new TokenException("token 无效");
         }

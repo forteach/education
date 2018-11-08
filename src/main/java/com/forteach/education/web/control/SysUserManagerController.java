@@ -1,7 +1,7 @@
 package com.forteach.education.web.control;
 
 import com.forteach.education.common.WebResult;
-import com.forteach.education.domain.User;
+import com.forteach.education.domain.SysUsers;
 import com.forteach.education.service.UserMgrService;
 import com.forteach.education.web.vo.CastVo;
 import io.swagger.annotations.Api;
@@ -51,7 +51,7 @@ public class SysUserManagerController {
      */
     @PostMapping(value = "/edit")
     @ApiOperation(value = "编辑用户", notes = "编辑/保存用户")
-    public WebResult edit(@Valid @RequestBody  @ApiParam(value = "编辑/保存用户", required = true)  User user) {
+    public WebResult edit(@Valid @RequestBody  @ApiParam(value = "编辑/保存用户", required = true) SysUsers user) {
         return WebResult.okResult(userMgrService.edit(user));
 
     }

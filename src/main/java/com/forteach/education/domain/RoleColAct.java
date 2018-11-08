@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Description:
@@ -31,10 +30,5 @@ public class RoleColAct extends Entitys implements Serializable {
 
     private String roleId;
 
-    @Column(name = "u_time", columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
-    private Date uTime;
-
-    @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
-    private Date cTime;
 }
 

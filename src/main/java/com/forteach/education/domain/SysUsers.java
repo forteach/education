@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Description:
@@ -17,9 +16,9 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "user")
+@Table(name = "sys_users")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class User extends Entitys implements Serializable {
+public class SysUsers extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -58,17 +57,7 @@ public class User extends Entitys implements Serializable {
     @Column(name = "equipment", columnDefinition = "varchar(40) COMMENT '登陆设备'")
     private String equipment;
 
-    @Column(name = "is_validated", columnDefinition = "char(1) COMMENT '生效标识 0生效 1失效'")
-    private String isValidated;
 
-    @Column(length = 65535, columnDefinition = "Text COMMENT '介绍 简介'")
-    private String introduction;
-
-    @Column(name = "u_time", columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
-    private Date uTime;
-
-    @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
-    private Date cTime;
 
 
 }
