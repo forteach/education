@@ -67,7 +67,6 @@ public class RoleServiceImpl implements RoleService {
             resultMap.put("userName", m.getUserName());
             resultMap.put("email", m.getEmail());
             resultMap.put("account", m.getAccount());
-            resultMap.put("introduction", m.getIntroduction());
             resultMap.put("register_phone", m.getRegisterPhone());
             list.add(resultMap);
         });
@@ -95,7 +94,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    @Transactional( rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public SysRole edit(SysRole role) {
         SysRole sysRole = sysRoleRepository.findByRoleId(role.getRoleId());
         role.setUTime(new Date());
