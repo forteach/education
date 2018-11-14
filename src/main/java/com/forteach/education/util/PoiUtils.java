@@ -1,5 +1,4 @@
 package com.forteach.education.util;
-import cn.hutool.core.io.FileTypeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.poi.hslf.usermodel.HSLFAutoShape;
@@ -21,9 +20,12 @@ import org.apache.poi.xwpf.converter.core.FileImageExtractor;
 import org.apache.poi.xwpf.converter.xhtml.XHTMLConverter;
 import org.apache.poi.xwpf.converter.xhtml.XHTMLOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 
+import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -37,23 +39,24 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
+
 /**
- * @Auther: zhangyy
- * @Email: zhang10092009@hotmail.com
- * @Date: 2018/11/13 21:27
- * @Version: 1.0
- * @Description: 操作 poi 工具类
+ * 通过poi将doc、docx、ppt、pptx转为html
+ * 保存图片的位置在文件所在目录，以文件名创建文件夹下
  */
 @Slf4j
+@Component
 public class PoiUtils {
-//    private static Logger logger = LoggerFactory.getLogger(PoiUtils.class);
+    @Autowired
+    private Environment environment;
 
-//    private static String rootPath = ConfigUtils.getProperty("upload.rootPath");
-//    @Value("${upload.rootPath}")
-    public static String rootPath = "upload";
-//    private static final String IMAGE_SERVER = ConfigUtils.getProperty("file.server");
-//    @Value("${file.server}")
-    private static String IMAGE_SERVER = "1";
+    private static String rootPath;
+    private static String IMAGE_SERVER;
+    public void speak(){
+        environment.getProperty("file.server");
+        environment.getProperty("upload.rootPath");
+    }
+
     /**
      * poi office文件转html，支持doc,docx,ppt,pptx
      * 根据源文件在同一目录下生成相同名称的html文件
@@ -63,13 +66,13 @@ public class PoiUtils {
         String htmlFilePath = FileUtils.getFileNameWithoutExtension(filePath)+".html";
         try {
             if(checkFile(filePath,"doc")){
-                return wordToHtml03(filePath, htmlFilePath);
+                return wordToHtml03(filePath,htmlFilePath);
             }else if(checkFile(filePath,"docx")){
-                return wordToHtml07(filePath, htmlFilePath);
+                return wordToHtml07(filePath,htmlFilePath);
             }else if(checkFile(filePath,"ppt")){
-                return pptToHtml03(filePath, htmlFilePath);
+                return pptToHtml03(filePath,htmlFilePath);
             }else if(checkFile(filePath,"pptx")){
-                return pptToHtml07(filePath, htmlFilePath);
+                return pptToHtml07(filePath,htmlFilePath);
             }else {
                 log.error("poi OfficeToHtml出错，不支持的文件格式");
                 return false;
@@ -264,7 +267,7 @@ public class PoiUtils {
         File file = new File(filepath);
         // 读入PPT文件
         if (!checkFile(filepath,"ppt")) {
-            log.error("ppt03文件转html出错，不支持类型为："+FileTypeUtil.getType(file)+" 的文件");
+            log.error("ppt03文件转html出错，不支持类型为："+FileUtils.getFileExtension(filepath)+" 的文件");
             return false;
         }
         FileInputStream is = null;
@@ -326,7 +329,7 @@ public class PoiUtils {
             // 这里设置图片的存放路径和图片的格式(jpeg,png,bmp等等),注意生成文件路径与源文件同一个目录
             try {
                 out= new FileOutputStream(getImageSavePath(filepath)+(i + 1) + ".jpeg");
-                javax.imageio.ImageIO.write(img, "jpeg", out);
+                ImageIO.write(img, "jpeg", out);
             } catch (IOException e) {
                 log.error("ppt03文件转html出错：",e);
                 try {
@@ -380,7 +383,7 @@ public class PoiUtils {
         File file = new File(filepath);
         // 读入PPT文件
         if (!checkFile(filepath,"pptx")) {
-            log.error("ppt07文件转html出错，不支持类型为："+ FileTypeUtil.getType(file)+" 的文件");
+            log.error("ppt07文件转html出错，不支持类型为："+FileUtils.getFileExtension(filepath)+" 的文件");
             return false;
         }
         FileInputStream is = null;
@@ -440,8 +443,8 @@ public class PoiUtils {
             String Imgname = getImageSavePath(filepath) + (i+1) + ".jpg";
             try {
                 out = new FileOutputStream(Imgname);
-                javax.imageio.ImageIO.write(img, "jpg", out);
-            } catch (java.io.IOException e) {
+                ImageIO.write(img, "jpg", out);
+            } catch (IOException e) {
                 log.error("ppt07文件转html出错：",e);
                 try {
                     out.close();
@@ -470,7 +473,7 @@ public class PoiUtils {
         }finally {
             try {
                 out.close();
-            } catch (java.io.IOException e) {
+            } catch (IOException e) {
                 log.error("ppt07文件转html关闭流出错：",e);
                 return false;
             }
@@ -503,7 +506,7 @@ public class PoiUtils {
             bw = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8"));
             bw.write(content);
             return true;
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             log.error("输出文件出错",e);
             return false;
         }finally {
@@ -514,7 +517,7 @@ public class PoiUtils {
                 if (null != fos) {
                     fos.close();
                 }
-            } catch (java.io.IOException e) {
+            } catch (IOException e) {
                 log.error("输出文件关闭流出错",e);
             }
         }
@@ -536,7 +539,7 @@ public class PoiUtils {
      * @param fileName
      * @return
      */
-    public static boolean checkFile(String fileName, String type) {
+    public static boolean checkFile(String fileName,String type) {
         boolean flag = false;
         String suffixname = FileUtils.getFileExtension(fileName);
         if (suffixname != null && suffixname.equalsIgnoreCase(type)) {
@@ -565,4 +568,5 @@ public class PoiUtils {
     private static String getImageSavePath(String filePath){
         return FileUtils.getFileNameWithoutExtension(filePath)+File.separator;
     }
+
 }
