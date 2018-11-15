@@ -57,6 +57,11 @@ public class PoiUtils {
         environment.getProperty("upload.rootPath");
     }
 
+    public static void main(String[] args) {
+        System.out.println("rootPath ==> " + rootPath);
+        System.out.println("images.server ==> " + IMAGE_SERVER);
+    }
+
     /**
      * poi office文件转html，支持doc,docx,ppt,pptx
      * 根据源文件在同一目录下生成相同名称的html文件
