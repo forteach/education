@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @Description:
+ * @Description:　权限和动作
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/10/31 8:49

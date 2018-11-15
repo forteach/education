@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * @Description:
+ * @Description:　系统活动或动作
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/10/31 9:25

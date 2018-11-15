@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @Description:
+ * @Description:　系统角色
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/10/31 8:33

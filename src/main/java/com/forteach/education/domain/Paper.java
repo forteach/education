@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @Description: 随机生成的教师编号：000000
+ * @Description: 试卷
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/11/7 11:18

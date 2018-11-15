@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @Description: 资料类型：1、文档 2、视频 3、音频、4、ppt
+ * @Description: 科目资料资料库 资料类型：1、文档 2、视频 3、音频、4、ppt
  * 资料领域：1、预习参考2、案例参考3、知识点材料 4、复习参考
  * @author: liu zhenming
  * @version: V1.0

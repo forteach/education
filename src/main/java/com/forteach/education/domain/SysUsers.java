@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @Description:
+ * @Description:　系统用户
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/10/30 15:51

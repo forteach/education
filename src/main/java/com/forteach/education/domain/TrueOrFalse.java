@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * @Description:
+ * @Description:　判断题
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/11/7 17:22

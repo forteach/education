@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  *
- * @Description: 展示方式 0->仅主人可见,1->输入密码即可查看,2->仅组成员能查看,3->回答问题即可查看''
+ * @Description: 资料图片库　展示方式 0->仅主人可见,1->输入密码即可查看,2->仅组成员能查看,3->回答问题即可查看''
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/11/6 14:24

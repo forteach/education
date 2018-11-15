@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * @Description:
+ * @Description:　用户
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/10/31 9:57

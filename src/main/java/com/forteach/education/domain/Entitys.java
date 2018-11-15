@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @Description:
+ * @Description:　表的基本信息
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/10/30 15:53

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @Description:
+ * @Description: 科目
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/11/6 16:42
