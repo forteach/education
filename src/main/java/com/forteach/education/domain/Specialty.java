@@ -2,11 +2,9 @@ package com.forteach.education.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.stereotype.Indexed;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -17,7 +15,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "specialty")
+@Table(name = "specialty", indexes = {@Index(columnList = "specialty_id")})
 @EqualsAndHashCode(callSuper = true)
 public class Specialty extends Entitys implements Serializable {
 
@@ -27,7 +25,6 @@ public class Specialty extends Entitys implements Serializable {
     @Column(name = "specialty_id", columnDefinition = "varchar(32) COMMENT '专业号'")
     private String specialtyId;
 
-    @Id
     @Column(name = "specialty_name", columnDefinition = "varchar(255) COMMENT '专业名称'")
     private String specialtyName;
 
