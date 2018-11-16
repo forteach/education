@@ -52,15 +52,15 @@ public class PoiUtils {
 
     private static String rootPath;
     private static String IMAGE_SERVER;
-    public void speak(){
-        environment.getProperty("file.server");
-        environment.getProperty("upload.rootPath");
-    }
-
-    public static void main(String[] args) {
-        System.out.println("rootPath ==> " + rootPath);
-        System.out.println("images.server ==> " + IMAGE_SERVER);
-    }
+//    public void speak(){
+//        environment.getProperty("file.server");
+//        environment.getProperty("upload.rootPath");
+//    }
+//
+//    public static void main(String[] args) {
+//        System.out.println("rootPath ==> " + rootPath);
+//        System.out.println("images.server ==> " + IMAGE_SERVER);
+//    }
 
     /**
      * poi office文件转html，支持doc,docx,ppt,pptx

@@ -1,6 +1,7 @@
 package com.forteach.education.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "article", indexes = {@Index(columnList = "article_id"), @Index(columnList = "sort_article_id")})
+@EqualsAndHashCode(callSuper = true)
 public class Article extends Entitys implements Serializable {
 
     @Id
