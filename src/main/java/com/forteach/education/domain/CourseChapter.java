@@ -21,16 +21,16 @@ import java.io.Serializable;
 public class CourseChapter extends Entitys implements Serializable {
 
     @EmbeddedId
-    private CourseChapterFundPrimarykey courseChapterFundPrimarykey;
+    private CourseChapterFundPrimarykey courseChapterFundPrimaryKey;
 
     private String courseId;
 
     @Id
     private String chapterId;
 
-    @Column(name = "chapter_name", columnDefinition = "char(60) COMMENT '章节名称'")
+    @Column(name = "chapter_name", columnDefinition = "CHAR(60) COMMENT '章节名称'")
     private String chapterName;
 
-    @Column(name = "chapter_parentId", columnDefinition = "char(32) COMMENT '章节父编号'")
+    @Column(name = "chapter_parentId", columnDefinition = "CHAR(32) COMMENT '章节父编号'")
     private String chapterParentId;
 }

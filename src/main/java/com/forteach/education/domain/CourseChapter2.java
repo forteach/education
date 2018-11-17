@@ -1,0 +1,38 @@
+package com.forteach.education.domain;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.stereotype.Indexed;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+/**
+ * @Auther: zhangyy
+ * @Email: zhang10092009@hotmail.com
+ * @Date: 2018/11/16 19:53
+ * @Version: 1.0
+ * @Description: 科目章节 2
+ */
+@Data
+@Entity
+@EqualsAndHashCode(callSuper = true)
+@IdClass(CourseChapter2FundPrimaryKey.class)
+@Table(name = "course_chapter2", indexes = {@Index(columnList = "chapter_id"), @Index(columnList = "choice_qst_id")})
+public class CourseChapter2 extends Entitys implements Serializable {
+
+    private CourseChapter2FundPrimaryKey courseChapter2FundPrimaryKey;
+
+    @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
+    private String courseId;
+    @Id
+    private String chapterId;
+
+    private String choiceQstId;
+
+    @Column(name = "chapter_name", columnDefinition = "CHAR(60) COMMENT '章节名称'")
+    private String chapterName;
+
+    @Column(name = "chapter_parent_id", columnDefinition = "CHAR(32) COMMENT '章节父编号'")
+    private String chapterParentId;
+}

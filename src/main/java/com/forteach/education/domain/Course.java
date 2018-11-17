@@ -21,13 +21,13 @@ public class Course extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "course_id", columnDefinition = "varchar(32) COMMENT '科目编号'")
+    @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
     private String courseId;
 
-    @Column(name = "specialty_id", columnDefinition = "varchar(32) COMMENT '专业号'")
+    @Column(name = "specialty_id", columnDefinition = "VARCHAR(32) COMMENT '专业号'")
     private String specialtyId;
 
-    @Column(name = "course_name", columnDefinition = "varchar(40) COMMENT '科目名称'")
+    @Column(name = "course_name", columnDefinition = "VARCHAR(40) COMMENT '科目名称'")
     private String courseName;
 
 }
