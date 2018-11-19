@@ -1,9 +1,11 @@
 package com.forteach.education.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -16,22 +18,34 @@ import java.io.Serializable;
 @Entity
 @Table(name = "teacher",indexes = {@Index(columnList = "teacher_id"), @Index(columnList = "specialty_id")})
 @EqualsAndHashCode(callSuper = true)
+@NotNull
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@GenericGenerator(name = "system-uuid", strategy = "uuid")
 @org.hibernate.annotations.Table(appliesTo = "teacher", comment = "老师")
 public class Teacher extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "teacher_id", nullable = false, columnDefinition = "varchar(32) COMMENT '老师id uuid'")
+    @ApiModelProperty(value = "教师 ID", name = "教师ID")
+    @GeneratedValue(generator = "system-uuid")
+    @Column(name = "teacher_id", nullable = false, columnDefinition = "VARCHAR(32) COMMENT '老师id uuid'")
     private String teacherId;
 
-    @Column(name = "specialty_id", columnDefinition = "varchar(32) COMMENT '专业号'")
+    @ApiModelProperty(value = "specialty_id", notes = "专业ID", example = "SD21133")
+    @Column(name = "specialty_id", columnDefinition = "VARCHAR(32) COMMENT '专业号'")
     private String specialtyId;
 
-    @Column(name = "teacher_name", columnDefinition = "varchar(40) COMMENT '教师名称'")
+    @NotNull
+    @ApiModelProperty(name = "教师名称", notes = "教师名称", example = "张三", required = true)
+    @Column(name = "teacher_name", columnDefinition = "VARCHAR(40) COMMENT '教师名称'")
     private String teacherName;
 
-    @Column(name = "teacher_code", columnDefinition = "varchar(32) COMMENT '教师编号'")
+    @NotNull
+    @ApiModelProperty(name = "教师编号", value = "教师编号", example = "S1234", required = true)
+    @Column(name = "teacher_code", columnDefinition = "VARCHAR(32) COMMENT '教师编号'")
     private String teacherCode;
 
 

@@ -2,6 +2,8 @@ package com.forteach.education.domain;
 
 import com.alibaba.fastjson.JSON;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -23,9 +25,11 @@ public class Entitys implements Serializable {
     @Column(name = "is_validated", columnDefinition = "char(1) COMMENT '生效标识 0生效 1失效'")
     private String isValidated;
 
+    @UpdateTimestamp
     @Column(name = "u_time", columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
     private Date uTime;
 
+    @CreationTimestamp
     @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
     private Date cTime;
 
