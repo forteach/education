@@ -1,6 +1,8 @@
 package com.forteach.education.repository;
 
 import com.forteach.education.domain.ViewDatum;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,4 +14,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface ViewDatumRepository extends JpaRepository<ViewDatum, String> {
 
+    /**
+     * 分页查询生效视频资源
+     * @param isValidated
+     * @param pageable
+     * @return
+     */
+    Page<ViewDatum> findByIsValidatedEquals(String isValidated, Pageable pageable);
 }

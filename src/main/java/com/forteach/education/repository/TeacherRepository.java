@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-11-15 14:41
  * @Version: 1.0
- * @Description: 教师
+ * @Description: 教师表操作
  */
 public interface TeacherRepository extends JpaRepository<Teacher, String> {
 

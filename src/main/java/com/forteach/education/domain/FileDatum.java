@@ -31,10 +31,13 @@ public class FileDatum extends Entitys implements Serializable {
     private String courseId;
 
     private String chapterId;
+
     @Column(name = "file_name", columnDefinition = "VARCHAR(255) COMMENT '文件名称'")
     private String fileName;
+
     @Column(name = "file_type", columnDefinition = "VARCHAR(10) COMMENT '文件类型'")
     private String fileType;
+
     @Column(name = "file_url", columnDefinition = "VARCHAR(255) COMMENT '文件URL'")
     private String fileUrl;
 }

@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-11-16 09:27
  * @Version: 1.0
- * @Description:
+ * @Description: 操作教师service层
  */
 public interface TeacherService {
     /**
@@ -43,7 +43,7 @@ public interface TeacherService {
      * @param sortVo
      * @return
      */
-    Page<Teacher> pageTeachers(SortVo sortVo);
+    Page<Teacher> findAll(SortVo sortVo);
 
     /**
      * 根据ID 查询教师信息

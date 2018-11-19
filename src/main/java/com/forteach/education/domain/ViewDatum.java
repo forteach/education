@@ -1,9 +1,12 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -24,16 +27,25 @@ public class ViewDatum extends Entitys implements Serializable {
     private ViewDatumFundPrimarykey viewDatumFundPrimarykey;
 
     @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
+    @ApiModelProperty(value = "viewId", name = "视频编号", notes = "视频资源ID", example = "123456")
     private String viewId;
 
+    @ApiModelProperty(value = "chapterId", name = "章节编号", notes = "章节编号ID", example = "123456")
     private String chapterId;
 
+    @NotNull
+    @ApiModelProperty(value = "chapterId", name = "视频名称", notes = "视频名称", example = "学习视频001")
     @Column(name = "view_name", columnDefinition = "VARCHAR(32) COMMENT '视频名称'")
     private String viewName;
 
+    @ApiModelProperty(value = "viewType", name = "视频类型", notes = "", example = "")
     @Column(name = "view_type", columnDefinition = "VARCHAR(10) COMMENT '视频类型'")
     private String viewType;
 
+    @NotNull
+    @ApiModelProperty(value = "viewUrl", name = "视频URL", notes = "视频的链接地址", example = "")
     @Column(name = "view_url", columnDefinition = "VARCHAR(255) COMMENT '视频URL'")
     private String viewUrl;
 }

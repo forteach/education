@@ -2,7 +2,6 @@ package com.forteach.education.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,6 +25,7 @@ public class CourseChapter2 extends Entitys implements Serializable {
 
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
     private String courseId;
+
     @Id
     private String chapterId;
 

@@ -19,7 +19,7 @@ import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-11-16 09:28
  * @Version: 1.0
- * @Description:
+ * @Description: 操作教师service层
  */
 @Slf4j
 @Service
@@ -73,7 +73,7 @@ public class TeacherServiceImpl implements TeacherService {
      * @return
      */
     @Override
-    public Page<Teacher> pageTeachers(SortVo sortVo){
+    public Page<Teacher> findAll(SortVo sortVo){
         Sort sort = new Sort(Sort.Direction.DESC, sortVo.getSorting());
         return teacherRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN, PageRequest.of(sortVo.getPage(), sortVo.getSize(), sort));
     }

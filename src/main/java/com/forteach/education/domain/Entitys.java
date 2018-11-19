@@ -7,6 +7,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,10 +27,12 @@ public class Entitys implements Serializable {
     @Column(name = "is_validated", columnDefinition = "char(1) COMMENT '生效标识 0生效 1失效'")
     private String isValidated;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     @Column(name = "u_time", columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
     private Date uTime;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
     private Date cTime;

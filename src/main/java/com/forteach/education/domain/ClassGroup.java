@@ -36,7 +36,6 @@ public class ClassGroup extends Entitys implements Serializable {
     private Integer groupScore;
 
     @Column(name = "group_user", columnDefinition = "VARBINARY(32) COMMENT '小组创建人'")
-//    @Column(name = "group_user", columnDefinition = "VARCHAR(32) COMMENT '小组创建人'")
     private String groupUser;
 
     @Column(name = "group_leader", columnDefinition = "VARCHAR(32) COMMENT '小组组长'")

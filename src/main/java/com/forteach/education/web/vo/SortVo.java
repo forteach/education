@@ -2,6 +2,7 @@ package com.forteach.education.web.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
  * @date: 2018/11/1 2:30
  */
 @Data
+@Builder
 @ApiModel(value = "分页查询对象")
 public class SortVo {
 

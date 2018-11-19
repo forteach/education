@@ -51,9 +51,11 @@ public class ActionColumn extends Entitys implements Serializable {
     @Column(name = "is_validated", columnDefinition = "char(1) COMMENT '生效标记'")
     private String isValidated;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "u_time", columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
     private Date uTime;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
     private Date cTime;
 

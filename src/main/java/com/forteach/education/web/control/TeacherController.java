@@ -85,8 +85,8 @@ public class TeacherController {
      * @return
      */
     @ApiOperation(value = "分页查询", notes = "分页查询")
-    @PostMapping("/pageTeachers")
-    public WebResult pageTeachers(@Valid @ApiParam(value = "分页对象", required = true) @RequestBody SortVo sortVo){
-        return WebResult.okResult(teacherService.pageTeachers(sortVo));
+    @PostMapping("/findAll")
+    public WebResult findAll(@Valid @ApiParam(value = "分页对象", required = true) @RequestBody SortVo sortVo){
+        return WebResult.okResult(teacherService.findAll(sortVo));
     }
 }
