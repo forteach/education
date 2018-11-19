@@ -22,6 +22,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.tomcat.uriEncoding>UTF-8</maven.tomcat.uriEncoding>
+        <maven.test.skip>false</maven.test.skip>
+        <project.deploy.directory>./target</project.deploy.directory>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+        <file.encoding>utf-8</file.encoding>
         <poi.version>3.15</poi.version>
         <docker.image.prefix>ang00</docker.image.prefix>
     </properties>
@@ -165,7 +174,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.0.0</version>
                 <configuration>
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <imageName>${docker.image.prefix}/education</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
                     <resources>
                         <resource>
@@ -176,13 +185,11 @@
                     </resources>
                 </configuration>
             </plugin>
-            <!--启用参数配置-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appassembler-maven-plugin</artifactId>
                 <version>2.0.0</version>
                 <configuration>
-                    <!-- 生成linux, windows两种平台的执行脚本 -->
                     <platforms>
                         <platform>windows</platform>
                         <platform>unix</platform>
@@ -190,81 +197,35 @@
                     <binFileExtensions>
                         <unix>.sh</unix>
                     </binFileExtensions>
-                    <!-- 根目录 -->
-                    <assembleDirectory>${project.build.directory}/${project.name}</assembleDirectory>
-                    <!-- 打包的jar，以及maven依赖的jar放到这个目录里面 -->
+                    <!--<assembleDirectory>${project.build.directory}/${project.name}</assembleDirectory>-->
+                    <assembleDirectory>${project.build.directory}/education</assembleDirectory>
                     <repositoryName>lib</repositoryName>
-                    <!-- 可执行脚本的目录 -->
                     <binFolder>bin</binFolder>
-                    <!-- lib目录中jar的存放规则，默认是${groupId}/${artifactId}的目录格式，flat表示直接把jar放到lib目录 -->
+
+                    <!-- 配置文件 -->
+                    <configurationDirectory>conf</configurationDirectory>
+                    <copyConfigurationDirectory>true</copyConfigurationDirectory>
+                    <configurationSourceDirectory>src/main/resources</configurationSourceDirectory>
+
                     <repositoryLayout>flat</repositoryLayout>
                     <encoding>UTF-8</encoding>
                     <logsDirectory>logs</logsDirectory>
                     <tempDirectory>tmp</tempDirectory>
                     <programs>
                         <program>
-                            <id>${artifactId}</id>
-                            <!-- 启动类 -->
+                            <id>education</id>
                             <mainClass>com.forteach.education.EducationApplication</mainClass>
-                            <!-- 生成的脚本文件的名称，比如start.sh,你也可以根据你的需要命名成其他名字 -->
                             <name>start</name>
                             <jvmSettings>
                                 <extraArguments>
                                     <extraArgument>-server</extraArgument>
-                                    <extraArgument>-Xmx512m</extraArgument>
-                                    <extraArgument>-Xms512m</extraArgument>
+                                    <extraArgument>-Xmx256m</extraArgument>
+                                    <extraArgument>-Xms256m</extraArgument>
+                                    <!--<extraArgument>-Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=6006"</extraArgument>-->
                                 </extraArguments>
                             </jvmSettings>
                         </program>
                     </programs>
-                    <daemons>
-                        <daemon>
-                            <id>${artifactId}</id>
-                            <!--启动类-->
-                            <mainClass>com.forteach.education.EducationApplication</mainClass>
-                            <platforms>
-                                <platform>jsw</platform>
-                            </platforms>
-                            <generatorConfigurations>
-                                <generatorConfiguration>
-                                    <generator>jsw</generator>
-                                    <includes>
-                                        <include>linux-x86-32</include>
-                                        <include>linux-x86-64</include>
-                                        <include>windows-x86-32</include>
-                                        <include>windows-x86-64</include>
-                                    </includes>
-                                    <configuration>
-                                        <property>
-                                            <name>configuration.directory.in.classpath.first</name>
-                                            <value>/</value>
-                                        </property>
-                                        <property>
-                                            <name>wrapper.ping.timeout</name>
-                                            <value>120</value>
-                                        </property>
-                                        <property>
-                                            <name>set.default.REPO_DIR</name>
-                                            <value>lib</value>
-                                        </property>
-                                        <property>
-                                            <name>wrapper.logfile</name>
-                                            <value>logs/wrapper.log</value>
-                                        </property>
-                                    </configuration>
-                                </generatorConfiguration>
-                            </generatorConfigurations>
-                            <jvmSettings>
-                                <!-- jvm参数 -->
-                                <systemProperties>
-                                    <systemProperty>com.sun.management.jmxremote</systemProperty>
-                                    <!--<systemProperty>com.sun.management.jmxremote.port=1984</systemProperty>-->
-                                    <systemProperty>com.sun.management.jmxremote.authenticate=false</systemProperty>
-                                    <systemProperty>com.sun.management.jmxremote.ssl=false</systemProperty>
-                                </systemProperties>
-                            </jvmSettings>
-                        </daemon>
-                    </daemons>
                 </configuration>
             </plugin>
         </plugins>

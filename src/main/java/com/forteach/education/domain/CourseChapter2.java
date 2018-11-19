@@ -19,6 +19,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @IdClass(CourseChapter2FundPrimaryKey.class)
 @Table(name = "course_chapter2", indexes = {@Index(columnList = "chapter_id"), @Index(columnList = "choice_qst_id")})
+@org.hibernate.annotations.Table(appliesTo = "course_chapter2", comment = "科目章节 2")
 public class CourseChapter2 extends Entitys implements Serializable {
 
     private CourseChapter2FundPrimaryKey courseChapter2FundPrimaryKey;

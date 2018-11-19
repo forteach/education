@@ -16,6 +16,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "photos", indexes = {@Index(columnList = "sort_img_id")})
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "photos", comment = "图片")
 public class Photos extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

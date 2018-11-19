@@ -23,6 +23,7 @@ import java.util.Date;
 @Table(name = "sys_role")
 @ApiModel(value = "角色对象")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
+@org.hibernate.annotations.Table(appliesTo = "sys_role", comment = "系统角色")
 public class SysRole extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

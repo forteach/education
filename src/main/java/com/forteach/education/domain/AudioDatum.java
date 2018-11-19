@@ -18,6 +18,7 @@ import java.io.Serializable;
 @IdClass(AudioDatumFundPrimarykey.class)
 @Table(name = "audio_datum", indexes = {@Index(columnList = "audio_id"), @Index(columnList = "chapter_id")})
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "audio_datum", comment = "音频资料库")
 public class AudioDatum extends Entitys implements Serializable {
 
     private AudioDatumFundPrimarykey audioDatumFundPrimarykey;

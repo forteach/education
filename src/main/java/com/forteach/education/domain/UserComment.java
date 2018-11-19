@@ -7,15 +7,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @Description:
+ * @Description:　用户评论
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/11/8 16:41
  */
 @Data
 @Entity
-@Table(name = "user_comment", indexes = {@Index(columnList = "article_id")})
+@Table(name = "user_comment", indexes = {@Index(columnList = "comment_id"), @Index(columnList = "article_id")})
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "user_comment", comment = "用户评论")
 public class UserComment extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

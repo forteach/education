@@ -18,6 +18,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "sys_users")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
+@org.hibernate.annotations.Table(appliesTo = "sys_users", comment = "系统用户")
 public class SysUsers extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

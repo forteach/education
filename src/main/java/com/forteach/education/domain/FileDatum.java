@@ -18,6 +18,7 @@ import java.io.Serializable;
 @Table(name = "file_datum", indexes = {@Index(columnList = "file_id"), @Index(columnList = "chapter_id")})
 @IdClass(FileDatumFundPrimarykey.class)
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "file_datum", comment = "文档资料库")
 public class FileDatum extends Entitys implements Serializable {
 
     @EmbeddedId

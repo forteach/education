@@ -18,6 +18,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @IdClass(ClassGroupFundPrimarykey.class)
 @Table(name = "class_group", indexes = {@Index(columnList = "group_id"), @Index(columnList = "class_id")})
+@org.hibernate.annotations.Table(appliesTo = "class_group", comment = "班级分组")
 public class ClassGroup extends Entitys implements Serializable {
 
     @EmbeddedId

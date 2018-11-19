@@ -18,6 +18,7 @@ import java.io.Serializable;
 @Table(name = "course_share", indexes = {@Index(columnList = "share_id"), @Index(columnList = "chapter_id"), @Index(columnList = "course_id")})
 @EqualsAndHashCode(callSuper = true)
 @IdClass(CourseShareFundPrimaryKey.class)
+@org.hibernate.annotations.Table(appliesTo = "course_share", comment = "分享范围")
 public class CourseShare extends Entitys implements Serializable {
     @EmbeddedId
     private CourseShareFundPrimaryKey courseShareFundPrimaryKey;

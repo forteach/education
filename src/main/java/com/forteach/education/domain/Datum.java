@@ -17,6 +17,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "datum", indexes = {@Index(columnList = "course_id")})
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "datum", comment = "科目资料资料库")
 public class Datum extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

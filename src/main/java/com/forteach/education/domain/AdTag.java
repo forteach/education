@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * @Description:
+ * @Description:　广告标签
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/11/8 11:06
@@ -19,6 +19,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "ad_tag")
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "ad_tag", comment = "广告标签")
 public class AdTag extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

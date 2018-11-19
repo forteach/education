@@ -17,6 +17,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "role_col_act", indexes = {@Index(columnList = "sys_act_id"), @Index(columnList = "role_id")})
 @IdClass(RoleColActFundPrimarykey.class)
+@org.hibernate.annotations.Table(appliesTo = "role_col_act", comment = "权限和动作")
 public class RoleColAct extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

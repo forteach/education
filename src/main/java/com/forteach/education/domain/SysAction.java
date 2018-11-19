@@ -19,6 +19,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "sys_action")
+@org.hibernate.annotations.Table(appliesTo = "sys_action", comment = "系统活动或动作")
 public class SysAction extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

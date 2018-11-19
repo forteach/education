@@ -18,6 +18,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "view_datum", indexes = {@Index(columnList = "view_id"), @Index(columnList = "chapter_id")})
 @IdClass(ViewDatumFundPrimarykey.class)
+@org.hibernate.annotations.Table(appliesTo = "view_datum", comment = "视频资料库")
 public class ViewDatum extends Entitys implements Serializable {
 
     private ViewDatumFundPrimarykey viewDatumFundPrimarykey;

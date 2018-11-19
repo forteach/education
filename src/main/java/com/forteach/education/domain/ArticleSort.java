@@ -17,6 +17,7 @@ import java.io.Serializable;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "article_sort", indexes = {@Index(columnList = "sort_article_id")})
+@org.hibernate.annotations.Table(appliesTo = "article_sort", comment = "文章分类")
 public class ArticleSort extends Entitys implements Serializable {
 
     @Id

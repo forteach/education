@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @Description:　系统栏目
+ * @Description:　系统栏目表
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/10/31 9:30
@@ -17,7 +17,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "action_column")
+@Table(name = "action_column", indexes = {@Index(columnList = "col_id")})
+@org.hibernate.annotations.Table(appliesTo = "action_column", comment = "系统栏目表")
 public class ActionColumn extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

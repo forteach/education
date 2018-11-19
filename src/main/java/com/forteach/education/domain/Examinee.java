@@ -19,6 +19,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "examinee")
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "examinee", comment = "考生信息")
 public class Examinee extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

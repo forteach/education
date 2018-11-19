@@ -17,6 +17,7 @@ import java.io.Serializable;
 @Table(name = "question_txt", indexes = {@Index(columnList = "class_question_id")})
 @IdClass(QuestionTxtFundPrimarykey.class)
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "question_txt", comment = "问题册")
 public class QuestionTxt extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

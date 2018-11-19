@@ -18,6 +18,7 @@ import java.util.Date;
 @Entity
 @Table(name = "article", indexes = {@Index(columnList = "article_id"), @Index(columnList = "sort_article_id")})
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "article", comment = "文章")
 public class Article extends Entitys implements Serializable {
 
     @Id

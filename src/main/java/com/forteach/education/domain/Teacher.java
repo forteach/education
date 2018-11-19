@@ -14,8 +14,9 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "teacher",indexes = {@Index(columnList = "specialty_id")})
+@Table(name = "teacher",indexes = {@Index(columnList = "teacher_id"), @Index(columnList = "specialty_id")})
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "teacher", comment = "老师")
 public class Teacher extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

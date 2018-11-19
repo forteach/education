@@ -3,10 +3,7 @@ package com.forteach.education.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,8 +15,9 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "ad")
+@Table(name = "ad", indexes = {@Index(columnList = "ad_id")})
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "ad", comment = "广告")
 public class Ad extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

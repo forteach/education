@@ -26,6 +26,7 @@ import java.io.Serializable;
         @Index(columnList = "audio_id")
 })
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "chapte_data", comment = "章节资料")
 public class ChapteData extends Entitys implements Serializable {
 
     @EmbeddedId

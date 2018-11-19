@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @Description:
+ * @Description:　考试成绩
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/11/8 10:35
@@ -16,6 +16,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "examinee_grade", indexes = {@Index(columnList = "paper_id"), @Index(columnList = "examinee_id")})
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "examinee_grade", comment = "考试成绩")
 public class ExamineeGrade extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

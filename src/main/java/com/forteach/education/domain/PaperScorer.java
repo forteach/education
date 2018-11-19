@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @Description:
+ * @Description:　试卷评分
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/11/8 10:27
@@ -16,6 +16,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "paper_scorer", indexes = {@Index(columnList = "paper_id")})
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "paper_scorer", comment = "试卷评分")
 public class PaperScorer extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

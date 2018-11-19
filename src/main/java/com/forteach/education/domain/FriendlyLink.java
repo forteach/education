@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * @Description:
+ * @Description:　友情链接资讯
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/11/8 15:03
@@ -19,6 +19,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "friendly_link")
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "friendly_link", comment = "友情链接资讯")
 public class FriendlyLink extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

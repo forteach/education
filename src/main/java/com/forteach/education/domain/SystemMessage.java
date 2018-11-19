@@ -3,10 +3,7 @@ package com.forteach.education.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -17,8 +14,9 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "system_message")
+@Table(name = "system_message", indexes = {@Index(columnList = "system_id")})
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "system_message", comment = "系统公告通知  通知方式：1通知所有人，0不采用")
 public class SystemMessage extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

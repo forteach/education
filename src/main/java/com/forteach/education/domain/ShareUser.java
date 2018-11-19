@@ -12,13 +12,14 @@ import java.io.Serializable;
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-11-16 17:26
  * @Version: 1.0
- * @Description:
+ * @Description: 分享用户
  */
 @Entity
 @Data
 @Table(name = "share_user", indexes = {@Index(columnList = "share_id"), @Index(columnList = "user_id")})
 @EqualsAndHashCode(callSuper = true)
 @IdClass(ShareUserFundPrimarykey.class)
+@org.hibernate.annotations.Table(appliesTo = "share_user", comment = "分享用户")
 public class ShareUser extends Entitys implements Serializable {
 
     @EmbeddedId

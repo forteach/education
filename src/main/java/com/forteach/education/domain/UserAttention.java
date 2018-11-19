@@ -18,6 +18,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "user_attention", indexes = {@Index(columnList = "att_id"), @Index(columnList = "article_id")})
 @IdClass(UserAttentionFundPrimaryKey.class)
+@org.hibernate.annotations.Table(appliesTo = "user_attention", comment = "用户关注的文章")
 public class UserAttention extends Entitys implements Serializable {
 
     @EmbeddedId

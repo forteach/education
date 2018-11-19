@@ -16,6 +16,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "exercise_book", indexes = {@Index(columnList = "teacher_id"),@Index(columnList = "course_id")})
 @EqualsAndHashCode(callSuper = true)
+@org.hibernate.annotations.Table(appliesTo = "exercise_book", comment = "练习册")
 public class ExerciseBook extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
