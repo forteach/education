@@ -1,6 +1,8 @@
 package com.forteach.education.repository;
 
 import com.forteach.education.domain.FileDatum;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -11,4 +13,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Description:　文档资料库
  */
 public interface FileDatumRepository extends JpaRepository<FileDatum, String> {
+    /**
+     * 分页查询生效文件资源
+     * @param isValidated
+     * @param pageable
+     * @return
+     */
+    Page<FileDatum> findByIsValidatedEquals(String isValidated, Pageable pageable);
 }

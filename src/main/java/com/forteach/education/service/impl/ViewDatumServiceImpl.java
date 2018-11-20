@@ -71,7 +71,7 @@ public class ViewDatumServiceImpl implements ViewDatumService {
     @Override
     public void deleteIsValidById(String viewId) {
         ViewDatum viewDatum = viewDatumRepository.findById(viewId).get();
-        viewDatum.setUTime(new Date());
+//        viewDatum.setUTime(new Date());
         viewDatum.setIsValidated(TAKE_EFFECT_CLOSE);
         viewDatumRepository.save(viewDatum);
     }

@@ -35,7 +35,7 @@ public class SortVo {
     @ApiModelProperty(value = "排序规则", notes = "依照数据库哪条字段排序 驼峰", dataType = "string", name = "sorting", example = "cTime", required = true)
     private String sorting;
 
-    @ApiModelProperty(value = "有无效", name = "isValidated",notes = "0 有效 1　无效 (默认０)", dataType = "string",example = "0")
+    @ApiModelProperty(value = "有无效", name = "isValidated",notes = "0 有效 1　无效 (默认0)", dataType = "string",example = "0")
     @JsonSerialize(include= JsonSerialize.Inclusion.NON_NULL)
     private String isValidated;
 

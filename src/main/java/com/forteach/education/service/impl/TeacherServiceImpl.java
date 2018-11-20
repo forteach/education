@@ -13,8 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-
 import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
 
 /**
@@ -100,7 +98,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteIsValidById(String teacherId) {
         Teacher teacher = teacherRepository.findById(teacherId).get();
-        teacher.setUTime(new Date());
+//        teacher.setUTime(new Date());
         teacher.setIsValidated(TAKE_EFFECT_CLOSE);
         teacherRepository.save(teacher);
     }

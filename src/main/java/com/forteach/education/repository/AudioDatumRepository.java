@@ -1,6 +1,8 @@
 package com.forteach.education.repository;
 
 import com.forteach.education.domain.AudioDatum;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -11,4 +13,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Description: 音频资料库
  */
 public interface AudioDatumRepository extends JpaRepository<AudioDatum, String> {
+    /**
+     * 分页查询生效音频资源
+     * @param isValidated
+     * @param pageable
+     * @return
+     */
+    Page<AudioDatum> findByIsValidatedEquals(String isValidated, Pageable pageable);
 }
