@@ -3,6 +3,7 @@ package com.forteach.education.service.impl;
 import com.forteach.education.domain.ViewDatum;
 import com.forteach.education.repository.ViewDatumRepository;
 import com.forteach.education.service.ViewDatumService;
+import com.forteach.education.util.StringUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
+import java.util.Date;
+
+import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
 
 /**
  * @Auther: zhangyy
@@ -34,6 +38,7 @@ public class ViewDatumServiceImpl implements ViewDatumService {
 
     @Override
     public ViewDatum edit(ViewDatum viewDatum) {
+        viewDatum.setCTime(new Date());
         return viewDatumRepository.save(viewDatum);
     }
 
@@ -54,7 +59,20 @@ public class ViewDatumServiceImpl implements ViewDatumService {
 
     @Override
     public Page<ViewDatum> findAll(SortVo sortVo) {
-        Sort sort = new Sort(Sort.Direction.DESC, sortVo.getSorting());
-        return viewDatumRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN, PageRequest.of(sortVo.getPage(), sortVo.getSize(), sort));
+        Sort sort = new Sort(sortVo.getSort().toUpperCase(), sortVo.getSorting());
+        return viewDatumRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), sort));
+    }
+
+    /**
+     * 逻辑删除视频信息使其无效不显示
+     * @param viewId
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteIsValidById(String viewId) {
+        ViewDatum viewDatum = viewDatumRepository.findById(viewId).get();
+        viewDatum.setUTime(new Date());
+        viewDatum.setIsValidated(TAKE_EFFECT_CLOSE);
+        viewDatumRepository.save(viewDatum);
     }
 }

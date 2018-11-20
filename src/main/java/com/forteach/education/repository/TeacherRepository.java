@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface TeacherRepository extends JpaRepository<Teacher, String> {
 
     /**
-     * 分页查询生效用户
+     * 分页查询有效的教师信息
      * @param isValidated
      * @param pageable
      * @return

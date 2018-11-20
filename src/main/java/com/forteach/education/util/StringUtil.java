@@ -1,6 +1,11 @@
 package com.forteach.education.util;
 
+import cn.hutool.core.util.StrUtil;
+import com.forteach.education.web.vo.SortVo;
+
 import java.util.UUID;
+
+import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
 
 
 /**
@@ -21,6 +26,15 @@ public class StringUtil {
      */
     public static String getRandomUUID(){
         return String.join("", UUID.randomUUID().toString().split("-"));
+    }
+
+    /**
+     * 判断是否有效,如果传递值为空就是有效的０，否则就是传递的值
+     * @param sortVo
+     * @return
+     */
+    public static String hasEmptyIsValidated (SortVo sortVo){
+        return StrUtil.hasEmpty(sortVo.getIsValidated()) ? TAKE_EFFECT_OPEN : sortVo.getIsValidated();
     }
 
     public static boolean isEmpty(String str) {

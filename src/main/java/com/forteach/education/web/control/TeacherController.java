@@ -1,5 +1,6 @@
 package com.forteach.education.web.control;
 
+import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.Teacher;
 import com.forteach.education.service.TeacherService;
@@ -8,7 +9,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -20,7 +25,7 @@ import javax.validation.Valid;
  * @Description: 操作教师数据表
  */
 @RestController
-@RequestMapping("/teacher")
+@RequestMapping(path = "/teacher", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "教师controller", tags = {"教师操作接口"})
 public class TeacherController {
 
@@ -39,9 +44,9 @@ public class TeacherController {
     }
 
     @ApiOperation(value = "教师ID 查询教师信息")
-    @GetMapping("/getTeacherById")
-    public WebResult getTeacherById(@Valid @ApiParam(value = "教师ID", name = "教师ID　不能为空", required = true) @RequestBody @RequestParam("teacherId") String teacherId){
-        return WebResult.okResult(teacherService.getTeacherById(teacherId));
+    @PostMapping("/getTeacherById")
+    public WebResult getTeacherById(@Valid @ApiParam(value = "教师ID", name = "教师ID　不能为空", required = true) @RequestBody String teacherId){
+        return WebResult.okResult(teacherService.getTeacherById(String.valueOf(JSONObject.parseObject(teacherId).get("teacherId"))));
     }
 
     /**
@@ -60,7 +65,7 @@ public class TeacherController {
      * @param teacher
      * @return
      */
-    @ApiOperation(value = "删除教师信息", notes = "根据教师对象删除教师信息")
+    @ApiOperation(value = "删除教师信息", notes = "根据教师对象删除教师信息(物理删除)")
     @PostMapping("/delete")
     public WebResult delete(@Valid @RequestBody Teacher teacher){
         teacherService.delete(teacher);
@@ -72,10 +77,10 @@ public class TeacherController {
      * @param teacherId
      * @return
      */
-    @ApiOperation(value = "删除教师信息", notes = "根据教师　ID 删除教师信息")
+    @ApiOperation(value = "删除教师信息", notes = "根据教师　ID 删除教师信息(物理删除)")
     @PostMapping("/deleteById")
-    public WebResult delete(@Valid @ApiParam(name = "teacherId", value = "教师id", required = true) @RequestBody @RequestParam("teacherId") String teacherId){
-        teacherService.deleteById(teacherId);
+    public WebResult deleteById(@Valid @ApiParam(name = "teacherId", value = "教师id", required = true) @RequestBody String teacherId){
+        teacherService.deleteById(String.valueOf(JSONObject.parseObject(teacherId).get("teacherId")));
         return WebResult.okResult();
     }
 
@@ -88,5 +93,16 @@ public class TeacherController {
     @PostMapping("/findAll")
     public WebResult findAll(@Valid @ApiParam(value = "分页对象", required = true) @RequestBody SortVo sortVo){
         return WebResult.okResult(teacherService.findAll(sortVo));
+    }
+
+    /**
+     * 逻辑删除教师信息使其无效不显示
+     * @param teacherId
+     */
+    @ApiOperation(value = "删除教师信息", notes = "根据教师　ID 删除教师信息(逻辑删除)")
+    @PostMapping("/deleteIsValidById")
+    public WebResult deleteIsValidById(@Valid @ApiParam(name = "teacherId", value = "教师id", required = true) @RequestBody String teacherId){
+        teacherService.deleteIsValidById(String.valueOf(JSONObject.parseObject(teacherId).get("teacherId")));
+        return WebResult.okResult();
     }
 }

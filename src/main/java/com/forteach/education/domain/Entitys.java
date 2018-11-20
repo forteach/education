@@ -2,13 +2,11 @@ package com.forteach.education.domain;
 
 import com.alibaba.fastjson.JSON;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,21 +18,24 @@ import java.util.Date;
  */
 @Data
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "is_validated", columnDefinition = "char(1) COMMENT '生效标识 0生效 1失效'")
+    @Column(name = "is_validated", columnDefinition = "CHAR(1) DEFAULT '0' COMMENT '生效标识 0生效 1失效'", nullable=false)
     private String isValidated;
 
+    @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @UpdateTimestamp
-    @Column(name = "u_time", columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
+    @org.hibernate.annotations.UpdateTimestamp
+    @Column(name = "u_time", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'", nullable=false)
     private Date uTime;
 
+    @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
-    @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
+    @org.hibernate.annotations.CreationTimestamp
+    @Column(updatable=false, name = "c_time", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'", nullable=false)
     private Date cTime;
 
     @Override

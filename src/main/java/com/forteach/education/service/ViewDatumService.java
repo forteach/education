@@ -24,4 +24,6 @@ public interface ViewDatumService {
     ViewDatum getViewDatumById(String viewDatumId);
 
     Page<ViewDatum> findAll(SortVo sortVo);
+
+    void deleteIsValidById(String viewId);
 }

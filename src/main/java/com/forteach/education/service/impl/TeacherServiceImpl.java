@@ -3,6 +3,7 @@ package com.forteach.education.service.impl;
 import com.forteach.education.domain.Teacher;
 import com.forteach.education.repository.TeacherRepository;
 import com.forteach.education.service.TeacherService;
+import com.forteach.education.util.StringUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
+import java.util.Date;
+
+import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
 
 /**
  * @Auther: zhangyy
@@ -75,7 +78,8 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Page<Teacher> findAll(SortVo sortVo){
         Sort sort = new Sort(Sort.Direction.DESC, sortVo.getSorting());
-        return teacherRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN, PageRequest.of(sortVo.getPage(), sortVo.getSize(), sort));
+        Page<Teacher> page = teacherRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), sort));
+        return page;
     }
 
     /**
@@ -86,6 +90,19 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher getTeacherById(String teacherId) {
         return teacherRepository.findById(teacherId).get();
+    }
+
+    /**
+     * 逻辑删除教师信息使其无效不显示
+     * @param teacherId
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteIsValidById(String teacherId) {
+        Teacher teacher = teacherRepository.findById(teacherId).get();
+        teacher.setUTime(new Date());
+        teacher.setIsValidated(TAKE_EFFECT_CLOSE);
+        teacherRepository.save(teacher);
     }
 
 

@@ -35,7 +35,7 @@ public class ViewDatum extends Entitys implements Serializable {
     @ApiModelProperty(value = "chapterId", name = "章节编号", notes = "章节编号ID", example = "123456")
     private String chapterId;
 
-    @NotNull
+    @NotNull(message = "视频名称不为空")
     @ApiModelProperty(value = "chapterId", name = "视频名称", notes = "视频名称", example = "学习视频001")
     @Column(name = "view_name", columnDefinition = "VARCHAR(32) COMMENT '视频名称'")
     private String viewName;
@@ -44,7 +44,7 @@ public class ViewDatum extends Entitys implements Serializable {
     @Column(name = "view_type", columnDefinition = "VARCHAR(10) COMMENT '视频类型'")
     private String viewType;
 
-    @NotNull
+    @NotNull(message = "视频链接地址不为空")
     @ApiModelProperty(value = "viewUrl", name = "视频URL", notes = "视频的链接地址", example = "")
     @Column(name = "view_url", columnDefinition = "VARCHAR(255) COMMENT '视频URL'")
     private String viewUrl;

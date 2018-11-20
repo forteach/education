@@ -51,4 +51,10 @@ public interface TeacherService {
      * @return
      */
     Teacher getTeacherById(String teacherId);
+
+    /**
+     * 逻辑删除教师信息使其无效不显示
+     * @param teacherId
+     */
+    void deleteIsValidById(String teacherId);
 }
