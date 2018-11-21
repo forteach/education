@@ -1,6 +1,7 @@
 package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -16,6 +17,7 @@ import java.io.Serializable;
  * @Version: 1.0
  * @Description: 视频资料库
  */
+@Builder
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
@@ -45,7 +47,7 @@ public class ViewDatum extends Entitys implements Serializable {
     private String viewType;
 
     @NotNull(message = "视频链接地址不为空")
-    @ApiModelProperty(value = "viewUrl", name = "视频URL", notes = "视频的链接地址", example = "")
+    @ApiModelProperty(value = "viewUrl", name = "视频URL", notes = "视频的链接地址", example = "http://www.www./dsdd.mp4")
     @Column(name = "view_url", columnDefinition = "VARCHAR(255) COMMENT '视频URL'")
     private String viewUrl;
 }

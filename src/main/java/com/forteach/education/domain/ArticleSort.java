@@ -2,6 +2,7 @@ package com.forteach.education.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,6 +22,8 @@ import java.io.Serializable;
 public class ArticleSort extends Entitys implements Serializable {
 
     @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
     @Column(name = "sort_article_id", columnDefinition = "varchar(32) COMMENT '分类编号'")
     private String sortArticleId;
 

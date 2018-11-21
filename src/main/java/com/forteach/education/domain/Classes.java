@@ -2,6 +2,7 @@ package com.forteach.education.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,6 +22,8 @@ import java.io.Serializable;
 public class Classes extends Entitys implements Serializable {
 
     @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
     @Column(name = "class_id", columnDefinition = "VARCHAR(32) COMMENT '班级编号'")
     private String classId;
 

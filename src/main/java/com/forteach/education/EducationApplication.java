@@ -3,7 +3,6 @@ package com.forteach.education;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
  * @Description:
@@ -12,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
  * @date: 2018/10/29 13:52
  */
 @SpringBootApplication
-@EnableJpaAuditing
+//@EnableJpaAuditing
 public class EducationApplication {
 
     public static ApplicationContext applicationContext;

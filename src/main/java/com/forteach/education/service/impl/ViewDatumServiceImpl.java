@@ -3,13 +3,13 @@ package com.forteach.education.service.impl;
 import com.forteach.education.domain.ViewDatum;
 import com.forteach.education.repository.ViewDatumRepository;
 import com.forteach.education.service.ViewDatumService;
+import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,11 +43,13 @@ public class ViewDatumServiceImpl implements ViewDatumService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void delete(ViewDatum viewDatum) {
         viewDatumRepository.delete(viewDatum);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteById(String viewDatumId) {
         viewDatumRepository.deleteById(viewDatumId);
     }
@@ -59,16 +61,15 @@ public class ViewDatumServiceImpl implements ViewDatumService {
 
     @Override
     public Page<ViewDatum> findAll(SortVo sortVo) {
-        Sort sort = new Sort(sortVo.getSort().toUpperCase(), sortVo.getSorting());
-        return viewDatumRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), sort));
+        return viewDatumRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
     }
 
     /**
      * 逻辑删除视频信息使其无效不显示
      * @param viewId
      */
-    @Transactional(rollbackFor = Exception.class)
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteIsValidById(String viewId) {
         ViewDatum viewDatum = viewDatumRepository.findById(viewId).get();
 //        viewDatum.setUTime(new Date());

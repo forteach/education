@@ -2,6 +2,7 @@ package com.forteach.education.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +16,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "photo_sort",indexes = {@Index(columnList = "teacher_id"),@Index(columnList = "course_id")})
+@Table(name = "photo_sort",indexes = {@Index(columnList = "course_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "photo_sort", comment = "资料图片库")
 public class PhotoSort extends Entitys implements Serializable {
@@ -23,11 +24,13 @@ public class PhotoSort extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
     @Column(name = "sort_img_id", columnDefinition = "varchar(32) COMMENT '分类id uuid'")
     private String sortImgId;
 
-    @Column(name = "teacher_id", columnDefinition = "varchar(32) COMMENT '老师id'")
-    private String teacherId;
+//    @Column(name = "teacher_id", columnDefinition = "varchar(32) COMMENT '老师id'")
+//    private String teacherId;
 
     @Column(name = "course_id", columnDefinition = "varchar(32) COMMENT '科目编号'")
     private String courseId;

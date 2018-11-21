@@ -24,59 +24,59 @@ import javax.validation.Valid;
  * @Description:
  */
 @RestController
-@RequestMapping("/AudioDatum")
+@RequestMapping("/audioDatum")
 @Api(value = "音频资料操作", tags = {"音频资源接口"})
 public class AudioDatumController {
     @Autowired
-    private AudioDatumService AudioDatumService;
+    private AudioDatumService audioDatumService;
 
-    @ApiOperation(value = "AudioDatum", notes = "保存音频资源链接信息")
+    @ApiOperation(value = "audioDatum", notes = "保存音频资源链接信息")
     @PostMapping("/save")
-    public WebResult save(@Valid @ApiParam(value = "AudioDatum", name = "音频资料对象", required = true) @RequestBody AudioDatum AudioDatum){
-        return WebResult.okResult(AudioDatumService.save(AudioDatum));
+    public WebResult save(@Valid @ApiParam(value = "audioDatum", name = "音频资料对象", required = true) @RequestBody AudioDatum audioDatum){
+        return WebResult.okResult(audioDatumService.save(audioDatum));
     }
 
-    @ApiOperation(value = "AudioDatum", notes = "修改资源信息")
+    @ApiOperation(value = "audioDatum", notes = "修改资源信息")
     @PostMapping("/edit")
-    public WebResult edit(@Valid @ApiParam(value = "AudioDatum", name = "音频资料对象", required = true) @RequestBody AudioDatum AudioDatum){
-        return WebResult.okResult(AudioDatumService.edit(AudioDatum));
+    public WebResult edit(@Valid @ApiParam(value = "audioDatum", name = "音频资料对象", required = true) @RequestBody AudioDatum audioDatum){
+        return WebResult.okResult(audioDatumService.edit(audioDatum));
     }
 
     @ApiOperation(value = "delete", notes = "删除资源对象")
     @PostMapping("/delete")
-    public WebResult delete(@Valid @ApiParam(value = "AudioDatum", name = "删除资源对象", required = true) @RequestBody AudioDatum AudioDatum){
-        AudioDatumService.delete(AudioDatum);
+    public WebResult delete(@Valid @ApiParam(value = "audioDatum", name = "删除资源对象", required = true) @RequestBody AudioDatum audioDatum){
+        audioDatumService.delete(audioDatum);
         return WebResult.okResult();
     }
 
-    @ApiOperation(value = "AudioId", notes = "根据音频资源ID 删除资源信息")
+    @ApiOperation(value = "audioId", notes = "根据音频资源ID 删除资源信息")
     @PostMapping("/deleteById")
-    public WebResult deleteById(@Valid @ApiParam(value = "AudioId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String AudioId){
-        AudioDatumService.deleteById(String.valueOf(JSONObject.parseObject(AudioId).get("AudioId")));
+    public WebResult deleteById(@Valid @ApiParam(value = "audioId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String audioId){
+        audioDatumService.deleteById(String.valueOf(JSONObject.parseObject(audioId).get("AudioId")));
         return WebResult.okResult();
     }
 
     @PostMapping("/getAudioByAudioId")
-    @ApiOperation(value = "AudioId", notes = "根据音频资源ID查询音频资源信息")
-    public WebResult getAudioByAudioId(@Valid @ApiParam(value = "AudioId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String AudioId){
-        return WebResult.okResult(AudioDatumService.getAudioDatumById(String.valueOf(JSONObject.parseObject(AudioId).get("AudioId"))));
+    @ApiOperation(value = "audioId", notes = "根据音频资源ID查询音频资源信息")
+    public WebResult getAudioByAudioId(@Valid @ApiParam(value = "audioId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String audioId){
+        return WebResult.okResult(audioDatumService.getAudioDatumById(String.valueOf(JSONObject.parseObject(audioId).get("AudioId"))));
     }
 
     @ApiOperation(value = "sortVo", notes = "分页查询音频资源信息")
     @PostMapping("/findAll")
     public WebResult findAll(@Valid @ApiParam(value = "sortVo", name = "分页查询势派资源信息", required = true) @RequestBody SortVo sortVo){
-        return WebResult.okResult(AudioDatumService.findAll(sortVo));
+        return WebResult.okResult(audioDatumService.findAll(sortVo));
     }
 
     /**
      * 通过音频资源 ID 逻辑删除音频资源信息
-     * @param AudioId
+     * @param audioId
      * @return
      */
-    @ApiOperation(value = "AudioId", notes = "删除音频信息(逻辑删除)")
+    @ApiOperation(value = "audioId", notes = "删除音频信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
-    public WebResult deleteIsValidById(@Valid @ApiParam(value = "AudioId", name = "根据资源ID 逻辑删除对应资源信息", required = true) @RequestBody String AudioId){
-        AudioDatumService.deleteIsValidById(AudioId);
+    public WebResult deleteIsValidById(@Valid @ApiParam(value = "AudioId", name = "根据资源ID 逻辑删除对应资源信息", required = true) @RequestBody String audioId){
+        audioDatumService.deleteIsValidById(audioId);
         return WebResult.okResult();
     }
 }

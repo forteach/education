@@ -1,7 +1,9 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,6 +29,8 @@ public class CourseChapter extends Entitys implements Serializable {
     private String courseId;
 
     @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
     private String chapterId;
 
     @Column(name = "chapter_name", columnDefinition = "CHAR(60) COMMENT '章节名称'")
@@ -34,4 +38,11 @@ public class CourseChapter extends Entitys implements Serializable {
 
     @Column(name = "chapter_parentId", columnDefinition = "CHAR(32) COMMENT '章节父编号'")
     private String chapterParentId;
+
+    @ApiModelProperty(name = "层级位置", value = "sort", notes = "树型结构所处的顺序默认１")
+    @Column(name = "sort", columnDefinition = "INT　DEFAULT 1 COMMENT '当前层所处的顺序'")
+    private Integer sort;
+
+    @Column(name = "chapter_level", columnDefinition = "INT COMMENT '章节 树层级'")
+    private Integer chapterLevel;
 }

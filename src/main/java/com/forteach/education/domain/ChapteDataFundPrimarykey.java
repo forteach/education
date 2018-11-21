@@ -39,7 +39,7 @@ public class ChapteDataFundPrimarykey implements Serializable {
     @Column(name = "view_id", columnDefinition = "VARCHAR(32) COMMENT '视频编号'", insertable = false, updatable = false)
     private String viewId;
 
-    @Column(name = "audio_id", columnDefinition = "VARCHAR(32) COMMENT '视频编号2'", insertable = false, updatable = false)
+    @Column(name = "audio_id", columnDefinition = "VARCHAR(32) COMMENT '音频编号'", insertable = false, updatable = false)
     private String audioId;
 
 }

@@ -3,13 +3,13 @@ package com.forteach.education.service.impl;
 import com.forteach.education.domain.Teacher;
 import com.forteach.education.repository.TeacherRepository;
 import com.forteach.education.service.TeacherService;
+import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,6 +54,7 @@ public class TeacherServiceImpl implements TeacherService {
      * @param teacherId
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteById(String teacherId) {
         teacherRepository.deleteById(teacherId);
     }
@@ -75,8 +76,7 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     public Page<Teacher> findAll(SortVo sortVo){
-        Sort sort = new Sort(Sort.Direction.DESC, sortVo.getSorting());
-        Page<Teacher> page = teacherRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), sort));
+        Page<Teacher> page = teacherRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
         return page;
     }
 

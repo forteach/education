@@ -2,6 +2,7 @@ package com.forteach.education.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +26,9 @@ public class ArticleTagMap extends Entitys implements Serializable {
     @EmbeddedId
     private ArticleTagMapFundPrimarykey articleTagMapFundPrimarykey;
 
+    @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
     private String articleId;
 
     private String tagId;

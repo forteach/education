@@ -1,7 +1,10 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +16,7 @@ import java.io.Serializable;
  * @Version: 1.0
  * @Description: 链接资料库
  */
+@Builder
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
@@ -25,13 +29,19 @@ public class LinkDatum extends Entitys implements Serializable {
     private LinkDatumFundPrimarykey linkDatumFundPrimarykey;
 
     @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
+    @ApiModelProperty(name = "链接ID", value = "linkId")
     private String linkId;
 
+    @ApiModelProperty(name = "章节编号", value = "chapterId")
     private String chapterId;
 
+    @ApiModelProperty(name = "链接URL", value = "linkUrl")
     @Column(name = "link_url", columnDefinition = "VARCHAR(255) COMMENT 'URL'")
     private String linkUrl;
 
+    @ApiModelProperty(name = "链接名称", value = "linkName")
     @Column(name = "link_name", columnDefinition = "VARCHAR(60) COMMENT '链接名称'")
     private String linkName;
 }

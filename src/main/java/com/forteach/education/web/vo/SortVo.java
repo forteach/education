@@ -1,13 +1,14 @@
 package com.forteach.education.web.vo;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -35,11 +36,13 @@ public class SortVo {
     @ApiModelProperty(value = "排序规则", notes = "依照数据库哪条字段排序 驼峰", dataType = "string", name = "sorting", example = "cTime", required = true)
     private String sorting;
 
+    @Range(min = 0, max = 1, message = "是否有效参数不正确")
     @ApiModelProperty(value = "有无效", name = "isValidated",notes = "0 有效 1　无效 (默认0)", dataType = "string",example = "0")
-    @JsonSerialize(include= JsonSerialize.Inclusion.NON_NULL)
     private String isValidated;
 
-    @NotNull(message = "排序方式不能为空")
-    @ApiModelProperty(value = "sort", name = "排序方式" ,notes = "排序方式 ASC 正序　DESC 倒叙　默认倒叙", dataType = "string", example = "DESC")
-    private String sort;
+//    @Size(min = 0, max = 1, message = "排序方式不正确")
+    @NotEmpty(message = "排序方式不能为空")
+    @Range(min = 0, max = 1, message = "排序方式不正确")
+    @ApiModelProperty(value = "sort", name = "排序方式" ,notes = "排序方式 ０ 正序　１ 倒叙　默认倒叙(1)", dataType = "int", example = "1")
+    private Integer sort;
 }

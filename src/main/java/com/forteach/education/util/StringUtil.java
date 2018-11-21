@@ -34,7 +34,7 @@ public class StringUtil {
      * @return
      */
     public static String hasEmptyIsValidated (SortVo sortVo){
-        return StrUtil.hasEmpty(sortVo.getIsValidated()) ? TAKE_EFFECT_OPEN : sortVo.getIsValidated();
+        return StrUtil.blankToDefault(sortVo.getIsValidated(), TAKE_EFFECT_OPEN);
     }
 
     public static boolean isEmpty(String str) {

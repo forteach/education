@@ -2,7 +2,7 @@ package com.forteach.education.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.stereotype.Indexed;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,6 +23,8 @@ public class Specialty extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
     @Column(name = "specialty_id", columnDefinition = "varchar(32) COMMENT '专业号'")
     private String specialtyId;
 

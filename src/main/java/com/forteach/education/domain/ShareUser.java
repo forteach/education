@@ -2,7 +2,7 @@ package com.forteach.education.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.stereotype.Indexed;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,6 +26,8 @@ public class ShareUser extends Entitys implements Serializable {
     private ShareUserFundPrimarykey shareUserFundPrimarykey;
 
     @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
     private String shareId;
 
     private String userId;

@@ -3,13 +3,13 @@ package com.forteach.education.service.impl;
 import com.forteach.education.domain.LinkDatum;
 import com.forteach.education.repository.LinkDatumRepository;
 import com.forteach.education.service.LinkDatumService;
+import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +53,7 @@ public class LinkServiceImpl implements LinkDatumService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteIsValidById(String linkId) {
         LinkDatum linkDatum = linkDatumRepository.findById(linkId).get();
         linkDatum.setIsValidated(TAKE_EFFECT_CLOSE);
@@ -61,8 +62,7 @@ public class LinkServiceImpl implements LinkDatumService {
 
     @Override
     public Page<LinkDatum> findAll(SortVo sortVo) {
-        Sort sort = new Sort(Sort.Direction.DESC, sortVo.getSorting());
-        return linkDatumRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), sort));
+        return linkDatumRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
     }
 
     @Override

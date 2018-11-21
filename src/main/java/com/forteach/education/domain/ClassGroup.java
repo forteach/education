@@ -2,6 +2,7 @@ package com.forteach.education.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +26,8 @@ public class ClassGroup extends Entitys implements Serializable {
     private ClassGroupFundPrimarykey classGroupFundPrimarykey;
 
     @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
     private String groupId;
 
     private String classId;

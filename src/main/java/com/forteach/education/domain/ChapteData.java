@@ -1,7 +1,9 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,28 +35,45 @@ public class ChapteData extends Entitys implements Serializable {
     private ChapteDataFundPrimarykey chapteDataFundPrimarykey;
 
     @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
+    @ApiModelProperty(name = "资料编号", value = "dataId")
     private String dataId;
 
+    @ApiModelProperty(value = "courseId", name = "科目编号")
     private String courseId;
 
+    @ApiModelProperty(name = "章节编号", value = "chapterId")
     private String chapterId;
 
+    @ApiModelProperty(value = "sortImgId", name = "图册编号")
     private String sortImgId;
 
+    @ApiModelProperty(value = "fileId", name = "文件编号")
     private String fileId;
 
+    @ApiModelProperty(value = "linkId", name = "链接编号")
     private String linkId;
 
+    @ApiModelProperty(value = "viewId", name = "视频编号")
     private String viewId;
 
+    @ApiModelProperty(value = "audioId", name = "音频编号")
     private String audioId;
 
+    @ApiModelProperty(value = "datumName", name = "资料名称", notes = "资料名称")
     @Column(name = "datum_name", columnDefinition = "VARCHAR(60) COMMENT '资料名称'")
     private String datumName;
 
-    @Column(name = "datum_type", columnDefinition = "INT COMMENT '资料类型'")
+    @ApiModelProperty(value = "datumArea", name = "资料领域", notes = "资料领域：１教案２课件３预习参考４教学参考５授课案例")
+    @Column(name = "datum_area", columnDefinition = "INT COMMENT '资料领域：１教案２课件３预习参考４教学参考５授课案例'")
+    private Integer datumArea;
+
+    @ApiModelProperty(value = "datumType", name = "资料类型", notes = "资料类型 1文档　2图册　3视频　4音频　5链接")
+    @Column(name = "datum_type", columnDefinition = "INT COMMENT '资料类型 1文档　2图册　3视频　4音频　5链接'")
     private Integer datumType;
 
+    @ApiModelProperty(value = "remark", name = "备注说明", dataType = "string", notes = "备注说明")
     @Column(name = "remark", columnDefinition = "VARCHAR(255) COMMENT '备注说明'")
     private String remark;
 

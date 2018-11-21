@@ -3,13 +3,13 @@ package com.forteach.education.service.impl;
 import com.forteach.education.domain.FileDatum;
 import com.forteach.education.repository.FileDatumRepository;
 import com.forteach.education.service.FileDatumService;
+import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +53,7 @@ public class FileDatumServiceImpl implements FileDatumService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteIsValidById(String fileId) {
         FileDatum fileDatum = fileDatumRepository.findById(fileId).get();
         fileDatum.setIsValidated(TAKE_EFFECT_CLOSE);
@@ -61,8 +62,7 @@ public class FileDatumServiceImpl implements FileDatumService {
 
     @Override
     public Page<FileDatum> findAll(SortVo sortVo) {
-        Sort sort = new Sort(Sort.Direction.DESC, sortVo.getSorting());
-        return fileDatumRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), sort));
+        return fileDatumRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
     }
 
     @Override

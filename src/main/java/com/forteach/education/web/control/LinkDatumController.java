@@ -24,60 +24,60 @@ import javax.validation.Valid;
  * @Description:
  */
 @RestController
-@RequestMapping("/LinkDatum")
+@RequestMapping("/linkDatum")
 @Api(value = "链接资料操作", tags = {"链接资源接口"})
 public class LinkDatumController {
 
     @Autowired
-    private LinkDatumService LinkDatumService;
+    private LinkDatumService linkDatumService;
 
-    @ApiOperation(value = "LinkDatum", notes = "保存链接资源链接信息")
+    @ApiOperation(value = "linkDatum", notes = "保存链接资源链接信息")
     @PostMapping("/save")
-    public WebResult save(@Valid @ApiParam(value = "LinkDatum", name = "链接资料对象", required = true) @RequestBody LinkDatum LinkDatum){
-        return WebResult.okResult(LinkDatumService.save(LinkDatum));
+    public WebResult save(@Valid @ApiParam(value = "LinkDatum", name = "链接资料对象", required = true) @RequestBody LinkDatum linkDatum){
+        return WebResult.okResult(linkDatumService.save(linkDatum));
     }
 
-    @ApiOperation(value = "LinkDatum", notes = "修改资源信息")
+    @ApiOperation(value = "linkDatum", notes = "修改资源信息")
     @PostMapping("/edit")
-    public WebResult edit(@Valid @ApiParam(value = "LinkDatum", name = "链接资料对象", required = true) @RequestBody LinkDatum LinkDatum){
-        return WebResult.okResult(LinkDatumService.edit(LinkDatum));
+    public WebResult edit(@Valid @ApiParam(value = "LinkDatum", name = "链接资料对象", required = true) @RequestBody LinkDatum linkDatum){
+        return WebResult.okResult(linkDatumService.edit(linkDatum));
     }
 
     @ApiOperation(value = "delete", notes = "删除资源对象")
     @PostMapping("/delete")
-    public WebResult delete(@Valid @ApiParam(value = "LinkDatum", name = "删除资源对象", required = true) @RequestBody LinkDatum LinkDatum){
-        LinkDatumService.delete(LinkDatum);
+    public WebResult delete(@Valid @ApiParam(value = "linkDatum", name = "删除资源对象", required = true) @RequestBody LinkDatum linkDatum){
+        linkDatumService.delete(linkDatum);
         return WebResult.okResult();
     }
 
-    @ApiOperation(value = "LinkId", notes = "根据链接资源ID 删除资源信息")
+    @ApiOperation(value = "linkId", notes = "根据链接资源ID 删除资源信息")
     @PostMapping("/deleteById")
-    public WebResult deleteById(@Valid @ApiParam(value = "LinkId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String LinkId){
-        LinkDatumService.deleteById(String.valueOf(JSONObject.parseObject(LinkId).get("LinkId")));
+    public WebResult deleteById(@Valid @ApiParam(value = "LinkId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String linkId){
+        linkDatumService.deleteById(String.valueOf(JSONObject.parseObject(linkId).get("LinkId")));
         return WebResult.okResult();
     }
 
     @PostMapping("/getLinkByLinkId")
-    @ApiOperation(value = "LinkId", notes = "根据链接资源ID查询链接资源信息")
-    public WebResult getLinkByLinkId(@Valid @ApiParam(value = "LinkId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String LinkId){
-        return WebResult.okResult(LinkDatumService.getLinkDatumById(String.valueOf(JSONObject.parseObject(LinkId).get("LinkId"))));
+    @ApiOperation(value = "linkId", notes = "根据链接资源ID查询链接资源信息")
+    public WebResult getLinkByLinkId(@Valid @ApiParam(value = "linkId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String linkId){
+        return WebResult.okResult(linkDatumService.getLinkDatumById(String.valueOf(JSONObject.parseObject(linkId).get("linkId"))));
     }
 
     @ApiOperation(value = "sortVo", notes = "分页查询链接资源信息")
     @PostMapping("/findAll")
     public WebResult findAll(@Valid @ApiParam(value = "sortVo", name = "分页查询势派资源信息", required = true) @RequestBody SortVo sortVo){
-        return WebResult.okResult(LinkDatumService.findAll(sortVo));
+        return WebResult.okResult(linkDatumService.findAll(sortVo));
     }
 
     /**
      * 通过链接资源 ID 逻辑删除链接资源信息
-     * @param LinkId
+     * @param linkId
      * @return
      */
-    @ApiOperation(value = "LinkId", notes = "删除链接信息(逻辑删除)")
+    @ApiOperation(value = "linkId", notes = "删除链接信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
-    public WebResult deleteIsValidById(@Valid @ApiParam(value = "LinkId", name = "根据资源ID 逻辑删除对应资源信息", required = true) @RequestBody String LinkId){
-        LinkDatumService.deleteIsValidById(LinkId);
+    public WebResult deleteIsValidById(@Valid @ApiParam(value = "linkId", name = "根据资源ID 逻辑删除对应资源信息", required = true) @RequestBody String linkId){
+        linkDatumService.deleteIsValidById(linkId);
         return WebResult.okResult();
     }
 }

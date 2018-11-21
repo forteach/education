@@ -11,4 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Description:　科目章节
  */
 public interface CourseChapterRepository extends JpaRepository<CourseChapter, String> {
+
+//    List<CourseChapter> findByIsValidatedEqualsAnd
 }
