@@ -31,26 +31,26 @@ public class ViewDatumController {
     @Autowired
     private ViewDatumService viewDatumService;
 
-    @ApiOperation(value = "viewDatum", notes = "保存视频资源链接信息")
+    @ApiOperation(value = "保存资源", notes = "保存视频资源链接信息")
     @PostMapping("/save")
     public WebResult save(@Valid @ApiParam(value = "viewDatum", name = "视频资料对象", required = true) @RequestBody ViewDatum viewDatum){
         return WebResult.okResult(viewDatumService.save(viewDatum));
     }
 
-    @ApiOperation(value = "viewDatum", notes = "修改资源信息")
+    @ApiOperation(value = "修改资源", notes = "修改资源信息")
     @PostMapping("/edit")
     public WebResult edit(@Valid @ApiParam(value = "viewDatum", name = "视频资料对象", required = true) @RequestBody ViewDatum viewDatum){
         return WebResult.okResult(viewDatumService.edit(viewDatum));
     }
 
-    @ApiOperation(value = "delete", notes = "删除资源对象")
+    @ApiOperation(value = "删除资源", notes = "删除资源对象")
     @PostMapping("/delete")
     public WebResult delete(@Valid @ApiParam(value = "viewDatum", name = "删除资源对象", required = true) @RequestBody ViewDatum viewDatum){
         viewDatumService.delete(viewDatum);
         return WebResult.okResult();
     }
 
-    @ApiOperation(value = "viewId", notes = "根据视频资源ID 删除资源信息")
+    @ApiOperation(value = "删除资源根据ID", notes = "根据视频资源ID 删除资源信息")
     @PostMapping("/deleteById")
     public WebResult deleteById(@Valid @ApiParam(value = "viewId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String viewId){
         viewDatumService.deleteById(String.valueOf(JSONObject.parseObject(viewId).get("viewId")));
@@ -58,12 +58,12 @@ public class ViewDatumController {
     }
 
     @PostMapping("/getViewByViewId")
-    @ApiOperation(value = "viewId", notes = "根据视频资源ID查询视频资源信息")
+    @ApiOperation(value = "查询资源", notes = "根据视频资源ID查询视频资源信息")
     public WebResult getViewByViewId(@Valid @ApiParam(value = "viewId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String viewId){
         return WebResult.okResult(viewDatumService.getViewDatumById(String.valueOf(JSONObject.parseObject(viewId).get("viewId"))));
     }
 
-    @ApiOperation(value = "sortVo", notes = "分页查询视频资源信息")
+    @ApiOperation(value = "分页查询全部", notes = "分页查询视频资源信息")
     @PostMapping("/findAll")
     public WebResult findAll(@Valid @ApiParam(value = "sortVo", name = "分页查询势派资源信息", required = true) @RequestBody SortVo sortVo){
         return WebResult.okResult(viewDatumService.findAll(sortVo));
@@ -74,7 +74,7 @@ public class ViewDatumController {
      * @param viewId
      * @return
      */
-    @ApiOperation(value = "viewId", notes = "删除视频信息(逻辑删除)")
+    @ApiOperation(value = "使其无效", notes = "删除视频信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
     public WebResult deleteIsValidById(@Valid @ApiParam(value = "viewId", name = "根据资源ID 逻辑删除对应资源信息", required = true) @RequestBody String viewId){
         viewDatumService.deleteIsValidById(viewId);

@@ -1,6 +1,10 @@
 package com.forteach.education.service;
 
 import com.forteach.education.domain.CourseChapter;
+import com.forteach.education.dto.CourseChapterDto;
+import com.forteach.education.web.vo.CourseChapterVo;
+
+import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -15,11 +19,15 @@ public interface CourseChapterService {
 
     CourseChapter edit(CourseChapter courseChapter);
 
-    CourseChapter getCourseChapterById(String courseId);
+    CourseChapter getCourseChapterById(String chapterId);
 
     void delete(CourseChapter courseChapter);
 
-    void deleteById(String courseId);
+    void deleteById(String chapterId);
 
-    void deleteIsValidById(String courseId);
+    void deleteIsValidById(String chapterId);
+
+    List<CourseChapterDto> findAllByCourseId(String courseId);
+
+    List<CourseChapter> findAllCourseChapter(CourseChapterVo vo);
 }

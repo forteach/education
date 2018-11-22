@@ -31,23 +31,23 @@ public class ViewDatum extends Entitys implements Serializable {
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
-    @ApiModelProperty(value = "viewId", name = "视频编号", notes = "视频资源ID", example = "123456")
+    @ApiModelProperty(name = "viewId", value = "视频编号", notes = "视频资源ID", example = "123456")
     private String viewId;
 
-    @ApiModelProperty(value = "chapterId", name = "章节编号", notes = "章节编号ID", example = "123456")
+    @ApiModelProperty(name = "chapterId", value = "章节编号", notes = "章节编号ID", example = "123456")
     private String chapterId;
 
     @NotNull(message = "视频名称不为空")
-    @ApiModelProperty(value = "chapterId", name = "视频名称", notes = "视频名称", example = "学习视频001")
+    @ApiModelProperty(name = "chapterId", value = "视频名称", notes = "视频名称", example = "学习视频001")
     @Column(name = "view_name", columnDefinition = "VARCHAR(32) COMMENT '视频名称'")
     private String viewName;
 
-    @ApiModelProperty(value = "viewType", name = "视频类型", notes = "", example = "")
+    @ApiModelProperty(name = "viewType", value = "视频类型", notes = "", example = "")
     @Column(name = "view_type", columnDefinition = "VARCHAR(10) COMMENT '视频类型'")
     private String viewType;
 
     @NotNull(message = "视频链接地址不为空")
-    @ApiModelProperty(value = "viewUrl", name = "视频URL", notes = "视频的链接地址", example = "http://www.www./dsdd.mp4")
+    @ApiModelProperty(name = "viewUrl", value = "视频URL", notes = "视频的链接地址", example = "http://www.www./dsdd.mp4")
     @Column(name = "view_url", columnDefinition = "VARCHAR(255) COMMENT '视频URL'")
     private String viewUrl;
 }

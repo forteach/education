@@ -30,26 +30,26 @@ public class AudioDatumController {
     @Autowired
     private AudioDatumService audioDatumService;
 
-    @ApiOperation(value = "audioDatum", notes = "保存音频资源链接信息")
+    @ApiOperation(value = "保存音频信息", notes = "保存音频资源链接信息")
     @PostMapping("/save")
     public WebResult save(@Valid @ApiParam(value = "audioDatum", name = "音频资料对象", required = true) @RequestBody AudioDatum audioDatum){
         return WebResult.okResult(audioDatumService.save(audioDatum));
     }
 
-    @ApiOperation(value = "audioDatum", notes = "修改资源信息")
+    @ApiOperation(value = "修改音频信息", notes = "修改资源信息")
     @PostMapping("/edit")
     public WebResult edit(@Valid @ApiParam(value = "audioDatum", name = "音频资料对象", required = true) @RequestBody AudioDatum audioDatum){
         return WebResult.okResult(audioDatumService.edit(audioDatum));
     }
 
-    @ApiOperation(value = "delete", notes = "删除资源对象")
+    @ApiOperation(value = "删除音频信息", notes = "删除资源对象(物理删除)")
     @PostMapping("/delete")
     public WebResult delete(@Valid @ApiParam(value = "audioDatum", name = "删除资源对象", required = true) @RequestBody AudioDatum audioDatum){
         audioDatumService.delete(audioDatum);
         return WebResult.okResult();
     }
 
-    @ApiOperation(value = "audioId", notes = "根据音频资源ID 删除资源信息")
+    @ApiOperation(value = "删除音频信息", notes = "根据音频资源ID 删除资源信息(物理删除)")
     @PostMapping("/deleteById")
     public WebResult deleteById(@Valid @ApiParam(value = "audioId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String audioId){
         audioDatumService.deleteById(String.valueOf(JSONObject.parseObject(audioId).get("AudioId")));
@@ -57,12 +57,12 @@ public class AudioDatumController {
     }
 
     @PostMapping("/getAudioByAudioId")
-    @ApiOperation(value = "audioId", notes = "根据音频资源ID查询音频资源信息")
+    @ApiOperation(value = "查询音频信息", notes = "根据音频资源ID查询音频资源信息")
     public WebResult getAudioByAudioId(@Valid @ApiParam(value = "audioId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String audioId){
         return WebResult.okResult(audioDatumService.getAudioDatumById(String.valueOf(JSONObject.parseObject(audioId).get("AudioId"))));
     }
 
-    @ApiOperation(value = "sortVo", notes = "分页查询音频资源信息")
+    @ApiOperation(value = "分页信息", notes = "分页查询音频资源信息")
     @PostMapping("/findAll")
     public WebResult findAll(@Valid @ApiParam(value = "sortVo", name = "分页查询势派资源信息", required = true) @RequestBody SortVo sortVo){
         return WebResult.okResult(audioDatumService.findAll(sortVo));
@@ -73,7 +73,7 @@ public class AudioDatumController {
      * @param audioId
      * @return
      */
-    @ApiOperation(value = "audioId", notes = "删除音频信息(逻辑删除)")
+    @ApiOperation(value = "使其无效", notes = "删除音频信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
     public WebResult deleteIsValidById(@Valid @ApiParam(value = "AudioId", name = "根据资源ID 逻辑删除对应资源信息", required = true) @RequestBody String audioId){
         audioDatumService.deleteIsValidById(audioId);

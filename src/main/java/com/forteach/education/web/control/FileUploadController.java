@@ -1,8 +1,5 @@
 package com.forteach.education.web.control;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -10,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version: 1.0
  * @Description:
  */
-@RestController
-@RequestMapping("/upload")
+//@RestController
+//@RequestMapping("/upload")
 public class FileUploadController {
 
 

@@ -1,6 +1,8 @@
 package com.forteach.education.repository;
 
 import com.forteach.education.domain.Specialty;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -11,4 +13,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Description: 专业
  */
 public interface SpecialtyRepository extends JpaRepository<Specialty, String> {
+
+    /**
+     * 分页查询生效科目信息
+     * @param isValidated
+     * @param pageable
+     * @return
+     */
+    Page<Specialty> findByIsValidatedEquals(String isValidated, Pageable pageable);
 }

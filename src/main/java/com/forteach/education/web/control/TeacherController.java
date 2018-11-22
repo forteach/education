@@ -99,7 +99,7 @@ public class TeacherController {
      * 逻辑删除教师信息使其无效不显示
      * @param teacherId
      */
-    @ApiOperation(value = "删除教师信息", notes = "根据教师　ID 删除教师信息(逻辑删除)")
+    @ApiOperation(value = "使其无效", notes = "根据教师　ID 删除教师信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
     public WebResult deleteIsValidById(@Valid @ApiParam(name = "teacherId", value = "教师id", required = true) @RequestBody String teacherId){
         teacherService.deleteIsValidById(String.valueOf(JSONObject.parseObject(teacherId).get("teacherId")));

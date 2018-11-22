@@ -11,7 +11,6 @@ import org.springframework.context.ApplicationContext;
  * @date: 2018/10/29 13:52
  */
 @SpringBootApplication
-//@EnableJpaAuditing
 public class EducationApplication {
 
     public static ApplicationContext applicationContext;

@@ -30,26 +30,26 @@ public class FileDatumController {
     @Autowired
     private FileDatumService fileDatumService;
 
-    @ApiOperation(value = "fileDatum", notes = "保存文件资源文件信息")
+    @ApiOperation(value = "保存文件信息", notes = "保存文件资源文件信息")
     @PostMapping("/save")
     public WebResult save(@Valid @ApiParam(value = "fileDatum", name = "文件资料对象", required = true) @RequestBody FileDatum fileDatum){
         return WebResult.okResult(fileDatumService.save(fileDatum));
     }
 
-    @ApiOperation(value = "fileDatum", notes = "修改资源信息")
+    @ApiOperation(value = "修改文件信息", notes = "修改资源信息")
     @PostMapping("/edit")
     public WebResult edit(@Valid @ApiParam(value = "fileDatum", name = "文件资料对象", required = true) @RequestBody FileDatum fileDatum){
         return WebResult.okResult(fileDatumService.edit(fileDatum));
     }
 
-    @ApiOperation(value = "delete", notes = "删除资源对象")
+    @ApiOperation(value = "删除文件信息", notes = "删除资源对象")
     @PostMapping("/delete")
     public WebResult delete(@Valid @ApiParam(value = "fileDatum", name = "删除资源对象", required = true) @RequestBody FileDatum fileDatum){
         fileDatumService.delete(fileDatum);
         return WebResult.okResult();
     }
 
-    @ApiOperation(value = "fileId", notes = "根据文件资源ID 删除资源信息")
+    @ApiOperation(value = "删除文件信息", notes = "根据文件资源ID 删除资源信息")
     @PostMapping("/deleteById")
     public WebResult deleteById(@Valid @ApiParam(value = "FileId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String fileId){
         fileDatumService.deleteById(String.valueOf(JSONObject.parseObject(fileId).get("fileId")));
@@ -57,12 +57,12 @@ public class FileDatumController {
     }
 
     @PostMapping("/getFileByFileId")
-    @ApiOperation(value = "fileId", notes = "根据文件资源ID查询文件资源信息")
+    @ApiOperation(value = "获取文件信息", notes = "根据文件资源ID查询文件资源信息")
     public WebResult getFileByFileId(@Valid @ApiParam(value = "fileId", name = "根据资源ID 删除对应资源信息", required = true) @RequestBody String fileId){
         return WebResult.okResult(fileDatumService.getFileDatumById(String.valueOf(JSONObject.parseObject(fileId).get("fileId"))));
     }
 
-    @ApiOperation(value = "sortVo", notes = "分页查询文件资源信息")
+    @ApiOperation(value = "分页查询", notes = "分页查询文件资源信息")
     @PostMapping("/findAll")
     public WebResult findAll(@Valid @ApiParam(value = "sortVo", name = "分页查询势派资源信息", required = true) @RequestBody SortVo sortVo){
         return WebResult.okResult(fileDatumService.findAll(sortVo));
@@ -73,7 +73,7 @@ public class FileDatumController {
      * @param fileId
      * @return
      */
-    @ApiOperation(value = "fileId", notes = "删除文件信息(逻辑删除)")
+    @ApiOperation(value = "使其无效", notes = "删除文件信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
     public WebResult deleteIsValidById(@Valid @ApiParam(value = "fileId", name = "根据资源ID 逻辑删除对应资源信息", required = true) @RequestBody String fileId){
         fileDatumService.deleteIsValidById(fileId);
