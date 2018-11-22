@@ -27,7 +27,7 @@ public interface CourseChapterService {
 
     void deleteIsValidById(String chapterId);
 
-    List<CourseChapterDto> findAllByCourseId(String courseId);
+    List<CourseChapterDto> findByCourseId(String courseId);
 
     List<CourseChapter> findAllCourseChapter(CourseChapterVo vo);
 }

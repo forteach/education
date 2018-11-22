@@ -27,6 +27,8 @@ import java.io.Serializable;
 @ApiModel(value = "音频资料库")
 public class AudioDatum extends Entitys implements Serializable {
 
+    @EmbeddedId
+    @ApiModelProperty(value = "频资料库主键", hidden = true)
     private AudioDatumFundPrimarykey audioDatumFundPrimarykey;
 
     @Id

@@ -25,7 +25,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/specialty")
-@Api(value = "专业操作", tags = {"专业操作"}, description = "各个专业操作")
+@Api(value = "专业操作", tags = {"专业操作"})
 public class SpecialtyController {
     @Autowired
     private SpecialtyService specialtyService;

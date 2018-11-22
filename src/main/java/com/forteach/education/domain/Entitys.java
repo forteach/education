@@ -28,6 +28,7 @@ public class Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "is_validated", columnDefinition = "CHAR(1) DEFAULT 0 COMMENT '生效标识 0生效 1失效'", nullable=false)
+    @ApiModelProperty(value = "生效标示", name = "isValidated", notes = "生效标识 0生效 1失效 默认生效 0 ")
     private String isValidated = "0";
 
 //    @LastModifiedDate
@@ -35,7 +36,7 @@ public class Entitys implements Serializable {
 //    @org.hibernate.annotations.UpdateTimestamp
     @Column(name = "u_time", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'", nullable=false)
     @Generated(GenerationTime.ALWAYS)
-    @ApiModelProperty(name = "修改时间", value = "uTime", dataType = "date", notes = "修改的时间")
+    @ApiModelProperty(value = "修改时间", name = "uTime", dataType = "date", notes = "修改的时间")
     private Date uTime;
 
 //    @CreatedDate
@@ -43,15 +44,17 @@ public class Entitys implements Serializable {
 //    @org.hibernate.annotations.CreationTimestamp
     @Column(updatable = false, name = "c_time", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'", nullable=false)
     @Generated(GenerationTime.INSERT)
-    @ApiModelProperty(name = "创建时间", value = "创建时间", dataType = "date", notes = "创建时间")
+    @ApiModelProperty(value = "创建时间", name = "cTime", dataType = "date", notes = "创建时间")
     private Date cTime;
 
     @CreatedBy
     @Column(name = "c_user", columnDefinition = "VARCHAR(32) COMMENT '创建人'")
+    @ApiModelProperty(value = "创建人", name = "cUser", dataType = "string", notes = "创建人ID")
     private String cUser;
 
     @LastModifiedBy
     @Column(name = "u_user", columnDefinition = "VARCHAR(32) COMMENT '修改人'")
+    @ApiModelProperty(value = "修改人", name = "uUser", dataType = "string", notes = "修改人ID")
     private String uUser;
 
     @Override

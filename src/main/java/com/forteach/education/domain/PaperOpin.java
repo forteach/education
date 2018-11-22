@@ -26,6 +26,7 @@ public class PaperOpin extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
+    @ApiModelProperty(value = "试卷判断题主键", hidden = true)
     private PaperOpinFundPrimarykey paperOpinFundPrimarykey;
 
     @ApiModelProperty(name = "paperId", value = "试卷编号", required = true, dataType = "string")

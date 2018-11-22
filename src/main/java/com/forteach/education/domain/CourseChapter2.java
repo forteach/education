@@ -1,5 +1,6 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -22,6 +23,8 @@ import java.io.Serializable;
 @org.hibernate.annotations.Table(appliesTo = "course_chapter2", comment = "科目章节 2")
 public class CourseChapter2 extends Entitys implements Serializable {
 
+    @EmbeddedId
+    @ApiModelProperty(value = "班级分组主键", hidden = true)
     private CourseChapter2FundPrimaryKey courseChapter2FundPrimaryKey;
 
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")

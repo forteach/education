@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -25,9 +26,14 @@ import java.io.Serializable;
 @ApiModel(value = "科目章节")
 public class CourseChapter extends Entitys implements Serializable {
 
+
+//    @ApiIgnore(value = true)
+//    @ApiParam(hidden = true)
+    @ApiModelProperty(value = "科目章节主键", hidden = true)
     @EmbeddedId
     private CourseChapterFundPrimarykey courseChapterFundPrimaryKey;
 
+    @NotBlank(message = "科目编号不为空")
     @ApiModelProperty(name = "科目编号", value = "courseId", dataType = "string", required = true)
     private String courseId;
 
@@ -37,6 +43,7 @@ public class CourseChapter extends Entitys implements Serializable {
     @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string")
     private String chapterId;
 
+    @NotBlank(message = "章节名称不为空")
     @ApiModelProperty(value = "章节名称", name = "chapter_name", dataType = "string", required = true)
     @Column(name = "chapter_name", columnDefinition = "CHAR(60) COMMENT '章节名称'")
     private String chapterName;

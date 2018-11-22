@@ -73,13 +73,9 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      * @param courseId
      * @return
      */
-    public List<CourseChapterDto> findAllByCourseId(String courseId){
-//        String sql = "select * from course_chapter where is_validated = '0' and  course_id = " + courseId + " and chapter_parent_id is null ORDER BY sort";
-//        List<Object[]> arrayList = baseNativeSqlRepository.sqlArrayList(sql);
-
-//        return Stream.of(arrayList).collect(Collectors.toList());
-//        return courseChapterRepository.findByCourseId(courseId);
-        return null;
+    @Override
+    public List<CourseChapterDto> findByCourseId(String courseId){
+        return courseChapterRepository.findByChapterId(courseId);
     }
 
     /**
@@ -89,6 +85,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      * @param vo
      * @return
      */
+    @Override
     public List<CourseChapter> findAllCourseChapter(CourseChapterVo vo){
 //        return courseChapterRepository.findAllCourseChapterByChapterIdAndIsValidated(vo.getIsValidated(), vo.getCourseId());
         return null;

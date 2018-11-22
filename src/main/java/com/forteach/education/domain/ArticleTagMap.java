@@ -26,6 +26,7 @@ public class ArticleTagMap extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "文章标签主键", hidden = true)
     @EmbeddedId
     private ArticleTagMapFundPrimarykey articleTagMapFundPrimarykey;
 

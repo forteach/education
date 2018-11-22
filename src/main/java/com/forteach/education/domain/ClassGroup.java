@@ -26,6 +26,7 @@ import java.io.Serializable;
 public class ClassGroup extends Entitys implements Serializable {
 
     @EmbeddedId
+    @ApiModelProperty(value = "班级分组主键", hidden = true)
     private ClassGroupFundPrimarykey classGroupFundPrimarykey;
 
     @Id

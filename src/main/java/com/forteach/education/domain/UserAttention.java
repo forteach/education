@@ -1,5 +1,7 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,12 +21,16 @@ import java.io.Serializable;
 @Table(name = "user_attention", indexes = {@Index(columnList = "att_id"), @Index(columnList = "article_id")})
 @IdClass(UserAttentionFundPrimaryKey.class)
 @org.hibernate.annotations.Table(appliesTo = "user_attention", comment = "用户关注的文章")
+@ApiModel(value = "用户关注的文章")
 public class UserAttention extends Entitys implements Serializable {
 
     @EmbeddedId
+    @ApiModelProperty(value = "用户关注的文章主键", hidden = true)
     private UserAttentionFundPrimaryKey userAttentionFundPrimaryKey;
 
+    @ApiModelProperty(value = "关注ID", name = "attId", dataType = "string")
     private String attId;
 
+    @ApiModelProperty(value = "文章编号", name = "articleId", dataType = "string", required = true)
     private String articleId;
 }

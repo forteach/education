@@ -25,14 +25,14 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/courseChapter")
-@Api(value = "科目章节接口", tags = {"操作科目章节信息"})
+@Api(value = "科目章节接口", tags = {"科目章节信息"})
 public class CourseChapterController {
 
     @Autowired
     private CourseChapterService courseChapterService;
 
     @PostMapping("/save")
-    @ApiOperation(value = "保存科目章节", tags = "保存科目章节信息")
+    @ApiOperation(value = "保存科目章节", notes = "保存科目章节信息")
     public WebResult save(@Valid @ApiParam(value = "courseChapter", name = "科目章节对象", required = true) @RequestBody CourseChapter courseChapter){
         return WebResult.okResult(courseChapterService.save(courseChapter));
     }
@@ -68,10 +68,10 @@ public class CourseChapterController {
      * @param courseId
      * @return
      */
-    @PostMapping("/findAllByCourseId")
+    @PostMapping("/findByCourseId")
     @ApiOperation(value = "查找章节信息", notes = "客户端根据科目ID查询第一层的章节")
-    public WebResult findAllByCourseId(@Valid @ApiParam(value = "courseId", name = "根据资源ID 查询对应上层科目信息", required = true) @RequestBody String courseId){
-        return WebResult.okResult(courseChapterService.findAllByCourseId(JSONObject.parseObject(courseId).getString("courseId")));
+    public WebResult findByCourseId(@Valid @ApiParam(value = "courseId", name = "根据资源ID 查询对应上层科目信息", required = true) @RequestBody String courseId){
+        return WebResult.okResult(courseChapterService.findByCourseId(JSONObject.parseObject(courseId).getString("courseId")));
     }
 
     @PostMapping("/findAllCourseChapter")

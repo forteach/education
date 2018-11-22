@@ -26,6 +26,7 @@ import java.io.Serializable;
 public class ShareUser extends Entitys implements Serializable {
 
     @EmbeddedId
+    @ApiModelProperty(value = "分享用户主键", hidden = true)
     private ShareUserFundPrimarykey shareUserFundPrimarykey;
 
     @Id

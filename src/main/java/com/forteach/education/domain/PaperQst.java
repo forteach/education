@@ -26,6 +26,7 @@ public class PaperQst extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
+    @ApiModelProperty(value = "试卷选择考题", hidden = true)
     private PaperQstFundPrimarykey paperQstFundPrimarykey;
 
     @ApiModelProperty(value = "试卷编号", name = "paperId", dataType = "string", required = true)

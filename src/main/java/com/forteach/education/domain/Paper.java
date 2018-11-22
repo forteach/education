@@ -1,5 +1,6 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +20,7 @@ import java.io.Serializable;
 @Table(name = "paper",  indexes = {@Index(columnList = "teacher_id"),@Index(columnList = "course_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "paper", comment = "试卷")
+@ApiModel(value = "试卷")
 public class Paper extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

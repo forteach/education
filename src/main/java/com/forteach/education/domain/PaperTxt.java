@@ -26,6 +26,7 @@ public class PaperTxt extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
+    @ApiModelProperty(value = "试卷内容主键", hidden = true)
     private PaperTxtFundPrimarykey paperTxtFundPrimarykey;
 
     @ApiModelProperty(value = "试卷内容ID", name = "txtId", dataType = "string")

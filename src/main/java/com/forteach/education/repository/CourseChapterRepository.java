@@ -1,8 +1,12 @@
 package com.forteach.education.repository;
 
 import com.forteach.education.domain.CourseChapter;
+import com.forteach.education.dto.CourseChapterDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -20,9 +24,8 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param courseId　科目ID
      * @return 章节目录基本信息
      */
-//    List<CourseChapterDto> findByIsValidatedEqualsAndCourseId(String courseId);
-//    @Query("select course_id, chapter_name, chapterParent_id from course_chapter c where c.is_validated = '0' and  c.course_id = ?1 and c.chapter_parent_id is null ORDER BY  c.sort asc")
-//    List<CourseChapterDto> findByCourseId(String courseId);
+    @Query(value = "select course_id, chapter_name, chapterParent_id from course_chapter c where c.is_validated = '0' and  c.course_id = ?1 and c.chapter_parent_id is null ORDER BY  c.sort asc", nativeQuery = true)
+    List<CourseChapterDto> findByChapterId(String courseId);
 
     /**
      * 根据章节ID和是否有效查询章节目录信息

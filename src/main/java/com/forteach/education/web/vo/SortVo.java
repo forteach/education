@@ -43,6 +43,6 @@ public class SortVo {
 //    @Size(min = 0, max = 1, message = "排序方式不正确")
     @NotEmpty(message = "排序方式不能为空")
     @Range(min = 0, max = 1, message = "排序方式不正确")
-    @ApiModelProperty(value = "sort", name = "排序方式" ,notes = "排序方式 ０ 正序　１ 倒叙　默认倒叙(1)", dataType = "int", example = "1")
+    @ApiModelProperty(value = "sort", name = "排序方式" ,notes = "排序方式 0 正序　１ 倒叙　默认倒叙(1)", dataType = "int", example = "1")
     private Integer sort;
 }

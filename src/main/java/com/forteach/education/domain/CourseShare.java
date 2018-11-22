@@ -24,7 +24,9 @@ import java.io.Serializable;
 @org.hibernate.annotations.Table(appliesTo = "course_share", comment = "分享范围")
 @ApiModel(value = "分享范围")
 public class CourseShare extends Entitys implements Serializable {
+
     @EmbeddedId
+    @ApiModelProperty(value = "分享范围主键", hidden = true)
     private CourseShareFundPrimaryKey courseShareFundPrimaryKey;
 
     @Id

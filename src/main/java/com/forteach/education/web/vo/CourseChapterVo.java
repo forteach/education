@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -22,11 +22,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class CourseChapterVo implements Serializable {
 
-    @NotEmpty(message = "查询有效不为空")
+    @NotNull(message = "查询有效不为空")
     @ApiModelProperty(value = "isValidated", name = "有效无效", notes = "０有效　1 无效",dataType = "string", example = "0")
     private String isValidated;
 
-    @NotEmpty(message = "科目ID不为空")
+    @NotNull(message = "科目ID不为空")
     @ApiModelProperty(value = "courseId", name = "科目ID", notes = "科目ID", dataType = "string")
     private String courseId;
 }

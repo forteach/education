@@ -1,5 +1,6 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -23,9 +24,11 @@ import java.io.Serializable;
 @IdClass(LinkDatumFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "link_datum", comment = "链接资料库")
 @Table(name = "link_datum", indexes = {@Index(columnList = "link_id"), @Index(columnList = "chapter_id")})
+@ApiModel(value = "链接资料库")
 public class LinkDatum extends Entitys implements Serializable {
 
     @EmbeddedId
+    @ApiModelProperty(value = "链接资料库", hidden = true)
     private LinkDatumFundPrimarykey linkDatumFundPrimarykey;
 
     @Id

@@ -26,6 +26,7 @@ public class StudentAnswer extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
+    @ApiModelProperty(value = "学生答题卡主键", hidden = true)
     private StudentAnswerFundPrimarykey studentAnswerFundPrimarykey;
 
     @ApiModelProperty(value = "问题册ID", name = "classQuestionId", dataType = "string")

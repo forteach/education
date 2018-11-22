@@ -34,6 +34,7 @@ import java.io.Serializable;
 public class ChapteData extends Entitys implements Serializable {
 
     @EmbeddedId
+    @ApiModelProperty(value = "章节料库主键", hidden = true)
     private ChapteDataFundPrimarykey chapteDataFundPrimarykey;
 
     @Id

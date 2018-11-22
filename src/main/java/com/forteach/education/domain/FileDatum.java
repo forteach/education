@@ -28,6 +28,7 @@ import java.io.Serializable;
 public class FileDatum extends Entitys implements Serializable {
 
     @EmbeddedId
+    @ApiModelProperty(value = "文件数据主键", hidden = true)
     private FileDatumFundPrimarykey fileDatumFundPrimarykey;
 
     @Id

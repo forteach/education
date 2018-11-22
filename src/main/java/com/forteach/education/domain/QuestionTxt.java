@@ -26,6 +26,7 @@ public class QuestionTxt extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
+    @ApiModelProperty(value = "问题册主键", hidden = true)
     private QuestionTxtFundPrimarykey questionTxtFundPrimarykey;
 
     @ApiModelProperty(value = "问题内容ID", name = "txtId", dataType = "string")
