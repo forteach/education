@@ -13,8 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-
 import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
 
 /**
@@ -58,7 +56,6 @@ public class CourseServiceImpl implements CourseService {
     public void deleteIsValidById(String courseId) {
         Course course = courseRepository.findById(courseId).get();
         course.setIsValidated(TAKE_EFFECT_CLOSE);
-        course.setUTime(new Date());
         courseRepository.save(course);
     }
 

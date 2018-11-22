@@ -2,6 +2,7 @@ package com.forteach.education.repository;
 
 import com.forteach.education.domain.CourseChapter;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
  * @Auther: zhangyy
@@ -10,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Version: 1.0
  * @Description:　科目章节
  */
-public interface CourseChapterRepository extends JpaRepository<CourseChapter, String> {
+public interface CourseChapterRepository extends JpaRepository<CourseChapter, String>, JpaSpecificationExecutor<CourseChapter> {
 
 
     /**

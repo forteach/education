@@ -1,5 +1,7 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,6 +20,7 @@ import java.io.Serializable;
 @Table(name = "choice_qst", indexes = {@Index(columnList = "course_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "choice_qst", comment = "选择题")
+@ApiModel(value = "选择题")
 public class ChoiceQst extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,19 +28,24 @@ public class ChoiceQst extends Entitys implements Serializable {
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
-    @Column(name = "choice_qst_id", columnDefinition = "varchar(32) COMMENT '试题编号'")
+    @Column(name = "choice_qst_id", columnDefinition = "VARCHAR(32) COMMENT '试题编号'")
+    @ApiModelProperty(value = "试题编号", name = "choiceQstId", dataType = "string")
     private String choiceQstId;
 
-    @Column(name = "course_id", columnDefinition = "varchar(32) COMMENT '科目编号'")
+    @ApiModelProperty(value = "科目编号", name = "courseId", dataType = "string")
+    @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
     private String courseId;
 
-    @Column(name = "choice_qst_txt", columnDefinition = "varchar(500) COMMENT '试题内容'")
+    @ApiModelProperty(value = "试题内容", name = "choiceQstTxt", dataType = "string")
+    @Column(name = "choice_qst_txt", columnDefinition = "VARCHAR(500) COMMENT '试题内容'")
     private String choiceQstTxt;
 
-    @Column(name = "choice_qst_answ", columnDefinition = "varchar(20) COMMENT '答案'")
+    @ApiModelProperty(value = "答案", name = "choiceQstAnsw", dataType = "string")
+    @Column(name = "choice_qst_answ", columnDefinition = "VARCHAR(20) COMMENT '答案'")
     private String choiceQstAnsw;
 
-    @Column(name = "choice_type", columnDefinition = "varchar(10) COMMENT '选择题类型'")
+    @ApiModelProperty(value = "选择题类型", name = "choiceType", dataType = "string")
+    @Column(name = "choice_type", columnDefinition = "VARCHAR(10) COMMENT '选择题类型'")
     private String choiceType;
 
 

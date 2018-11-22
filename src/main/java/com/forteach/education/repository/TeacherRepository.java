@@ -4,6 +4,7 @@ import com.forteach.education.domain.Teacher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
  * @Auther: zhangyy
@@ -12,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Version: 1.0
  * @Description: 教师表操作
  */
-public interface TeacherRepository extends JpaRepository<Teacher, String> {
+public interface TeacherRepository extends JpaRepository<Teacher, String>, JpaSpecificationExecutor<Teacher> {
 
     /**
      * 分页查询有效的教师信息

@@ -1,5 +1,7 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,6 +20,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @IdClass(PaperOpinFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "paper_opin", comment = "试卷判断题")
+@ApiModel(value = "试卷判断题")
 public class PaperOpin extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,8 +28,10 @@ public class PaperOpin extends Entitys implements Serializable {
     @EmbeddedId
     private PaperOpinFundPrimarykey paperOpinFundPrimarykey;
 
+    @ApiModelProperty(name = "paperId", value = "试卷编号", required = true, dataType = "string")
     private String paperId;
 
+    @ApiModelProperty(value = "题型编号", name = "questionId", required = true, dataType = "string")
     private String questionId;
 
 }

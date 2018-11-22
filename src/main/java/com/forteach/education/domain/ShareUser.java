@@ -1,5 +1,7 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -20,6 +22,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @IdClass(ShareUserFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "share_user", comment = "分享用户")
+@ApiModel(value = "分享用户")
 public class ShareUser extends Entitys implements Serializable {
 
     @EmbeddedId
@@ -28,10 +31,13 @@ public class ShareUser extends Entitys implements Serializable {
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
+    @ApiModelProperty(value = "分享编号", name = "shareId", dataType = "string")
     private String shareId;
 
+    @ApiModelProperty(value = "成员编号", name = "userId", dataType = "string", required = true)
     private String userId;
 
+    @ApiModelProperty(value = "成员名称", name = "userName", dataType = "string", required = true)
     @Column(name = "user_name", columnDefinition = "VARCHAR(60) COMMENT '成员名称'")
     private String userName;
 

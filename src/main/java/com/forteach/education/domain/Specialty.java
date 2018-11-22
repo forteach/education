@@ -29,10 +29,10 @@ public class Specialty extends Entitys implements Serializable {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @Column(name = "specialty_id", columnDefinition = "varchar(32) COMMENT '专业号'")
-    @ApiModelProperty(value = "专业ID", name = "specialtyId")
+    @ApiModelProperty(value = "专业ID", name = "specialtyId", dataType = "string")
     private String specialtyId;
 
-    @ApiModelProperty(value = "专业名称", name = "specialtyName", required = true)
+    @ApiModelProperty(value = "专业名称", name = "specialtyName", required = true, dataType = "string")
     @Column(name = "specialty_name", columnDefinition = "varchar(255) COMMENT '专业名称'")
     private String specialtyName;
 

@@ -74,8 +74,8 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      * @return
      */
     public List<CourseChapterDto> findAllByCourseId(String courseId){
-        String sql = "select * from course_chapter where is_validated = '0' and  course_id = " + courseId + " and chapter_parent_id is null ORDER BY sort";
-        List<Object[]> arrayList = baseNativeSqlRepository.sqlArrayList(sql);
+//        String sql = "select * from course_chapter where is_validated = '0' and  course_id = " + courseId + " and chapter_parent_id is null ORDER BY sort";
+//        List<Object[]> arrayList = baseNativeSqlRepository.sqlArrayList(sql);
 
 //        return Stream.of(arrayList).collect(Collectors.toList());
 //        return courseChapterRepository.findByCourseId(courseId);

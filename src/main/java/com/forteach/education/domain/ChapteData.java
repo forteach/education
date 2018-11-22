@@ -1,5 +1,6 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,6 +30,7 @@ import java.io.Serializable;
 })
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "chapte_data", comment = "章节资料")
+@ApiModel(value = "章节资料库")
 public class ChapteData extends Entitys implements Serializable {
 
     @EmbeddedId
@@ -37,43 +39,43 @@ public class ChapteData extends Entitys implements Serializable {
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
-    @ApiModelProperty(name = "资料编号", value = "dataId")
+    @ApiModelProperty(value = "资料编号", name = "dataId", dataType = "string")
     private String dataId;
 
-    @ApiModelProperty(value = "courseId", name = "科目编号")
+    @ApiModelProperty(name = "courseId", value = "科目编号", dataType = "string")
     private String courseId;
 
-    @ApiModelProperty(name = "章节编号", value = "chapterId")
+    @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string")
     private String chapterId;
 
-    @ApiModelProperty(value = "sortImgId", name = "图册编号")
+    @ApiModelProperty(name = "sortImgId", value = "图册编号", dataType = "string")
     private String sortImgId;
 
-    @ApiModelProperty(value = "fileId", name = "文件编号")
+    @ApiModelProperty(name = "fileId", value = "文件编号", dataType = "string")
     private String fileId;
 
-    @ApiModelProperty(value = "linkId", name = "链接编号")
+    @ApiModelProperty(name = "linkId", value = "链接编号", dataType = "string")
     private String linkId;
 
-    @ApiModelProperty(value = "viewId", name = "视频编号")
+    @ApiModelProperty(name = "viewId", value = "视频编号", dataType = "string")
     private String viewId;
 
-    @ApiModelProperty(value = "audioId", name = "音频编号")
+    @ApiModelProperty(value = "audioId", name = "音频编号", dataType = "string")
     private String audioId;
 
-    @ApiModelProperty(value = "datumName", name = "资料名称", notes = "资料名称")
+    @ApiModelProperty(name = "datumName", dataType = "string", value = "资料名称", notes = "资料名称")
     @Column(name = "datum_name", columnDefinition = "VARCHAR(60) COMMENT '资料名称'")
     private String datumName;
 
-    @ApiModelProperty(value = "datumArea", name = "资料领域", notes = "资料领域：１教案２课件３预习参考４教学参考５授课案例")
-    @Column(name = "datum_area", columnDefinition = "INT COMMENT '资料领域：１教案２课件３预习参考４教学参考５授课案例'")
+    @ApiModelProperty(name = "datumArea", dataType = "string", value = "资料领域", notes = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例")
+    @Column(name = "datum_area", columnDefinition = "INT COMMENT '资料领域：1教案2课件 3预习参考 4教学参考 5授课案例'")
     private Integer datumArea;
 
-    @ApiModelProperty(value = "datumType", name = "资料类型", notes = "资料类型 1文档　2图册　3视频　4音频　5链接")
+    @ApiModelProperty(name = "datumType", dataType = "string", value = "资料类型", notes = "资料类型 1文档　2图册　3视频　4音频　5链接")
     @Column(name = "datum_type", columnDefinition = "INT COMMENT '资料类型 1文档　2图册　3视频　4音频　5链接'")
     private Integer datumType;
 
-    @ApiModelProperty(value = "remark", name = "备注说明", dataType = "string", notes = "备注说明")
+    @ApiModelProperty(name = "remark", value = "备注说明", dataType = "string", notes = "备注说明")
     @Column(name = "remark", columnDefinition = "VARCHAR(255) COMMENT '备注说明'")
     private String remark;
 

@@ -31,17 +31,17 @@ public class LinkDatum extends Entitys implements Serializable {
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
-    @ApiModelProperty(name = "链接ID", value = "linkId")
+    @ApiModelProperty(value = "链接ID", name = "linkId", dataType = "string")
     private String linkId;
 
-    @ApiModelProperty(name = "章节编号", value = "chapterId")
+    @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string")
     private String chapterId;
 
-    @ApiModelProperty(name = "链接URL", value = "linkUrl")
+    @ApiModelProperty(value = "链接URL", name = "linkUrl", dataType = "string", required = false)
     @Column(name = "link_url", columnDefinition = "VARCHAR(255) COMMENT 'URL'")
     private String linkUrl;
 
-    @ApiModelProperty(name = "链接名称", value = "linkName")
+    @ApiModelProperty(value = "链接名称", name = "linkName", dataType = "string", required = true)
     @Column(name = "link_name", columnDefinition = "VARCHAR(60) COMMENT '链接名称'")
     private String linkName;
 }

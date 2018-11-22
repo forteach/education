@@ -1,5 +1,7 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,6 +21,7 @@ import java.io.Serializable;
 @Table(name = "photo_sort",indexes = {@Index(columnList = "course_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "photo_sort", comment = "资料图片库")
+@ApiModel(value = "资料图片库")
 public class PhotoSort extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,23 +30,29 @@ public class PhotoSort extends Entitys implements Serializable {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @Column(name = "sort_img_id", columnDefinition = "varchar(32) COMMENT '分类id uuid'")
+    @ApiModelProperty(value = "分类id", name = "sortImgId", dataType = "string")
     private String sortImgId;
 
 //    @Column(name = "teacher_id", columnDefinition = "varchar(32) COMMENT '老师id'")
 //    private String teacherId;
 
+    @ApiModelProperty(value = "科目编号", name = "courseId", required = true)
     @Column(name = "course_id", columnDefinition = "varchar(32) COMMENT '科目编号'")
     private String courseId;
 
+    @ApiModelProperty(value = "分类名称", name = "sortImgName", dataType = "string",required = true)
     @Column(name = "sort_img_name", columnDefinition = "varchar(40) COMMENT '分类名称'")
     private String sortImgName;
 
+    @ApiModelProperty(value = "展示方式", name = "sortImgType", dataType = "int")
     @Column(name = "sort_img_type", columnDefinition = "int(11) COMMENT '展示方式'")
     private Integer sortImgType;
 
+    @ApiModelProperty(value = "查看密码", name = "imgPassword", dataType = "string")
     @Column(name = "img_password", columnDefinition = "varchar(6) COMMENT '查看密码'")
     private String imgPassword;
 
+    @ApiModelProperty(value = "封面图片的路径", name = "topPicSrc", dataType = "string",required = true)
     @Column(name = "top_pic_src", columnDefinition = "varchar(255) COMMENT '封面图片的路径'")
     private String topPicSrc;
 

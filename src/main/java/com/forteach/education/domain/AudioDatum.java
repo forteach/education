@@ -1,5 +1,6 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,7 @@ import java.io.Serializable;
 @Table(name = "audio_datum", indexes = {@Index(columnList = "audio_id"), @Index(columnList = "chapter_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "audio_datum", comment = "音频资料库")
+@ApiModel(value = "音频资料库")
 public class AudioDatum extends Entitys implements Serializable {
 
     private AudioDatumFundPrimarykey audioDatumFundPrimarykey;
@@ -30,21 +32,21 @@ public class AudioDatum extends Entitys implements Serializable {
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
-    @ApiModelProperty(value = "audioId", name = "音频ID")
+    @ApiModelProperty(name = "audioId", value = "音频ID", dataType = "string")
     private String audioId;
 
-    @ApiModelProperty(value = "chapterId", name = "章节编号")
+    @ApiModelProperty(name = "chapterId", value = "章节编号", dataType = "string", required = true)
     private String chapterId;
 
-    @ApiModelProperty(name = "音频名称", value = "audioName")
+    @ApiModelProperty(value = "音频名称", name = "audioName", dataType = "string")
     @Column(name = "audio_name", columnDefinition = "VARCHAR(255) COMMENT '音频名称'")
     private String audioName;
 
-    @ApiModelProperty(value = "audioType", name = "a音频类型")
+    @ApiModelProperty(name = "audioType", value = "a音频类型", dataType = "string")
     @Column(name = "audio_type", columnDefinition = "VARCHAR(10) COMMENT '音频类型'")
     private String audioType;
 
-    @ApiModelProperty(value = "audioType", name = "音频URL")
+    @ApiModelProperty(name = "audioType", value = "音频URL", dataType = "string")
     @Column(name = "audio_url", columnDefinition = "VARCHAR(255) COMMENT '音频URL'")
     private String audioUrl;
 }

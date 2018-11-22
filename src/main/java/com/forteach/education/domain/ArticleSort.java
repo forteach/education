@@ -1,5 +1,7 @@
 package com.forteach.education.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,15 +21,18 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "article_sort", indexes = {@Index(columnList = "sort_article_id")})
 @org.hibernate.annotations.Table(appliesTo = "article_sort", comment = "文章分类")
+@ApiModel(value = "文章分类")
 public class ArticleSort extends Entitys implements Serializable {
 
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
-    @Column(name = "sort_article_id", columnDefinition = "varchar(32) COMMENT '分类编号'")
+    @Column(name = "sort_article_id", columnDefinition = "VARCHAR(32) COMMENT '分类编号'")
+    @ApiModelProperty(name = "sortArticleId", value = "分类编号", dataType = "string")
     private String sortArticleId;
 
-    @Column(name = "sort_article_name", columnDefinition = "varchar(32) COMMENT '分类名称'")
+    @ApiModelProperty(name = "sortArticleName", value = "分类名称", dataType = "string", required = true)
+    @Column(name = "sort_article_name", columnDefinition = "VARCHAR(32) COMMENT '分类名称'")
     private String sortArticleName;
 
 

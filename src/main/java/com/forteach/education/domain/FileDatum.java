@@ -40,18 +40,18 @@ public class FileDatum extends Entitys implements Serializable {
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
     private String courseId;
 
-    @ApiModelProperty(value = "chapterId", name = "章节编号")
+    @ApiModelProperty(value = "chapterId", required = true, name = "章节编号")
     private String chapterId;
 
-    @ApiModelProperty(value = "文件名称", name = "fileName")
+    @ApiModelProperty(value = "文件名称", required = true, name = "fileName")
     @Column(name = "file_name", columnDefinition = "VARCHAR(255) COMMENT '文件名称'")
     private String fileName;
 
-    @ApiModelProperty(value = "文件类型", name = "fileType")
+    @ApiModelProperty(value = "文件类型", required = true, name = "fileType")
     @Column(name = "file_type", columnDefinition = "VARCHAR(10) COMMENT '文件类型'")
     private String fileType;
 
-    @ApiModelProperty(value = "文件URL", name = "fileUrl")
+    @ApiModelProperty(value = "文件URL", required = true, name = "fileUrl")
     @Column(name = "file_url", columnDefinition = "VARCHAR(255) COMMENT '文件URL'")
     private String fileUrl;
 }
