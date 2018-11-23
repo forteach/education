@@ -36,25 +36,25 @@ public class Entitys implements Serializable {
 //    @org.hibernate.annotations.UpdateTimestamp
     @Column(name = "u_time", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'", nullable=false)
     @Generated(GenerationTime.ALWAYS)
-    @ApiModelProperty(value = "修改时间", name = "uTime", dataType = "date", notes = "修改的时间")
+    @ApiModelProperty(value = "修改时间", name = "uTime", dataType = "date", notes = "修改的时间", hidden = true)
     private Date uTime;
 
 //    @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
 //    @org.hibernate.annotations.CreationTimestamp
-    @Column(updatable = false, name = "c_time", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'", nullable=false)
+    @Column(updatable = false, name = "c_time", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'", nullable = false)
     @Generated(GenerationTime.INSERT)
-    @ApiModelProperty(value = "创建时间", name = "cTime", dataType = "date", notes = "创建时间")
+    @ApiModelProperty(value = "创建时间", name = "cTime", dataType = "date", notes = "创建时间", hidden = true)
     private Date cTime;
 
     @CreatedBy
-    @Column(name = "c_user", columnDefinition = "VARCHAR(32) COMMENT '创建人'")
-    @ApiModelProperty(value = "创建人", name = "cUser", dataType = "string", notes = "创建人ID")
+    @Column(updatable = false, name = "c_user", columnDefinition = "VARCHAR(32) COMMENT '创建人'")
+    @ApiModelProperty(value = "创建人", name = "cUser", dataType = "string", notes = "创建人ID", hidden = true)
     private String cUser;
 
     @LastModifiedBy
     @Column(name = "u_user", columnDefinition = "VARCHAR(32) COMMENT '修改人'")
-    @ApiModelProperty(value = "修改人", name = "uUser", dataType = "string", notes = "修改人ID")
+    @ApiModelProperty(value = "修改人", name = "uUser", dataType = "string", notes = "修改人ID", hidden = true)
     private String uUser;
 
     @Override

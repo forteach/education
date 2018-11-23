@@ -2,7 +2,6 @@ package com.forteach.education.service.impl;
 
 import com.forteach.education.domain.CourseChapter;
 import com.forteach.education.dto.CourseChapterDto;
-import com.forteach.education.repository.BaseNativeSqlRepository;
 import com.forteach.education.repository.CourseChapterRepository;
 import com.forteach.education.service.CourseChapterService;
 import com.forteach.education.web.vo.CourseChapterVo;
@@ -26,8 +25,6 @@ import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
 @Service
 public class CourseChapterServiceImpl implements CourseChapterService {
 
-    @Autowired
-    private BaseNativeSqlRepository baseNativeSqlRepository;
 
     @Autowired
     private CourseChapterRepository courseChapterRepository;
@@ -75,7 +72,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      */
     @Override
     public List<CourseChapterDto> findByCourseId(String courseId){
-        return courseChapterRepository.findByChapterId(courseId);
+        return courseChapterRepository.findByCAndChapterId(courseId);
     }
 
     /**
@@ -87,7 +84,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      */
     @Override
     public List<CourseChapter> findAllCourseChapter(CourseChapterVo vo){
-//        return courseChapterRepository.findAllCourseChapterByChapterIdAndIsValidated(vo.getIsValidated(), vo.getCourseId());
-        return null;
+        return courseChapterRepository.findAllCourseChapterByChapterIdAndIsValidated(vo.getIsValidated(), vo.getCourseId());
+//        return null;
     }
 }

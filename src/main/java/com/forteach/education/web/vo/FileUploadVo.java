@@ -4,9 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -23,7 +23,7 @@ public class FileUploadVo implements Serializable {
 
 
     @NotEmpty(message = "文件类型不为空")
-    @Size(min = 1, max = 4, message = "文件不正确")
+    @Range(min = 1, max = 4, message = "文件不正确")
     @ApiModelProperty(name = "文件类型", value = "fileType", notes = "文件类型, 1文档 ２音频 ３视频 4链接", dataType = "int", required = true)
     private Integer fileType;
 

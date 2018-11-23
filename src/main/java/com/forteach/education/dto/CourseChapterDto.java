@@ -1,10 +1,8 @@
 package com.forteach.education.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * @Auther: zhangyy
@@ -14,8 +12,6 @@ import lombok.NoArgsConstructor;
  * @Description:
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class CourseChapterDto {
 
@@ -25,8 +21,15 @@ public class CourseChapterDto {
     @ApiModelProperty(name = "章节名称", value = "chapter_name", dataType = "string", required = true)
     private String chapterName;
 
-    @ApiModelProperty(name = "章节父编号", value = "chapterParentId", dataType = "string")
-    private String chapterParentId;
+    public CourseChapterDto() {
+    }
+
+    public CourseChapterDto(String chapterId, String chapterName) {
+        this.chapterId = chapterId;
+        this.chapterName = chapterName;
+    }
+    //    @ApiModelProperty(name = "章节父编号", value = "chapterParentId", dataType = "string")
+//    private String chapterParentId;
 
 //    @ApiModelProperty(name = "章节　树层级", value = "chapter_level", dataType = "int", notes = "当前章节在所处科目的层级", example = "1")
 //    private Integer chapterLevel;

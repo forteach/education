@@ -5,10 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -31,19 +32,20 @@ public class Course extends Entitys implements Serializable {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
-    @ApiModelProperty(value = "科目编号", name = "courseId", dataType = "string")
+    @ApiModelProperty(value = "科目编号ID", name = "courseId", dataType = "string")
     private String courseId;
 
-    @NotNull
+    @NotNull(message = "专业号不为空")
     @ApiModelProperty(name = "specialtyId", value = "专业号", dataType = "string")
     @Column(name = "specialty_id", columnDefinition = "VARCHAR(32) COMMENT '专业号'")
     private String specialtyId;
 
+    @NotBlank(message = "科目名称")
     @ApiModelProperty(name = "courseName", value = "科目名称", dataType = "string")
     @Column(name = "course_name", columnDefinition = "VARCHAR(40) COMMENT '科目名称'")
     private String courseName;
 
-    @Size(min = 1, max = 3, message = "分享类型错误")
+    @Range(min = 1, max = 3, message = "分享类型错误")
     @ApiModelProperty(name = "share_type", value = "分享类型", dataType = "int", notes = "分享类型：１.私有 2.协作 ３.公开,默认私有")
     @Column(name = "share_type", columnDefinition = "INT DEFAULT 1 COMMENT '分享类型：１.私有 2.协作 ３.公开'")
     private Integer shareType = 1;

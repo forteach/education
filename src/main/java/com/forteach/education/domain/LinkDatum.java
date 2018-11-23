@@ -21,23 +21,21 @@ import java.io.Serializable;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@IdClass(LinkDatumFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "link_datum", comment = "链接资料库")
 @Table(name = "link_datum", indexes = {@Index(columnList = "link_id"), @Index(columnList = "chapter_id")})
 @ApiModel(value = "链接资料库")
 public class LinkDatum extends Entitys implements Serializable {
 
-    @EmbeddedId
-    @ApiModelProperty(value = "链接资料库", hidden = true)
-    private LinkDatumFundPrimarykey linkDatumFundPrimarykey;
 
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @ApiModelProperty(value = "链接ID", name = "linkId", dataType = "string")
+    @Column(name = "link_id", columnDefinition = "VARCHAR(32) COMMENT '链接编号'")
     private String linkId;
 
     @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string")
+    @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
     private String chapterId;
 
     @ApiModelProperty(value = "链接URL", name = "linkUrl", dataType = "string", required = false)

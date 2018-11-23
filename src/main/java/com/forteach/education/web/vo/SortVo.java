@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -40,9 +39,8 @@ public class SortVo {
     @ApiModelProperty(value = "有无效", name = "isValidated",notes = "0 有效 1　无效 (默认0)", dataType = "string",example = "0")
     private String isValidated;
 
-//    @Size(min = 0, max = 1, message = "排序方式不正确")
-    @NotEmpty(message = "排序方式不能为空")
+    @NotNull(message = "排序方式不能为空")
     @Range(min = 0, max = 1, message = "排序方式不正确")
     @ApiModelProperty(value = "sort", name = "排序方式" ,notes = "排序方式 0 正序　１ 倒叙　默认倒叙(1)", dataType = "int", example = "1")
-    private Integer sort;
+    private int sort = 1;
 }

@@ -21,20 +21,16 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "file_datum", indexes = {@Index(columnList = "file_id"), @Index(columnList = "chapter_id")})
-@IdClass(FileDatumFundPrimarykey.class)
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "文件数据信息", value = "文件数据")
 @org.hibernate.annotations.Table(appliesTo = "file_datum", comment = "文档资料库")
 public class FileDatum extends Entitys implements Serializable {
 
-    @EmbeddedId
-    @ApiModelProperty(value = "文件数据主键", hidden = true)
-    private FileDatumFundPrimarykey fileDatumFundPrimarykey;
-
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @ApiModelProperty(name = "fileId", value = "文件编号")
+    @Column(name = "file_id", columnDefinition = "VARCHAR(32) COMMENT '文件编号'")
     private String fileId;
 
     @ApiModelProperty(value = "科目编号", name = "courseId")
@@ -42,6 +38,7 @@ public class FileDatum extends Entitys implements Serializable {
     private String courseId;
 
     @ApiModelProperty(value = "chapterId", required = true, name = "章节编号")
+    @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
     private String chapterId;
 
     @ApiModelProperty(value = "文件名称", required = true, name = "fileName")

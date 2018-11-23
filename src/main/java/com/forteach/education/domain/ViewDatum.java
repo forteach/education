@@ -23,21 +23,18 @@ import java.io.Serializable;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "view_datum", indexes = {@Index(columnList = "view_id"), @Index(columnList = "chapter_id")})
-@IdClass(ViewDatumFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "view_datum", comment = "视频资料库")
 @ApiModel(value = "视频资料信息")
 public class ViewDatum extends Entitys implements Serializable {
-
-    @EmbeddedId
-    @ApiModelProperty(value = "视频资料信息主键", hidden = true)
-    private ViewDatumFundPrimarykey viewDatumFundPrimarykey;
 
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @ApiModelProperty(name = "viewId", value = "视频编号", notes = "视频资源ID", dataType = "string", example = "123456")
+    @Column(name = "view_id", columnDefinition = "VARCHAR(32) COMMENT '视频编号'")
     private String viewId;
 
+    @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
     @ApiModelProperty(name = "chapterId", value = "章节编号", notes = "章节编号ID", dataType = "string", example = "123456")
     private String chapterId;
 

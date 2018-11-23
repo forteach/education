@@ -17,10 +17,10 @@ import java.io.Serializable;
 @Embeddable
 public class CourseChapterFundPrimarykey implements Serializable {
 
-    @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'", insertable = false,updatable = false)
+    @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'", insertable = false, updatable = false)
     private String courseId;
 
-    @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'", insertable = false,updatable = false)
+    @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'", insertable = false, updatable = false)
     private String chapterId;
 
     public CourseChapterFundPrimarykey() {

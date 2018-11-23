@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -20,27 +21,27 @@ import java.io.Serializable;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@IdClass(CourseChapterFundPrimarykey.class)
+//@IdClass(CourseChapterFundPrimarykey.class)
 @Table(name = "course_chapter", indexes = {@Index(columnList = "chapter_id"), @Index(columnList = "course_id")})
 @org.hibernate.annotations.Table(appliesTo = "course_chapter", comment = "科目章节")
 @ApiModel(value = "科目章节")
+@GenericGenerator(name = "system-uuid", strategy = "uuid")
 public class CourseChapter extends Entitys implements Serializable {
 
 
-//    @ApiIgnore(value = true)
-//    @ApiParam(hidden = true)
-    @ApiModelProperty(value = "科目章节主键", hidden = true)
-    @EmbeddedId
-    private CourseChapterFundPrimarykey courseChapterFundPrimaryKey;
+//    @ApiModelProperty(value = "科目章节主键", hidden = true)
+//    @EmbeddedId
+//    private CourseChapterFundPrimarykey courseChapterFundPrimaryKey;
 
     @NotBlank(message = "科目编号不为空")
     @ApiModelProperty(name = "科目编号", value = "courseId", dataType = "string", required = true)
+    @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
     private String courseId;
 
     @Id
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string")
+    @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
     private String chapterId;
 
     @NotBlank(message = "章节名称不为空")
@@ -52,11 +53,24 @@ public class CourseChapter extends Entitys implements Serializable {
     @Column(name = "chapter_parent_id", columnDefinition = "CHAR(32) COMMENT '章节父编号'")
     private String chapterParentId;
 
+    @NotNull(message = "当前层级位置不为空")
     @ApiModelProperty(value = "层级位置", name = "sort", required = true, dataType = "int", notes = "树型结构所处的顺序默认１")
     @Column(name = "sort", columnDefinition = "TINYINT DEFAULT 1 COMMENT '当前层所处的顺序'")
     private Integer sort = 1;
 
+    @NotNull(message = "当前树层级不为空")
     @ApiModelProperty(value = "章节　树层级", name = "chapter_level", dataType = "int", required = true, notes = "当前章节在所处科目的层级", example = "1")
     @Column(name = "chapter_level", columnDefinition = "INT COMMENT '章节 树层级'")
-    private Integer chapterLevel;
+    private Integer chapterLevel = 1;
+
+    public CourseChapter() {
+    }
+
+    public CourseChapter(String courseId, String chapterName, String chapterParentId, Integer sort, Integer chapterLevel) {
+        this.courseId = courseId;
+        this.chapterName = chapterName;
+        this.chapterParentId = chapterParentId;
+        this.sort = sort;
+        this.chapterLevel = chapterLevel;
+    }
 }

@@ -3,8 +3,9 @@ package com.forteach.education.repository;
 import com.forteach.education.domain.CourseChapter;
 import com.forteach.education.dto.CourseChapterDto;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,7 +16,8 @@ import java.util.List;
  * @Version: 1.0
  * @Description:　科目章节
  */
-public interface CourseChapterRepository extends JpaRepository<CourseChapter, String>, JpaSpecificationExecutor<CourseChapter> {
+@Repository
+public interface CourseChapterRepository extends JpaRepository<CourseChapter, String>{
 
 
     /**
@@ -24,15 +26,17 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param courseId　科目ID
      * @return 章节目录基本信息
      */
-    @Query(value = "select course_id, chapter_name, chapterParent_id from course_chapter c where c.is_validated = '0' and  c.course_id = ?1 and c.chapter_parent_id is null ORDER BY  c.sort asc", nativeQuery = true)
-    List<CourseChapterDto> findByChapterId(String courseId);
+    @Query("select new com.forteach.education.dto.CourseChapterDto(chapterId, chapterName) " +
+            "from CourseChapter where isValidated = '0' and courseId = ?1 order by sort asc")
+    List<CourseChapterDto> findByCAndChapterId(String courseId);
 
     /**
      * 根据章节ID和是否有效查询章节目录信息
-     * @param isValidated　是否有效　０ 有效　１　无效
+     * @param isValidated　是否有效 0 有效 1无效
      * @param courseId　科目ID
      * @return　目录章节基本信息
      */
-//    @Query(value = "select u from course_chapter c where c.is_validated = :isValidated and  c.course_id = :courseId and c.chapter_parent_id is null ORDER BY  c.sort asc")
-//    List<CourseChapter> findAllCourseChapterByChapterIdAndIsValidated(@Param("isValidated") String isValidated, @Param("courseId") String courseId);
+    @Query("select new com.forteach.education.domain.CourseChapter(courseId, chapterName, chapterParentId, sort, chapterLevel) from CourseChapter where isValidated = :isValidated " +
+            "and  courseId = :courseId and chapterParentId is null ORDER BY  sort asc")
+    List<CourseChapter> findAllCourseChapterByChapterIdAndIsValidated(@Param("isValidated") String isValidated, @Param("courseId") String courseId);
 }

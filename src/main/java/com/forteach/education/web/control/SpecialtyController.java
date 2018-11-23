@@ -66,7 +66,7 @@ public class SpecialtyController {
      */
     @ApiOperation(value = "删除专业信息", notes = "根据专业　ID 删除专业信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
-    public WebResult deleteIsValidById(@Valid @ApiParam(name = "specialtyId", value = "专业id", required = true) @RequestBody String specialtyId){
+    public WebResult deleteIsValidById(@Valid @ApiParam(name = "specialtyId", type = "string", value = "专业id", required = true) @RequestBody String specialtyId){
         specialtyService.deleteIsValidById(String.valueOf(JSONObject.parseObject(specialtyId).get("specialtyId")));
         return WebResult.okResult();
     }
@@ -80,5 +80,11 @@ public class SpecialtyController {
     @PostMapping("/findAll")
     public WebResult findAll(@Valid @ApiParam(value = "分页对象", required = true) @RequestBody SortVo sortVo){
         return WebResult.okResult(specialtyService.findAll(sortVo));
+    }
+
+    @ApiOperation(value = "查询专业信息", notes = "根据ID查询专业信息")
+    @PostMapping("/getSpecialtyById")
+    public WebResult getSpecialtyById(@Valid @ApiParam(value = "专业id", name = "specialtyId", type = "string", required = true) @RequestBody String specialtyId){
+        return WebResult.okResult(specialtyService.getSpecialtyById(String.valueOf(JSONObject.parseObject(specialtyId).get("specialtyId"))));
     }
 }
