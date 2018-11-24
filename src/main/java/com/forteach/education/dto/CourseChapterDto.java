@@ -15,10 +15,10 @@ import lombok.Data;
 @Builder
 public class CourseChapterDto {
 
-    @ApiModelProperty(name = "科目编号", value = "courseId", dataType = "string", required = true)
+    @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string", required = true)
     private String chapterId;
 
-    @ApiModelProperty(name = "章节名称", value = "chapter_name", dataType = "string", required = true)
+    @ApiModelProperty(value = "章节名称", name = "chapterName", dataType = "string", required = true)
     private String chapterName;
 
     public CourseChapterDto() {
@@ -28,9 +28,4 @@ public class CourseChapterDto {
         this.chapterId = chapterId;
         this.chapterName = chapterName;
     }
-    //    @ApiModelProperty(name = "章节父编号", value = "chapterParentId", dataType = "string")
-//    private String chapterParentId;
-
-//    @ApiModelProperty(name = "章节　树层级", value = "chapter_level", dataType = "int", notes = "当前章节在所处科目的层级", example = "1")
-//    private Integer chapterLevel;
 }

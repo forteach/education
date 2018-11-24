@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @Auther: zhangyy
@@ -33,39 +34,39 @@ public class CourseController {
 
     @ApiOperation(value = "保存科目信息", notes = "保存文件资源文件信息")
     @PostMapping("/save")
-    public WebResult save(@Valid @ApiParam(value = "course", name = "科目对象", required = true) @RequestBody Course course){
+    public WebResult save(@Valid @ApiParam(name = "course", value = "科目对象", required = true) @RequestBody Course course){
         return WebResult.okResult(courseService.save(course));
     }
 
     @ApiOperation(value = "修改科目信息", notes = "修改科目信息")
     @PostMapping("/edit")
-    public WebResult edit(@Valid @ApiParam(value = "course", name = "科目对象", required = true) @RequestBody Course course){
+    public WebResult edit(@Valid @ApiParam(name = "course", value = "科目对象", required = true) @RequestBody Course course){
         return WebResult.okResult(courseService.edit(course));
     }
 
     @ApiOperation(value = "删除科目信息", notes = "删除科目对象 (物理删除)")
     @PostMapping("/delete")
-    public WebResult delete(@Valid @ApiParam(value = "course", name = "科目对象", required = true) @RequestBody Course course){
+    public WebResult delete(@Valid @ApiParam(name = "course", value = "科目对象", required = true) @RequestBody Course course){
         courseService.delete(course);
         return WebResult.okResult();
     }
 
     @ApiOperation(value = "删除文件信息", notes = "根据文件资源ID 删除科目信息")
     @PostMapping("/deleteById")
-    public WebResult deleteById(@Valid @ApiParam(value = "courseId", name = "根据资源ID 删除对应科目信息", required = true) @RequestBody String courseId){
+    public WebResult deleteById(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "courseId", value = "根据资源ID 删除对应科目信息", type = "string", required = true) @RequestBody String courseId){
         courseService.deleteById(String.valueOf(JSONObject.parseObject(courseId).get("courseId")));
         return WebResult.okResult();
     }
 
     @PostMapping("/getCourseId")
     @ApiOperation(value = "获取文件信息", notes = "根据文件资源ID查询科目信息")
-    public WebResult getCourseByCourseId(@Valid @ApiParam(value = "courseId", name = "根据资源ID 查询对应科目信息", required = true) @RequestBody String courseId){
+    public WebResult getCourseByCourseId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "courseId", value = "根据资源ID 查询对应科目信息", type = "string", required = true) @RequestBody String courseId){
         return WebResult.okResult(courseService.getCourseById(String.valueOf(JSONObject.parseObject(courseId).get("courseId"))));
     }
 
     @ApiOperation(value = "分页查询", notes = "分页查询分页科目信息")
     @PostMapping("/findAll")
-    public WebResult findAll(@Valid @ApiParam(value = "sortVo", name = "分页查科目信息", required = true) @RequestBody SortVo sortVo){
+    public WebResult findAll(@Valid @ApiParam(name = "sortVo", value = "分页查科目信息",required = true) @RequestBody SortVo sortVo){
         return WebResult.okResult(courseService.findAll(sortVo));
     }
 
@@ -76,7 +77,7 @@ public class CourseController {
      */
     @ApiOperation(value = "使其无效", notes = "删除科目信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
-    public WebResult deleteIsValidById(@Valid @ApiParam(value = "courseId", name = "根据资源ID 逻辑删除对应科目信息", required = true) @RequestBody String courseId){
+    public WebResult deleteIsValidById(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "courseId", value = "根据资源ID 逻辑删除对应科目信息", type = "string", required = true) @RequestBody String courseId){
         courseService.deleteIsValidById(courseId);
         return WebResult.okResult();
     }

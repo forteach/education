@@ -32,19 +32,19 @@ public class SpecialtyController {
 
     @ApiOperation(value = "保存专业信息", notes = "保存专业信息")
     @PostMapping("/save")
-    public WebResult save(@Valid @ApiParam(value = "specialty", name = "专业保存", required = true) @RequestBody Specialty specialty){
+    public WebResult save(@Valid @ApiParam(name = "specialty", value = "专业保存", required = true) @RequestBody Specialty specialty){
         return WebResult.okResult(specialtyService.save(specialty));
     }
 
     @ApiOperation(value = "编辑专业信息", notes = "修改专业信息")
     @PostMapping("/edit")
-    public WebResult edit(@Valid @ApiParam(value = "specialty", name = "专业修改", required = true) @RequestBody Specialty specialty){
+    public WebResult edit(@Valid @ApiParam(name = "specialty", value = "专业修改", required = true) @RequestBody Specialty specialty){
         return WebResult.okResult(specialtyService.edit(specialty));
     }
 
     @ApiOperation(value = "删除专业信息", notes = "删除专业信息(物理删除)")
     @PostMapping("/delete")
-    public WebResult delete(@Valid @ApiParam(value = "specialty", name = "专业删除", required = true) @RequestBody Specialty specialty){
+    public WebResult delete(@Valid @ApiParam(name = "specialty", value = "专业删除", required = true) @RequestBody Specialty specialty){
         return WebResult.okResult(specialtyService.edit(specialty));
     }
 
@@ -55,7 +55,7 @@ public class SpecialtyController {
      */
     @ApiOperation(value = "删除专业信息", notes = "根据　ID 删除专业信息(物理删除)")
     @PostMapping("/deleteById")
-    public WebResult deleteById(@Valid @ApiParam(name = "specialtyId", value = "教师id", required = true) @RequestBody String specialtyId){
+    public WebResult deleteById(@Valid @ApiParam(name = "specialtyId", value = "根据id删除相关专业", type = "string", required = true) @RequestBody String specialtyId){
         specialtyService.deleteById(String.valueOf(JSONObject.parseObject(specialtyId).get("specialtyId")));
         return WebResult.okResult();
     }
@@ -78,7 +78,7 @@ public class SpecialtyController {
      */
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @PostMapping("/findAll")
-    public WebResult findAll(@Valid @ApiParam(value = "分页对象", required = true) @RequestBody SortVo sortVo){
+    public WebResult findAll(@Valid @ApiParam(value = "分页对象", name = "sortVo", required = true) @RequestBody SortVo sortVo){
         return WebResult.okResult(specialtyService.findAll(sortVo));
     }
 

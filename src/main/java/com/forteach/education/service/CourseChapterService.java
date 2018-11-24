@@ -29,5 +29,7 @@ public interface CourseChapterService {
 
     List<CourseChapterDto> findByCourseId(String courseId);
 
+    List<CourseChapterDto> findByChapterParentId(String chapterParentId);
+
     List<CourseChapter> findAllCourseChapter(CourseChapterVo vo);
 }

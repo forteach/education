@@ -72,9 +72,18 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      */
     @Override
     public List<CourseChapterDto> findByCourseId(String courseId){
-        return courseChapterRepository.findByCAndChapterId(courseId);
+        return courseChapterRepository.findByCourseId(courseId);
     }
 
+    /**
+     * 通过父章节目录信息查询子小节信息
+     * @param chapterParentId
+     * @return
+     */
+    @Override
+    public List<CourseChapterDto> findByChapterParentId(String chapterParentId){
+        return courseChapterRepository.findByChapterParentId(chapterParentId);
+    }
     /**
      * １. 章节ID
      * ２．是否有效　0 有效　1无效
@@ -85,6 +94,5 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Override
     public List<CourseChapter> findAllCourseChapter(CourseChapterVo vo){
         return courseChapterRepository.findAllCourseChapterByChapterIdAndIsValidated(vo.getIsValidated(), vo.getCourseId());
-//        return null;
     }
 }
