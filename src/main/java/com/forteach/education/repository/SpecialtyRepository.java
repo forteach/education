@@ -21,4 +21,6 @@ public interface SpecialtyRepository extends JpaRepository<Specialty, String> {
      * @return
      */
     Page<Specialty> findByIsValidatedEquals(String isValidated, Pageable pageable);
+
+    Specialty findByIsValidatedEqualsAndSpecialtyName(String isValidated,String specialtyName);
 }

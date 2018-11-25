@@ -2,8 +2,10 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,6 +23,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "examinee_answer", comment = "考生答题卡")
 @ApiModel(value = "考生答题卡")
+@AllArgsConstructor
+@NoArgsConstructor
 public class ExamineeAnswer extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

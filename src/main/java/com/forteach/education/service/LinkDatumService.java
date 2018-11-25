@@ -4,6 +4,8 @@ import com.forteach.education.domain.LinkDatum;
 import com.forteach.education.web.vo.SortVo;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -26,4 +28,6 @@ public interface LinkDatumService {
     Page<LinkDatum> findAll(SortVo sortVo);
 
     LinkDatum getLinkDatumById(String linkId);
+
+    List<LinkDatum> findByChapterId(String chapterId);
 }

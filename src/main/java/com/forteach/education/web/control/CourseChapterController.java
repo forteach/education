@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @Auther: zhangyy
@@ -71,20 +72,20 @@ public class CourseChapterController {
      */
     @PostMapping("/findByCourseId")
     @ApiOperation(value = "查找章节信息", notes = "客户端根据科目ID查询第一层的章节")
-    public WebResult findByCourseId(@Valid @NotBlank(message = "科目ID不为空") @ApiParam(name = "courseId", value = "根据资源ID 查询对应上层科目信息", required = true) @RequestBody String courseId){
+    public WebResult findByCourseId(@Valid @NotNull(message = "科目ID不为空") @ApiParam(name = "courseId", value = "根据章节ID 查询对应上层科目信息", required = true) @RequestBody String courseId){
         return WebResult.okResult(courseChapterService.findByCourseId(JSONObject.parseObject(courseId).getString("courseId")));
     }
 
     @PostMapping("/findByChapterParentId")
     @ApiOperation(value = "根据父章节ID查询对应子小节信息", notes = "根据父章节ID查询对应子小节id和名称")
     public WebResult findByChapterParentId(
-            @Valid @NotBlank(message = "父章节ID不为空") @ApiParam(value = "父章节ID", name = "chapterParentId", type = "string", required = true) String chapterParentId){
+            @Valid @NotBlank(message = "父章节ID不为空") @ApiParam(value = "父章节ID", name = "chapterParentId", type = "string", required = true) @RequestBody String chapterParentId){
         return WebResult.okResult(courseChapterService.findByChapterParentId(JSONObject.parseObject(chapterParentId).getString("chapterParentId")));
     }
 
     @PostMapping("/findAllCourseChapter")
     @ApiOperation(value = "查找章节信息", notes = "管理端查询最上层章节")
-    public WebResult findAllCourseChapter(@Valid @ApiParam(name = "courseChapterVo", value = "根据资源ID 查询对应上层科目信息", required = true) @RequestBody CourseChapterVo vo){
+    public WebResult findAllCourseChapter(@Valid @ApiParam(name = "courseChapterVo", value = "管理端根据科目ID 查询对应上层科目信息", required = true) @RequestBody CourseChapterVo vo){
         return WebResult.okResult(courseChapterService.findAllCourseChapter(vo));
     }
 }

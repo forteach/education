@@ -2,9 +2,7 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,6 +22,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "文件数据信息", value = "文件数据")
 @org.hibernate.annotations.Table(appliesTo = "file_datum", comment = "文档资料库")
+@AllArgsConstructor
+@NoArgsConstructor
 public class FileDatum extends Entitys implements Serializable {
 
     @Id

@@ -2,8 +2,10 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +25,8 @@ import java.io.Serializable;
 @IdClass(CourseShareFundPrimaryKey.class)
 @org.hibernate.annotations.Table(appliesTo = "course_share", comment = "分享范围")
 @ApiModel(value = "分享范围")
+@AllArgsConstructor
+@NoArgsConstructor
 public class CourseShare extends Entitys implements Serializable {
 
     @EmbeddedId

@@ -81,4 +81,10 @@ public class ViewDatumController {
         viewDatumService.deleteIsValidById(viewId);
         return WebResult.okResult();
     }
+
+    @ApiOperation(value = "根据章节ID查询视频信息", notes = "根据章节ID查询有效视频信息")
+    @PostMapping("/findByChapterId")
+    public WebResult findByChapterId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "chapterId", value = "根据章节 ID 查询视频信息", required = true) @RequestBody String chapterId){
+        return WebResult.okResult(viewDatumService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));
+    }
 }

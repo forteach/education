@@ -2,9 +2,7 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,6 +22,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "audio_datum", comment = "音频资料库")
 @ApiModel(value = "音频资料库")
+@NoArgsConstructor
+@AllArgsConstructor
 public class AudioDatum extends Entitys implements Serializable {
 
     @Id

@@ -2,9 +2,7 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -25,6 +23,8 @@ import java.io.Serializable;
 @Table(name = "view_datum", indexes = {@Index(columnList = "view_id"), @Index(columnList = "chapter_id")})
 @org.hibernate.annotations.Table(appliesTo = "view_datum", comment = "视频资料库")
 @ApiModel(value = "视频资料信息")
+@AllArgsConstructor
+@NoArgsConstructor
 public class ViewDatum extends Entitys implements Serializable {
 
     @Id

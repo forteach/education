@@ -9,8 +9,10 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,6 +24,8 @@ import java.io.Serializable;
 @IdClass(PaperDesignFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "paper_design", comment = "试卷简答思考题")
 @ApiModel(value = "试卷简答思考题")
+@AllArgsConstructor
+@NoArgsConstructor
 public class PaperDesign extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

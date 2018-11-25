@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @Auther: zhangyy
@@ -79,5 +80,11 @@ public class LinkDatumController {
     public WebResult deleteIsValidById(@Valid @ApiParam(value = "linkId", name = "根据资源ID 逻辑删除对应资源信息", type = "string", required = true) @RequestBody String linkId){
         linkDatumService.deleteIsValidById(linkId);
         return WebResult.okResult();
+    }
+
+    @ApiOperation(value = "根据章节ID查询链接信息", notes = "根据章节ID查询有效链接信息")
+    @PostMapping("/findByChapterId")
+    public WebResult findByChapterId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "chapterId", value = "根据章节 ID 查询链接信息", required = true) @RequestBody String chapterId){
+        return WebResult.okResult(linkDatumService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));
     }
 }

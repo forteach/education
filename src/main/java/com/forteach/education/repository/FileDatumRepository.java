@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -20,4 +22,11 @@ public interface FileDatumRepository extends JpaRepository<FileDatum, String> {
      * @return
      */
     Page<FileDatum> findByIsValidatedEquals(String isValidated, Pageable pageable);
+
+    /**
+     * 根据对应的章节查询有效文件资料信息
+     * @param chapterId
+     * @return
+     */
+    List<FileDatum> findByIsValidatedEqualsAndChapterId(String isValidated, String chapterId);
 }

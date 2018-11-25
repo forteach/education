@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
+import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
 
 /**
  * @Auther: zhangyy
@@ -31,7 +32,11 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     @Override
     public Specialty save(String specialtyName) {
-        return specialtyRepository.save(Specialty.builder().specialtyName(specialtyName).build());
+        Specialty specialty = specialtyRepository.findByIsValidatedEqualsAndSpecialtyName(TAKE_EFFECT_OPEN, specialtyName);
+        if (specialty != null){
+            return specialtyRepository.save(Specialty.builder().specialtyName(specialtyName).build());
+        }
+        return specialty;
     }
 
     @Override

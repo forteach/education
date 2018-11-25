@@ -13,7 +13,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
+import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
 
 /**
  * @Auther: zhangyy
@@ -68,5 +71,15 @@ public class LinkServiceImpl implements LinkDatumService {
     @Override
     public LinkDatum getLinkDatumById(String linkId) {
         return linkDatumRepository.findById(linkId).get();
+    }
+
+    /**
+     * 根据章节ID查询对应的链接信息
+     * @param chapterId
+     * @return
+     */
+    @Override
+    public List<LinkDatum> findByChapterId(String chapterId) {
+        return linkDatumRepository.findByIsValidatedEqualsAndChapterId(TAKE_EFFECT_OPEN, chapterId);
     }
 }

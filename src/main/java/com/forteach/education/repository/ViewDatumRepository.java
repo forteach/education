@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -21,4 +23,11 @@ public interface ViewDatumRepository extends JpaRepository<ViewDatum, String> {
      * @return
      */
     Page<ViewDatum> findByIsValidatedEquals(String isValidated, Pageable pageable);
+
+    /**
+     * 根据对应的章节查询有效视频资料信息
+     * @param chapterId
+     * @return
+     */
+    List<ViewDatum> findByIsValidatedEqualsAndChapterId(String isValidated, String chapterId);
 }

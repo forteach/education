@@ -2,9 +2,7 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +21,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "specialty", comment = "专业")
 @ApiModel(value = "专业信息", description = "专业信息")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Specialty extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;

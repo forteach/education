@@ -2,8 +2,10 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +25,8 @@ import java.io.Serializable;
 @IdClass(GroupMemberFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "group_member", comment = "小组成员")
 @ApiModel(value = "小组成员")
+@AllArgsConstructor
+@NoArgsConstructor
 public class GroupMember extends Entitys implements Serializable {
 
     @EmbeddedId

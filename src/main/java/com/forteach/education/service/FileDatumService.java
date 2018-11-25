@@ -4,6 +4,8 @@ import com.forteach.education.domain.FileDatum;
 import com.forteach.education.web.vo.SortVo;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -26,4 +28,6 @@ public interface FileDatumService {
     Page<FileDatum> findAll(SortVo sortVo);
 
     FileDatum getFileDatumById(String fileId);
+
+    List<FileDatum> findByChapterId(String chapterId);
 }

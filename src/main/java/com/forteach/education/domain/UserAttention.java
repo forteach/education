@@ -2,8 +2,10 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,6 +24,8 @@ import java.io.Serializable;
 @IdClass(UserAttentionFundPrimaryKey.class)
 @org.hibernate.annotations.Table(appliesTo = "user_attention", comment = "用户关注的文章")
 @ApiModel(value = "用户关注的文章")
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserAttention extends Entitys implements Serializable {
 
     @EmbeddedId

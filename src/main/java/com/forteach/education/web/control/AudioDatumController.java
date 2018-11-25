@@ -80,4 +80,10 @@ public class AudioDatumController {
         audioDatumService.deleteIsValidById(audioId);
         return WebResult.okResult();
     }
+
+    @ApiOperation(value = "根据章节ID查询音频信息", notes = "根据章节ID查询有效音频信息")
+    @PostMapping("/findByChapterId")
+    public WebResult findByChapterId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "chapterId", value = "根据章节 ID 查询音频信息", required = true) @RequestBody String chapterId){
+        return WebResult.okResult(audioDatumService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));
+    }
 }

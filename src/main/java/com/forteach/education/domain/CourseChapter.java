@@ -2,6 +2,7 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -21,17 +22,12 @@ import java.io.Serializable;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-//@IdClass(CourseChapterFundPrimarykey.class)
 @Table(name = "course_chapter", indexes = {@Index(columnList = "chapter_id"), @Index(columnList = "course_id")})
 @org.hibernate.annotations.Table(appliesTo = "course_chapter", comment = "科目章节")
 @ApiModel(value = "科目章节")
 @GenericGenerator(name = "system-uuid", strategy = "uuid")
+@AllArgsConstructor
 public class CourseChapter extends Entitys implements Serializable {
-
-
-//    @ApiModelProperty(value = "科目章节主键", hidden = true)
-//    @EmbeddedId
-//    private CourseChapterFundPrimarykey courseChapterFundPrimaryKey;
 
     @NotBlank(message = "科目编号不为空")
     @ApiModelProperty(name = "科目编号", value = "courseId", dataType = "string", required = true)

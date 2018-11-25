@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
+import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
 
 /**
  * @Auther: zhangyy
@@ -74,5 +76,15 @@ public class ViewDatumServiceImpl implements ViewDatumService {
         ViewDatum viewDatum = viewDatumRepository.findById(viewId).get();
         viewDatum.setIsValidated(TAKE_EFFECT_CLOSE);
         viewDatumRepository.save(viewDatum);
+    }
+
+    /**
+     * 根据章节信息查询对应的视频信息
+     * @param chapterId
+     * @return
+     */
+    @Override
+    public List<ViewDatum> findByChapterId(String chapterId) {
+        return viewDatumRepository.findByIsValidatedEqualsAndChapterId(TAKE_EFFECT_OPEN, chapterId);
     }
 }
