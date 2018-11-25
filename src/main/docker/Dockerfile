@@ -2,4 +2,6 @@ FROM openjdk:8-jdk-alpine
 MAINTAINER ang00/education zhang10092009@hotmail.com
 VOLUME /tmp
 ADD education-0.0.1-SNAPSHOT.jar app.jar
+CMD ["java", "Xmx512", "-Xms256m", "-jar", "/tmp/app.jar"]
+EXPOSE 8090
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
