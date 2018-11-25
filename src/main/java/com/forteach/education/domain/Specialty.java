@@ -2,6 +2,7 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -17,6 +18,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
+@Builder
 @Table(name = "specialty", indexes = {@Index(columnList = "specialty_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "specialty", comment = "专业")

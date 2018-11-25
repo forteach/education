@@ -32,8 +32,8 @@ public class SpecialtyController {
 
     @ApiOperation(value = "保存专业信息", notes = "保存专业信息")
     @PostMapping("/save")
-    public WebResult save(@Valid @ApiParam(name = "specialty", value = "专业保存", required = true) @RequestBody Specialty specialty){
-        return WebResult.okResult(specialtyService.save(specialty));
+    public WebResult save(@Valid @ApiParam(name = "specialtyName", value = "专业名称", required = true) @RequestBody String specialtyName){
+        return WebResult.okResult(specialtyService.save(String.valueOf(JSONObject.parseObject(specialtyName).getString("specialtyName"))));
     }
 
     @ApiOperation(value = "编辑专业信息", notes = "修改专业信息")

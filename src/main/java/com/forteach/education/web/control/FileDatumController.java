@@ -51,7 +51,7 @@ public class FileDatumController {
 
     @ApiOperation(value = "删除文件信息", notes = "根据文件资源ID 删除资源信息")
     @PostMapping("/deleteById")
-    public WebResult deleteById(@Valid @ApiParam(name = "FileId", value = "根据资源ID 删除对应资源信息", type = "string", required = true) @RequestBody String fileId){
+    public WebResult deleteById(@Valid @ApiParam(name = "fileId", value = "根据资源ID 删除对应资源信息", type = "string", required = true) @RequestBody String fileId){
         fileDatumService.deleteById(String.valueOf(JSONObject.parseObject(fileId).get("fileId")));
         return WebResult.okResult();
     }
@@ -75,7 +75,7 @@ public class FileDatumController {
      */
     @ApiOperation(value = "使其无效", notes = "删除文件信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
-    public WebResult deleteIsValidById(@Valid @ApiParam(value = "fileId", name = "根据资源ID 逻辑删除对应资源信息", type = "string", required = true) @RequestBody String fileId){
+    public WebResult deleteIsValidById(@Valid @ApiParam(name = "fileId", value = "根据资源ID 逻辑删除对应资源信息", type = "string", required = true) @RequestBody String fileId){
         fileDatumService.deleteIsValidById(fileId);
         return WebResult.okResult();
     }

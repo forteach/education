@@ -13,7 +13,7 @@ import org.springframework.data.domain.Page;
  */
 public interface SpecialtyService {
 
-    Specialty save(Specialty specialty);
+    Specialty save(String specialtyName);
 
     Specialty edit(Specialty specialty);
 

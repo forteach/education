@@ -30,8 +30,8 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     private SpecialtyRepository specialtyRepository;
 
     @Override
-    public Specialty save(Specialty specialty) {
-        return specialtyRepository.save(specialty);
+    public Specialty save(String specialtyName) {
+        return specialtyRepository.save(Specialty.builder().specialtyName(specialtyName).build());
     }
 
     @Override
