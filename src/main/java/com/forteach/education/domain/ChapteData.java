@@ -2,10 +2,7 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,7 +17,8 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@IdClass(ChapteDataFundPrimarykey.class)
+@Builder
+//@IdClass(ChapteDataFundPrimarykey.class)
 @Table(name = "chapte_data", indexes = {
         @Index(columnList = "data_id"),
         @Index(columnList = "chapter_id"),
@@ -37,35 +35,38 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ChapteData extends Entitys implements Serializable {
 
-    @EmbeddedId
-    @ApiModelProperty(value = "章节料库主键", hidden = true)
-    private ChapteDataFundPrimarykey chapteDataFundPrimarykey;
-
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @ApiModelProperty(value = "资料编号", name = "dataId", dataType = "string")
+    @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '资料编号'")
     private String dataId;
 
     @ApiModelProperty(name = "courseId", value = "科目编号", dataType = "string")
     private String courseId;
 
     @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string")
+    @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
     private String chapterId;
 
     @ApiModelProperty(name = "sortImgId", value = "图册编号", dataType = "string")
+    @Column(name = "sort_img_id", columnDefinition = "VARCHAR(32) COMMENT '图册编号'")
     private String sortImgId;
 
     @ApiModelProperty(name = "fileId", value = "文件编号", dataType = "string")
+    @Column(name = "file_id", columnDefinition = "VARCHAR(32) COMMENT '文件编号'")
     private String fileId;
 
     @ApiModelProperty(name = "linkId", value = "链接编号", dataType = "string")
+    @Column(name = "link_id", columnDefinition = "VARCHAR(32) COMMENT '链接编号'")
     private String linkId;
 
     @ApiModelProperty(name = "viewId", value = "视频编号", dataType = "string")
+    @Column(name = "view_id", columnDefinition = "VARCHAR(32) COMMENT '视频编号'")
     private String viewId;
 
-    @ApiModelProperty(value = "audioId", name = "音频编号", dataType = "string")
+    @ApiModelProperty(name = "audioId", value = "音频编号", dataType = "string")
+    @Column(name = "audio_id", columnDefinition = "VARCHAR(32) COMMENT '音频编号'")
     private String audioId;
 
     @ApiModelProperty(name = "datumName", dataType = "string", value = "资料名称", notes = "资料名称")

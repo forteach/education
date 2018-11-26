@@ -6,10 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Description:　图片
@@ -52,8 +55,10 @@ public class Photos extends Entitys implements Serializable {
     @Column(name = "photo_description", columnDefinition = "varchar(255) COMMENT '图片描述'")
     private String photoDescription;
 
-    @ApiModelProperty(value = "图片上传时间", name = "uploadTime", dataType = "string")
+    @ApiModelProperty(value = "图片上传时间", name = "uploadTime", dataType = "string", hidden = true)
     @Column(name = "upload_time", columnDefinition = "datetime COMMENT '图片上传时间'")
-    private String uploadTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Generated(GenerationTime.INSERT)
+    private Date uploadTime;
 
 }
