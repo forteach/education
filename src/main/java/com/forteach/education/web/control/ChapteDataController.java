@@ -60,20 +60,20 @@ public class ChapteDataController {
     }
 
     @PostMapping("/deleteById")
-    @ApiOperation(value = "删除资料信息", tags = "根据ID 删除资源表")
+    @ApiOperation(value = "删除资料信息", notes = "根据ID 删除资源表")
     public WebResult deleteById(@Valid @ApiParam(value = "根据dataId删除对应资料信息", name = "dataId", type = "string") @RequestBody String dataId){
         chapteDataService.deleteById(String.valueOf(JSONObject.parseObject(dataId).getString("dataId")));
         return WebResult.okResult();
     }
 
-    @ApiOperation(value = "根据科目ID查询对应资料信息", tags = "根据科目ID查询对应资料信息")
+    @ApiOperation(value = "根据科目ID查询对应资料信息", notes = "根据科目ID查询对应资料信息")
     @PostMapping("/findByCourseId")
     public WebResult findByCourseId(@Valid @ApiParam(value = "科目ID", name = "courseId", type = "string") @RequestBody String courseId){
         return WebResult.okResult(chapteDataService.findById(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
     }
 
 
-    @ApiOperation(value = "根据章节ID查询资料信息", tags = "根据章节ID查询资料信息")
+    @ApiOperation(value = "根据章节ID查询资料信息", notes = "根据章节ID查询资料信息")
     @PostMapping("/findByChapterId")
     public WebResult findByChapterId(@Valid @ApiParam(value = "章节ID", name = "chapterId", type = "string") @RequestBody String chapterId){
         return WebResult.okResult(chapteDataService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));

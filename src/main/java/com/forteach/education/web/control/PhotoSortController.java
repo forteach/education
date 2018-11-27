@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @Auther: zhangyy
@@ -25,7 +27,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/photoSort")
-@Api(value = "课件图册操作", tags = "{课件图册操作}")
+@Api(value = "课件图册操作", tags = {"课件图册操作"})
 public class PhotoSortController {
 
     private final PhotoSortService photoSortService;
@@ -37,27 +39,26 @@ public class PhotoSortController {
 
     @ApiOperation(value = "保存图册信息", notes = "保存图册及其描述信息")
     @PostMapping("/save")
-    public WebResult save(@Valid @ApiParam(value = "保存图册", type = "photoSortVo", name = "photoSortVo", required = true) @RequestBody PhotoSortVo photoSortVo){
+    public WebResult save(@Valid @NotNull(message = "图册信息不为空") @ApiParam(value = "保存图册", name = "photoSortVo", required = true) @RequestBody PhotoSortVo photoSortVo){
         return WebResult.okResult(photoSortService.save(photoSortVo));
     }
 
     @PostMapping("/findById")
     @ApiOperation(value = "查询图册信息", notes = "根据图册编号查询对应的图册信息")
-    public WebResult findById(@Valid @ApiParam(value = "查询图册信息", type = "string", required = true, name = "sortImgId") @RequestBody String sortImgId){
+    public WebResult findById(@Valid @NotBlank(message = "图册ID不为空") @ApiParam(value = "查询图册信息", type = "string", required = true, name = "sortImgId") @RequestBody String sortImgId){
         return WebResult.okResult(photoSortService.findById(String.valueOf(JSONObject.parseObject(sortImgId).getString("sortImgId"))));
     }
 
     @ApiOperation(value = "删除图册信息", notes = "根据图册 ID 删除数据库保存的图册信息")
     @PostMapping(value = "/deleteById")
-    public WebResult deleteById(@Valid @ApiParam(value = "删除图册信息", type = "string", required = true, name = "sortImgId") @RequestBody String sortImgId){
+    public WebResult deleteById(@Valid @NotBlank(message = "图册ID不为空") @ApiParam(value = "删除图册信息", type = "string", required = true, name = "sortImgId") @RequestBody String sortImgId){
         photoSortService.deleteById(String.valueOf(JSONObject.parseObject(sortImgId).getString("sortImgId")));
         return WebResult.okResult();
     }
 
     @PostMapping(value = "/edit")
     @ApiOperation(value = "修改图册信息", notes = "修改图册信息")
-    public WebResult edit(@Valid @ApiParam(value = "保存图册", type = "photoSort", name = "photoSort", required = true) @RequestBody PhotoSort photoSort){
+    public WebResult edit(@Valid @NotNull(message = "图册信息不为空") @ApiParam(value = "修改图册", name = "photoSort", required = true) @RequestBody PhotoSort photoSort){
         return WebResult.okResult(photoSortService.edit(photoSort));
     }
-
 }
