@@ -2,10 +2,7 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
@@ -22,6 +19,7 @@ import java.util.Date;
  */
 @Data
 @Entity
+@Builder
 @Table(name = "photos", indexes = {@Index(columnList = "sort_img_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "photos", comment = "图片")

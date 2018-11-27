@@ -29,8 +29,12 @@ import javax.validation.constraints.NotBlank;
 @Api(value = "视频资料操作", tags = {"视频资源接口"})
 public class ViewDatumController {
 
+    private final ViewDatumService viewDatumService;
+
     @Autowired
-    private ViewDatumService viewDatumService;
+    public ViewDatumController(ViewDatumService viewDatumService) {
+        this.viewDatumService = viewDatumService;
+    }
 
     @ApiOperation(value = "保存资源", notes = "保存视频资源链接信息")
     @PostMapping("/save")

@@ -27,8 +27,12 @@ import javax.validation.Valid;
 @RequestMapping("/specialty")
 @Api(value = "专业操作", tags = {"专业操作"})
 public class SpecialtyController {
+    private final SpecialtyService specialtyService;
+
     @Autowired
-    private SpecialtyService specialtyService;
+    public SpecialtyController(SpecialtyService specialtyService) {
+        this.specialtyService = specialtyService;
+    }
 
     @ApiOperation(value = "保存专业信息", notes = "保存专业信息")
     @PostMapping("/save")

@@ -29,8 +29,12 @@ import javax.validation.constraints.NotBlank;
 @Api(value = "链接资料操作", tags = {"链接资源接口"})
 public class LinkDatumController {
 
+    private final LinkDatumService linkDatumService;
+
     @Autowired
-    private LinkDatumService linkDatumService;
+    public LinkDatumController(LinkDatumService linkDatumService) {
+        this.linkDatumService = linkDatumService;
+    }
 
     @ApiOperation(value = "保存链接信息", notes = "保存链接资源链接信息")
     @PostMapping("/save")

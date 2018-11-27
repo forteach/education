@@ -5,6 +5,7 @@ import com.forteach.education.repository.TeacherRepository;
 import com.forteach.education.service.TeacherService;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
+import com.forteach.education.util.UpdateTool;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,12 @@ import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
+    private final TeacherRepository teacherRepository;
+
     @Autowired
-    private TeacherRepository teacherRepository;
+    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+        this.teacherRepository = teacherRepository;
+    }
 
     /**
      * 保存单个教师信息
@@ -46,6 +51,8 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Teacher edit(Teacher teacher){
+        Teacher source = teacherRepository.findById(teacher.getTeacherId()).get();
+        UpdateTool.copyNullProperties(source, teacher);
         return teacherRepository.save(teacher);
     }
 

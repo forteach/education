@@ -2,10 +2,7 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,6 +17,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
+@Builder
 @Table(name = "photo_sort",indexes = {@Index(columnList = "course_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "photo_sort", comment = "资料图片库")
@@ -33,8 +31,8 @@ public class PhotoSort extends Entitys implements Serializable {
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
-    @Column(name = "sort_img_id", columnDefinition = "varchar(32) COMMENT '分类id uuid'")
-    @ApiModelProperty(value = "分类id", name = "sortImgId", dataType = "string")
+    @Column(name = "sort_img_id", columnDefinition = "varchar(32) COMMENT '图册分类id uuid'")
+    @ApiModelProperty(value = "图册分类id", name = "sortImgId", dataType = "string", readOnly = true, hidden = true)
     private String sortImgId;
 
 //    @Column(name = "teacher_id", columnDefinition = "varchar(32) COMMENT '老师id'")
@@ -54,6 +52,7 @@ public class PhotoSort extends Entitys implements Serializable {
 
     @ApiModelProperty(value = "查看密码", name = "imgPassword", dataType = "string")
     @Column(name = "img_password", columnDefinition = "varchar(6) COMMENT '查看密码'")
+//    @ColumnTransformer(read = "decrypt(img_password),", write = "encrypt(nvl(?, 'null'))")
     private String imgPassword;
 
     @ApiModelProperty(value = "封面图片的路径", name = "topPicSrc", dataType = "string",required = true)

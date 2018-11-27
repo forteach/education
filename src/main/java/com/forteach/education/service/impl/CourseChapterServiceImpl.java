@@ -4,6 +4,7 @@ import com.forteach.education.domain.CourseChapter;
 import com.forteach.education.dto.CourseChapterDto;
 import com.forteach.education.repository.CourseChapterRepository;
 import com.forteach.education.service.CourseChapterService;
+import com.forteach.education.util.UpdateTool;
 import com.forteach.education.web.vo.CourseChapterVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,12 @@ import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
 public class CourseChapterServiceImpl implements CourseChapterService {
 
 
+    private final CourseChapterRepository courseChapterRepository;
+
     @Autowired
-    private CourseChapterRepository courseChapterRepository;
+    public CourseChapterServiceImpl(CourseChapterRepository courseChapterRepository) {
+        this.courseChapterRepository = courseChapterRepository;
+    }
 
     @Override
     public CourseChapter save(CourseChapter courseChapter) {
@@ -35,7 +40,10 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public CourseChapter edit(CourseChapter courseChapter) {
+        CourseChapter source = courseChapterRepository.findById(courseChapter.getChapterId()).get();
+        UpdateTool.copyNullProperties(source, courseChapter);
         return courseChapterRepository.save(courseChapter);
     }
 

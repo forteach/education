@@ -30,8 +30,12 @@ import javax.validation.constraints.NotBlank;
 @Api(value = "教师controller", tags = {"教师操作接口"})
 public class TeacherController {
 
+    private final TeacherService teacherService;
+
     @Autowired
-    private TeacherService teacherService;
+    public TeacherController(TeacherService teacherService) {
+        this.teacherService = teacherService;
+    }
 
     /**
      * 保存教师信息

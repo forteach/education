@@ -27,8 +27,12 @@ import javax.validation.Valid;
 @Api(value = "章节资料", tags = {"章节资料操作信息"})
 public class ChapteDataController {
 
+    private final ChapteDataService chapteDataService;
+
     @Autowired
-    private ChapteDataService chapteDataService;
+    public ChapteDataController(ChapteDataService chapteDataService) {
+        this.chapteDataService = chapteDataService;
+    }
 
     @ApiOperation(value = "保存资料信息")
     @PostMapping("/save")

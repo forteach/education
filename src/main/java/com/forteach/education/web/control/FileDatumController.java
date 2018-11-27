@@ -28,8 +28,12 @@ import javax.validation.constraints.NotBlank;
 @RequestMapping("/fileDatum")
 @Api(value = "文件资料操作", tags = {"文件资源接口"})
 public class FileDatumController {
+    private final FileDatumService fileDatumService;
+
     @Autowired
-    private FileDatumService fileDatumService;
+    public FileDatumController(FileDatumService fileDatumService) {
+        this.fileDatumService = fileDatumService;
+    }
 
     @ApiOperation(value = "保存文件信息", notes = "保存文件资源文件信息")
     @PostMapping("/save")

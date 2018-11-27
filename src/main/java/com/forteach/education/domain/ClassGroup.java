@@ -21,7 +21,6 @@ import java.io.Serializable;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@IdClass(ClassGroupFundPrimarykey.class)
 @Table(name = "class_group", indexes = {@Index(columnList = "group_id"), @Index(columnList = "class_id")})
 @org.hibernate.annotations.Table(appliesTo = "class_group", comment = "班级分组")
 @ApiModel(value = "班级分组")
@@ -29,17 +28,15 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ClassGroup extends Entitys implements Serializable {
 
-    @EmbeddedId
-    @ApiModelProperty(value = "班级分组主键", hidden = true)
-    private ClassGroupFundPrimarykey classGroupFundPrimarykey;
-
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @ApiModelProperty(value = "小组编号", name = "groupId", dataType = "string")
+    @Column(name = "group_id", columnDefinition = "VARCHAR(32) COMMENT '小组编号'")
     private String groupId;
 
     @ApiModelProperty(value = "班级编号", name = "classId", dataType = "string", required = true)
+    @Column(name = "class_id", columnDefinition = "VARCHAR(32) COMMENT '班级编号'")
     private String classId;
 
     @ApiModelProperty(value = "小组名称", name = "groupName", dataType = "string", required = true)

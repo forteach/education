@@ -5,6 +5,7 @@ import com.forteach.education.repository.LinkDatumRepository;
 import com.forteach.education.service.LinkDatumService;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
+import com.forteach.education.util.UpdateTool;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,8 @@ public class LinkServiceImpl implements LinkDatumService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public LinkDatum edit(LinkDatum linkDatum) {
+        LinkDatum source = linkDatumRepository.findById(linkDatum.getLinkId()).get();
+        UpdateTool.copyNullProperties(source, linkDatum);
         return linkDatumRepository.save(linkDatum);
     }
 

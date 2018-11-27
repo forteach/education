@@ -5,6 +5,7 @@ import com.forteach.education.repository.ViewDatumRepository;
 import com.forteach.education.service.ViewDatumService;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
+import com.forteach.education.util.UpdateTool;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
@@ -30,8 +30,12 @@ import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
 @Slf4j
 public class ViewDatumServiceImpl implements ViewDatumService {
 
+    private final ViewDatumRepository viewDatumRepository;
+
     @Autowired
-    private ViewDatumRepository viewDatumRepository;
+    public ViewDatumServiceImpl(ViewDatumRepository viewDatumRepository) {
+        this.viewDatumRepository = viewDatumRepository;
+    }
 
     @Override
     public ViewDatum save(ViewDatum viewDatum) {
@@ -40,7 +44,8 @@ public class ViewDatumServiceImpl implements ViewDatumService {
 
     @Override
     public ViewDatum edit(ViewDatum viewDatum) {
-        viewDatum.setCTime(new Date());
+        ViewDatum source = viewDatumRepository.findById(viewDatum.getViewId()).get();
+        UpdateTool.copyNullProperties(source, viewDatum);
         return viewDatumRepository.save(viewDatum);
     }
 

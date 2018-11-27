@@ -20,7 +20,7 @@ import java.util.Objects;
 public class BaseController {
 
     @Autowired
-    protected TokenUtil tokenUtil;
+    private TokenUtil tokenUtil;
 
 
     /**

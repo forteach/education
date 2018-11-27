@@ -18,7 +18,6 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-//@IdClass(ChapteDataFundPrimarykey.class)
 @Table(name = "chapte_data", indexes = {
         @Index(columnList = "data_id"),
         @Index(columnList = "chapter_id"),

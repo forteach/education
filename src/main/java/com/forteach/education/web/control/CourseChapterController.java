@@ -30,8 +30,12 @@ import javax.validation.constraints.NotNull;
 @Api(value = "科目章节接口", tags = {"科目章节信息"})
 public class CourseChapterController {
 
+    private final CourseChapterService courseChapterService;
+
     @Autowired
-    private CourseChapterService courseChapterService;
+    public CourseChapterController(CourseChapterService courseChapterService) {
+        this.courseChapterService = courseChapterService;
+    }
 
     @PostMapping("/save")
     @ApiOperation(value = "保存科目章节", notes = "保存科目章节信息")

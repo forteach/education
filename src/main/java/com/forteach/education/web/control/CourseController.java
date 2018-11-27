@@ -29,8 +29,12 @@ import javax.validation.constraints.NotBlank;
 @Api(value = "科目操作", tags = {"科目操作相关信息"})
 public class CourseController {
 
+    private final CourseService courseService;
+
     @Autowired
-    private CourseService courseService;
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @ApiOperation(value = "保存科目信息", notes = "保存文件资源文件信息")
     @PostMapping("/save")

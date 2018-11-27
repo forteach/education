@@ -5,6 +5,7 @@ import com.forteach.education.repository.AudioDatumRepository;
 import com.forteach.education.service.AudioDatumService;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
+import com.forteach.education.util.UpdateTool;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,12 @@ import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
 @Service
 public class AudioDatumServiceImpl implements AudioDatumService {
 
+    private final AudioDatumRepository audioDatumRepository;
+
     @Autowired
-    private AudioDatumRepository audioDatumRepository;
+    public AudioDatumServiceImpl(AudioDatumRepository audioDatumRepository) {
+        this.audioDatumRepository = audioDatumRepository;
+    }
 
     @Override
     public AudioDatum save(AudioDatum audioDatum) {
@@ -38,8 +43,10 @@ public class AudioDatumServiceImpl implements AudioDatumService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class, timeout = 10)
     public AudioDatum edit(AudioDatum audioDatum) {
+        AudioDatum source = audioDatumRepository.findById(audioDatum.getAudioId()).get();
+        UpdateTool.copyNullProperties(source, audioDatum);
         return audioDatumRepository.save(audioDatum);
     }
 

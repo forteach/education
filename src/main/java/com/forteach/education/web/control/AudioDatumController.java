@@ -28,8 +28,12 @@ import javax.validation.constraints.NotBlank;
 @RequestMapping("/audioDatum")
 @Api(value = "音频资料操作", tags = {"音频资源接口"})
 public class AudioDatumController {
+    private final AudioDatumService audioDatumService;
+
     @Autowired
-    private AudioDatumService audioDatumService;
+    public AudioDatumController(AudioDatumService audioDatumService) {
+        this.audioDatumService = audioDatumService;
+    }
 
     @ApiOperation(value = "保存音频信息", notes = "保存音频资源链接信息")
     @PostMapping("/save")
