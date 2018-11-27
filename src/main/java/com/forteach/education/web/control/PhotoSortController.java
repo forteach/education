@@ -25,7 +25,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/photoSort")
-@Api(value = "课件图册操作")
+@Api(value = "课件图册操作", tags = "{课件图册操作}")
 public class PhotoSortController {
 
     private final PhotoSortService photoSortService;
