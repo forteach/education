@@ -2,6 +2,8 @@ package com.forteach.education.service;
 
 import com.forteach.education.domain.CourseChapter;
 import com.forteach.education.dto.CourseChapterDto;
+import com.forteach.education.web.req.CourseDataDatumReq;
+import com.forteach.education.web.resp.CourseTreeResp;
 import com.forteach.education.web.vo.CourseChapterVo;
 
 import java.util.List;
@@ -27,9 +29,11 @@ public interface CourseChapterService {
 
     void deleteIsValidById(String chapterId);
 
-    List<CourseChapterDto> findByCourseId(String courseId);
+    List<CourseTreeResp> findByCourseId(String courseId);
 
     List<CourseChapterDto> findByChapterParentId(String chapterParentId);
 
     List<CourseChapter> findAllCourseChapter(CourseChapterVo vo);
+
+    void saveCourseDataDatum(CourseDataDatumReq courseDataDatumReq);
 }

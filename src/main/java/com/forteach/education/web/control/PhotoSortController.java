@@ -45,13 +45,13 @@ public class PhotoSortController {
 
     @PostMapping("/findById")
     @ApiOperation(value = "查询图册信息", notes = "根据图册编号查询对应的图册信息")
-    public WebResult findById(@Valid @NotBlank(message = "图册ID不为空") @ApiParam(value = "查询图册信息", type = "string", required = true, name = "sortImgId") @RequestBody String sortImgId){
+    public WebResult findById(@Valid @NotBlank(message = "图册ID不为空") @ApiParam(value = "图册id", type = "string", required = true, name = "sortImgId") @RequestBody String sortImgId){
         return WebResult.okResult(photoSortService.findById(String.valueOf(JSONObject.parseObject(sortImgId).getString("sortImgId"))));
     }
 
     @ApiOperation(value = "删除图册信息", notes = "根据图册 ID 删除数据库保存的图册信息")
     @PostMapping(value = "/deleteById")
-    public WebResult deleteById(@Valid @NotBlank(message = "图册ID不为空") @ApiParam(value = "删除图册信息", type = "string", required = true, name = "sortImgId") @RequestBody String sortImgId){
+    public WebResult deleteById(@Valid @NotBlank(message = "图册ID不为空") @ApiParam(value = "图册id", type = "string", required = true, name = "sortImgId") @RequestBody String sortImgId){
         photoSortService.deleteById(String.valueOf(JSONObject.parseObject(sortImgId).getString("sortImgId")));
         return WebResult.okResult();
     }

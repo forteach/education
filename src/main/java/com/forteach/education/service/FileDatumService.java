@@ -1,6 +1,7 @@
 package com.forteach.education.service;
 
 import com.forteach.education.domain.FileDatum;
+import com.forteach.education.web.req.CourseDataDatumReq;
 import com.forteach.education.web.vo.SortVo;
 import org.springframework.data.domain.Page;
 
@@ -30,4 +31,6 @@ public interface FileDatumService {
     FileDatum getFileDatumById(String fileId);
 
     List<FileDatum> findByChapterId(String chapterId);
+
+    void saveCourseDataDatum(CourseDataDatumReq courseDataDatumReq);
 }

@@ -5,12 +5,16 @@ import com.forteach.education.dto.CourseChapterDto;
 import com.forteach.education.repository.CourseChapterRepository;
 import com.forteach.education.service.CourseChapterService;
 import com.forteach.education.util.UpdateTool;
+import com.forteach.education.web.req.CourseDataDatumReq;
+import com.forteach.education.web.resp.CourseTreeResp;
+import com.forteach.education.web.resp.State;
 import com.forteach.education.web.vo.CourseChapterVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
@@ -73,14 +77,40 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     }
 
     /**
-     * 根据科目ID查询有效的第一层章节信息
+     * 根据科目ID查询章节信息
      * 客户端用
      * @param courseId
      * @return
      */
     @Override
-    public List<CourseChapterDto> findByCourseId(String courseId){
-        return courseChapterRepository.findByCourseId(courseId);
+    public List<CourseTreeResp> findByCourseId(String courseId){
+        List<CourseChapterDto> dtoList = courseChapterRepository.findByCourseId(courseId);
+        List<CourseTreeResp> list = new ArrayList<>();
+        CourseTreeResp courseTreeResp = null;
+        State state = State.builder().build();
+        for (CourseChapterDto courseChapterDto : dtoList) {
+            if (courseChapterDto.getChapterParentId() == null) {
+                list.add(
+                        CourseTreeResp.builder()
+                                .id(courseChapterDto.getChapterId())
+                                .parent("#")
+                                .text(courseChapterDto.getChapterName())
+                                .level(courseChapterDto.getChapterLevel())
+                                .state(state)
+                                .build()
+                );
+            } else {
+                courseTreeResp = new CourseTreeResp();
+                courseTreeResp.setId(courseChapterDto.getChapterId());
+                courseTreeResp.setText(courseChapterDto.getChapterName());
+                courseTreeResp.setParent(courseChapterDto.getChapterParentId());
+                courseTreeResp.setIcon("fa fa-briefcase icon-state-success");
+                courseTreeResp.setLevel(courseChapterDto.getChapterLevel());
+                courseTreeResp.setState(state);
+                list.add(courseTreeResp);
+            }
+        }
+        return list;
     }
 
     /**
@@ -102,5 +132,10 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Override
     public List<CourseChapter> findAllCourseChapter(CourseChapterVo vo){
         return courseChapterRepository.findAllCourseChapterByChapterIdAndIsValidated(vo.getIsValidated(), vo.getCourseId());
+    }
+
+    @Override
+    public void saveCourseDataDatum(CourseDataDatumReq courseDataDatumReq) {
+
     }
 }

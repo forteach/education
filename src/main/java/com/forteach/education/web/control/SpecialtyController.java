@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @Auther: zhangyy
@@ -36,7 +37,7 @@ public class SpecialtyController {
 
     @ApiOperation(value = "保存专业信息", notes = "保存专业信息")
     @PostMapping("/save")
-    public WebResult save(@Valid @ApiParam(name = "specialtyName", value = "专业名称", required = true) @RequestBody String specialtyName){
+    public WebResult save(@Valid @NotEmpty(message = "专业名称不为空") @ApiParam(name = "specialtyName", value = "专业名称", required = true) @RequestBody String specialtyName){
         return WebResult.okResult(specialtyService.save(String.valueOf(JSONObject.parseObject(specialtyName).getString("specialtyName"))));
     }
 
@@ -59,7 +60,7 @@ public class SpecialtyController {
      */
     @ApiOperation(value = "删除专业信息", notes = "根据　ID 删除专业信息(物理删除)")
     @PostMapping("/deleteById")
-    public WebResult deleteById(@Valid @ApiParam(name = "specialtyId", value = "根据id删除相关专业", type = "string", required = true) @RequestBody String specialtyId){
+    public WebResult deleteById(@Valid @NotEmpty(message = "专业ID不为空") @ApiParam(name = "specialtyId", value = "根据id删除相关专业", type = "string", required = true) @RequestBody String specialtyId){
         specialtyService.deleteById(String.valueOf(JSONObject.parseObject(specialtyId).get("specialtyId")));
         return WebResult.okResult();
     }
@@ -70,7 +71,7 @@ public class SpecialtyController {
      */
     @ApiOperation(value = "删除专业信息", notes = "根据专业　ID 删除专业信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
-    public WebResult deleteIsValidById(@Valid @ApiParam(name = "specialtyId", type = "string", value = "专业id", required = true) @RequestBody String specialtyId){
+    public WebResult deleteIsValidById(@Valid @NotEmpty(message = "专业id不为空") @ApiParam(name = "specialtyId", type = "string", value = "专业id", required = true) @RequestBody String specialtyId){
         specialtyService.deleteIsValidById(String.valueOf(JSONObject.parseObject(specialtyId).get("specialtyId")));
         return WebResult.okResult();
     }

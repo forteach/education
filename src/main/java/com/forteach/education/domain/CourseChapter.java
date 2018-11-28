@@ -3,6 +3,7 @@ package com.forteach.education.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -21,6 +22,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "course_chapter", indexes = {@Index(columnList = "chapter_id"), @Index(columnList = "course_id")})
 @org.hibernate.annotations.Table(appliesTo = "course_chapter", comment = "科目章节")
@@ -36,7 +38,7 @@ public class CourseChapter extends Entitys implements Serializable {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
-    @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string")
+    @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string", hidden = true)
     @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
     private String chapterId;
 
@@ -62,6 +64,8 @@ public class CourseChapter extends Entitys implements Serializable {
     @ApiModelProperty(value = "章节　树层级", name = "chapter_level", dataType = "int", required = true, notes = "当前章节在所处科目的层级", example = "1")
     @Column(name = "chapter_level", columnDefinition = "INT COMMENT '章节 树层级'")
     private Integer chapterLevel = 1;
+
+//    private Integer
 
     public CourseChapter() {
     }

@@ -6,6 +6,7 @@ import com.forteach.education.service.FileDatumService;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.util.UpdateTool;
+import com.forteach.education.web.req.CourseDataDatumReq;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
@@ -84,5 +86,21 @@ public class FileDatumServiceImpl implements FileDatumService {
     @Override
     public List<FileDatum> findByChapterId(String chapterId) {
         return fileDatumRepository.findByIsValidatedEqualsAndChapterId(TAKE_EFFECT_OPEN, chapterId);
+    }
+
+    @Override
+    public void saveCourseDataDatum(CourseDataDatumReq courseDataDatumReq) {
+        List<FileDatum> fileDatumArrayList = new ArrayList<>();
+        courseDataDatumReq.getFiles().forEach(file ->{
+            fileDatumArrayList.add(FileDatum.builder()
+                .chapterId(courseDataDatumReq.getChapterId())
+                .courseId(courseDataDatumReq.getCourseId())
+                .fileName(file.getFileName())
+                .fileUrl(file.getFilePath())
+                //获取文件后缀名判断文件类型
+                .fileType(file.getFileName().substring(file.getFileName().lastIndexOf(".") + 1))
+                .build());
+        });
+        fileDatumRepository.saveAll(fileDatumArrayList);
     }
 }
