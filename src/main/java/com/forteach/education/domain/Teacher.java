@@ -35,7 +35,7 @@ public class Teacher extends Entitys implements Serializable {
     @Column(name = "teacher_id", nullable = false, columnDefinition = "VARCHAR(32) COMMENT '老师id uuid'")
     private String teacherId;
 
-    @ApiModelProperty(name = "specialty_id", value = "专业号", notes = "专业ID", example = "SD21133")
+    @ApiModelProperty(name = "specialty_id", value = "专业号", notes = "专业ID", required = true, example = "SD21133")
     @Column(name = "specialty_id", columnDefinition = "VARCHAR(32) COMMENT '专业号'")
     private String specialtyId;
 

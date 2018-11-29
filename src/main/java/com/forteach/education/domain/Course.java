@@ -38,12 +38,12 @@ public class Course extends Entitys implements Serializable {
     private String courseId;
 
     @NotNull(message = "专业号不为空")
-    @ApiModelProperty(name = "specialtyId", value = "专业号", dataType = "string")
+    @ApiModelProperty(name = "specialtyId", value = "专业号", dataType = "string", required = true)
     @Column(name = "specialty_id", columnDefinition = "VARCHAR(32) COMMENT '专业号'")
     private String specialtyId;
 
     @NotBlank(message = "科目名称")
-    @ApiModelProperty(name = "courseName", value = "科目名称", dataType = "string")
+    @ApiModelProperty(name = "courseName", value = "科目名称", dataType = "string", required = true)
     @Column(name = "course_name", columnDefinition = "VARCHAR(40) COMMENT '科目名称'")
     private String courseName;
 
@@ -53,28 +53,28 @@ public class Course extends Entitys implements Serializable {
     private String courseNumber;
 
     @Range(min = 1, max = 3, message = "分享类型错误")
-    @ApiModelProperty(name = "share_type", value = "分享类型", dataType = "int", notes = "分享类型：１.私有 2.协作 ３.公开,默认私有")
+    @ApiModelProperty(name = "share_type", value = "分享类型", dataType = "int", notes = "分享类型：１.私有 2.协作 ３.公开,默认私有", required = true)
     @Column(name = "share_type", columnDefinition = "INT DEFAULT 1 COMMENT '分享类型：１.私有 2.协作 ３.公开'")
     private Integer shareType = 1;
 
     @NotEmpty(message = "授课类型不为空")
     @Size(min = 1, max = 3, message = "授课类型不正确")
-    @ApiModelProperty(value = "授课类型", name = "teachingType", notes = "1、录播课程 2、直播课程 3、线下课堂")
+    @ApiModelProperty(value = "授课类型", name = "teachingType", notes = "1、录播课程 2、直播课程 3、线下课堂", required = true)
     @Column(name = "teaching_type", columnDefinition = "INT COMMENT '1、录播课程 2、直播课程 3、线下课堂'")
     private Integer teachingType;
 
     @NotEmpty(message = "备课类型不为空")
     @Size(min = 1, max = 2, message = "备课类型不正确")
-    @ApiModelProperty(value = "备课类型", name = "lessonPreparationType", notes = "1、单人备课２、集体备课")
+    @ApiModelProperty(value = "备课类型", name = "lessonPreparationType", notes = "1、单人备课２、集体备课", required = true)
     @Column(name = "lesson_preparation_type", columnDefinition = "INT COMMENT '备课类型　1、单人备课２、集体备课'")
     private Integer LessonPreparationType;
 
     @NotEmpty(message = "封面图片路径")
-    @ApiModelProperty(value = "封面图片路径", name = "topPicSrc", notes = "保存的是封面图片路径")
+    @ApiModelProperty(value = "封面图片路径", name = "topPicSrc", notes = "保存的是封面图片路径", required = true)
     @Column(name = "top_pic_src", columnDefinition = "VARCHAR(255) COMMENT'封面图片路径'")
     private String topPicSrc;
 
     @Column(name = "course_describe", columnDefinition = "MEDIUMTEXT COMMENT'课程描述'")
-    @ApiModelProperty(name = "courseDescribe", value = "课程描述富文本", notes = "长字段富文本")
+    @ApiModelProperty(name = "courseDescribe", value = "课程描述富文本", notes = "长字段富文本", required = true)
     private String courseDescribe;
 }

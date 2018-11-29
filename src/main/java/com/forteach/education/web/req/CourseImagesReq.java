@@ -23,9 +23,9 @@ import java.util.List;
 @AllArgsConstructor
 public class CourseImagesReq implements Serializable {
 
-    @ApiModelProperty(value = "科目课程ID", name = "courseId")
+    @ApiModelProperty(value = "科目课程ID", name = "courseId", required = true, dataType = "string")
     private String courseId;
 
-    @ApiModelProperty(value = "图片信息", name = "images")
+    @ApiModelProperty(value = "图片信息", name = "images", required = true)
     private List<DataDatumVo> images;
 }

@@ -21,12 +21,12 @@ import java.util.List;
 @ApiModel(value = "课程章节保存文件")
 public class CourseDataDatumReq implements Serializable {
 
-    @ApiModelProperty(name = "courseId", value = "课程id")
+    @ApiModelProperty(name = "courseId", value = "课程id", dataType = "string", notes = "课程章节不能全部为空")
     private String courseId;
 
-    @ApiModelProperty(name = "chapterId", value = "chapterId")
+    @ApiModelProperty(name = "chapterId", value = "章节ID", dataType = "string", notes = "课程章节不能全部为空")
     private String chapterId;
 
-    @ApiModelProperty(value = "files", name = "文件列表信息")
+    @ApiModelProperty(value = "files", name = "文件列表信息", required = true)
     private List<DataDatumVo> files;
 }

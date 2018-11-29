@@ -36,7 +36,7 @@ public class SortVo {
     private String sorting;
 
     @Range(min = 0, max = 1, message = "是否有效参数不正确")
-    @ApiModelProperty(value = "有无效", name = "isValidated",notes = "0 有效 1　无效 (默认0)", dataType = "string",example = "0")
+    @ApiModelProperty(value = "有无效", name = "isValidated",notes = "0 有效 1　无效 (默认0)", dataType = "string",example = "0", required = true)
     private String isValidated;
 
     @NotEmpty(message = "排序方式不能为空")

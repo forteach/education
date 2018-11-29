@@ -45,7 +45,7 @@ public class Photos extends Entitys implements Serializable {
     @Column(name = "photo_name", columnDefinition = "varchar(60) COMMENT '图片名称'")
     private String photoName;
 
-    @ApiModelProperty(value = "图片路径", name = "photoSrc", dataType = "string")
+    @ApiModelProperty(value = "图片路径", name = "photoSrc", dataType = "string", required = true)
     @Column(name = "photo_src", columnDefinition = "varchar(255) COMMENT '图片路径'")
     private String photoSrc;
 

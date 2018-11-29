@@ -37,7 +37,7 @@ public class LinkDatum extends Entitys implements Serializable {
     @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
     private String chapterId;
 
-    @ApiModelProperty(value = "链接URL", name = "linkUrl", dataType = "string", required = false)
+    @ApiModelProperty(value = "链接URL", name = "linkUrl", dataType = "string", required = true)
     @Column(name = "link_url", columnDefinition = "VARCHAR(255) COMMENT 'URL'")
     private String linkUrl;
 

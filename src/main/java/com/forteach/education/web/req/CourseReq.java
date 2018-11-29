@@ -27,6 +27,6 @@ public class CourseReq implements Serializable {
     @ApiModelProperty(value = "保存课程信息", name = "course")
     private Course course;
 
-    @ApiModelProperty(value = "教师信息", name = "teachers")
+    @ApiModelProperty(value = "教师信息", name = "teachers", notes = "如果是协作字段对象是必传字段", required = true)
     private List<Teacher> teachers;
 }

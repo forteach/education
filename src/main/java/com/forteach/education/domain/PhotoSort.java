@@ -46,7 +46,7 @@ public class PhotoSort extends Entitys implements Serializable {
     @Column(name = "sort_img_name", columnDefinition = "varchar(40) COMMENT '分类名称'")
     private String sortImgName;
 
-    @ApiModelProperty(value = "展示方式", name = "sortImgType", dataType = "int")
+    @ApiModelProperty(value = "展示方式", name = "sortImgType", dataType = "int", required = true)
     @Column(name = "sort_img_type", columnDefinition = "int(11) COMMENT '展示方式'")
     private Integer sortImgType;
 

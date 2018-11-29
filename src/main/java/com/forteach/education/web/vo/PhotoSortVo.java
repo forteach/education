@@ -27,22 +27,22 @@ import java.util.List;
 public class PhotoSortVo {
 
     @NotBlank(message = "分类名称不为空")
-    @ApiModelProperty(value = "分类名称", name = "sortImgName", dataType = "string")
+    @ApiModelProperty(value = "分类名称", name = "sortImgName", dataType = "string", required = true)
     private String sortImgName;
 
     @NotBlank(message = "展示方式不为空")
-    @ApiModelProperty(value = "展示方式", name = "sortImgType", dataType = "int", notes = "0 仅主任可见　1 输入密码可见 2 仅组员可见 3 回答问题即可查看", example = "0")
+    @ApiModelProperty(value = "展示方式", name = "sortImgType", required = true, dataType = "int", notes = "0 仅主任可见　1 输入密码可见 2 仅组员可见 3 回答问题即可查看", example = "0")
     private Integer sortImgType;
 
     @ApiModelProperty(value = "查看密码", name = "imgPassword", dataType = "string")
     private String imgPassword;
 
     @NotBlank(message = "封面图片不为空")
-    @ApiModelProperty(value = "封面图片路径", name = "topPicSrc", dataType = "string")
+    @ApiModelProperty(value = "封面图片路径", name = "topPicSrc", dataType = "string", required = true)
     private String topPicSrc;
 
     @NotBlank(message = "科目编号不为空")
-    @ApiModelProperty(value = "科目编号", name = "courceId", dataType = "string")
+    @ApiModelProperty(value = "科目编号", name = "courceId", dataType = "string", required = true)
     private String courceId;
 
     public PhotoSortVo(String sortImgName, Integer sortImgType, String imgPassword, String topPicSrc, String courceId) {

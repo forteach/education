@@ -33,11 +33,11 @@ public class FileDatum extends Entitys implements Serializable {
     @Column(name = "file_id", columnDefinition = "VARCHAR(32) COMMENT '文件编号'")
     private String fileId;
 
-    @ApiModelProperty(value = "科目编号", name = "courseId")
+    @ApiModelProperty(value = "科目编号", name = "courseId", required = true)
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
     private String courseId;
 
-    @ApiModelProperty(value = "chapterId", required = true, name = "章节编号")
+    @ApiModelProperty(value = "chapterId", name = "章节编号")
     @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
     private String chapterId;
 

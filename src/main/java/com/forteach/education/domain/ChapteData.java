@@ -41,7 +41,8 @@ public class ChapteData extends Entitys implements Serializable {
     @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '资料编号'")
     private String dataId;
 
-    @ApiModelProperty(name = "courseId", value = "科目编号", dataType = "string")
+    @ApiModelProperty(name = "courseId", value = "科目编号", dataType = "string", required = true)
+    @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '课程科目ID'")
     private String courseId;
 
     @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string")
@@ -68,15 +69,15 @@ public class ChapteData extends Entitys implements Serializable {
     @Column(name = "audio_id", columnDefinition = "VARCHAR(32) COMMENT '音频编号'")
     private String audioId;
 
-    @ApiModelProperty(name = "datumName", dataType = "string", value = "资料名称", notes = "资料名称")
+    @ApiModelProperty(name = "datumName", dataType = "string", value = "资料名称", notes = "资料名称", required = true)
     @Column(name = "datum_name", columnDefinition = "VARCHAR(60) COMMENT '资料名称'")
     private String datumName;
 
-    @ApiModelProperty(name = "datumArea", dataType = "string", value = "资料领域", notes = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例")
+    @ApiModelProperty(name = "datumArea", dataType = "string", value = "资料领域", notes = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例", required = true)
     @Column(name = "datum_area", columnDefinition = "INT COMMENT '资料领域：1教案2课件 3预习参考 4教学参考 5授课案例'")
     private Integer datumArea;
 
-    @ApiModelProperty(name = "datumType", dataType = "string", value = "资料类型", notes = "资料类型 1文档　2图册　3视频　4音频　5链接")
+    @ApiModelProperty(name = "datumType", dataType = "string", value = "资料类型", notes = "资料类型 1文档　2图册　3视频　4音频　5链接", required = true)
     @Column(name = "datum_type", columnDefinition = "INT COMMENT '资料类型 1文档　2图册　3视频　4音频　5链接'")
     private Integer datumType;
 

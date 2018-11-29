@@ -56,7 +56,7 @@ public class CourseChapter extends Entitys implements Serializable {
     @Column(name = "sort", columnDefinition = "TINYINT DEFAULT 1 COMMENT '当前层所处的顺序'")
     private Integer sort = 1;
 
-    @ApiModelProperty(name = "chapterType", value = "目录类型", notes = "目录类型：1.章、２.节、3.小节", dataType = "int")
+    @ApiModelProperty(name = "chapterType", value = "目录类型", notes = "目录类型：1.章、２.节、3.小节", dataType = "int", required = true)
     @Column(name = "chapter_type", columnDefinition = "INT(11) COMMENT '目录类型：1.章、２.节、3.小节 '")
     private Integer chapterType;
 

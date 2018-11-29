@@ -37,7 +37,7 @@ public class AudioDatum extends Entitys implements Serializable {
     @ApiModelProperty(name = "chapterId", value = "章节编号", dataType = "string", required = true)
     private String chapterId;
 
-    @ApiModelProperty(value = "音频名称", name = "audioName", dataType = "string")
+    @ApiModelProperty(value = "音频名称", name = "audioName", dataType = "string", required = true)
     @Column(name = "audio_name", columnDefinition = "VARCHAR(255) COMMENT '音频名称'")
     private String audioName;
 
@@ -45,7 +45,7 @@ public class AudioDatum extends Entitys implements Serializable {
     @Column(name = "audio_type", columnDefinition = "VARCHAR(10) COMMENT '音频类型'")
     private String audioType;
 
-    @ApiModelProperty(name = "audioType", value = "音频URL", dataType = "string")
+    @ApiModelProperty(name = "audioType", value = "音频URL", dataType = "string", required = true)
     @Column(name = "audio_url", columnDefinition = "VARCHAR(255) COMMENT '音频URL'")
     private String audioUrl;
 }

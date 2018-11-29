@@ -23,10 +23,10 @@ import java.io.Serializable;
 public class CourseChapterVo implements Serializable {
 
     @NotNull(message = "查询有效不为空")
-    @ApiModelProperty(value = "isValidated", name = "有效无效", notes = "０有效　1 无效",dataType = "string", example = "0")
+    @ApiModelProperty(value = "isValidated", name = "有效无效", notes = "０有效　1 无效",dataType = "string", required = true, example = "0")
     private String isValidated;
 
     @NotNull(message = "科目ID不为空")
-    @ApiModelProperty(value = "courseId", name = "科目ID", notes = "科目ID", dataType = "string")
+    @ApiModelProperty(value = "courseId", name = "科目ID", notes = "科目ID", dataType = "string", required = true)
     private String courseId;
 }

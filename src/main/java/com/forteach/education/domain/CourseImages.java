@@ -39,11 +39,11 @@ public class CourseImages extends Entitys implements Serializable {
     @Column(name = "image_name", columnDefinition = "VARCHAR(32) COMMENT '图片名称'")
     private String imageName;
 
-    @ApiModelProperty(value = "图片url", name = "imageUrl", dataType = "string")
+    @ApiModelProperty(value = "图片url", name = "imageUrl", dataType = "string", required = true)
     @Column(name = "image_url", columnDefinition = "VARCHAR(255) COMMENT '图片URL'")
     private String imageUrl;
 
-    @ApiModelProperty(name = "courseId", value = "课程ID", dataType = "string")
+    @ApiModelProperty(name = "courseId", value = "课程ID", dataType = "string", required = true)
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '课程科目ID'")
     private String courseId;
 
