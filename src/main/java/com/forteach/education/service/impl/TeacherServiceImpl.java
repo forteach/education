@@ -14,7 +14,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
+import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
 
 /**
  * @Auther: zhangyy
@@ -107,6 +110,16 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher = teacherRepository.findById(teacherId).get();
         teacher.setIsValidated(TAKE_EFFECT_CLOSE);
         teacherRepository.save(teacher);
+    }
+
+    /**
+     * 根据专业号查询教师信息列表
+     * @param specialtyId
+     * @return
+     */
+    @Override
+    public List<Teacher> findTeachersBySpecialtyId(String specialtyId) {
+        return teacherRepository.findByIsValidatedEqualsAndSpecialtyId(TAKE_EFFECT_OPEN, specialtyId);
     }
 
 

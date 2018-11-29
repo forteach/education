@@ -110,4 +110,15 @@ public class TeacherController {
         teacherService.deleteIsValidById(String.valueOf(JSONObject.parseObject(teacherId).get("teacherId")));
         return WebResult.okResult();
     }
+
+    /**
+     * 通过专业ID查询对应的教师列表
+     * @param specialtyId
+     * @return
+     */
+    @ApiOperation(value = "查询教师列表", notes = "根据专业ID号查询对应的教师信息")
+    @PostMapping("/findTeachersBySpecialtyId")
+    public WebResult findTeachersBySpecialtyId(@Valid @NotBlank(message = "专业ID信息不为空") @ApiParam(name = "specialtyId", value = "专业ID") @RequestBody String specialtyId){
+        return WebResult.okResult(teacherService.findTeachersBySpecialtyId(String.valueOf(JSONObject.parseObject(specialtyId).getString("specialtyId"))));
+    }
 }

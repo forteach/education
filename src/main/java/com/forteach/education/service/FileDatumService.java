@@ -33,4 +33,6 @@ public interface FileDatumService {
     List<FileDatum> findByChapterId(String chapterId);
 
     void saveCourseDataDatum(CourseDataDatumReq courseDataDatumReq);
+
+    List<FileDatum> findFileDatumByCourseId(String courseId);
 }

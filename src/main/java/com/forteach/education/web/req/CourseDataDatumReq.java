@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
 @Builder
 @Data
 @ApiModel(value = "课程章节保存文件")
-public class CourseDataDatumReq {
+public class CourseDataDatumReq implements Serializable {
 
     @ApiModelProperty(name = "courseId", value = "课程id")
     private String courseId;

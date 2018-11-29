@@ -38,4 +38,18 @@ public class FileUtils {
         }
         return fileName.substring(index + 1);
     }
+
+    /**
+     * 根据文件名获取文件类型
+     * @param filename
+     * @return
+     */
+    public static String ext(String filename) {
+        int index = filename.lastIndexOf(".");
+        if (index == -1) {
+            return null;
+        }
+        String result = filename.substring(index + 1);
+        return result;
+    }
 }

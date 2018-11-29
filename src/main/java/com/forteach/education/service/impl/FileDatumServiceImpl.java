@@ -3,6 +3,7 @@ package com.forteach.education.service.impl;
 import com.forteach.education.domain.FileDatum;
 import com.forteach.education.repository.FileDatumRepository;
 import com.forteach.education.service.FileDatumService;
+import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.util.UpdateTool;
@@ -37,6 +38,7 @@ public class FileDatumServiceImpl implements FileDatumService {
 
     @Override
     public FileDatum save(FileDatum fileDatum) {
+        fileDatum.setFileType(FileUtils.ext(fileDatum.getFileName()));
         return fileDatumRepository.save(fileDatum);
     }
 
@@ -80,6 +82,7 @@ public class FileDatumServiceImpl implements FileDatumService {
 
     /**
      * 根据章节ID查询对应的文件信息
+     *
      * @param chapterId
      * @return
      */
@@ -91,16 +94,27 @@ public class FileDatumServiceImpl implements FileDatumService {
     @Override
     public void saveCourseDataDatum(CourseDataDatumReq courseDataDatumReq) {
         List<FileDatum> fileDatumArrayList = new ArrayList<>();
-        courseDataDatumReq.getFiles().forEach(file ->{
-            fileDatumArrayList.add(FileDatum.builder()
-                .chapterId(courseDataDatumReq.getChapterId())
-                .courseId(courseDataDatumReq.getCourseId())
-                .fileName(file.getFileName())
-                .fileUrl(file.getFilePath())
-                //获取文件后缀名判断文件类型
-                .fileType(file.getFileName().substring(file.getFileName().lastIndexOf(".") + 1))
-                .build());
+        courseDataDatumReq.getFiles().forEach(file -> {
+            final boolean add = fileDatumArrayList.add(FileDatum.builder()
+                    .fileId(file.getFileId())
+                    .chapterId(courseDataDatumReq.getChapterId())
+                    .courseId(courseDataDatumReq.getCourseId())
+                    .fileName(file.getFileName())
+                    .fileUrl(file.getFilePath())
+                    //获取文件后缀名判断文件类型
+                    .fileType(FileUtils.ext(file.getFileName()))
+                    .build());
         });
         fileDatumRepository.saveAll(fileDatumArrayList);
+    }
+
+    /**
+     * 根据科目课程ID查询资料信息
+     * @param courseId
+     * @return
+     */
+    @Override
+    public List<FileDatum> findFileDatumByCourseId(String courseId) {
+        return fileDatumRepository.findByIsValidatedAndCourseId(TAKE_EFFECT_OPEN, courseId);
     }
 }

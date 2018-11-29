@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.List;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -22,4 +24,13 @@ public interface TeacherRepository extends JpaRepository<Teacher, String>, JpaSp
      * @return
      */
     Page<Teacher> findByIsValidatedEquals(String isValidated, Pageable pageable);
+
+
+    /**
+     * 根据专业ID查询教师信息列表
+     * @param isValidated
+     * @param specialtyId
+     * @return
+     */
+    List<Teacher> findByIsValidatedEqualsAndSpecialtyId(String isValidated, String specialtyId);
 }

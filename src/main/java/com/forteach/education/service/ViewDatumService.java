@@ -30,4 +30,7 @@ public interface ViewDatumService {
     void deleteIsValidById(String viewId);
 
     List<ViewDatum> findByChapterId(String chapterId);
+
+    List<ViewDatum> findViewDatumByCourseId(String courseId);
+
 }

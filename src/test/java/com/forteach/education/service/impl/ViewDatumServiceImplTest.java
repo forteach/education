@@ -44,4 +44,14 @@ public class ViewDatumServiceImplTest {
                 }
         );
     }
+
+    @Test
+    public void findByCourseId() {
+        List<ViewDatum> viewDatumList = viewDatumService.findViewDatumByCourseId("ff808181673e5e6c01673e5f792b0001");
+        viewDatumList.forEach(viewDatum -> {
+                    log.info("viewDatum : {} \r\n", viewDatum.toString());
+                }
+        );
+    }
+
 }

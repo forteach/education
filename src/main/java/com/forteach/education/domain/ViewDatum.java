@@ -34,6 +34,10 @@ public class ViewDatum extends Entitys implements Serializable {
     @Column(name = "view_id", columnDefinition = "VARCHAR(32) COMMENT '视频编号'")
     private String viewId;
 
+    @ApiModelProperty(value = "科目课程ID", notes = "科目课程ID")
+    @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目课程ID'")
+    private String courseId;
+
     @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
     @ApiModelProperty(name = "chapterId", value = "章节编号", notes = "章节编号ID", dataType = "string", example = "123456")
     private String chapterId;

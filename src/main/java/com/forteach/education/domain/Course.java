@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -57,11 +58,13 @@ public class Course extends Entitys implements Serializable {
     private Integer shareType = 1;
 
     @NotEmpty(message = "授课类型不为空")
+    @Size(min = 1, max = 3, message = "授课类型不正确")
     @ApiModelProperty(value = "授课类型", name = "teachingType", notes = "1、录播课程 2、直播课程 3、线下课堂")
     @Column(name = "teaching_type", columnDefinition = "INT COMMENT '1、录播课程 2、直播课程 3、线下课堂'")
     private Integer teachingType;
 
     @NotEmpty(message = "备课类型不为空")
+    @Size(min = 1, max = 2, message = "备课类型不正确")
     @ApiModelProperty(value = "备课类型", name = "lessonPreparationType", notes = "1、单人备课２、集体备课")
     @Column(name = "lesson_preparation_type", columnDefinition = "INT COMMENT '备课类型　1、单人备课２、集体备课'")
     private Integer LessonPreparationType;

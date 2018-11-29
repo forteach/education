@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 
+import java.io.Serializable;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -13,7 +15,7 @@ import lombok.Builder;
  */
 @Builder
 @ApiModel(value = "树状目录结构")
-public class CourseTreeResp {
+public class CourseTreeResp implements Serializable {
 
     @ApiModelProperty(value = "ID")
     private String id;

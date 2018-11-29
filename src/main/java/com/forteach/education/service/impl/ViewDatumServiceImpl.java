@@ -3,6 +3,7 @@ package com.forteach.education.service.impl;
 import com.forteach.education.domain.ViewDatum;
 import com.forteach.education.repository.ViewDatumRepository;
 import com.forteach.education.service.ViewDatumService;
+import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.util.UpdateTool;
@@ -39,6 +40,7 @@ public class ViewDatumServiceImpl implements ViewDatumService {
 
     @Override
     public ViewDatum save(ViewDatum viewDatum) {
+        viewDatum.setViewType(FileUtils.ext(viewDatum.getViewName()));
         return viewDatumRepository.save(viewDatum);
     }
 
@@ -91,5 +93,10 @@ public class ViewDatumServiceImpl implements ViewDatumService {
     @Override
     public List<ViewDatum> findByChapterId(String chapterId) {
         return viewDatumRepository.findByIsValidatedEqualsAndChapterId(TAKE_EFFECT_OPEN, chapterId);
+    }
+
+    @Override
+    public List<ViewDatum> findViewDatumByCourseId(String courseId) {
+        return viewDatumRepository.findByIsValidatedEqualsAndCourseIdAndChapterIdIsNull(TAKE_EFFECT_OPEN, courseId);
     }
 }

@@ -4,6 +4,8 @@ import com.forteach.education.domain.Teacher;
 import com.forteach.education.web.vo.SortVo;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -57,4 +59,11 @@ public interface TeacherService {
      * @param teacherId
      */
     void deleteIsValidById(String teacherId);
+
+    /**
+     * 根据专业ID查询教师列表信息
+     * @param specialtyId
+     * @return
+     */
+    List<Teacher> findTeachersBySpecialtyId(String specialtyId);
 }

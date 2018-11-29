@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 /**
  * @Auther: zhangyy
@@ -21,7 +22,10 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "保存文件需要模型数据")
-public class DataDatumVo {
+public class DataDatumVo implements Serializable {
+
+    @ApiModelProperty(value = "文件资料ID", name = "fileId", notes = "文件对应的资料ID编号", dataType = "string")
+    private String fileId;
 
     @NotEmpty(message = "文件名称不为空")
     @ApiModelProperty(value = "文件名称", name = "fileName", dataType = "string")
@@ -30,4 +34,7 @@ public class DataDatumVo {
     @NotEmpty(message = "文件路径不为空")
     @ApiModelProperty(value = "文件路径", name = "filePath", dataType = "string")
     private String filePath;
+
+    @ApiModelProperty(value = "图片顺序下标", name = "indexNum", dataType = "int")
+    private Integer indexNum;
 }

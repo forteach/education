@@ -3,7 +3,11 @@ package com.forteach.education.web.control;
 import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.Course;
+import com.forteach.education.domain.ViewDatum;
 import com.forteach.education.service.CourseService;
+import com.forteach.education.service.FileDatumService;
+import com.forteach.education.service.ViewDatumService;
+import com.forteach.education.web.req.CourseReq;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,35 +20,40 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-11-21 16:52
  * @Version: 1.0
- * @Description:　科目信息操作
+ * @Description:　科目课程信息操作
  */
 @RestController
 @RequestMapping("/course")
-@Api(value = "科目操作", tags = {"科目操作相关信息"})
+@Api(value = "课程科目操作", tags = {"课程科目操作相关信息"})
 public class CourseController {
 
     private final CourseService courseService;
+    private final FileDatumService fileDatumService;
+    private final ViewDatumService viewDatumService;
 
     @Autowired
-    public CourseController(CourseService courseService) {
+    public CourseController(CourseService courseService, FileDatumService fileDatumService, ViewDatumService viewDatumService) {
         this.courseService = courseService;
+        this.fileDatumService = fileDatumService;
+        this.viewDatumService = viewDatumService;
     }
 
-    @ApiOperation(value = "保存科目信息", notes = "保存文件资源文件信息")
+    @ApiOperation(value = "保存课程科目信息", notes = "保存科目课程信息")
     @PostMapping("/save")
-    public WebResult save(@Valid @ApiParam(name = "course", value = "科目对象", required = true) @RequestBody Course course){
-        return WebResult.okResult(courseService.save(course));
+    public WebResult save(@Valid @ApiParam(name = "course", value = "科目课程对象", required = true) @RequestBody CourseReq courseReq){
+        return WebResult.okResult(courseService.save(courseReq));
     }
 
-    @ApiOperation(value = "修改科目信息", notes = "修改科目信息")
+    @ApiOperation(value = "修改科目课程信息", notes = "修改科目信息")
     @PostMapping("/edit")
-    public WebResult edit(@Valid @ApiParam(name = "course", value = "科目对象", required = true) @RequestBody Course course){
+    public WebResult edit(@Valid @ApiParam(name = "course", value = "科目课程对象", required = true) @RequestBody Course course){
         return WebResult.okResult(courseService.edit(course));
     }
 
@@ -85,4 +94,24 @@ public class CourseController {
         courseService.deleteIsValidById(courseId);
         return WebResult.okResult();
     }
+
+    @ApiOperation(value = "根据课程id查询文件信息", notes = "根据科目课程ID查询文件资料信息")
+    @PostMapping("/findFileDatumByCourseId")
+    public WebResult findFileDatumByCourseId(@Valid @NotBlank(message = "科目课程ID不为空") @ApiParam(name = "courseId", value = "根据章节 ID 查询文件信息", required = true) @RequestBody String courseId){
+        return WebResult.okResult(fileDatumService.findFileDatumByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
+    }
+
+    @ApiOperation(value = "保存课程宣传片", notes = "保存课程的宣传片视频信息")
+    @PostMapping("/saveViewDatum")
+    public WebResult saveViewDatum(@Valid @NotNull(message = "视频信息不为空") @ApiParam() @RequestBody ViewDatum viewDatum){
+        return WebResult.okResult(viewDatumService.save(viewDatum));
+    }
+
+    @ApiOperation(value = "根据课程ID查询宣传片信息", notes = "根据课程ID查询宣传片信息")
+    @PostMapping("/findViewDatumByCourseId")
+    public WebResult findViewDatumByCourseId(@Valid @NotBlank(message = "科目课程ID不为空") @ApiParam(name = "courseId", value = "根据课程 ID 查询文件信息", required = true) @RequestBody String courseId){
+        return WebResult.okResult(viewDatumService.findViewDatumByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
+    }
+
+
 }
