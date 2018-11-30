@@ -11,7 +11,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -22,7 +21,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "course", indexes = {@Index(columnList = "specialty_id"), @Index(columnList = "specialty_id")})
+@Table(name = "course", indexes = {@Index(columnList = "course_id"), @Index(columnList = "specialty_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "course", comment = "科目课程")
 @ApiModel(value = "科目课程")
@@ -53,23 +52,23 @@ public class Course extends Entitys implements Serializable {
     private String courseNumber;
 
     @Range(min = 1, max = 3, message = "分享类型错误")
-    @ApiModelProperty(name = "share_type", value = "分享类型", dataType = "int", notes = "分享类型：１.私有 2.协作 ３.公开,默认私有", required = true)
+    @ApiModelProperty(name = "shareType", value = "分享类型", dataType = "int", notes = "分享类型：１.私有 2.协作 ３.公开,默认私有", required = true)
     @Column(name = "share_type", columnDefinition = "INT DEFAULT 1 COMMENT '分享类型：１.私有 2.协作 ３.公开'")
     private Integer shareType = 1;
 
-    @NotEmpty(message = "授课类型不为空")
-    @Size(min = 1, max = 3, message = "授课类型不正确")
-    @ApiModelProperty(value = "授课类型", name = "teachingType", notes = "1、录播课程 2、直播课程 3、线下课堂", required = true)
+//    @NotBlank(message = "授课类型不为空")
+    @Range(min = 1, max = 3, message = "授课类型不正确")
+    @ApiModelProperty(value = "授课类型", name = "teachingType", dataType = "int", notes = "1、录播课程 2、直播课程 3、线下课堂", required = true)
     @Column(name = "teaching_type", columnDefinition = "INT COMMENT '1、录播课程 2、直播课程 3、线下课堂'")
     private Integer teachingType;
 
-    @NotEmpty(message = "备课类型不为空")
-    @Size(min = 1, max = 2, message = "备课类型不正确")
-    @ApiModelProperty(value = "备课类型", name = "lessonPreparationType", notes = "1、单人备课２、集体备课", required = true)
-    @Column(name = "lesson_preparation_type", columnDefinition = "INT COMMENT '备课类型　1、单人备课２、集体备课'")
-    private Integer LessonPreparationType;
+//    @NotEmpty(message = "备课类型不为空")
+//    @Size(min = 1, max = 2, message = "备课类型不正确")
+//    @ApiModelProperty(value = "备课类型", name = "lessonPreparationType", notes = "1、单人备课２、集体备课", required = true)
+//    @Column(name = "lesson_preparation_type", columnDefinition = "INT COMMENT '备课类型　1、单人备课２、集体备课'")
+//    private Integer LessonPreparationType;
 
-    @NotEmpty(message = "封面图片路径")
+    @NotBlank(message = "封面图片路径")
     @ApiModelProperty(value = "封面图片路径", name = "topPicSrc", notes = "保存的是封面图片路径", required = true)
     @Column(name = "top_pic_src", columnDefinition = "VARCHAR(255) COMMENT'封面图片路径'")
     private String topPicSrc;

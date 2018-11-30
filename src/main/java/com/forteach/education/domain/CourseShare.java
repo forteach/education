@@ -2,10 +2,7 @@ package com.forteach.education.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,6 +17,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
+@Builder
 @Table(name = "course_share", indexes = {@Index(columnList = "share_id"), @Index(columnList = "chapter_id"), @Index(columnList = "course_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "course_share", comment = "分享范围")
@@ -48,6 +46,6 @@ public class CourseShare extends Entitys implements Serializable {
     private String shareUser;
 
     @ApiModelProperty(value = "分享范围", name = "shareArea", dataType = "int")
-    @Column(name = "share_area", columnDefinition = "INT COMMENT '分享范围'")
+    @Column(name = "share_area", columnDefinition = "INT COMMENT '分享范围 1,全部　２,章节'")
     private Integer shareArea;
 }

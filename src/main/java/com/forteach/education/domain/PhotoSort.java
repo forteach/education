@@ -1,5 +1,6 @@
 package com.forteach.education.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -50,6 +51,7 @@ public class PhotoSort extends Entitys implements Serializable {
     @Column(name = "sort_img_type", columnDefinition = "int(11) COMMENT '展示方式'")
     private Integer sortImgType;
 
+    @JsonIgnore
     @ApiModelProperty(value = "查看密码", name = "imgPassword", dataType = "string")
     @Column(name = "img_password", columnDefinition = "varchar(6) COMMENT '查看密码'")
 //    @ColumnTransformer(read = "decrypt(img_password),", write = "encrypt(nvl(?, 'null'))")

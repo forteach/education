@@ -1,5 +1,6 @@
 package com.forteach.education.web.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.forteach.education.domain.Photos;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,9 +32,12 @@ public class PhotoSortVo {
     private String sortImgName;
 
     @NotBlank(message = "展示方式不为空")
-    @ApiModelProperty(value = "展示方式", name = "sortImgType", required = true, dataType = "int", notes = "0 仅主任可见　1 输入密码可见 2 仅组员可见 3 回答问题即可查看", example = "0")
+    @ApiModelProperty(value = "展示方式", name = "sortImgType", required = true, dataType = "int",
+            allowableValues = "1, 2, 3",
+            notes = "0 仅创建者可见　1 输入密码可见 2 仅组员可见 3 回答问题即可查看", example = "0")
     private Integer sortImgType;
 
+    @JsonIgnore
     @ApiModelProperty(value = "查看密码", name = "imgPassword", dataType = "string")
     private String imgPassword;
 

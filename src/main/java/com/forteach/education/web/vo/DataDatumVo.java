@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(value = "保存文件需要模型数据")
+@ApiModel(value = "保存文件需要模型数据", description = "需要的文件数据信息(必须)")
 public class DataDatumVo implements Serializable {
 
     @ApiModelProperty(value = "文件资料ID", name = "fileId", notes = "文件对应的资料ID编号", dataType = "string", hidden = true)

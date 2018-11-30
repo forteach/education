@@ -1,5 +1,6 @@
 package com.forteach.education.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -28,6 +29,7 @@ public class SysUsers extends Entitys implements Serializable {
     @Column(columnDefinition = "varchar(32) COMMENT '主键 uuid'")
     private String id;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column(name = "pass_word", columnDefinition = "varchar(255) COMMENT '用户密码'")
     private String passWord;
 

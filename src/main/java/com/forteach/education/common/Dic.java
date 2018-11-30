@@ -13,10 +13,10 @@ public class Dic {
     public static final String TAKE_EFFECT_CLOSE = "1";
 
     //私有
-    public static final Integer COURSE_SHARE_TYPE_PRIVATE = 1;
+    public static final int COURSE_SHARE_TYPE_PRIVATE = 1;
     //协作
-    public static final Integer COURSE_SHARE_TYPE_COOPERATION = 2;
+    public static final int COURSE_SHARE_TYPE_COOPERATION = 2;
     //公开
-    public static final Integer COURSE_SHARE_TYPE_PUBLIC = 3;
+    public static final int COURSE_SHARE_TYPE_PUBLIC = 3;
 
 }

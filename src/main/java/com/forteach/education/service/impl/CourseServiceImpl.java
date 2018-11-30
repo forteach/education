@@ -2,8 +2,10 @@ package com.forteach.education.service.impl;
 
 import com.forteach.education.domain.Course;
 import com.forteach.education.domain.CourseImages;
+import com.forteach.education.domain.CourseShare;
 import com.forteach.education.repository.CourseImagesRepository;
 import com.forteach.education.repository.CourseRepository;
+import com.forteach.education.repository.CourseShareRepository;
 import com.forteach.education.service.CourseService;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
@@ -41,13 +43,30 @@ public class CourseServiceImpl implements CourseService {
     @Resource
     private CourseImagesRepository courseImagesRepository;
 
-    //TODO 保存课程编辑协作人员
-    @Override
-    public Course save(CourseReq courseReq) {
-        Course course = courseRepository.save(courseReq.getCourse());
-        if (COURSE_SHARE_TYPE_COOPERATION.equals(courseReq.getCourse().getTeachingType())){
-            //是协作处理
+    @Resource
+    private CourseShareRepository courseShareRepository;
 
+    /**
+     * 保存课程科目信息，和协作信息
+     * @param courseReq
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class, timeout = 10)
+    public Course save(CourseReq courseReq) {
+        int shareType = courseReq.getCourse().getShareType();
+        Course course = courseRepository.saveAndFlush(courseReq.getCourse());
+        if (COURSE_SHARE_TYPE_COOPERATION == shareType){
+            //是协作处理
+            List<CourseShare> list = new ArrayList<>();
+            courseReq.getTeachers().forEach(teacher -> {
+                list.add(CourseShare.builder()
+                        .courseId(course.getCourseId())
+                        .shareArea(1)
+                        .shareId(course.getCUser())
+                        .build());
+            });
+            courseShareRepository.saveAll(list);
         }
         return course;
     }
@@ -91,6 +110,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveCourseImages(CourseImagesReq courseImagesReq){
         List<CourseImages> list = new ArrayList<>();
         List<DataDatumVo> dataDatumVos = courseImagesReq.getImages();
