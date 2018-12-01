@@ -1,5 +1,7 @@
 package com.forteach.education.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.forteach.education.filter.View;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -7,8 +9,10 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -29,24 +33,32 @@ import java.io.Serializable;
 public class CourseImages extends Entitys implements Serializable {
 
     @Id
+    @JsonView(View.SummaryExtend.class)
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @ApiModelProperty(value = "图片ID", name = "imageId", dataType = "string")
     @Column(name = "image_id", columnDefinition = "VARCHAR(32) COMMENT '图片编号ID'")
     private String imageId;
 
+    @JsonView(View.SummaryExtend.class)
     @ApiModelProperty(value = "图片名称", name = "imageName", dataType = "string")
     @Column(name = "image_name", columnDefinition = "VARCHAR(32) COMMENT '图片名称'")
     private String imageName;
 
+    @URL(message = "不是一个URL")
+    @JsonView(View.Summary.class)
+    @NotNull(message = "图片URL不为空")
     @ApiModelProperty(value = "图片url", name = "imageUrl", dataType = "string", required = true)
     @Column(name = "image_url", columnDefinition = "VARCHAR(255) COMMENT '图片URL'")
     private String imageUrl;
 
+    @JsonView(View.Summary.class)
+    @NotNull(message = "课程ID不为空")
     @ApiModelProperty(name = "courseId", value = "课程ID", dataType = "string", required = true)
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '课程科目ID'")
     private String courseId;
 
+    @JsonView(View.SummaryExtend.class)
     @ApiModelProperty(value = "图册顺序", name = "indexNum", dataType = "int", notes = "轮播图排序,默认１")
     @Column(name = "index_num", columnDefinition = "INT(11) COMMENT '顺序ID'")
     private Integer indexNum;

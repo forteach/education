@@ -1,5 +1,7 @@
 package com.forteach.education.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.forteach.education.filter.View;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -34,14 +37,18 @@ public class ShareUser extends Entitys implements Serializable {
     private ShareUserFundPrimarykey shareUserFundPrimarykey;
 
     @Id
+    @JsonView(View.SummaryExtend.class)
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @ApiModelProperty(value = "分享编号", name = "shareId", dataType = "string")
     private String shareId;
 
+    @JsonView(View.Summary.class)
+    @NotNull(message = "成员编号不为空")
     @ApiModelProperty(value = "成员编号", name = "userId", dataType = "string", required = true)
     private String userId;
 
+    @JsonView(View.Summary.class)
     @ApiModelProperty(value = "成员名称", name = "userName", dataType = "string", required = true)
     @Column(name = "user_name", columnDefinition = "VARCHAR(60) COMMENT '成员名称'")
     private String userName;

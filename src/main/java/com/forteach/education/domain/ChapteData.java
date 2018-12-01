@@ -1,5 +1,7 @@
 package com.forteach.education.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.forteach.education.filter.View;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -39,18 +41,22 @@ public class ChapteData extends Entitys implements Serializable {
     @GeneratedValue(generator = "system-uuid")
     @ApiModelProperty(value = "资料编号", name = "dataId", dataType = "string")
     @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '资料编号'")
+    @JsonView(View.SummaryExtend.class)
     private String dataId;
 
     @ApiModelProperty(name = "courseId", value = "科目编号", dataType = "string", required = true)
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '课程科目ID'")
+    @JsonView(View.Summary.class)
     private String courseId;
 
     @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string")
     @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
+    @JsonView(View.Summary.class)
     private String chapterId;
 
     @ApiModelProperty(name = "sortImgId", value = "图册编号", dataType = "string")
     @Column(name = "sort_img_id", columnDefinition = "VARCHAR(32) COMMENT '图册编号'")
+    @JsonView(View.Summary.class)
     private String sortImgId;
 
     @ApiModelProperty(name = "fileId", value = "文件编号", dataType = "string")
@@ -71,18 +77,22 @@ public class ChapteData extends Entitys implements Serializable {
 
     @ApiModelProperty(name = "datumName", dataType = "string", value = "资料名称", notes = "资料名称", required = true)
     @Column(name = "datum_name", columnDefinition = "VARCHAR(60) COMMENT '资料名称'")
+    @JsonView(View.Summary.class)
     private String datumName;
 
     @ApiModelProperty(name = "datumArea", dataType = "string", value = "资料领域", notes = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例", required = true)
     @Column(name = "datum_area", columnDefinition = "INT COMMENT '资料领域：1教案2课件 3预习参考 4教学参考 5授课案例'")
+    @JsonView(View.SummaryExtend.class)
     private Integer datumArea;
 
+    @JsonView(View.SummaryExtend.class)
     @ApiModelProperty(name = "datumType", dataType = "string", value = "资料类型", notes = "资料类型 1文档　2图册　3视频　4音频　5链接", required = true)
     @Column(name = "datum_type", columnDefinition = "INT COMMENT '资料类型 1文档　2图册　3视频　4音频　5链接'")
     private Integer datumType;
 
     @ApiModelProperty(name = "remark", value = "备注说明", dataType = "string", notes = "备注说明")
     @Column(name = "remark", columnDefinition = "VARCHAR(255) COMMENT '备注说明'")
+    @JsonView(View.SummaryExtend.class)
     private String remark;
 
 }

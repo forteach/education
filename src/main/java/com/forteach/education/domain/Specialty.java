@@ -1,11 +1,14 @@
 package com.forteach.education.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.forteach.education.filter.View;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -32,8 +35,11 @@ public class Specialty extends Entitys implements Serializable {
     @GeneratedValue(generator = "system-uuid")
     @Column(name = "specialty_id", columnDefinition = "varchar(32) COMMENT '专业号'")
     @ApiModelProperty(value = "专业ID", name = "specialtyId", dataType = "string")
+    @JsonView(View.SummaryExtend.class)
     private String specialtyId;
 
+    @JsonView(View.Summary.class)
+    @NotNull(message = "专业名称不为空")
     @ApiModelProperty(value = "专业名称", name = "specialtyName", required = true, dataType = "string")
     @Column(name = "specialty_name", columnDefinition = "varchar(255) COMMENT '专业名称'")
     private String specialtyName;

@@ -1,20 +1,23 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.Specialty;
+import com.forteach.education.filter.View;
 import com.forteach.education.service.SpecialtyService;
 import com.forteach.education.web.vo.SortVo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.swagger2.configuration.Swagger2JacksonModule;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 /**
@@ -25,7 +28,7 @@ import javax.validation.constraints.NotEmpty;
  * @Description: 专业管理
  */
 @RestController
-@RequestMapping("/specialty")
+@RequestMapping(path = "/specialty", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "专业操作", tags = {"专业操作"})
 public class SpecialtyController {
     private final SpecialtyService specialtyService;
@@ -35,13 +38,20 @@ public class SpecialtyController {
         this.specialtyService = specialtyService;
     }
 
-    @ApiOperation(value = "保存专业信息", notes = "保存专业信息")
     @PostMapping("/save")
-    public WebResult save(@Valid @NotEmpty(message = "专业名称不为空") @ApiParam(name = "specialtyName", value = "专业名称", required = true) @RequestBody String specialtyName){
+    @ApiOperation(value = "保存专业信息", notes = "保存专业信息")
+    @ApiImplicitParam(name = "specialtyName", value = "专业名称", required = true, dataType = "string", type = "string", paramType = "body", example = "电子商务")
+    @JsonView(View.SummaryExtend.class)
+    public WebResult save(@Valid @NotBlank(message = "专业名称不为空") @ApiParam(name = "specialtyName", value = "专业名称", required = true) @RequestBody String specialtyName){
         return WebResult.okResult(specialtyService.save(String.valueOf(JSONObject.parseObject(specialtyName).getString("specialtyName"))));
     }
 
-    @ApiOperation(value = "编辑专业信息", notes = "修改专业信息")
+    @JsonView(View.SummaryExtend.class)
+    @ApiOperation(value = "编辑专业信息", notes = "修改专业信息", response = Swagger2JacksonModule.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "specialtyId", value = "主键ID", required = true, type = "string", paramType = "query"),
+            @ApiImplicitParam(name = "specialtyName", value = "专业名称", required = true, type = "string", paramType = "body")
+    })
     @PostMapping("/edit")
     public WebResult edit(@Valid @ApiParam(name = "specialty", value = "专业修改", required = true) @RequestBody Specialty specialty){
         return WebResult.okResult(specialtyService.edit(specialty));
@@ -60,6 +70,7 @@ public class SpecialtyController {
      */
     @ApiOperation(value = "删除专业信息", notes = "根据　ID 删除专业信息(物理删除)")
     @PostMapping("/deleteById")
+    @ApiImplicitParam(name = "specialtyId", value = "主键ID", required = true, type = "string", paramType = "query")
     public WebResult deleteById(@Valid @NotEmpty(message = "专业ID不为空") @ApiParam(name = "specialtyId", value = "根据id删除相关专业", type = "string", required = true) @RequestBody String specialtyId){
         specialtyService.deleteById(String.valueOf(JSONObject.parseObject(specialtyId).get("specialtyId")));
         return WebResult.okResult();
@@ -71,6 +82,7 @@ public class SpecialtyController {
      */
     @ApiOperation(value = "删除专业信息", notes = "根据专业　ID 删除专业信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
+    @ApiImplicitParam(name = "specialtyId", value = "主键ID", required = true, type = "string", paramType = "query")
     public WebResult deleteIsValidById(@Valid @NotEmpty(message = "专业id不为空") @ApiParam(name = "specialtyId", type = "string", value = "专业id", required = true) @RequestBody String specialtyId){
         specialtyService.deleteIsValidById(String.valueOf(JSONObject.parseObject(specialtyId).get("specialtyId")));
         return WebResult.okResult();
@@ -81,14 +93,17 @@ public class SpecialtyController {
      * @param sortVo
      * @return
      */
+    @JsonView(View.SummaryDetail.class)
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @PostMapping("/findAll")
     public WebResult findAll(@Valid @ApiParam(value = "分页对象", name = "sortVo", required = true) @RequestBody SortVo sortVo){
         return WebResult.okResult(specialtyService.findAll(sortVo));
     }
 
+    @JsonView(View.SummaryDetail.class)
     @ApiOperation(value = "查询专业信息", notes = "根据ID查询专业信息")
     @PostMapping("/getSpecialtyById")
+    @ApiImplicitParam(name = "specialtyId", value = "专业主键ID", required = true, dataType = "string", paramType = "from")
     public WebResult getSpecialtyById(@Valid @ApiParam(value = "专业id", name = "specialtyId", type = "string", required = true) @RequestBody String specialtyId){
         return WebResult.okResult(specialtyService.getSpecialtyById(String.valueOf(JSONObject.parseObject(specialtyId).get("specialtyId"))));
     }

@@ -1,14 +1,17 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.PhotoSort;
+import com.forteach.education.filter.View;
 import com.forteach.education.service.PhotoSortService;
 import com.forteach.education.web.vo.PhotoSortVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +29,7 @@ import javax.validation.constraints.NotNull;
  * @Description:
  */
 @RestController
-@RequestMapping("/photoSort")
+@RequestMapping(path = "/photoSort", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "课件图册操作", tags = {"课件图册操作"})
 public class PhotoSortController {
 
@@ -37,13 +40,15 @@ public class PhotoSortController {
         this.photoSortService = photoSortService;
     }
 
-    @ApiOperation(value = "保存图册信息", notes = "保存图册及其描述信息")
     @PostMapping("/save")
+    @ApiOperation(value = "保存图册信息", notes = "保存图册及其描述信息")
+    @JsonView(View.SummaryExtend.class)
     public WebResult save(@Valid @NotNull(message = "图册信息不为空") @ApiParam(value = "保存图册", name = "photoSortVo", required = true) @RequestBody PhotoSortVo photoSortVo){
         return WebResult.okResult(photoSortService.save(photoSortVo));
     }
 
     @PostMapping("/findById")
+    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "查询图册信息", notes = "根据图册编号查询对应的图册信息")
     public WebResult findById(@Valid @NotBlank(message = "图册ID不为空") @ApiParam(value = "图册id", type = "string", required = true, name = "sortImgId") @RequestBody String sortImgId){
         return WebResult.okResult(photoSortService.findById(String.valueOf(JSONObject.parseObject(sortImgId).getString("sortImgId"))));
@@ -57,6 +62,7 @@ public class PhotoSortController {
     }
 
     @PostMapping(value = "/edit")
+    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "修改图册信息", notes = "修改图册信息")
     public WebResult edit(@Valid @NotNull(message = "图册信息不为空") @ApiParam(value = "修改图册", name = "photoSort", required = true) @RequestBody PhotoSort photoSort){
         return WebResult.okResult(photoSortService.edit(photoSort));

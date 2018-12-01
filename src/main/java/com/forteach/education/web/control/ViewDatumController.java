@@ -1,8 +1,10 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.ViewDatum;
+import com.forteach.education.filter.View;
 import com.forteach.education.service.ViewDatumService;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.Api;
@@ -38,12 +40,14 @@ public class ViewDatumController {
 
     @ApiOperation(value = "保存资源", notes = "保存视频资源链接信息")
     @PostMapping("/save")
+    @JsonView(View.SummaryExtend.class)
     public WebResult save(@Valid @ApiParam(name = "viewDatum", value = "视频资料对象", required = true) @RequestBody ViewDatum viewDatum){
         return WebResult.okResult(viewDatumService.save(viewDatum));
     }
 
     @ApiOperation(value = "修改资源", notes = "修改资源信息")
     @PostMapping("/edit")
+    @JsonView(View.SummaryExtend.class)
     public WebResult edit(@Valid @ApiParam(name = "viewDatum", value = "视频资料对象", required = true) @RequestBody ViewDatum viewDatum){
         return WebResult.okResult(viewDatumService.edit(viewDatum));
     }
@@ -63,11 +67,13 @@ public class ViewDatumController {
     }
 
     @PostMapping("/getViewByViewId")
+    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "查询资源", notes = "根据视频资源ID查询视频资源信息")
     public WebResult getViewByViewId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "viewId", value = "根据资源ID 删除对应资源信息", required = true) @RequestBody String viewId){
         return WebResult.okResult(viewDatumService.getViewDatumById(String.valueOf(JSONObject.parseObject(viewId).get("viewId"))));
     }
 
+    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "分页查询全部", notes = "分页查询视频资源信息")
     @PostMapping("/findAll")
     public WebResult findAll(@Valid @ApiParam(name = "sortVo", value = "分页查询势派资源信息", required = true) @RequestBody SortVo sortVo){
@@ -86,6 +92,7 @@ public class ViewDatumController {
         return WebResult.okResult();
     }
 
+    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "根据章节ID查询视频信息", notes = "根据章节ID查询有效视频信息")
     @PostMapping("/findByChapterId")
     public WebResult findByChapterId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "chapterId", value = "根据章节 ID 查询视频信息", required = true) @RequestBody String chapterId){

@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -27,11 +27,11 @@ public class DataDatumVo implements Serializable {
     @ApiModelProperty(value = "文件资料ID", name = "fileId", notes = "文件对应的资料ID编号", dataType = "string", hidden = true)
     private String fileId;
 
-    @NotEmpty(message = "文件名称不为空")
+    @NotNull(message = "文件名称不为空")
     @ApiModelProperty(value = "文件名称", name = "fileName", dataType = "string", required = true)
     private String fileName;
 
-    @NotEmpty(message = "文件路径不为空")
+    @NotNull(message = "文件路径不为空")
     @ApiModelProperty(value = "文件路径", name = "filePath", dataType = "string", required = true)
     private String filePath;
 

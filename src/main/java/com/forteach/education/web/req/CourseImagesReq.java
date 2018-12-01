@@ -15,7 +15,7 @@ import java.util.List;
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-11-29 15:08
  * @Version: 1.0
- * @Description:
+ * @Description: 课程ID和图片
  */
 @Data
 @Builder

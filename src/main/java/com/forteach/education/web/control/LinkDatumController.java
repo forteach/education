@@ -1,14 +1,17 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.LinkDatum;
+import com.forteach.education.filter.View;
 import com.forteach.education.service.LinkDatumService;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +28,7 @@ import javax.validation.constraints.NotBlank;
  * @Description:
  */
 @RestController
-@RequestMapping("/linkDatum")
+@RequestMapping(path = "/linkDatum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "链接资料操作", tags = {"链接资源接口"})
 public class LinkDatumController {
 
@@ -44,12 +47,14 @@ public class LinkDatumController {
 
     @ApiOperation(value = "修改链接信息", notes = "修改资源信息")
     @PostMapping("/edit")
+    @JsonView(View.SummaryExtend.class)
     public WebResult edit(@Valid @ApiParam(name = "linkDatum", value = "链接资料对象", required = true) @RequestBody LinkDatum linkDatum){
         return WebResult.okResult(linkDatumService.edit(linkDatum));
     }
 
     @ApiOperation(value = "删除链接信息", notes = "删除资源对象")
     @PostMapping("/delete")
+    @JsonView(View.SummaryExtend.class)
     public WebResult delete(@Valid @ApiParam(name = "linkDatum", value = "删除资源对象", required = true) @RequestBody LinkDatum linkDatum){
         linkDatumService.delete(linkDatum);
         return WebResult.okResult();
@@ -57,12 +62,14 @@ public class LinkDatumController {
 
     @ApiOperation(value = "删除链接信息", notes = "根据链接资源ID 删除资源信息")
     @PostMapping("/deleteById")
+    @JsonView(View.SummaryExtend.class)
     public WebResult deleteById(@Valid @ApiParam(name = "linkId", value = "根据资源ID 删除对应资源信息", type = "string", required = true) @RequestBody String linkId){
         linkDatumService.deleteById(String.valueOf(JSONObject.parseObject(linkId).get("LinkId")));
         return WebResult.okResult();
     }
 
     @PostMapping("/getLinkByLinkId")
+    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "删除链接信息", notes = "根据链接资源ID查询链接资源信息")
     public WebResult getLinkByLinkId(@Valid @ApiParam(name = "linkId", value = "根据资源ID 删除对应资源信息", type = "string", required = true) @RequestBody String linkId){
         return WebResult.okResult(linkDatumService.getLinkDatumById(String.valueOf(JSONObject.parseObject(linkId).get("linkId"))));
@@ -70,6 +77,7 @@ public class LinkDatumController {
 
     @ApiOperation(value = "分页信息", notes = "分页查询链接资源信息")
     @PostMapping("/findAll")
+    @JsonView(View.SummaryExtend.class)
     public WebResult findAll(@Valid @ApiParam(name = "sortVo", value = "分页查询势派资源信息", required = true) @RequestBody SortVo sortVo){
         return WebResult.okResult(linkDatumService.findAll(sortVo));
     }
@@ -88,6 +96,7 @@ public class LinkDatumController {
 
     @ApiOperation(value = "根据章节ID查询链接信息", notes = "根据章节ID查询有效链接信息")
     @PostMapping("/findByChapterId")
+    @JsonView(View.SummaryExtend.class)
     public WebResult findByChapterId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "chapterId", value = "根据章节 ID 查询链接信息", required = true) @RequestBody String chapterId){
         return WebResult.okResult(linkDatumService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));
     }
