@@ -59,6 +59,10 @@ public class SpecialtyController {
 
     @ApiOperation(value = "删除专业信息", notes = "删除专业信息(物理删除)")
     @PostMapping("/delete")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "specialtyId", value = "主键ID", required = true, type = "string", paramType = "query"),
+            @ApiImplicitParam(name = "specialtyName", value = "专业名称", required = true, type = "string", paramType = "body")
+    })
     public WebResult delete(@Valid @ApiParam(name = "specialty", value = "专业删除", required = true) @RequestBody Specialty specialty){
         return WebResult.okResult(specialtyService.edit(specialty));
     }
@@ -96,6 +100,13 @@ public class SpecialtyController {
     @JsonView(View.SummaryDetail.class)
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @PostMapping("/findAll")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "分页从0开始", required = true, dataType = "int", type = "int", example = "0"),
+            @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10"),
+            @ApiImplicitParam(value = "排序规则", dataType = "string", name = "sorting", example = "cTime", required = true),
+            @ApiImplicitParam(value = "有无效", name = "isValidated", dataType = "string",example = "0", required = true),
+            @ApiImplicitParam(value = "sort", name = "排序方式", dataType = "int", example = "1")
+    })
     public WebResult findAll(@Valid @ApiParam(value = "分页对象", name = "sortVo", required = true) @RequestBody SortVo sortVo){
         return WebResult.okResult(specialtyService.findAll(sortVo));
     }

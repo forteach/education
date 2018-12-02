@@ -40,7 +40,7 @@ public class ViewDatum extends Entitys implements Serializable {
 
     @JsonView(View.Summary.class)
     @NotNull(message = "科目课程不为空")
-    @ApiModelProperty(value = "科目课程ID", notes = "科目课程ID")
+    @ApiModelProperty(value = "科目课程ID", notes = "科目课程ID", required = true)
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目课程ID'")
     private String courseId;
 
@@ -51,7 +51,7 @@ public class ViewDatum extends Entitys implements Serializable {
 
     @JsonView(View.Summary.class)
     @NotNull(message = "视频名称不为空")
-    @ApiModelProperty(name = "chapterId", value = "视频名称", notes = "视频名称", dataType = "string", required = true, example = "学习视频001")
+    @ApiModelProperty(name = "viewName", value = "视频名称", notes = "视频名称", dataType = "string", required = true, example = "学习视频001")
     @Column(name = "view_name", columnDefinition = "VARCHAR(32) COMMENT '视频名称'")
     private String viewName;
 

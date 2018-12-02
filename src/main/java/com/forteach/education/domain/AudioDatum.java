@@ -58,7 +58,7 @@ public class AudioDatum extends Entitys implements Serializable {
     @URL(message = "不是一个URL")
     @JsonView(View.Summary.class)
     @NotNull(message = "音频URL不为空")
-    @ApiModelProperty(name = "audioType", value = "音频URL", dataType = "string", required = true)
+    @ApiModelProperty(name = "audioUrl", value = "音频URL", dataType = "string", required = true)
     @Column(name = "audio_url", columnDefinition = "VARCHAR(255) COMMENT '音频URL'")
     private String audioUrl;
 }

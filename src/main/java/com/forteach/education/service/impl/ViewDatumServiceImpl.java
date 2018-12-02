@@ -40,7 +40,9 @@ public class ViewDatumServiceImpl implements ViewDatumService {
 
     @Override
     public ViewDatum save(ViewDatum viewDatum) {
-        viewDatum.setViewType(FileUtils.ext(viewDatum.getViewName()));
+        if (viewDatum.getViewType() == null) {
+            viewDatum.setViewType(FileUtils.ext(viewDatum.getViewName()));
+        }
         return viewDatumRepository.save(viewDatum);
     }
 

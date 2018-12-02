@@ -31,7 +31,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class CourseChapter extends Entitys implements Serializable {
 
-    @NotBlank(message = "科目编号不为空")
+    @NotNull(message = "科目编号不为空")
     @ApiModelProperty(name = "科目编号", value = "courseId", dataType = "string", required = true)
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
     private String courseId;
