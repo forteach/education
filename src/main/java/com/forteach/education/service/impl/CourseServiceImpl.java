@@ -9,7 +9,7 @@ import com.forteach.education.repository.CourseShareRepository;
 import com.forteach.education.service.CourseService;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
-import com.forteach.education.util.UpdateTool;
+import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.CourseImagesReq;
 import com.forteach.education.web.req.CourseReq;
 import com.forteach.education.web.vo.DataDatumVo;
@@ -87,7 +87,7 @@ public class CourseServiceImpl implements CourseService {
     @Transactional(rollbackFor = Exception.class)
     public Course edit(Course course) {
         Course source = courseRepository.findById(course.getCourseId()).get();
-        UpdateTool.copyNullProperties(source, course);
+        UpdateUtil.copyNullProperties(source, course);
         return courseRepository.save(course);
     }
 

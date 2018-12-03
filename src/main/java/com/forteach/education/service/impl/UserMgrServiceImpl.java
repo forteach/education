@@ -35,10 +35,10 @@ public class UserMgrServiceImpl implements UserMgrService {
         userRoleRepository.deleteByUserIdIn(userIds);
         //存入新的用户角色信息
         userIds.forEach(userId -> {
-            UserRole userRole = new UserRole();
-            userRole.setRoleId(roleId);
-            userRole.setUserId(userId);
-            userRoleRepository.save(userRole);
+            userRoleRepository.save(UserRole.builder()
+                    .roleId(roleId)
+                    .userId(userId)
+                    .build());
         });
     }
 

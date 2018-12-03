@@ -5,7 +5,7 @@ import com.forteach.education.repository.TeacherRepository;
 import com.forteach.education.service.TeacherService;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
-import com.forteach.education.util.UpdateTool;
+import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Transactional(rollbackFor = Exception.class)
     public Teacher edit(Teacher teacher){
         Teacher source = teacherRepository.findById(teacher.getTeacherId()).get();
-        UpdateTool.copyNullProperties(source, teacher);
+        UpdateUtil.copyNullProperties(source, teacher);
         return teacherRepository.save(teacher);
     }
 

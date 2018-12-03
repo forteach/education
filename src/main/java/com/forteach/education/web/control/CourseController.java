@@ -1,12 +1,10 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.Course;
 import com.forteach.education.domain.Teacher;
 import com.forteach.education.domain.ViewDatum;
-import com.forteach.education.filter.View;
 import com.forteach.education.service.CourseService;
 import com.forteach.education.service.FileDatumService;
 import com.forteach.education.service.ViewDatumService;
@@ -51,7 +49,7 @@ public class CourseController {
 
     @ApiOperation(value = "保存课程科目信息", notes = "保存科目课程信息")
     @PostMapping("/save")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "course", value = "科目课程对象", dataTypeClass = Course.class, dataType = "string", required = true),
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
@@ -62,7 +60,7 @@ public class CourseController {
 
     @ApiOperation(value = "修改科目课程信息", notes = "修改科目信息")
     @PostMapping("/edit")
-    @JsonView(View.Summary.class)
+//    @JsonView(View.Summary.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "course", value = "科目课程对象", dataTypeClass = Course.class, dataType = "string", required = true),
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
@@ -93,18 +91,19 @@ public class CourseController {
     }
 
     @PostMapping("/getCourseId")
-    @JsonView(View.SummaryExtend.class)
-    @ApiOperation(value = "获取文件信息", notes = "根据文件资源ID查询科目信息")
+//    @JsonView(View.SummaryExtend.class)
+    @ApiOperation(value = "获取科目课程信息", notes = "根据科目课程ID查询科目信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true)
+            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true, example = "{\"courseId\":\"2c918099676317d0016763e051f50000\"}")
     })
-    public WebResult getCourseByCourseId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "courseId", value = "根据资源ID 查询对应科目信息", type = "string", required = true) @RequestBody String courseId){
+    public WebResult getCourseByCourseId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "courseId", value = "根据科目ID 查询对应科目信息", type = "string", required = true, example = "{\"courseId\":\"2c918099676317d0016763e051f50000\"}")
+                                             @RequestBody String courseId){
         return WebResult.okResult(courseService.getCourseById(String.valueOf(JSONObject.parseObject(courseId).get("courseId"))));
     }
 
     @ApiOperation(value = "分页查询", notes = "分页查询分页科目信息")
     @PostMapping("/findAll")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     public WebResult findAll(@Valid @ApiParam(name = "sortVo", value = "分页查科目信息",required = true) @RequestBody SortVo sortVo){
         return WebResult.okResult(courseService.findAll(sortVo));
     }
@@ -116,7 +115,7 @@ public class CourseController {
      */
     @ApiOperation(value = "使其无效", notes = "删除科目信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true)
     })
@@ -127,7 +126,7 @@ public class CourseController {
 
     @ApiOperation(value = "根据课程id查询文件信息", notes = "根据科目课程ID查询文件资料信息")
     @PostMapping("/findFileDatumByCourseId")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true)
     })
@@ -137,7 +136,7 @@ public class CourseController {
 
     @ApiOperation(value = "保存课程宣传片", notes = "保存课程的宣传片视频信息")
     @PostMapping("/saveViewDatum")
-    @JsonView(View.Summary.class)
+//    @JsonView(View.Summary.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "viewId", value = "视频编号", required = true, dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "courseId", value = "科目课程ID", dataType = "string", paramType = "query"),
@@ -152,7 +151,7 @@ public class CourseController {
 
     @ApiOperation(value = "根据课程ID查询宣传片信息", notes = "根据课程ID查询宣传片信息")
     @PostMapping("/findViewDatumByCourseId")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true)
     })
@@ -166,7 +165,7 @@ public class CourseController {
      * @return
      */
     @PostMapping("/saveCourseImages")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "保存课程科目轮播图", notes = "保存科目的轮播图")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true),
@@ -183,7 +182,7 @@ public class CourseController {
      * @return
      */
     @PostMapping("/findImagesByCourseId")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "查询课程轮播图", notes = "根据课程科目ID查询对应的轮播图")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true)

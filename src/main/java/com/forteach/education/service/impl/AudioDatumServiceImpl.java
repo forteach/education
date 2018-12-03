@@ -6,7 +6,7 @@ import com.forteach.education.service.AudioDatumService;
 import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
-import com.forteach.education.util.UpdateTool;
+import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class AudioDatumServiceImpl implements AudioDatumService {
     @Transactional(rollbackFor = Exception.class, timeout = 10)
     public AudioDatum edit(AudioDatum audioDatum) {
         AudioDatum source = audioDatumRepository.findById(audioDatum.getAudioId()).get();
-        UpdateTool.copyNullProperties(source, audioDatum);
+        UpdateUtil.copyNullProperties(source, audioDatum);
         return audioDatumRepository.save(audioDatum);
     }
 

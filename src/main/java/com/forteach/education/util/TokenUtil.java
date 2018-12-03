@@ -62,5 +62,4 @@ public class TokenUtil {
     public void delObjectBykey(String key) {
         objectRedisService.remove(key);
     }
-
 }

@@ -5,7 +5,7 @@ import com.forteach.education.repository.SpecialtyRepository;
 import com.forteach.education.service.SpecialtyService;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
-import com.forteach.education.util.UpdateTool;
+import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     @Transactional(rollbackFor = Exception.class)
     public Specialty edit(Specialty specialty) {
         Specialty source = specialtyRepository.findById(specialty.getSpecialtyId()).get();
-        UpdateTool.copyNullProperties(source, specialty);
+        UpdateUtil.copyNullProperties(source, specialty);
         return specialtyRepository.save(specialty);
     }
 

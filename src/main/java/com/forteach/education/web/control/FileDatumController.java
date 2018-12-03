@@ -1,10 +1,8 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.FileDatum;
-import com.forteach.education.filter.View;
 import com.forteach.education.service.FileDatumService;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.*;
@@ -38,7 +36,7 @@ public class FileDatumController {
 
     @ApiOperation(value = "保存文件信息", notes = "保存文件资源文件信息")
     @PostMapping("/save")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目编号", required = true, dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", required = true, dataType = "string", paramType = "from"),
@@ -52,7 +50,7 @@ public class FileDatumController {
 
     @ApiOperation(value = "修改文件信息", notes = "修改资源信息")
     @PostMapping("/edit")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fileId", value = "文件ID", dataType = "string", required = true, paramType = "query"),
             @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", paramType = "from"),
@@ -89,7 +87,7 @@ public class FileDatumController {
     }
 
     @PostMapping("/getFileByFileId")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "获取文件信息", notes = "根据文件资源ID查询文件资源信息")
     @ApiImplicitParam(name = "fileId", value = "文件ID", required = true, dataType = "string", paramType = "query")
     public WebResult getFileByFileId(@Valid @ApiParam(name = "fileId", value = "根据资源ID 删除对应资源信息", type = "string", required = true) @RequestBody String fileId) {
@@ -98,7 +96,7 @@ public class FileDatumController {
 
     @ApiOperation(value = "分页查询", notes = "分页查询文件资源信息")
     @PostMapping("/findAll")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", value = "分页从0开始", required = true, dataType = "int", type = "int", example = "0"),
             @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10"),
@@ -126,7 +124,7 @@ public class FileDatumController {
 
     @ApiOperation(value = "根据章节ID查询文件信息", notes = "根据章节ID查询有效音频信息")
     @PostMapping("/findByChapterId")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParam(name = "chapterId", value = "根据章节ID查询文件信息", dataType = "string", required = true, paramType = "query")
     public WebResult findByChapterId(@Valid @NotNull(message = "ID不为空") @ApiParam(name = "chapterId", value = "根据章节 ID 查询文件信息", required = true) @RequestBody String chapterId) {
         return WebResult.okResult(fileDatumService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));

@@ -50,7 +50,7 @@ public class LinkDatumController {
 
     @ApiOperation(value = "修改链接信息", notes = "修改资源信息")
     @PostMapping("/edit")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "linkId", value = "链接ID", dataType = "string", required = true, paramType = "query"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
@@ -77,7 +77,7 @@ public class LinkDatumController {
 
     @ApiOperation(value = "删除链接信息", notes = "根据链接资源ID 删除资源信息")
     @PostMapping("/deleteById")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParam(name = "linkId", value = "链接ID", dataType = "string", required = true, paramType = "query")
     public WebResult deleteById(@Valid @ApiParam(name = "linkId", value = "根据资源ID 删除对应资源信息", type = "string", required = true) @RequestBody String linkId){
         linkDatumService.deleteById(String.valueOf(JSONObject.parseObject(linkId).get("LinkId")));
@@ -85,7 +85,7 @@ public class LinkDatumController {
     }
 
     @PostMapping("/getLinkByLinkId")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParam(name = "linkId", value = "链接ID", dataType = "string", required = true, paramType = "query")
     @ApiOperation(value = "删除链接信息", notes = "根据链接资源ID查询链接资源信息")
     public WebResult getLinkByLinkId(@Valid @ApiParam(name = "linkId", value = "根据资源ID 删除对应资源信息", type = "string", required = true) @RequestBody String linkId){
@@ -94,7 +94,7 @@ public class LinkDatumController {
 
     @ApiOperation(value = "分页信息", notes = "分页查询链接资源信息")
     @PostMapping("/findAll")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", value = "分页从0开始", required = true, dataType = "int", type = "int", example = "0"),
             @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10"),
@@ -121,7 +121,7 @@ public class LinkDatumController {
 
     @ApiOperation(value = "根据章节ID查询链接信息", notes = "根据章节ID查询有效链接信息")
     @PostMapping("/findByChapterId")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParam(name = "chapterId", value = "章节ID", dataType = "string", required = true, paramType = "query")
     public WebResult findByChapterId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "chapterId", value = "根据章节 ID 查询链接信息", required = true) @RequestBody String chapterId){
         return WebResult.okResult(linkDatumService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));

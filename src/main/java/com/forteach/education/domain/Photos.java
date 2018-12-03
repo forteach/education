@@ -8,7 +8,6 @@ import lombok.*;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -53,7 +52,7 @@ public class Photos extends Entitys implements Serializable {
     @Column(name = "photo_name", columnDefinition = "varchar(60) COMMENT '图片名称'")
     private String photoName;
 
-    @URL(message = "不是一个URL")
+//    @URL(message = "不是一个URL")
     @JsonView(View.Summary.class)
     @NotNull(message = "图片路径不为空")
     @ApiModelProperty(value = "图片路径", name = "photoSrc", dataType = "string", required = true)

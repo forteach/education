@@ -1,11 +1,9 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.PhotoSort;
 import com.forteach.education.domain.Photos;
-import com.forteach.education.filter.View;
 import com.forteach.education.service.PhotoSortService;
 import com.forteach.education.web.vo.PhotoSortVo;
 import io.swagger.annotations.*;
@@ -41,7 +39,7 @@ public class PhotoSortController {
 
     @PostMapping("/save")
     @ApiOperation(value = "保存图册信息", notes = "保存图册及其描述信息")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "sortImgName", value = "分类名称", dataType = "string", required = true, paramType = "query"),
             @ApiImplicitParam(name = "sortImgType", value = "展示方式", dataType = "int", required = true, paramType = "query"),
@@ -55,7 +53,7 @@ public class PhotoSortController {
     }
 
     @PostMapping("/findById")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "查询图册信息", notes = "根据图册编号查询对应的图册信息")
     @ApiImplicitParam(name = "sortImgId", value = "图册ID", dataType = "string", paramType = "query", required = true)
     public WebResult findById(@Valid @NotBlank(message = "图册ID不为空") @ApiParam(value = "图册id", type = "string", required = true, name = "sortImgId") @RequestBody String sortImgId){
@@ -71,7 +69,7 @@ public class PhotoSortController {
     }
 
     @PostMapping(value = "/edit")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "修改图册信息", notes = "修改图册信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "sortImgId", value = "图册ID", dataType = "string", paramType = "query", required = true),

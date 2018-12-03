@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Range;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -78,7 +77,7 @@ public class Course extends Entitys implements Serializable {
 //    @Column(name = "lesson_preparation_type", columnDefinition = "INT COMMENT '备课类型　1、单人备课２、集体备课'")
 //    private Integer LessonPreparationType;
 
-    @URL(message = "不是一个URL")
+//    @URL(message = "不是一个URL")
     @NotBlank(message = "封面图片路径")
     @ApiModelProperty(value = "封面图片路径", name = "topPicSrc", notes = "保存的是封面图片路径", required = true)
     @Column(name = "top_pic_src", columnDefinition = "VARCHAR(255) COMMENT'封面图片路径'")

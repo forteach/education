@@ -1,5 +1,6 @@
 package com.forteach.education.domain;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
+@Builder
 @Table(name = "user_role", indexes = {@Index(columnList = "role_id")})
 @IdClass(UserRoleFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "user_role", comment = "用户角色")

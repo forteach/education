@@ -4,7 +4,7 @@ import com.forteach.education.domain.CourseChapter;
 import com.forteach.education.dto.CourseChapterDto;
 import com.forteach.education.repository.CourseChapterRepository;
 import com.forteach.education.service.CourseChapterService;
-import com.forteach.education.util.UpdateTool;
+import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.CourseDataDatumReq;
 import com.forteach.education.web.resp.CourseTreeResp;
 import com.forteach.education.web.resp.State;
@@ -47,7 +47,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Transactional(rollbackFor = Exception.class)
     public CourseChapter edit(CourseChapter courseChapter) {
         CourseChapter source = courseChapterRepository.findById(courseChapter.getChapterId()).get();
-        UpdateTool.copyNullProperties(source, courseChapter);
+        UpdateUtil.copyNullProperties(source, courseChapter);
         return courseChapterRepository.save(courseChapter);
     }
 

@@ -1,10 +1,8 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.ChapteData;
-import com.forteach.education.filter.View;
 import com.forteach.education.service.ChapteDataService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +35,7 @@ public class ChapteDataController {
 
     @ApiOperation(value = "保存资料信息")
     @PostMapping("/save")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", required = true, paramType = "from"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
@@ -53,7 +51,7 @@ public class ChapteDataController {
 
     @ApiOperation(value = "修改资源信息")
     @PostMapping("/edit")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "dataId", value = "资料编号", dataType = "string", required = true, paramType = "from"),
             @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", paramType = "from"),
@@ -86,7 +84,7 @@ public class ChapteDataController {
     }
 
     @PostMapping("/findById")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "根据资料ID查询资料信息", notes = "根据资料ID查询资料信息")
     @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", required = true, paramType = "query")
     public WebResult findById(@Valid @ApiParam(value = "根据dataId查询对应资料信息", name = "dataId", type = "string") @RequestBody String dataId){
@@ -103,7 +101,7 @@ public class ChapteDataController {
 
     @ApiOperation(value = "根据科目ID查询对应资料信息", notes = "根据科目ID查询对应资料信息")
     @PostMapping("/findByCourseId")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true, paramType = "query")
     public WebResult findByCourseId(@Valid @ApiParam(value = "科目ID", name = "courseId", type = "string") @RequestBody String courseId){
         return WebResult.okResult(chapteDataService.findById(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
@@ -112,7 +110,7 @@ public class ChapteDataController {
 
     @ApiOperation(value = "根据章节ID查询资料信息", notes = "根据章节ID查询资料信息")
     @PostMapping("/findByChapterId")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParam(name = "chapterId", value = "章节ID", dataType = "string", required = true, paramType = "query")
     public WebResult findByChapterId(@Valid @ApiParam(value = "章节ID", name = "chapterId", type = "string") @RequestBody String chapterId){
         return WebResult.okResult(chapteDataService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));

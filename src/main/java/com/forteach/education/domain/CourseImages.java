@@ -9,7 +9,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -45,7 +44,7 @@ public class CourseImages extends Entitys implements Serializable {
     @Column(name = "image_name", columnDefinition = "VARCHAR(32) COMMENT '图片名称'")
     private String imageName;
 
-    @URL(message = "不是一个URL")
+//    @URL(message = "不是一个URL")
     @JsonView(View.Summary.class)
     @NotNull(message = "图片URL不为空")
     @ApiModelProperty(value = "图片url", name = "imageUrl", dataType = "string", required = true)

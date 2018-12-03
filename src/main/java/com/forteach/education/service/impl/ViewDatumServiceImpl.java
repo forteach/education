@@ -6,7 +6,7 @@ import com.forteach.education.service.ViewDatumService;
 import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
-import com.forteach.education.util.UpdateTool;
+import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class ViewDatumServiceImpl implements ViewDatumService {
     @Override
     public ViewDatum edit(ViewDatum viewDatum) {
         ViewDatum source = viewDatumRepository.findById(viewDatum.getViewId()).get();
-        UpdateTool.copyNullProperties(source, viewDatum);
+        UpdateUtil.copyNullProperties(source, viewDatum);
         return viewDatumRepository.save(viewDatum);
     }
 

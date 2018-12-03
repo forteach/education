@@ -1,10 +1,8 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.Specialty;
-import com.forteach.education.filter.View;
 import com.forteach.education.service.SpecialtyService;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.*;
@@ -41,12 +39,12 @@ public class SpecialtyController {
     @PostMapping("/save")
     @ApiOperation(value = "保存专业信息", notes = "保存专业信息")
     @ApiImplicitParam(name = "specialtyName", value = "专业名称", required = true, dataType = "string", type = "string", paramType = "body", example = "电子商务")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     public WebResult save(@Valid @NotBlank(message = "专业名称不为空") @ApiParam(name = "specialtyName", value = "专业名称", required = true) @RequestBody String specialtyName){
         return WebResult.okResult(specialtyService.save(String.valueOf(JSONObject.parseObject(specialtyName).getString("specialtyName"))));
     }
 
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "编辑专业信息", notes = "修改专业信息", response = Swagger2JacksonModule.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "specialtyId", value = "主键ID", required = true, type = "string", paramType = "query"),
@@ -97,7 +95,7 @@ public class SpecialtyController {
      * @param sortVo
      * @return
      */
-    @JsonView(View.SummaryDetail.class)
+//    @JsonView(View.SummaryDetail.class)
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @PostMapping("/findAll")
     @ApiImplicitParams({
@@ -111,7 +109,7 @@ public class SpecialtyController {
         return WebResult.okResult(specialtyService.findAll(sortVo));
     }
 
-    @JsonView(View.SummaryDetail.class)
+//    @JsonView(View.SummaryDetail.class)
     @ApiOperation(value = "查询专业信息", notes = "根据ID查询专业信息")
     @PostMapping("/getSpecialtyById")
     @ApiImplicitParam(name = "specialtyId", value = "专业主键ID", required = true, dataType = "string", paramType = "from")

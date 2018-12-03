@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -55,7 +54,7 @@ public class AudioDatum extends Entitys implements Serializable {
     @Column(name = "audio_type", columnDefinition = "VARCHAR(10) COMMENT '音频类型'")
     private String audioType;
 
-    @URL(message = "不是一个URL")
+//    @URL(message = "不是一个URL")
     @JsonView(View.Summary.class)
     @NotNull(message = "音频URL不为空")
     @ApiModelProperty(name = "audioUrl", value = "音频URL", dataType = "string", required = true)

@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version: V1.0
  * @date: 2018/10/31 9:57
  */
-public interface UserRepository extends JpaRepository<SysUsers, Long> {
+public interface UserRepository extends JpaRepository<SysUsers, String> {
 
     /**
      * 找到生效的用户列表
@@ -21,4 +21,5 @@ public interface UserRepository extends JpaRepository<SysUsers, Long> {
      */
     Page<SysUsers> findByIsValidatedEquals(String isValidated, Pageable pageable);
 
+    SysUsers findByUserName(String userName);
 }

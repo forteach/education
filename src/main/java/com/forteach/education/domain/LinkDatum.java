@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -44,7 +43,7 @@ public class LinkDatum extends Entitys implements Serializable {
     @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
     private String chapterId;
 
-    @URL(message = "不是一个URL")
+//    @URL(message = "不是一个URL")
     @JsonView(View.Summary.class)
     @NotNull(message = "链接URL不为空")
     @ApiModelProperty(value = "链接URL", name = "linkUrl", dataType = "string", required = true)

@@ -1,10 +1,8 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.AudioDatum;
-import com.forteach.education.filter.View;
 import com.forteach.education.service.AudioDatumService;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.*;
@@ -38,7 +36,7 @@ public class AudioDatumController {
 
     @ApiOperation(value = "保存音频信息", notes = "保存音频资源链接信息")
     @PostMapping("/save")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", required = true, paramType = "from"),
             @ApiImplicitParam(name = "audioName", value = "音频名称", dataType = "string", required = true, paramType = "from"),
@@ -51,7 +49,7 @@ public class AudioDatumController {
 
     @ApiOperation(value = "修改音频信息", notes = "修改资源信息")
     @PostMapping("/edit")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "audioId", value = "音频ID", dataType = "string", required = true, paramType = "query"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
@@ -86,7 +84,7 @@ public class AudioDatumController {
     }
 
     @PostMapping("/getAudioByAudioId")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParam(name = "audioId", value = "音频ID", dataType = "string", required = true, paramType = "query")
     @ApiOperation(value = "查询音频信息", notes = "根据音频资源ID查询音频资源信息")
     public WebResult getAudioByAudioId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "audioId", value = "根据资源ID 删除对应资源信息", required = true) @RequestBody String audioId){
@@ -95,7 +93,7 @@ public class AudioDatumController {
 
     @ApiOperation(value = "分页信息", notes = "分页查询音频资源信息")
     @PostMapping("/findAll")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", value = "分页从0开始", required = true, dataType = "int", type = "int", example = "0"),
             @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10"),
@@ -122,7 +120,7 @@ public class AudioDatumController {
 
     @ApiOperation(value = "根据章节ID查询音频信息", notes = "根据章节ID查询有效音频信息")
     @PostMapping("/findByChapterId")
-    @JsonView(View.SummaryExtend.class)
+//    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParam(name = "chapterId", value = "章节ID", dataType = "string", required = true, paramType = "query")
     public WebResult findByChapterId(@Valid @NotBlank(message = "章节ID不为空") @ApiParam(name = "chapterId", value = "根据章节 ID 查询音频信息", required = true) @RequestBody String chapterId){
         return WebResult.okResult(audioDatumService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));

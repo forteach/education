@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -60,7 +59,7 @@ public class FileDatum extends Entitys implements Serializable {
     @Column(name = "file_type", columnDefinition = "VARCHAR(10) COMMENT '文件类型'")
     private String fileType;
 
-    @URL(message = "不是一个URL")
+//    @URL(message = "不是一个URL")
     @JsonView(View.Summary.class)
     @NotNull(message = "文件URL 不为空")
     @ApiModelProperty(value = "文件URL", required = true, name = "fileUrl")

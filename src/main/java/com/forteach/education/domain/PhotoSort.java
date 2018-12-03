@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -58,7 +57,7 @@ public class PhotoSort extends Entitys implements Serializable {
 //    @ColumnTransformer(read = "decrypt(img_password),", write = "encrypt(nvl(?, 'null'))")
     private String imgPassword;
 
-    @URL(message = "不是一个URL")
+//    @URL(message = "不是一个URL")
     @ApiModelProperty(value = "封面图片的路径", name = "topPicSrc", dataType = "string",required = true)
     @Column(name = "top_pic_src", columnDefinition = "varchar(255) COMMENT '封面图片的路径'")
     private String topPicSrc;

@@ -15,7 +15,7 @@ import java.util.Set;
  * @Version: 1.0
  * @Description: 实体对象修改更新问题解决工具类
  */
-public class UpdateTool {
+public class UpdateUtil {
 
     /**
      * 将目标源中不为空的字段过滤，将数据库中查出的数据源复制到提交的目标源中

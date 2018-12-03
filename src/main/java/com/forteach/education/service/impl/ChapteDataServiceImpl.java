@@ -3,7 +3,7 @@ package com.forteach.education.service.impl;
 import com.forteach.education.domain.ChapteData;
 import com.forteach.education.repository.ChapteDataRepository;
 import com.forteach.education.service.ChapteDataService;
-import com.forteach.education.util.UpdateTool;
+import com.forteach.education.util.UpdateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
     @Transactional(rollbackFor = Exception.class, timeout = 10)
     public ChapteData edit(ChapteData chapteData) {
         ChapteData source = chapteDataRepository.findById(chapteData.getDataId()).get();
-        UpdateTool.copyNullProperties(source, chapteData);
+        UpdateUtil.copyNullProperties(source, chapteData);
         return chapteDataRepository.save(chapteData);
     }
 

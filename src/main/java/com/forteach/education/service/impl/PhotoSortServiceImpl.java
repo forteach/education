@@ -5,7 +5,7 @@ import com.forteach.education.domain.Photos;
 import com.forteach.education.repository.PhotoSortRepository;
 import com.forteach.education.repository.PhotosRepository;
 import com.forteach.education.service.PhotoSortService;
-import com.forteach.education.util.UpdateTool;
+import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.vo.PhotoSortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -78,7 +78,7 @@ public class PhotoSortServiceImpl implements PhotoSortService {
     @Transactional(rollbackFor = Exception.class, timeout = 10)
     public PhotoSort edit(PhotoSort photoSort){
         PhotoSort source =  photoSortRepository.findById(photoSort.getSortImgId()).get();
-        UpdateTool.copyNullProperties(source, photoSort);
+        UpdateUtil.copyNullProperties(source, photoSort);
         return photoSortRepository.save(photoSort);
     }
 }

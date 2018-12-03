@@ -6,7 +6,7 @@ import com.forteach.education.service.FileDatumService;
 import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
-import com.forteach.education.util.UpdateTool;
+import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.CourseDataDatumReq;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +58,7 @@ public class FileDatumServiceImpl implements FileDatumService {
     @Transactional(rollbackFor = Exception.class)
     public FileDatum edit(FileDatum fileDatum) {
         FileDatum source = fileDatumRepository.findById(fileDatum.getFileId()).get();
-        UpdateTool.copyNullProperties(source, fileDatum);
+        UpdateUtil.copyNullProperties(source, fileDatum);
         return fileDatumRepository.save(fileDatum);
     }
 

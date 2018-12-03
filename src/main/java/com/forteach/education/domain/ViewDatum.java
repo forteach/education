@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.filter.View;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,8 +27,8 @@ import java.io.Serializable;
 @Table(name = "view_datum", indexes = {@Index(columnList = "view_id"), @Index(columnList = "chapter_id")})
 @org.hibernate.annotations.Table(appliesTo = "view_datum", comment = "视频资料库")
 @ApiModel(value = "视频资料信息")
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class ViewDatum extends Entitys implements Serializable {
 
     @Id
@@ -60,10 +61,22 @@ public class ViewDatum extends Entitys implements Serializable {
     @Column(name = "view_type", columnDefinition = "VARCHAR(10) COMMENT '视频类型'")
     private String viewType;
 
-    @URL(message = "不是一个URL")
+//    @URL(message = "不是一个URL")
     @JsonView(View.Summary.class)
     @NotNull(message = "视频链接地址不为空")
     @ApiModelProperty(name = "viewUrl", value = "视频URL", notes = "视频的链接地址", dataType = "string", required = true, example = "http://www.www./dsdd.mp4")
     @Column(name = "view_url", columnDefinition = "VARCHAR(255) COMMENT '视频URL'")
     private String viewUrl;
+
+    public ViewDatum() {
+    }
+
+    public ViewDatum(String viewId, String courseId, String chapterId, String viewName, String viewType, String viewUrl) {
+        this.viewId = viewId;
+        this.courseId = courseId;
+        this.chapterId = chapterId;
+        this.viewName = viewName;
+        this.viewType = viewType;
+        this.viewUrl = viewUrl;
+    }
 }
