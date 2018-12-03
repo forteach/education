@@ -45,17 +45,17 @@ public class ChapteDataServiceImplTest {
 
     @Test
     public void save() {
-        ChapteData chapteData = chapteDataService.save(
-                ChapteData.builder().courseId("ff808181673e5e6c01673e5f792b0001").chapterId("ff808181673e9f6801673ea011950000")
-                        .fileId("40288155674a405d01674a407ef20000")
-                        .audioId("402881556749ef47016749ef66af0000")
-                        .datumName("计算机资料")
-                        .linkId("40288155674a380e01674a382f780000")
-                        .viewId("40288155674a31d101674a31f1e30000")
-                        .sortImgId("")
-                        .build()
-        );
-        log.info("ChapteData : {}", chapteData.toString());
+//        ChapteData chapteData = chapteDataService.save(
+//                ChapteData.builder().courseId("ff808181673e5e6c01673e5f792b0001").chapterId("ff808181673e9f6801673ea011950000")
+//                        .fileId("40288155674a405d01674a407ef20000")
+//                        .audioId("402881556749ef47016749ef66af0000")
+//                        .datumName("计算机资料")
+//                        .linkId("40288155674a380e01674a382f780000")
+//                        .viewId("40288155674a31d101674a31f1e30000")
+//                        .sortImgId("")
+//                        .build()
+//        );
+//        log.info("ChapteData : {}", chapteData.toString());
     }
 
     @Test

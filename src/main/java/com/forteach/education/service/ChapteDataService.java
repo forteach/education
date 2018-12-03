@@ -1,6 +1,8 @@
 package com.forteach.education.service;
 
+import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.ChapteData;
+import com.forteach.education.web.req.ChapteDataReq;
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ import java.util.List;
  */
 public interface ChapteDataService {
 
-    ChapteData save(ChapteData chapteData);
+    WebResult save(ChapteDataReq chapteDataReq);
 
     ChapteData edit(ChapteData chapteData);
 

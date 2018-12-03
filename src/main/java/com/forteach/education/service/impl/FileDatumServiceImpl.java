@@ -92,6 +92,7 @@ public class FileDatumServiceImpl implements FileDatumService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveCourseDataDatum(CourseDataDatumReq courseDataDatumReq) {
         List<FileDatum> fileDatumArrayList = new ArrayList<>();
         courseDataDatumReq.getFiles().forEach(file -> {

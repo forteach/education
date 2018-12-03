@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.ChapteData;
 import com.forteach.education.service.ChapteDataService;
+import com.forteach.education.web.req.ChapteDataReq;
+import com.forteach.education.web.vo.DataDatumVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -39,14 +41,15 @@ public class ChapteDataController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", required = true, paramType = "from"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "sortImgId", value = "图册编号", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "datumName", value = "资料名称", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "int", paramType = "from"),
-            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "int", paramType = "from"),
-            @ApiImplicitParam(name = "remark", value = "备注说明", dataType = "string", paramType = "from")
+//            @ApiImplicitParam(name = "sortImgId", value = "图册编号", dataType = "string", paramType = "from"),
+            @ApiImplicitParam(name = "datumName", value = "资料名称", dataType = "string", paramType = "from", required = true),
+            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "int", required = true, paramType = "from", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例"),
+            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "int", required = true, paramType = "from", example = "资料类型 1文档　2图册　3视频　4音频　5链接"),
+            @ApiImplicitParam(name = "remark", value = "备注说明", dataType = "string", paramType = "from"),
+            @ApiImplicitParam(name = "files", value = "文件对象", dataTypeClass = DataDatumVo.class, paramType = "from", required = true)
     })
-    public WebResult webResult(@Valid @ApiParam(value = "保存资料信息", name = "chapteData") @RequestBody ChapteData chapteData){
-        return WebResult.okResult(chapteDataService.save(chapteData));
+    public WebResult webResult(@Valid @ApiParam(value = "保存资料信息", name = "chapteData") @RequestBody ChapteDataReq chapteDataReq){
+        return chapteDataService.save(chapteDataReq);
     }
 
     @ApiOperation(value = "修改资源信息")

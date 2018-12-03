@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -22,12 +23,7 @@ import java.io.Serializable;
 @Builder
 @Table(name = "chapte_data", indexes = {
         @Index(columnList = "data_id"),
-        @Index(columnList = "chapter_id"),
-        @Index(columnList = "sort_img_id"),
-        @Index(columnList = "file_id"),
-        @Index(columnList = "link_id"),
-        @Index(columnList = "view_id"),
-        @Index(columnList = "audio_id")
+        @Index(columnList = "chapter_id")
 })
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "chapte_data", comment = "章节资料")
@@ -44,6 +40,7 @@ public class ChapteData extends Entitys implements Serializable {
     @JsonView(View.SummaryExtend.class)
     private String dataId;
 
+    @NotNull(message = "科目编号不为空")
     @ApiModelProperty(name = "courseId", value = "科目编号", dataType = "string", required = true)
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '课程科目ID'")
     @JsonView(View.Summary.class)
@@ -54,27 +51,28 @@ public class ChapteData extends Entitys implements Serializable {
     @JsonView(View.Summary.class)
     private String chapterId;
 
-    @ApiModelProperty(name = "sortImgId", value = "图册编号", dataType = "string")
+    @ApiModelProperty(name = "sortImgId", value = "图册编号", dataType = "string", hidden = true)
     @Column(name = "sort_img_id", columnDefinition = "VARCHAR(32) COMMENT '图册编号'")
     @JsonView(View.Summary.class)
     private String sortImgId;
 
-    @ApiModelProperty(name = "fileId", value = "文件编号", dataType = "string")
+    @ApiModelProperty(name = "fileId", value = "文件编号", dataType = "string", hidden = true)
     @Column(name = "file_id", columnDefinition = "VARCHAR(32) COMMENT '文件编号'")
     private String fileId;
 
-    @ApiModelProperty(name = "linkId", value = "链接编号", dataType = "string")
+    @ApiModelProperty(name = "linkId", value = "链接编号", dataType = "string", hidden = true)
     @Column(name = "link_id", columnDefinition = "VARCHAR(32) COMMENT '链接编号'")
     private String linkId;
 
-    @ApiModelProperty(name = "viewId", value = "视频编号", dataType = "string")
+    @ApiModelProperty(name = "viewId", value = "视频编号", dataType = "string", hidden = true)
     @Column(name = "view_id", columnDefinition = "VARCHAR(32) COMMENT '视频编号'")
     private String viewId;
 
-    @ApiModelProperty(name = "audioId", value = "音频编号", dataType = "string")
+    @ApiModelProperty(name = "audioId", value = "音频编号", dataType = "string", hidden = true)
     @Column(name = "audio_id", columnDefinition = "VARCHAR(32) COMMENT '音频编号'")
     private String audioId;
 
+    @NotNull(message = "资料名称不为空")
     @ApiModelProperty(name = "datumName", dataType = "string", value = "资料名称", notes = "资料名称", required = true)
     @Column(name = "datum_name", columnDefinition = "VARCHAR(60) COMMENT '资料名称'")
     @JsonView(View.Summary.class)
@@ -85,6 +83,7 @@ public class ChapteData extends Entitys implements Serializable {
     @JsonView(View.SummaryExtend.class)
     private Integer datumArea;
 
+    @NotNull(message = "资料类型不为空")
     @JsonView(View.SummaryExtend.class)
     @ApiModelProperty(name = "datumType", dataType = "string", value = "资料类型", notes = "资料类型 1文档　2图册　3视频　4音频　5链接", required = true)
     @Column(name = "datum_type", columnDefinition = "INT COMMENT '资料类型 1文档　2图册　3视频　4音频　5链接'")
