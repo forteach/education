@@ -19,7 +19,6 @@ import java.io.Serializable;
  * @date: 2018/11/1 2:30
  */
 @Data
-//@Builder
 @ApiModel(value = "分页查询对象")
 @NoArgsConstructor
 @AllArgsConstructor
