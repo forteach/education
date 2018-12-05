@@ -6,6 +6,7 @@ import com.forteach.education.domain.Course;
 import com.forteach.education.domain.Teacher;
 import com.forteach.education.domain.ViewDatum;
 import com.forteach.education.service.CourseService;
+import com.forteach.education.service.CourseShareService;
 import com.forteach.education.service.FileDatumService;
 import com.forteach.education.service.ViewDatumService;
 import com.forteach.education.web.req.CourseImagesReq;
@@ -15,10 +16,7 @@ import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -39,22 +37,25 @@ public class CourseController {
     private final CourseService courseService;
     private final FileDatumService fileDatumService;
     private final ViewDatumService viewDatumService;
+    private final CourseShareService courseShareService;
 
     @Autowired
-    public CourseController(CourseService courseService, FileDatumService fileDatumService, ViewDatumService viewDatumService) {
+    public CourseController(CourseService courseService, FileDatumService fileDatumService,
+                            ViewDatumService viewDatumService, CourseShareService courseShareService) {
         this.courseService = courseService;
         this.fileDatumService = fileDatumService;
         this.viewDatumService = viewDatumService;
+        this.courseShareService = courseShareService;
     }
 
     @ApiOperation(value = "保存课程科目信息", notes = "保存科目课程信息")
     @PostMapping("/save")
 //    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "course", value = "科目课程对象", dataTypeClass = Course.class, dataType = "string", required = true),
+            @ApiImplicitParam(name = "course", value = "科目课程对象", dataTypeClass = Course.class, required = true),
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
     })
-    public WebResult save(@Valid @ApiParam(name = "course", value = "科目课程对象", required = true) @RequestBody CourseReq courseReq){
+    public WebResult save(@Valid @ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody CourseReq courseReq){
         return WebResult.okResult(courseService.save(courseReq));
     }
 
@@ -62,11 +63,11 @@ public class CourseController {
     @PostMapping("/edit")
 //    @JsonView(View.Summary.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "course", value = "科目课程对象", dataTypeClass = Course.class, dataType = "string", required = true),
+            @ApiImplicitParam(name = "course", value = "科目课程对象", dataTypeClass = Course.class, required = true),
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
     })
-    public WebResult edit(@Valid @ApiParam(name = "course", value = "科目课程对象", required = true) @RequestBody Course course){
-        return WebResult.okResult(courseService.edit(course));
+    public WebResult edit(@Valid @ApiParam(name = "courseReq", value = "科目课程对象", required = true) @ModelAttribute @RequestBody CourseReq courseReq){
+        return WebResult.okResult(courseService.edit(courseReq));
     }
 
     @ApiOperation(value = "删除科目信息", notes = "删除科目对象 (物理删除)")
@@ -171,7 +172,7 @@ public class CourseController {
             @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true),
             @ApiImplicitParam(name = "images", value = "图册信息数组", dataTypeClass = DataDatumVo.class, required = true)
     })
-    public WebResult saveCourseImages(@Valid @ApiParam(value = "课程ID和图片", name = "courseImagesReq") @RequestBody CourseImagesReq courseImagesReq){
+    public WebResult saveCourseImages(@Valid @ApiParam(value = "课程ID和图片", name = "courseImagesReq") @ModelAttribute @RequestBody CourseImagesReq courseImagesReq){
         courseService.saveCourseImages(courseImagesReq);
         return WebResult.okResult();
     }
@@ -185,10 +186,19 @@ public class CourseController {
 //    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "查询课程轮播图", notes = "根据课程科目ID查询对应的轮播图")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true)
+            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true, example = "ff808181677d238701677d26fdae0002")
     })
     public WebResult findImagesByCourseId(@Valid @ApiParam(name = "courseId", value = "查询对应的", type = "string", required = true) @RequestBody String courseId){
         return WebResult.okResult(courseService.findImagesByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
+    }
+
+    @PostMapping("/selectTeachersByCourseId")
+    @ApiOperation(value = "根据课程ID查询对应的协作老师信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true, example = "ff808181677d238701677d26fdae0002")
+    })
+    public WebResult selectTeachersByCourseId(@Valid @ApiParam(name = "courseId", value = "查询对应的协作老师信息", type = "string", required = true) @RequestBody String courseId){
+        return WebResult.okResult(courseShareService.selectCourseShareTeachersByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
     }
 
 }

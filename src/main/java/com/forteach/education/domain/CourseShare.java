@@ -1,5 +1,6 @@
 package com.forteach.education.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -18,7 +19,8 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(name = "course_share", indexes = {@Index(columnList = "share_id"), @Index(columnList = "chapter_id"), @Index(columnList = "course_id")})
+@Table(name = "course_share", indexes = {@Index(columnList = "share_id"), @Index(columnList = "chapter_id"),
+        @Index(columnList = "course_id"), @Index(columnList = "teacher_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "course_share", comment = "分享范围")
 @ApiModel(value = "分享范围")
@@ -48,4 +50,9 @@ public class CourseShare extends Entitys implements Serializable {
     @ApiModelProperty(value = "分享范围", name = "shareArea", dataType = "int")
     @Column(name = "share_area", columnDefinition = "INT COMMENT '分享范围 1,全部　２,章节'")
     private Integer shareArea;
+
+    @ApiModelProperty(hidden = true)
+    @JsonIgnore
+    @Column(name = "teacher_id", columnDefinition = "VARCHAR(32) COMMENT '对应的教师ID'", nullable = false)
+    private String teacherId;
 }

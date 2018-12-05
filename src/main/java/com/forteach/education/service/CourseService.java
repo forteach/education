@@ -24,7 +24,7 @@ public interface CourseService {
 
     void delete(Course course);
 
-    Course edit(Course course);
+    Course edit(CourseReq courseReq);
 
     void deleteIsValidById(String courseId);
 

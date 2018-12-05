@@ -5,9 +5,8 @@ import com.forteach.education.filter.View;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -64,11 +63,11 @@ public class Photos extends Entitys implements Serializable {
     @JsonView(View.Summary.class)
     private String photoDescription;
 
-    @ApiModelProperty(value = "图片上传时间", name = "uploadTime", dataType = "string", hidden = true)
+    @ApiModelProperty(value = "图片上传时间", name = "uploadTime", dataType = "string", hidden = true, example = "2018-12-05 14:56:45")
     @Column(name = "upload_time", columnDefinition = "datetime COMMENT '图片上传时间'")
     @Temporal(TemporalType.TIMESTAMP)
-    @Generated(GenerationTime.INSERT)
     @JsonView(View.SummaryExtend.class)
+    @LastModifiedDate
     private Date uploadTime;
 
 }

@@ -52,7 +52,7 @@ public class CourseServiceImpl implements CourseService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = Exception.class, timeout = 10)
+    @Transactional(rollbackFor = Exception.class)
     public Course save(CourseReq courseReq) {
         int shareType = courseReq.getCourse().getShareType();
         Course course = courseRepository.saveAndFlush(courseReq.getCourse());
@@ -63,7 +63,7 @@ public class CourseServiceImpl implements CourseService {
                 list.add(CourseShare.builder()
                         .courseId(course.getCourseId())
                         .shareArea(1)
-                        .shareId(course.getCUser())
+                        .teacherId(teacher.getTeacherId())
                         .build());
             });
             courseShareRepository.saveAll(list);
@@ -84,9 +84,26 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Course edit(Course course) {
-        Course source = courseRepository.findById(course.getCourseId()).get();
+    @Transactional(rollbackFor = Exception.class, timeout = 10)
+    public Course edit(CourseReq courseReq) {
+        Course course = courseReq.getCourse();
+        int shareType = course.getShareType();
+        String courseId = course.getCourseId();
+        Course source = courseRepository.findById(courseId).get();
+        //删除协作者信息
+        courseShareRepository.deleteByCourseId(courseId);
+        if (COURSE_SHARE_TYPE_COOPERATION == shareType){
+            //是协作课程
+            List<CourseShare> shareList = new ArrayList<>();
+            courseReq.getTeachers().forEach(teacher -> {
+                shareList.add(CourseShare.builder()
+                        .courseId(courseId)
+                        .shareArea(1)
+                        .shareId(source.getCUser())
+                        .teacherId(teacher.getTeacherId())
+                        .build());
+            });
+        }
         UpdateUtil.copyNullProperties(source, course);
         return courseRepository.save(course);
     }

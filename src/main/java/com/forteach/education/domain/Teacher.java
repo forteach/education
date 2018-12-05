@@ -30,12 +30,12 @@ public class Teacher extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @ApiModelProperty(name = "teacherId", value = "教师ID", notes = "教师ID", example = "123456")
+    @ApiModelProperty(name = "teacherId", value = "教师ID", notes = "教师ID", example = "ff808181675ea68f01675ea6d86b0000")
     @GeneratedValue(generator = "system-uuid")
     @Column(name = "teacher_id", nullable = false, columnDefinition = "VARCHAR(32) COMMENT '老师id uuid'")
     private String teacherId;
 
-    @ApiModelProperty(name = "specialty_id", value = "专业号", notes = "专业ID", required = true, example = "SD21133")
+    @ApiModelProperty(name = "specialty_id", value = "专业号", notes = "专业ID", required = true, example = "2c9180926746230801674625ad160000")
     @Column(name = "specialty_id", columnDefinition = "VARCHAR(32) COMMENT '专业号'")
     private String specialtyId;
 
