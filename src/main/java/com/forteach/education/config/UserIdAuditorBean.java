@@ -12,15 +12,14 @@ package com.forteach.education.config;
 //
 //    @Override
 //    public Optional<String> getCurrentAuditor() {
-//        SecurityContext ctx = SecurityContextHolder.getContext();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        Optional<String> empty = Optional.empty();
-//        if (ctx == null || ctx.getAuthentication() == null || ctx.getAuthentication().getPrincipal() == null){
+//        if (authentication == null){
 //            return empty;
 //        }
-//        Object principal = ctx.getAuthentication().getPrincipal();
-//        if (principal.getClass().isAssignableFrom(String.class)){
-//            return Optional.of(Optional.ofNullable(String.valueOf(principal))
-//                    .orElseThrow(IllegalArgumentException::new));
+//        Object principal = authentication.getPrincipal();
+//        if (principal.getClass().isAssignableFrom(SysUsers.class)){
+//            return Optional.ofNullable(((SysUsers)principal).getId());
 //        }
 //        return empty;
 //    }

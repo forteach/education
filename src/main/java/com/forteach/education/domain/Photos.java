@@ -64,7 +64,7 @@ public class Photos extends Entitys implements Serializable {
     private String photoDescription;
 
     @ApiModelProperty(value = "图片上传时间", name = "uploadTime", dataType = "string", hidden = true, example = "2018-12-05 14:56:45")
-    @Column(name = "upload_time", columnDefinition = "datetime COMMENT '图片上传时间'")
+    @Column(name = "upload_time", columnDefinition = "datetime COMMENT '图片上传时间'", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonView(View.SummaryExtend.class)
     @LastModifiedDate

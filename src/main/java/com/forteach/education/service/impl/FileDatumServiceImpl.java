@@ -8,6 +8,7 @@ import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.CourseDataDatumReq;
+import com.forteach.education.web.req.CourseFileDataReq;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,11 +112,13 @@ public class FileDatumServiceImpl implements FileDatumService {
 
     /**
      * 根据科目课程ID查询资料信息
-     * @param courseId
+     * @param courseFileDataReq
      * @return
      */
     @Override
-    public List<FileDatum> findFileDatumByCourseId(String courseId) {
-        return fileDatumRepository.findByIsValidatedAndCourseId(TAKE_EFFECT_OPEN, courseId);
+    public Page<FileDatum> findFileDatumByCourseId(CourseFileDataReq courseFileDataReq) {
+        SortVo sortVo = courseFileDataReq.getSortVo();
+        Page<FileDatum> page= fileDatumRepository.findByIsValidatedAndCourseIdAndChapterId(courseFileDataReq.getIsValidated(), courseFileDataReq.getCourseId(), courseFileDataReq.getChapterId(), PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
+        return page;
     }
 }

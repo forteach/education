@@ -59,7 +59,8 @@ public class Entitys implements Serializable {
 
     @LastModifiedBy
     @JsonView(View.SummaryDetail.class)
-    @Column(name = "u_user", columnDefinition = "VARCHAR(32) COMMENT '修改人'")
+    @Column(name = "u_user", columnDefinition = "VARCHAR(32) COMMENT '修改人'"//, nullable = true
+             )
     @ApiModelProperty(value = "修改人", name = "uUser", dataType = "string", notes = "修改人ID", hidden = true, example = "df4sf4dsf4s34")
     private String uUser;
 

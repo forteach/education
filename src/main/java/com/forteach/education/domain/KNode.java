@@ -26,10 +26,11 @@ import java.io.Serializable;
 @org.hibernate.annotations.Table(appliesTo = "k_node", comment = "知识点表")
 @ApiModel(value = "知识点表数据")
 public class KNode extends Entitys implements Serializable {
+
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
-    @ApiModelProperty(value = "知识点ID", name = "k_node_Id", dataType = "string")
+    @ApiModelProperty(name = "k_node_Id", value = "知识点ID", dataType = "string")
     @Column(name = "k_node_Id", columnDefinition = "VARCHAR(32) COMMENT '知识点编号'")
     private String kNodeId;
 
@@ -38,8 +39,8 @@ public class KNode extends Entitys implements Serializable {
     @Column(name = "node_name", columnDefinition = "VARCHAR(32) COMMENT '知识点名称'")
     private String nodeName;
 
-    @ApiModelProperty(value = "知识点描述", name = "node_desc", notes = "描述知识点说明", dataType = "string")
-    @Column(name = "node_desc", columnDefinition = "VARCHAR(32) COMMENT '知识点描述'")
+    @ApiModelProperty(value = "知识点描述", name = "node_desc", notes = "描述知识点说明", dataType = "string", example = "计算机描述详细信息")
+    @Column(name = "node_desc", columnDefinition = "VARCHAR(256) COMMENT '知识点描述'")
     private String nodeDesc;
 
     @ApiModelProperty(name = "course_id", value = "科目课程ID", dataType = "string", example = "ff808181677d1d5501677d1d9f9e0000")
@@ -50,11 +51,11 @@ public class KNode extends Entitys implements Serializable {
     @Column(name = "chapter_id", columnDefinition = "VARCHAR(32) COMMENT '章节ID'")
     private String chapterId;
 
-    @ApiModelProperty(name = "dataId", value = "对应的资料ID", dataType = "string")
+    @ApiModelProperty(name = "dataId", value = "对应的资料ID", dataType = "string", example = "ff808181674ee66201674ee6aff50000")
     @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '资料ID'")
     private String dataId;
 
-    @ApiModelProperty(name = "kNodeType", value = "知识点类型", notes = "1 单个知识点 2 复合多个知识点")
+    @ApiModelProperty(name = "kNodeType", value = "知识点类型", notes = "1 单个知识点 2 复合多个知识点", example = "1")
     @Column(name = "k_node_type", columnDefinition = "VARCHAR(32) COMMENT '知识点类型１ 单个知识点，２　多个知识点'")
     private String kNodeType;
 

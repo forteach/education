@@ -9,6 +9,7 @@ import com.forteach.education.service.CourseService;
 import com.forteach.education.service.CourseShareService;
 import com.forteach.education.service.FileDatumService;
 import com.forteach.education.service.ViewDatumService;
+import com.forteach.education.web.req.CourseFileDataReq;
 import com.forteach.education.web.req.CourseImagesReq;
 import com.forteach.education.web.req.CourseReq;
 import com.forteach.education.web.vo.DataDatumVo;
@@ -129,10 +130,13 @@ public class CourseController {
     @PostMapping("/findFileDatumByCourseId")
 //    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true)
+            @ApiImplicitParam(name = "isValidated", value = "有无效", dataType = "string"),
+            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true),
+            @ApiImplicitParam(name = "chapterId", value = "章节小节ID", dataType = "string"),
+            @ApiImplicitParam(name = "sortVo", value = "分页对象", dataTypeClass = SortVo.class, required = true),
     })
-    public WebResult findFileDatumByCourseId(@Valid @NotBlank(message = "科目课程ID不为空") @ApiParam(name = "courseId", value = "根据章节 ID 查询文件信息", required = true) @RequestBody String courseId){
-        return WebResult.okResult(fileDatumService.findFileDatumByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
+    public WebResult findFileDatumByCourseId(@Valid @NotBlank(message = "科目课程ID不为空") @ApiParam(name = "courseId", value = "根据章节 ID 查询文件信息", required = true) @RequestBody CourseFileDataReq courseFileDataReq){
+        return WebResult.okResult(fileDatumService.findFileDatumByCourseId(courseFileDataReq));
     }
 
     @ApiOperation(value = "保存课程宣传片", notes = "保存课程的宣传片视频信息")

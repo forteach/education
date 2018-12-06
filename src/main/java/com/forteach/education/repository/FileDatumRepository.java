@@ -37,4 +37,13 @@ public interface FileDatumRepository extends JpaRepository<FileDatum, String> {
      * @return
      */
     List<FileDatum> findByIsValidatedAndCourseId(String isValidated, String courseId);
+
+    /**
+     * 分页查询科目课程信息
+     * @param isValidated
+     * @param courseId
+     * @param chapterId
+     * @return
+     */
+    Page<FileDatum> findByIsValidatedAndCourseIdAndChapterId(String isValidated, String courseId, String chapterId, Pageable pageable);
 }

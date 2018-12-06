@@ -22,11 +22,17 @@ import java.io.Serializable;
 @ApiModel(value = "知识点查询")
 public class KNodeReq implements Serializable {
 
-    @ApiModelProperty(name = "selectId", value = "查询ID", dataType = "string")
-    private String selectId;
+    @ApiModelProperty(name = "courseId", value = "科目课程ID", dataType = "string")
+    private String courseId;
 
-    @ApiModelProperty(name = "selectType", value = "查询类型", dataType = "int", notes = "1 科目 2 章节 3 数据类型")
-    private Integer selectType;
+    @ApiModelProperty(name = "chapterId", value = "章节ID", dataType = "string")
+    private String chapterId;
+
+    @ApiModelProperty(name = "dataId", value = "资料id", dataType = "string")
+    private String dataId;
+
+    @ApiModelProperty(name = "kNodeType", dataType = "string", example = "1")
+    private String kNodeType;
 
     @ApiModelProperty(name = "sortVo", value = "查讯分页对象", required = true)
     private SortVo sortVo;

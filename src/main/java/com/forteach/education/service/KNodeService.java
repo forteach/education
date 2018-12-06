@@ -1,8 +1,8 @@
 package com.forteach.education.service;
 
-import com.forteach.education.common.WebResult;
 import com.forteach.education.domain.KNode;
 import com.forteach.education.web.req.KNodeReq;
+import org.springframework.data.domain.Page;
 
 /**
  * @Auther: zhangyy
@@ -16,5 +16,11 @@ public interface KNodeService {
 
     KNode edit(KNode kNode);
 
-    WebResult selectById(KNodeReq kNodeReq);
+    Page<KNode> selectById(KNodeReq kNodeReq);
+
+    KNode findById(String kNodeId);
+
+    void deleteById(String kNodeId);
+
+    void deleteIsValidById(String kNodeId);
 }

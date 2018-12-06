@@ -30,7 +30,7 @@ public class SortVo implements Serializable {
 
     @NotNull(message = "每页数量不为空")
     @DecimalMin(value = "0", message = "每页数量不能小于０")
-    @DecimalMax(value = "100", message = "每页数量不能大于１００")
+    @DecimalMax(value = "200", message = "每页数量不能大于200")
     @ApiModelProperty(value = "每页数量", notes = "每页数量", dataType = "int", name = "size", example = "20", required = true)
     private int size;
 
