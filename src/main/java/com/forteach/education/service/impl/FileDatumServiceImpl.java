@@ -1,5 +1,6 @@
 package com.forteach.education.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.forteach.education.domain.FileDatum;
 import com.forteach.education.repository.FileDatumRepository;
 import com.forteach.education.service.FileDatumService;
@@ -9,6 +10,7 @@ import com.forteach.education.util.StringUtil;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.CourseDataDatumReq;
 import com.forteach.education.web.req.CourseFileDataReq;
+import com.forteach.education.web.req.CourseFileListReq;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,7 +120,37 @@ public class FileDatumServiceImpl implements FileDatumService {
     @Override
     public Page<FileDatum> findFileDatumByCourseId(CourseFileDataReq courseFileDataReq) {
         SortVo sortVo = courseFileDataReq.getSortVo();
-        Page<FileDatum> page= fileDatumRepository.findByIsValidatedAndCourseIdAndChapterId(courseFileDataReq.getIsValidated(), courseFileDataReq.getCourseId(), courseFileDataReq.getChapterId(), PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
+        Page<FileDatum> page= fileDatumRepository.findByIsValidatedAndCourseIdAndChapterId(
+                courseFileDataReq.getIsValidated(), courseFileDataReq.getCourseId(), courseFileDataReq.getChapterId(),
+                PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
         return page;
+    }
+
+    /**
+     * 修改课程科目的文件状态
+     * @param courseFileListReq
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class, timeout = 10)
+    public void editCourseFileList(CourseFileListReq courseFileListReq) {
+        List<FileDatum> fileDatumList2 = new ArrayList<>();
+        List<FileDatum> fileDatumList1 = new ArrayList<>();
+        courseFileListReq.getFileDatums().forEach(fileDatum -> {
+            if (StrUtil.isBlank(fileDatum.getFileId())) {
+                fileDatumList1.add(FileDatum.builder()
+                        .fileName(fileDatum.getFileName())
+                        .chapterId(fileDatum.getChapterId())
+                        .courseId(fileDatum.getCourseId())
+                        .fileUrl(fileDatum.getFileUrl())
+                        .fileType(FileUtils.ext(fileDatum.getFileName()))
+                        .build());
+            } else {
+                FileDatum source = fileDatumRepository.findById(fileDatum.getFileId()).get();
+                UpdateUtil.copyNullProperties(source, fileDatum);
+                fileDatumList2.add(fileDatum);
+            }
+        });
+        fileDatumRepository.saveAll(fileDatumList1);
+        fileDatumRepository.saveAll(fileDatumList2);
     }
 }

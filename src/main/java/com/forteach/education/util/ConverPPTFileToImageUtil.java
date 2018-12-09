@@ -17,13 +17,14 @@ import org.openxmlformats.schemas.drawingml.x2006.main.*;
 import org.openxmlformats.schemas.presentationml.x2006.main.CTGroupShape;
 import org.openxmlformats.schemas.presentationml.x2006.main.CTShape;
 import org.openxmlformats.schemas.presentationml.x2006.main.CTSlide;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * @Auther: zhangyy
@@ -334,10 +335,8 @@ public class ConverPPTFileToImageUtil {
             FileInputStream fin = new FileInputStream(file);
             extractor = new PowerPointExtractor(fin);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return extractor.getText();

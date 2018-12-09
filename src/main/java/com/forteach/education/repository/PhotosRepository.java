@@ -2,7 +2,9 @@ package com.forteach.education.repository;
 
 import com.forteach.education.domain.Photos;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ public interface PhotosRepository extends JpaRepository<Photos, String> {
      */
     List<Photos> findBySortImgId(String sortImgId);
 
-//    List<PhotoSortVo> findBySortImgId(String sortImgId);
-
+    @Modifying
+    @Transactional(rollbackOn = Exception.class)
     void deleteBySortImgId(String sortImgId);
 }

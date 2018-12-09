@@ -42,9 +42,14 @@ curl -X GET http://127.0.0.1:5000/v2/_catalog
 # 修改服务端配置文件
 vim /etc/sysconfig/docker
 ------------------------------
+```shell
 other_args="--exec-driver=lxc --selinux-enabled --insecure-registry 100.90.61.14:5000"
 DOCKER_CERT_PATH=/etc/docker
+```
 ------------------------------
+##改为下面的参数
+other_args="--insecure-registry 100.90.61.14:5000"
+DOCKER_CERT_PATH=/etc/docker
 # 说明　--insecure-registry 100.90.61.14:5000，表示开启5000端口的非安全模式，也就是http模式
 
 # 客户端和服务端修改添加这句话

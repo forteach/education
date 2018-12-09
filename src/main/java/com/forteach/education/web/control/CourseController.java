@@ -10,6 +10,7 @@ import com.forteach.education.service.CourseShareService;
 import com.forteach.education.service.FileDatumService;
 import com.forteach.education.service.ViewDatumService;
 import com.forteach.education.web.req.CourseFileDataReq;
+import com.forteach.education.web.req.CourseFileListReq;
 import com.forteach.education.web.req.CourseImagesReq;
 import com.forteach.education.web.req.CourseReq;
 import com.forteach.education.web.vo.DataDatumVo;
@@ -17,7 +18,10 @@ import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -67,7 +71,7 @@ public class CourseController {
             @ApiImplicitParam(name = "course", value = "科目课程对象", dataTypeClass = Course.class, required = true),
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
     })
-    public WebResult edit(@Valid @ApiParam(name = "courseReq", value = "科目课程对象", required = true) @ModelAttribute @RequestBody CourseReq courseReq){
+    public WebResult edit(@Valid @ApiParam(name = "courseReq", value = "科目课程对象", required = true) @RequestBody CourseReq courseReq){
         return WebResult.okResult(courseService.edit(courseReq));
     }
 
@@ -130,12 +134,13 @@ public class CourseController {
     @PostMapping("/findFileDatumByCourseId")
 //    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "isValidated", value = "有无效", dataType = "string"),
+            @ApiImplicitParam(name = "isValidated", value = "有无效", dataType = "string", example = "0"),
             @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true),
             @ApiImplicitParam(name = "chapterId", value = "章节小节ID", dataType = "string"),
             @ApiImplicitParam(name = "sortVo", value = "分页对象", dataTypeClass = SortVo.class, required = true),
     })
-    public WebResult findFileDatumByCourseId(@Valid @NotBlank(message = "科目课程ID不为空") @ApiParam(name = "courseId", value = "根据章节 ID 查询文件信息", required = true) @RequestBody CourseFileDataReq courseFileDataReq){
+    public WebResult findFileDatumByCourseId(@Valid @NotBlank(message = "科目课程ID不为空") @ApiParam(name = "courseId", value = "根据章节 ID 查询文件信息", required = true)
+                                                 @RequestBody CourseFileDataReq courseFileDataReq){
         return WebResult.okResult(fileDatumService.findFileDatumByCourseId(courseFileDataReq));
     }
 
@@ -176,7 +181,7 @@ public class CourseController {
             @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true),
             @ApiImplicitParam(name = "images", value = "图册信息数组", dataTypeClass = DataDatumVo.class, required = true)
     })
-    public WebResult saveCourseImages(@Valid @ApiParam(value = "课程ID和图片", name = "courseImagesReq") @ModelAttribute @RequestBody CourseImagesReq courseImagesReq){
+    public WebResult saveCourseImages(@Valid @ApiParam(value = "课程ID和图片", name = "courseImagesReq") @RequestBody CourseImagesReq courseImagesReq){
         courseService.saveCourseImages(courseImagesReq);
         return WebResult.okResult();
     }
@@ -203,6 +208,17 @@ public class CourseController {
     })
     public WebResult selectTeachersByCourseId(@Valid @ApiParam(name = "courseId", value = "查询对应的协作老师信息", type = "string", required = true) @RequestBody String courseId){
         return WebResult.okResult(courseShareService.selectCourseShareTeachersByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
+    }
+
+    @PostMapping("/editCourseFileList")
+    @ApiOperation(value = "修改选择的文件", notes = "参数是 fileDatums 名对象的数组")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "科目课程ID", dataType = "string"),
+            @ApiImplicitParam(name = "fileDatums", value = "文件列表对象列表", dataTypeClass = CourseFileListReq.class)
+    })
+    public WebResult editCourseFileList(@Valid @ApiParam(name = "fileDatums", value = "文件对象列表") @RequestBody CourseFileListReq courseFileListReq){
+        fileDatumService.editCourseFileList(courseFileListReq);
+        return WebResult.okResult();
     }
 
 }

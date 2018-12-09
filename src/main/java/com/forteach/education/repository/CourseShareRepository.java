@@ -3,9 +3,11 @@ package com.forteach.education.repository;
 import com.forteach.education.domain.CourseShare;
 import com.forteach.education.dto.CourseShareTeacherDto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -17,19 +19,19 @@ import java.util.List;
  */
 public interface CourseShareRepository extends JpaRepository<CourseShare, String> {
 
+    @Modifying
+    @Transactional(rollbackOn = Exception.class)
     int deleteByCourseId(String courseId);
 
     List<CourseShare> findByCourseId(String courseId);
 
-    //select c.teacher_id as teacher_id, t.teacher_name as teacher_name from course_share as c, teacher as t
-    //where c.is_validated = '0'
-    //  and c.teacher_id = t.teacher_id
-    //  and c.course_id = :?
-//    @Query("select new com.forteach.education.dto.CourseShareTeacherDto(teacherId, teacherName) from CourseShare, Teacher" +
-//            " where CourseShare.isValidated = '0' and CourseShare.teacherId = Teacher.teacherId" +
-//            "  and CourseShare.courseId = ?1")
-    @Query(value = "select new com.forteach.education.dto.CourseShareTeacherDto" +
-            "(c.teacherId AS teacherId, t.teacherName AS teacherName) from CourseShare AS c left join Teacher AS t on c.teacherId = t.teacherId where " +
+    /**
+     * 根据课程ID查询对应的协作者教师ID
+     * @param courseId
+     * @return
+     */
+    @Query(value = "select new com.forteach.education.dto.CourseShareTeacherDto " +
+            "(t.teacherId, t.teacherName) from CourseShare AS c left join Teacher AS t on c.teacherId = t.teacherId where " +
             "c.isValidated = '0' AND c.courseId = :courseId")
     List<CourseShareTeacherDto> findTeachersByCourseId(@Param("courseId") String courseId);
 }

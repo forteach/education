@@ -3,6 +3,7 @@ package com.forteach.education.service;
 import com.forteach.education.domain.FileDatum;
 import com.forteach.education.web.req.CourseDataDatumReq;
 import com.forteach.education.web.req.CourseFileDataReq;
+import com.forteach.education.web.req.CourseFileListReq;
 import com.forteach.education.web.vo.SortVo;
 import org.springframework.data.domain.Page;
 
@@ -36,4 +37,6 @@ public interface FileDatumService {
     void saveCourseDataDatum(CourseDataDatumReq courseDataDatumReq);
 
     Page<FileDatum> findFileDatumByCourseId(CourseFileDataReq courseFileDataReq);
+
+    void editCourseFileList(CourseFileListReq courseFileListReq);
 }

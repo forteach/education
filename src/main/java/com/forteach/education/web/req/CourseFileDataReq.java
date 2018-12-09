@@ -1,6 +1,7 @@
 package com.forteach.education.web.req;
 
 import com.forteach.education.web.vo.SortVo;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,9 +19,10 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(value = "知识点查询对象")
 public class CourseFileDataReq implements Serializable {
 
-    @ApiModelProperty(name = "isValidated", value = "有无效", dataType = "string")
+    @ApiModelProperty(name = "isValidated", value = "有无效", dataType = "string", notes = "生效标识 0生效 1失效")
     private String isValidated;
 
     @ApiModelProperty(name = "courseId", value = "课程科目ID", dataType = "string")

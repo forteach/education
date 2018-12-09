@@ -8,7 +8,10 @@ import com.forteach.education.web.req.KNodeReq;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -66,7 +69,7 @@ public class KNodeController {
             @ApiImplicitParam(name = "kNodeType", value = "知识点类型", example = "1", dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "SortVo", value = "分页对象", dataTypeClass = SortVo.class, required = true, paramType = "query")
     })
-    public WebResult findAllPage(@Valid @ModelAttribute @RequestBody KNodeReq kNodeReq){
+    public WebResult findAllPage(@Valid @ApiParam(value = "查询知识点分页对象") @RequestBody KNodeReq kNodeReq){
         return WebResult.okResult(kNodeService.selectById(kNodeReq));
     }
 
