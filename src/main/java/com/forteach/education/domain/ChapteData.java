@@ -79,7 +79,7 @@ public class ChapteData extends Entitys implements Serializable {
     private String datumName;
 
     @ApiModelProperty(name = "datumArea", dataType = "string", value = "资料领域", notes = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例", required = true)
-    @Column(name = "datum_area", columnDefinition = "INT COMMENT '资料领域：1教案2课件 3预习参考 4教学参考 5授课案例'")
+    @Column(name = "datum_area", columnDefinition = "INT COMMENT '资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例'")
     @JsonView(View.SummaryExtend.class)
     private Integer datumArea;
 
@@ -93,5 +93,9 @@ public class ChapteData extends Entitys implements Serializable {
     @Column(name = "remark", columnDefinition = "VARCHAR(255) COMMENT '备注说明'")
     @JsonView(View.SummaryExtend.class)
     private String remark;
+
+    @ApiModelProperty(name = "mount", value = "是否挂载", notes = "Y 挂载　N 不挂载", example = "Y")
+    @Column(name = "mount", columnDefinition = "CHAR(1) COMMENT '是否挂载文件 Y 挂载 N 不挂载'")
+    private String mount;
 
 }

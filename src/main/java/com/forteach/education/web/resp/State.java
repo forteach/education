@@ -1,5 +1,6 @@
 package com.forteach.education.web.resp;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 
@@ -11,6 +12,7 @@ import lombok.Builder;
  * @Description:
  */
 @Builder
+@ApiModel(value = "树型菜单是否展开, 默认是展开")
 public class State {
 
     @ApiModelProperty(value = "是否展开", notes = "默认打开true")

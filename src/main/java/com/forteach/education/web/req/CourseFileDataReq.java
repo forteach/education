@@ -6,7 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
@@ -19,7 +21,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(value = "知识点查询对象")
+@ApiModel(value = "查询对象")
 public class CourseFileDataReq implements Serializable {
 
     @ApiModelProperty(name = "isValidated", value = "有无效", dataType = "string", notes = "生效标识 0生效 1失效")
@@ -30,6 +32,11 @@ public class CourseFileDataReq implements Serializable {
 
     @ApiModelProperty(name = "chapterId", value = "章节小节ID", dataType = "string")
     private String chapterId;
+
+    @Length(max = 1, message = "挂载文件查询参数最大一位")
+    @Pattern(regexp = "^[Y,Z]$",message = "是否挂载参数错误")
+    @ApiModelProperty(name = "mount", value = "是否挂载", dataType = "string", notes = "是否挂载Y(是), N(否) ", example = "Y/N")
+    private String mount;
 
     @ApiModelProperty(name = "sortVo", value = "分页对象")
     private SortVo sortVo;

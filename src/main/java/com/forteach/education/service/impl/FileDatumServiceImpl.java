@@ -1,8 +1,11 @@
 package com.forteach.education.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.domain.ChapteData;
 import com.forteach.education.domain.FileDatum;
+import com.forteach.education.repository.ChapteDataRepository;
 import com.forteach.education.repository.FileDatumRepository;
+import com.forteach.education.repository.RepositoryImpl;
 import com.forteach.education.service.FileDatumService;
 import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.SortUtil;
@@ -13,12 +16,12 @@ import com.forteach.education.web.req.CourseFileDataReq;
 import com.forteach.education.web.req.CourseFileListReq;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +39,14 @@ import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
 @Service
 public class FileDatumServiceImpl implements FileDatumService {
 
-    @Autowired
+    @Resource
     private FileDatumRepository fileDatumRepository;
+
+    @Resource
+    private RepositoryImpl repository;
+
+    @Resource
+    private ChapteDataRepository chapteDataRepository;
 
     @Override
     public FileDatum save(FileDatum fileDatum) {
@@ -120,8 +129,7 @@ public class FileDatumServiceImpl implements FileDatumService {
     @Override
     public Page<FileDatum> findFileDatumByCourseId(CourseFileDataReq courseFileDataReq) {
         SortVo sortVo = courseFileDataReq.getSortVo();
-        Page<FileDatum> page= fileDatumRepository.findByIsValidatedAndCourseIdAndChapterId(
-                courseFileDataReq.getIsValidated(), courseFileDataReq.getCourseId(), courseFileDataReq.getChapterId(),
+        Page<FileDatum> page = repository.findChapteFiles(courseFileDataReq.getIsValidated(), courseFileDataReq.getCourseId(), courseFileDataReq.getChapterId(), courseFileDataReq.getMount(),
                 PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
         return page;
     }
@@ -133,7 +141,9 @@ public class FileDatumServiceImpl implements FileDatumService {
     @Override
     @Transactional(rollbackFor = Exception.class, timeout = 10)
     public void editCourseFileList(CourseFileListReq courseFileListReq) {
+        //修改的文件列表
         List<FileDatum> fileDatumList2 = new ArrayList<>();
+        //保存的文件列表
         List<FileDatum> fileDatumList1 = new ArrayList<>();
         courseFileListReq.getFileDatums().forEach(fileDatum -> {
             if (StrUtil.isBlank(fileDatum.getFileId())) {
@@ -143,6 +153,7 @@ public class FileDatumServiceImpl implements FileDatumService {
                         .courseId(fileDatum.getCourseId())
                         .fileUrl(fileDatum.getFileUrl())
                         .fileType(FileUtils.ext(fileDatum.getFileName()))
+                        .mount(fileDatum.getMount())
                         .build());
             } else {
                 FileDatum source = fileDatumRepository.findById(fileDatum.getFileId()).get();
@@ -150,7 +161,19 @@ public class FileDatumServiceImpl implements FileDatumService {
                 fileDatumList2.add(fileDatum);
             }
         });
-        fileDatumRepository.saveAll(fileDatumList1);
         fileDatumRepository.saveAll(fileDatumList2);
+        List<FileDatum> files = fileDatumRepository.saveAll(fileDatumList1);
+        List<ChapteData> chapteDataList = new ArrayList<>();
+        for (FileDatum fileDatum : files) {
+            chapteDataList.add(ChapteData.builder()
+                    .mount(fileDatum.getMount())
+                    .courseId(fileDatum.getCourseId())
+                    .chapterId(fileDatum.getChapterId())
+                    .datumType(1)
+                    .fileId(fileDatum.getFileId())
+                    .build());
+        }
+        chapteDataRepository.saveAll(chapteDataList);
     }
+
 }

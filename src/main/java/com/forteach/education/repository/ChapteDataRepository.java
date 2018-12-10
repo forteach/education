@@ -1,6 +1,9 @@
 package com.forteach.education.repository;
 
 import com.forteach.education.domain.ChapteData;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -27,4 +30,12 @@ public interface ChapteDataRepository extends JpaRepository<ChapteData, String> 
      * @return
      */
     List<ChapteData> findByIsValidatedEqualsAndChapterId(String isValidated, String chapterId);
+
+    /**
+     * 多条件查询课程科目文件挂载
+     * @param specification
+     * @param pageable
+     * @return
+     */
+    Page<ChapteData> findAll(Specification<ChapteData> specification, Pageable pageable);
 }

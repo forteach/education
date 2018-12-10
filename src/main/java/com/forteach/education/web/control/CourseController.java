@@ -137,9 +137,10 @@ public class CourseController {
             @ApiImplicitParam(name = "isValidated", value = "有无效", dataType = "string", example = "0"),
             @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true),
             @ApiImplicitParam(name = "chapterId", value = "章节小节ID", dataType = "string"),
+            @ApiImplicitParam(name = "mount", value = "是否挂载", dataType = "string", example = "Y/N"),
             @ApiImplicitParam(name = "sortVo", value = "分页对象", dataTypeClass = SortVo.class, required = true),
     })
-    public WebResult findFileDatumByCourseId(@Valid @NotBlank(message = "科目课程ID不为空") @ApiParam(name = "courseId", value = "根据章节 ID 查询文件信息", required = true)
+    public WebResult findFileDatumByCourseId(@Valid @ApiParam(name = "courseId", value = "根据章节 ID 查询文件信息", required = true)
                                                  @RequestBody CourseFileDataReq courseFileDataReq){
         return WebResult.okResult(fileDatumService.findFileDatumByCourseId(courseFileDataReq));
     }
@@ -213,7 +214,7 @@ public class CourseController {
     @PostMapping("/editCourseFileList")
     @ApiOperation(value = "修改选择的文件", notes = "参数是 fileDatums 名对象的数组")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "科目课程ID", dataType = "string"),
+//            @ApiImplicitParam(name = "courseId", value = "科目课程ID", dataType = "string"),
             @ApiImplicitParam(name = "fileDatums", value = "文件列表对象列表", dataTypeClass = CourseFileListReq.class)
     })
     public WebResult editCourseFileList(@Valid @ApiParam(name = "fileDatums", value = "文件对象列表") @RequestBody CourseFileListReq courseFileListReq){

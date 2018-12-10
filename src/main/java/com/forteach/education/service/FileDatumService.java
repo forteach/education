@@ -39,4 +39,5 @@ public interface FileDatumService {
     Page<FileDatum> findFileDatumByCourseId(CourseFileDataReq courseFileDataReq);
 
     void editCourseFileList(CourseFileListReq courseFileListReq);
+
 }

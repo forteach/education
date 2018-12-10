@@ -1,6 +1,8 @@
 package com.forteach.education.repository;
 
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.domain.ChapteData;
+import com.forteach.education.domain.FileDatum;
 import com.forteach.education.domain.KNode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,9 +25,14 @@ public class RepositoryImpl {
 
     @Resource
     private KNodeRepository kNodeRepository;
+    @Resource
+    private ChapteDataRepository chapteDataRepository;
+    @Resource
+    private FileDatumRepository fileDatumRepository;
 
     /**
      * 多条件分页查询知识点
+     *
      * @param isValidated
      * @param courseId
      * @param chapterId
@@ -34,7 +41,7 @@ public class RepositoryImpl {
      * @param pageable
      * @return
      */
-    public Page<KNode> findKNodePage(String isValidated, String courseId, String chapterId, String dataId, String kNodeType, Pageable pageable){
+    public Page<KNode> findKNodePage(String isValidated, String courseId, String chapterId, String dataId, String kNodeType, Pageable pageable) {
         return kNodeRepository.findAll((root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicatesList = new ArrayList<Predicate>();
             if (StrUtil.isNotBlank(isValidated)) {
@@ -44,17 +51,73 @@ public class RepositoryImpl {
                 predicatesList.add(
                         criteriaBuilder.equal(root.get("courseId"), courseId));
             }
-            if (StrUtil.isNotBlank(chapterId)){
+            if (StrUtil.isNotBlank(chapterId)) {
                 predicatesList.add(
                         criteriaBuilder.equal(root.get("chapterId"), chapterId));
             }
-            if (StrUtil.isNotBlank(dataId)){
+            if (StrUtil.isNotBlank(dataId)) {
                 predicatesList.add(
                         criteriaBuilder.equal(root.get("dataId"), dataId));
             }
-            if (StrUtil.isNotBlank(kNodeType)){
+            if (StrUtil.isNotBlank(kNodeType)) {
                 predicatesList.add(
                         criteriaBuilder.equal(root.get("kNodeType").as(String.class), kNodeType));
+            }
+            return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
+        }, pageable);
+    }
+
+    /**
+     * 动态查询知识挂载
+     * @param isValidated
+     * @param courseId
+     * @param chapterId
+     * @param mount
+     * @param pageable
+     * @return
+     */
+    public Page<ChapteData> findChapteData(String isValidated, String courseId, String chapterId, String mount, Pageable pageable) {
+        return chapteDataRepository.findAll((root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicatesList = new ArrayList<>();
+            if (StrUtil.isNotBlank(isValidated)){
+                predicatesList.add(criteriaBuilder.equal(root.get("isValidated"), isValidated));
+            }
+            if (StrUtil.isNotBlank(courseId)){
+                predicatesList.add(criteriaBuilder.equal(root.get("courseId"), courseId));
+            }
+            if (StrUtil.isNotBlank(chapterId)){
+                predicatesList.add(criteriaBuilder.equal(root.get("chapterId"), chapterId));
+            }
+            if (StrUtil.isNotBlank(mount)) {
+                predicatesList.add(criteriaBuilder.equal(root.get("mount"), mount));
+            }
+            return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
+        }, pageable);
+    }
+
+    /**
+     * 分页动态查询有无效文件信息
+     * @param isValidated
+     * @param courseId
+     * @param chapterId
+     * @param mount
+     * @param pageable
+     * @return
+     */
+    public Page<FileDatum> findChapteFiles(String isValidated, String courseId, String chapterId, String mount, Pageable pageable) {
+        return fileDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicatesList = new ArrayList<>();
+            if (StrUtil.isNotBlank(isValidated)){
+                predicatesList.add(criteriaBuilder.equal(root.get("isValidated"), isValidated));
+            }
+            if (StrUtil.isNotBlank(courseId)){
+                predicatesList.add(criteriaBuilder.equal(root.get("courseId"), courseId));
+            }
+            if (StrUtil.isNotBlank(chapterId)){
+                predicatesList.add(criteriaBuilder.equal(root.get("chapterId"), chapterId));
+            }
+            if (StrUtil.isNotBlank(mount)) {
+                predicatesList.add(criteriaBuilder.equal(root.get("mount"), mount));
             }
             return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
         }, pageable);

@@ -63,7 +63,8 @@ public class ChapteDataController {
             @ApiImplicitParam(name = "datumName", value = "资料名称", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "int", paramType = "from"),
             @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "int", paramType = "from"),
-            @ApiImplicitParam(name = "remark", value = "备注说明", dataType = "string", paramType = "from")
+            @ApiImplicitParam(name = "remark", value = "备注说明", dataType = "string", paramType = "from"),
+            @ApiImplicitParam(name = "mount", value = "是否挂载", dataType = "string", paramType = "from", example = "Y/N")
     })
     public WebResult edit(@Valid @ApiParam(value = "修改资料信息", name = "chapteData") @RequestBody ChapteData chapteData){
         return WebResult.okResult(chapteDataService.edit(chapteData));

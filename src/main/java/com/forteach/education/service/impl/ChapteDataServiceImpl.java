@@ -65,6 +65,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                             .fileName(file.getFileName())
                             .fileUrl(file.getFilePath())
                             .chapterId(chapteDataReq.getChapterId())
+                            .mount(file.getMount())
                             .build());
                 });
                 List<FileDatum> list = fileDatumRepository.saveAll(fileDatumList);
@@ -78,6 +79,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                             .datumArea(chapteDataReq.getDatumArea())
                             .datumType(datumType)
                             .remark(chapteDataReq.getRemark())
+                            .mount(fileDatum.getMount())
                             .build()
                     );
                 });

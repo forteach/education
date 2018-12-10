@@ -65,4 +65,8 @@ public class FileDatum extends Entitys implements Serializable {
     @ApiModelProperty(value = "文件URL", required = true, name = "fileUrl")
     @Column(name = "file_url", columnDefinition = "VARCHAR(255) COMMENT '文件URL'")
     private String fileUrl;
+
+    @ApiModelProperty(name = "mount", value = "是否挂载", notes = "Y 挂载　N 不挂载", example = "Y")
+    @Column(name = "mount", columnDefinition = "CHAR(1) COMMENT '是否挂载文件 Y 挂载 N 不挂载'")
+    private String mount;
 }

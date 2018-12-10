@@ -1,8 +1,10 @@
 package com.forteach.education.repository;
 
+import com.forteach.education.domain.ChapteData;
 import com.forteach.education.domain.FileDatum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -39,11 +41,19 @@ public interface FileDatumRepository extends JpaRepository<FileDatum, String> {
     List<FileDatum> findByIsValidatedAndCourseId(String isValidated, String courseId);
 
     /**
-     * 分页查询科目课程信息
+     * 分页查询科目课程文件信息
      * @param isValidated
      * @param courseId
      * @param chapterId
      * @return
      */
     Page<FileDatum> findByIsValidatedAndCourseIdAndChapterId(String isValidated, String courseId, String chapterId, Pageable pageable);
+
+    /**
+     * 多条件查询课程科目文件挂载
+     * @param specification
+     * @param pageable
+     * @return
+     */
+    Page<FileDatum> findAll(Specification<ChapteData> specification, Pageable pageable);
 }
