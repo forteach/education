@@ -134,7 +134,6 @@ public class CourseController {
     @PostMapping("/findFileDatumByCourseId")
 //    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "isValidated", value = "有无效", dataType = "string", example = "0"),
             @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true),
             @ApiImplicitParam(name = "chapterId", value = "章节小节ID", dataType = "string"),
             @ApiImplicitParam(name = "mount", value = "是否挂载", dataType = "string", example = "Y/N"),

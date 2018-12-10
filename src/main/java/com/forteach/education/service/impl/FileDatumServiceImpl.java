@@ -116,9 +116,22 @@ public class FileDatumServiceImpl implements FileDatumService {
                     .fileUrl(file.getFilePath())
                     //获取文件后缀名判断文件类型
                     .fileType(FileUtils.ext(file.getFileName()))
+                    .mount(file.getMount())
                     .build());
         });
-        fileDatumRepository.saveAll(fileDatumArrayList);
+        //保存到章节科目数据表里
+        List<FileDatum> list = fileDatumRepository.saveAll(fileDatumArrayList);
+        List<ChapteData> chapteDataList = new ArrayList<>();
+        list.forEach(fileDatum -> {
+            chapteDataList.add(ChapteData.builder()
+                    .datumName(fileDatum.getFileName())
+                    .chapterId(courseDataDatumReq.getChapterId())
+                    .courseId(courseDataDatumReq.getCourseId())
+                    .fileId(fileDatum.getFileId())
+                    .datumType(1)
+                    .build());
+        });
+        chapteDataRepository.saveAll(chapteDataList);
     }
 
     /**
@@ -129,7 +142,7 @@ public class FileDatumServiceImpl implements FileDatumService {
     @Override
     public Page<FileDatum> findFileDatumByCourseId(CourseFileDataReq courseFileDataReq) {
         SortVo sortVo = courseFileDataReq.getSortVo();
-        Page<FileDatum> page = repository.findChapteFiles(courseFileDataReq.getIsValidated(), courseFileDataReq.getCourseId(), courseFileDataReq.getChapterId(), courseFileDataReq.getMount(),
+        Page<FileDatum> page = repository.findChapteFiles(sortVo.getIsValidated(), courseFileDataReq.getCourseId(), courseFileDataReq.getChapterId(), courseFileDataReq.getMount(),
                 PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
         return page;
     }
@@ -139,7 +152,7 @@ public class FileDatumServiceImpl implements FileDatumService {
      * @param courseFileListReq
      */
     @Override
-    @Transactional(rollbackFor = Exception.class, timeout = 10)
+    @Transactional(rollbackFor = Exception.class)
     public void editCourseFileList(CourseFileListReq courseFileListReq) {
         //修改的文件列表
         List<FileDatum> fileDatumList2 = new ArrayList<>();
@@ -170,6 +183,7 @@ public class FileDatumServiceImpl implements FileDatumService {
                     .courseId(fileDatum.getCourseId())
                     .chapterId(fileDatum.getChapterId())
                     .datumType(1)
+                    .datumName(fileDatum.getFileName())
                     .fileId(fileDatum.getFileId())
                     .build());
         }

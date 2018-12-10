@@ -6,7 +6,6 @@ import com.forteach.education.domain.CourseChapter;
 import com.forteach.education.service.CourseChapterService;
 import com.forteach.education.service.FileDatumService;
 import com.forteach.education.web.req.CourseDataDatumReq;
-import com.forteach.education.web.vo.CourseChapterVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -116,11 +115,11 @@ public class CourseChapterController {
 //        return WebResult.okResult(courseChapterService.findByChapterParentId(JSONObject.parseObject(chapterParentId).getString("chapterParentId")));
 //    }
 
-    @PostMapping("/findAllCourseChapter")
-    @ApiOperation(value = "查找章节信息", notes = "管理端查询最上层章节")
-    public WebResult findAllCourseChapter(@Valid @ApiParam(name = "courseChapterVo", value = "管理端根据科目ID 查询对应上层科目信息", required = true) @RequestBody CourseChapterVo vo){
-        return WebResult.okResult(courseChapterService.findAllCourseChapter(vo));
-    }
+//    @PostMapping("/findAllCourseChapter")
+//    @ApiOperation(value = "查找章节信息", notes = "管理端查询最上层章节")
+//    public WebResult findAllCourseChapter(@Valid @ApiParam(name = "courseChapterVo", value = "管理端根据科目ID 查询对应上层科目信息", required = true) @RequestBody CourseChapterVo vo){
+//        return WebResult.okResult(courseChapterService.findAllCourseChapter(vo));
+//    }
 
     /**
      * 批量保存科目章节资料信息

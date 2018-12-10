@@ -24,9 +24,6 @@ import java.io.Serializable;
 @ApiModel(value = "查询对象")
 public class CourseFileDataReq implements Serializable {
 
-    @ApiModelProperty(name = "isValidated", value = "有无效", dataType = "string", notes = "生效标识 0生效 1失效")
-    private String isValidated;
-
     @ApiModelProperty(name = "courseId", value = "课程科目ID", dataType = "string")
     private String courseId;
 
@@ -34,7 +31,7 @@ public class CourseFileDataReq implements Serializable {
     private String chapterId;
 
     @Length(max = 1, message = "挂载文件查询参数最大一位")
-    @Pattern(regexp = "^[Y,Z]$",message = "是否挂载参数错误")
+    @Pattern(regexp = "^[Y,N]$",message = "是否挂载参数错误")
     @ApiModelProperty(name = "mount", value = "是否挂载", dataType = "string", notes = "是否挂载Y(是), N(否) ", example = "Y/N")
     private String mount;
 
