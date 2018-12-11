@@ -12,7 +12,7 @@ import com.forteach.education.service.ViewDatumService;
 import com.forteach.education.web.req.CourseFileDataReq;
 import com.forteach.education.web.req.CourseFileListReq;
 import com.forteach.education.web.req.CourseImagesReq;
-import com.forteach.education.web.req.CourseReq;
+import com.forteach.education.web.req.CourseSaveReq;
 import com.forteach.education.web.vo.DataDatumVo;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.*;
@@ -60,7 +60,7 @@ public class CourseController {
             @ApiImplicitParam(name = "course", value = "科目课程对象", dataTypeClass = Course.class, required = true),
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
     })
-    public WebResult save(@Valid @ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody CourseReq courseReq){
+    public WebResult save(@Valid @ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody CourseSaveReq courseReq){
         return WebResult.okResult(courseService.save(courseReq));
     }
 
@@ -71,7 +71,7 @@ public class CourseController {
             @ApiImplicitParam(name = "course", value = "科目课程对象", dataTypeClass = Course.class, required = true),
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
     })
-    public WebResult edit(@Valid @ApiParam(name = "courseReq", value = "科目课程对象", required = true) @RequestBody CourseReq courseReq){
+    public WebResult edit(@Valid @ApiParam(name = "courseReq", value = "科目课程对象", required = true) @RequestBody CourseSaveReq courseReq){
         return WebResult.okResult(courseService.edit(courseReq));
     }
 
@@ -221,4 +221,16 @@ public class CourseController {
         return WebResult.okResult();
     }
 
+    @PostMapping("/findMyCourse")
+    @ApiOperation(value = "查询我的课程", notes = "分页查询我的课程信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "分页从0开始", required = true, dataType = "int", type = "int", example = "0"),
+            @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10"),
+            @ApiImplicitParam(value = "排序规则", dataType = "string", name = "sorting", example = "cTime", required = true),
+            @ApiImplicitParam(value = "有无效", name = "isValidated", dataType = "string", example = "0", required = true),
+            @ApiImplicitParam(value = "sort", name = "排序方式", dataType = "int", example = "1")
+    })
+    public WebResult findMyCourse(@Valid @ApiParam(name = "sortVo", value = "分页对象", required = true) @RequestBody SortVo sortVo){
+        return WebResult.okResult(courseService.findMyCourse(sortVo));
+    }
 }

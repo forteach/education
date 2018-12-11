@@ -21,4 +21,13 @@ public interface CourseRepository extends JpaRepository<Course, String> {
      * @return
      */
     Page<Course> findByIsValidatedEquals(String isValidated, Pageable pageable);
+
+    /**
+     * 分页查询我的课程科目
+     * @param isValidated
+     * @param cUser
+     * @param pageable
+     * @return
+     */
+    Page<Course> findByIsValidatedEqualsAndCUser(String isValidated, String cUser, Pageable pageable);
 }

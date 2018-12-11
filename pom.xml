@@ -158,13 +158,22 @@
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-security</artifactId>-->
         <!--</dependency>-->
-        <!--JWT依赖-->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <!--<version>0.9.1</version>-->
-            <version>0.7.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-cache</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.security</groupId>-->
+            <!--<artifactId>sprinp-security-test</artifactId>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash;JWT依赖&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>io.jsonwebtoken</groupId>-->
+            <!--<artifactId>jjwt</artifactId>-->
+            <!--&lt;!&ndash;<version>0.9.1</version>&ndash;&gt;-->
+            <!--<version>0.7.0</version>-->
+        <!--</dependency>-->
     </dependencies>
     <build>
         <plugins>
@@ -199,49 +208,6 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>appassembler-maven-plugin</artifactId>
-                <version>2.0.0</version>
-                <configuration>
-                    <platforms>
-                        <platform>windows</platform>
-                        <platform>unix</platform>
-                    </platforms>
-                    <binFileExtensions>
-                        <unix>.sh</unix>
-                    </binFileExtensions>
-                    <!--<assembleDirectory>${project.build.directory}/${project.name}</assembleDirectory>-->
-                    <assembleDirectory>${project.build.directory}/education</assembleDirectory>
-                    <repositoryName>lib</repositoryName>
-                    <binFolder>bin</binFolder>
-
-                    <!-- 配置文件 -->
-                    <configurationDirectory>conf</configurationDirectory>
-                    <copyConfigurationDirectory>true</copyConfigurationDirectory>
-                    <configurationSourceDirectory>src/main/resources</configurationSourceDirectory>
-
-                    <repositoryLayout>flat</repositoryLayout>
-                    <encoding>UTF-8</encoding>
-                    <logsDirectory>logs</logsDirectory>
-                    <tempDirectory>tmp</tempDirectory>
-                    <programs>
-                        <program>
-                            <id>education</id>
-                            <mainClass>com.forteach.education.EducationApplication</mainClass>
-                            <name>start</name>
-                            <jvmSettings>
-                                <extraArguments>
-                                    <extraArgument>-server</extraArgument>
-                                    <extraArgument>-Xmx256m</extraArgument>
-                                    <extraArgument>-Xms256m</extraArgument>
-                                    <!--<extraArgument>-Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=6006"</extraArgument>-->
-                                </extraArguments>
-                            </jvmSettings>
-                        </program>
-                    </programs>
                 </configuration>
             </plugin>
         </plugins>

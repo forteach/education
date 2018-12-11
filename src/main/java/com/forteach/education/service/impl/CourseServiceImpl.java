@@ -11,7 +11,7 @@ import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.CourseImagesReq;
-import com.forteach.education.web.req.CourseReq;
+import com.forteach.education.web.req.CourseSaveReq;
 import com.forteach.education.web.vo.DataDatumVo;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +53,7 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Course save(CourseReq courseReq) {
+    public Course save(CourseSaveReq courseReq) {
         int shareType = courseReq.getCourse().getShareType();
         Course course = courseRepository.saveAndFlush(courseReq.getCourse());
         if (COURSE_SHARE_TYPE_COOPERATION == shareType){
@@ -85,7 +85,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(rollbackFor = Exception.class, timeout = 10)
-    public Course edit(CourseReq courseReq) {
+    public Course edit(CourseSaveReq courseReq) {
         Course course = courseReq.getCourse();
         int shareType = course.getShareType();
         String courseId = course.getCourseId();
@@ -151,5 +151,17 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<CourseImages> findImagesByCourseId(String courseId) {
         return courseImagesRepository.findByIsValidatedEqualsAndCourseIdOrderByIndexNumAsc(TAKE_EFFECT_OPEN, courseId);
+    }
+
+    /**
+     * 分页查询我的课程科目
+     * @param sortVo
+     * @return
+     */
+    @Override
+    public Page<Course> findMyCourse(SortVo sortVo){
+        //TODO 查询用户ID
+        String cUser = "string";
+        return courseRepository.findByIsValidatedEqualsAndCUser(sortVo.getIsValidated(), cUser, PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
     }
 }

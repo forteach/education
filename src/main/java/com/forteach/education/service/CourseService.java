@@ -3,7 +3,7 @@ package com.forteach.education.service;
 import com.forteach.education.domain.Course;
 import com.forteach.education.domain.CourseImages;
 import com.forteach.education.web.req.CourseImagesReq;
-import com.forteach.education.web.req.CourseReq;
+import com.forteach.education.web.req.CourseSaveReq;
 import com.forteach.education.web.vo.SortVo;
 import org.springframework.data.domain.Page;
 
@@ -18,13 +18,13 @@ import java.util.List;
  */
 public interface CourseService {
 
-    Course save(CourseReq courseReq);
+    Course save(CourseSaveReq courseReq);
 
     void deleteById(String courseId);
 
     void delete(Course course);
 
-    Course edit(CourseReq courseReq);
+    Course edit(CourseSaveReq courseReq);
 
     void deleteIsValidById(String courseId);
 
@@ -35,5 +35,7 @@ public interface CourseService {
     List<CourseImages> findImagesByCourseId(String courseId);
 
     void saveCourseImages(CourseImagesReq courseImagesReq);
+
+    Page<Course> findMyCourse(SortVo sortVo);
 
 }

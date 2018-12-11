@@ -60,21 +60,21 @@ public class CourseChapter extends Entitys implements Serializable {
     @Column(name = "chapter_type", columnDefinition = "INT(11) COMMENT '目录类型：1.章、２.节、3.小节 '")
     private Integer chapterType;
 
-    @NotNull(message = "当前树层级不为空")
-    @ApiModelProperty(value = "章节　树层级", name = "chapter_level", dataType = "int", required = true, notes = "当前章节在所处科目的层级", example = "1")
-    @Column(name = "chapter_level", columnDefinition = "INT COMMENT '章节 树层级'")
-    private Integer chapterLevel = 1;
-
-//    private Integer
+//    @NotNull(message = "当前树层级不为空")
+//    @ApiModelProperty(value = "章节　树层级", name = "chapter_level", dataType = "int", required = true, notes = "当前章节在所处科目的层级", example = "1")
+//    @Column(name = "chapter_level", columnDefinition = "INT COMMENT '章节 树层级'")
+//    private Integer chapterLevel = 1;
 
     public CourseChapter() {
     }
 
-    public CourseChapter(String courseId, String chapterName, String chapterParentId, Integer sort, Integer chapterLevel) {
+    public CourseChapter(String courseId, String chapterName, String chapterParentId, Integer sort
+//                         Integer chapterLevel
+    ) {
         this.courseId = courseId;
         this.chapterName = chapterName;
         this.chapterParentId = chapterParentId;
         this.sort = sort;
-        this.chapterLevel = chapterLevel;
+//        this.chapterLevel = chapterLevel;
     }
 }

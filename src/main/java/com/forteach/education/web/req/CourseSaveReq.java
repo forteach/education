@@ -22,7 +22,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseReq implements Serializable {
+public class CourseSaveReq implements Serializable {
 
 //    @NotEmpty(message = "课程信息不为空")
     @ApiModelProperty(value = "保存课程信息", name = "course")

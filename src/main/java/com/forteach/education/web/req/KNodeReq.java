@@ -34,10 +34,6 @@ public class KNodeReq implements Serializable {
     @ApiModelProperty(name = "kNodeType", dataType = "string", example = "1")
     private String kNodeType;
 
-//    @Pattern(regexp = "^[Y, N]$", message = "是否挂载参数是Y 或 N")
-//    @ApiModelProperty(name = "mount", value = "是否挂载", dataType = "string", notes = "Y 挂载　N 不挂载")
-//    private String mount;
-
     @ApiModelProperty(name = "sortVo", value = "查讯分页对象", required = true)
     private SortVo sortVo;
 }

@@ -24,16 +24,18 @@ public class CourseChapterDto {
     @ApiModelProperty(value = "章节父ID", name = "chapterParentId", dataType = "string")
     private String chapterParentId;
 
-    @ApiModelProperty(value = "层级", name = "chapterLevel", dataType = "int")
-    private Integer chapterLevel;
+//    @ApiModelProperty(value = "层级", name = "chapterLevel", dataType = "int")
+//    private Integer chapterLevel;
 
     public CourseChapterDto() {
     }
 
-    public CourseChapterDto(String chapterId, String chapterName, String chapterParentId, Integer chapterLevel) {
+    public CourseChapterDto(String chapterId, String chapterName, String chapterParentId
+    //        , Integer chapterLevel
+    ) {
         this.chapterId = chapterId;
         this.chapterName = chapterName;
         this.chapterParentId = chapterParentId;
-        this.chapterLevel = chapterLevel;
+//        this.chapterLevel = chapterLevel;
     }
 }
