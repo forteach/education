@@ -61,18 +61,18 @@ public class CourseChapter extends Entitys implements Serializable {
     private Integer chapterType;
 
     @NotNull(message = "是否发布")
-    @ApiModelProperty(value = "是否发布", name = "release", dataType = "string", required = true, notes = "是否发布　Y(是) N(否)", example = "Y")
-    @Column(name = "release", columnDefinition = "CHAR(1) COMMENT '是否发布　Y(是) N(否)'")
-    private String release;
+    @ApiModelProperty(value = "是否发布", name = "publish", dataType = "string", required = true, notes = "是否发布　Y(是) N(否)", example = "Y")
+    @Column(name = "publish", columnDefinition = "CHAR(1) COMMENT '是否发布 Y/N'")
+    public String publish;
 
     public CourseChapter() {
     }
 
-    public CourseChapter(String courseId, String chapterName, String chapterParentId, Integer sort, String release) {
+    public CourseChapter(String courseId, String chapterName, String chapterParentId, Integer sort, String publish) {
         this.courseId = courseId;
         this.chapterName = chapterName;
         this.chapterParentId = chapterParentId;
         this.sort = sort;
-        this.release = release;
+        this.publish = publish;
     }
 }

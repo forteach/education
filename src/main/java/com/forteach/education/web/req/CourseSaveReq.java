@@ -24,7 +24,6 @@ import java.util.List;
 @NoArgsConstructor
 public class CourseSaveReq implements Serializable {
 
-//    @NotEmpty(message = "课程信息不为空")
     @ApiModelProperty(value = "保存课程信息", name = "course")
     private Course course;
 

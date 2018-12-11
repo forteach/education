@@ -24,16 +24,16 @@ public class CourseChapterDto {
     @ApiModelProperty(value = "章节父ID", name = "chapterParentId", dataType = "string")
     private String chapterParentId;
 
-    @ApiModelProperty(value = "是否发布", name = "release", dataType = "string", notes = "是否发布　Y(是) N(否)", example = "Y")
-    private String release;
+    @ApiModelProperty(value = "是否发布", name = "publish", dataType = "string", notes = "是否发布　Y(是) N(否)", example = "Y")
+    private String publish;
 
     public CourseChapterDto() {
     }
 
-    public CourseChapterDto(String chapterId, String chapterName, String chapterParentId, String release) {
+    public CourseChapterDto(String chapterId, String chapterName, String chapterParentId, String publish) {
         this.chapterId = chapterId;
         this.chapterName = chapterName;
         this.chapterParentId = chapterParentId;
-        this.release = release;
+        this.publish = publish;
     }
 }

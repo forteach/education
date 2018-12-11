@@ -48,7 +48,7 @@ public class CourseChapterController {
             @ApiImplicitParam(name = "chapterParentId", value = "章节父编号", paramType = "from", dataType = "string"),
             @ApiImplicitParam(name = "sort", value = "层级位置", defaultValue = "1", required = true, paramType = "from", dataType = "int"),
             @ApiImplicitParam(name = "chapterType", value = "目录类型", dataType = "int", required = true, paramType = "from"),
-            @ApiImplicitParam(name = "release", value = "是否发布　Y(是) N(否)", dataType = "string", required = true, paramType = "from")
+            @ApiImplicitParam(name = "publish", value = "是否发布　Y(是) N(否)", dataType = "string", required = true, paramType = "from")
     })
     public WebResult save(@Valid @ApiParam(name = "courseChapter", value = "科目章节对象", required = true) @RequestBody CourseChapter courseChapter){
         return WebResult.okResult(courseChapterService.save(courseChapter));
@@ -63,7 +63,7 @@ public class CourseChapterController {
             @ApiImplicitParam(name = "chapterParentId", value = "章节父编号", paramType = "from", dataType = "string"),
             @ApiImplicitParam(name = "sort", value = "层级位置", defaultValue = "1", paramType = "from", dataType = "int"),
             @ApiImplicitParam(name = "chapterType", value = "目录类型", dataType = "int", paramType = "from"),
-            @ApiImplicitParam(name = "release", value = "是否发布　Y(是) N(否)", dataType = "string", paramType = "from")
+            @ApiImplicitParam(name = "publish", value = "是否发布　Y(是) N(否)", dataType = "string", paramType = "from")
     })
     public WebResult edit(@Valid @ApiParam(name = "courseChapter", value = "修改科目章节信息", required = true) @RequestBody CourseChapterEditReq courseChapterEditReq) {
         return WebResult.okResult(courseChapterService.edit(courseChapterEditReq));

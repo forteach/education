@@ -26,7 +26,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param courseId　科目ID
      * @return 章节目录基本信息
      */
-    @Query("select new com.forteach.education.dto.CourseChapterDto(chapterId, chapterName, chapterParentId) " +
+    @Query("select new com.forteach.education.dto.CourseChapterDto(chapterId, chapterName, chapterParentId, publish) " +
             "from CourseChapter where isValidated = '0' and courseId = ?1 order by sort asc")
     List<CourseChapterDto> findByCourseId(String courseId);
 
@@ -35,7 +35,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param chapterParentId
      * @return 所属的章节信息按照从顺序排列
      */
-    @Query("select new com.forteach.education.dto.CourseChapterDto(chapterId, chapterName, chapterParentId) from CourseChapter" +
+    @Query("select new com.forteach.education.dto.CourseChapterDto(chapterId, chapterName, chapterParentId, publish) from CourseChapter" +
             " where isValidated = '0' and chapterParentId = :chapterParentId order by sort asc")
     List<CourseChapterDto> findByChapterParentId(@Param("chapterParentId") String chapterParentId);
 
@@ -45,7 +45,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param courseId　科目ID
      * @return　目录章节基本信息
      */
-    @Query("select new com.forteach.education.domain.CourseChapter(courseId, chapterName, chapterParentId, sort)" +
+    @Query("select new com.forteach.education.domain.CourseChapter(courseId, chapterName, chapterParentId, sort, publish)" +
             "from CourseChapter where isValidated = :isValidated and  courseId = :courseId and chapterParentId is null ORDER BY  sort asc")
     List<CourseChapter> findAllCourseChapterByChapterIdAndIsValidated(@Param("isValidated") String isValidated, @Param("courseId") String courseId);
 }

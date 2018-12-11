@@ -99,7 +99,6 @@ public class CourseChapterServiceImpl implements CourseChapterService {
                                 .id(courseChapterDto.getChapterId())
                                 .parent("#")
                                 .text(courseChapterDto.getChapterName())
-//                                .level(courseChapterDto.getChapterLevel())
                                 .state(state)
                                 .build()
                 );
@@ -108,9 +107,9 @@ public class CourseChapterServiceImpl implements CourseChapterService {
                 courseTreeResp.setId(courseChapterDto.getChapterId());
                 courseTreeResp.setText(courseChapterDto.getChapterName());
                 courseTreeResp.setParent(courseChapterDto.getChapterParentId());
-                if (RELEASE_YES.equals(courseChapterDto.getRelease())) {
+                if (RELEASE_YES.equals(courseChapterDto.getPublish())) {
                     courseTreeResp.setIcon("fa fa-briefcase icon-state-success");
-                }else if (RELEASE_NO.equals(courseChapterDto.getRelease())){
+                }else if (RELEASE_NO.equals(courseChapterDto.getPublish())){
                     courseTreeResp.setIcon("fa fa-send-o icon-state-success");
                 }
                 courseTreeResp.setState(state);
