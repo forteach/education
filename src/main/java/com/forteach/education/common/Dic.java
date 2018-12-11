@@ -18,5 +18,9 @@ public class Dic {
     public static final int COURSE_SHARE_TYPE_COOPERATION = 2;
     //公开
     public static final int COURSE_SHARE_TYPE_PUBLIC = 3;
+    //课程章节发布
+    public static final String RELEASE_YES = "Y";
+    //课程章节不发布
+    public static final String RELEASE_NO = "N";
 
 }

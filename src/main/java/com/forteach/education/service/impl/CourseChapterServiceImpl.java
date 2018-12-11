@@ -5,11 +5,13 @@ import com.forteach.education.dto.CourseChapterDto;
 import com.forteach.education.repository.CourseChapterRepository;
 import com.forteach.education.service.CourseChapterService;
 import com.forteach.education.util.UpdateUtil;
+import com.forteach.education.web.req.CourseChapterEditReq;
 import com.forteach.education.web.req.CourseDataDatumReq;
 import com.forteach.education.web.resp.CourseTreeResp;
 import com.forteach.education.web.resp.State;
 import com.forteach.education.web.vo.CourseChapterVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.forteach.education.common.Dic.TAKE_EFFECT_CLOSE;
+import static com.forteach.education.common.Dic.*;
 
 /**
  * @Auther: zhangyy
@@ -45,8 +47,10 @@ public class CourseChapterServiceImpl implements CourseChapterService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public CourseChapter edit(CourseChapter courseChapter) {
-        CourseChapter source = courseChapterRepository.findById(courseChapter.getChapterId()).get();
+    public CourseChapter edit(CourseChapterEditReq courseChapterEditReq) {
+        CourseChapter source = courseChapterRepository.findById(courseChapterEditReq.getChapterId()).get();
+        CourseChapter courseChapter = CourseChapter.builder().build();
+        BeanUtils.copyProperties(courseChapterEditReq, courseChapter);
         UpdateUtil.copyNullProperties(source, courseChapter);
         return courseChapterRepository.save(courseChapter);
     }
@@ -104,8 +108,11 @@ public class CourseChapterServiceImpl implements CourseChapterService {
                 courseTreeResp.setId(courseChapterDto.getChapterId());
                 courseTreeResp.setText(courseChapterDto.getChapterName());
                 courseTreeResp.setParent(courseChapterDto.getChapterParentId());
-                courseTreeResp.setIcon("fa fa-briefcase icon-state-success");
-//                courseTreeResp.setLevel(courseChapterDto.getChapterLevel());
+                if (RELEASE_YES.equals(courseChapterDto.getRelease())) {
+                    courseTreeResp.setIcon("fa fa-briefcase icon-state-success");
+                }else if (RELEASE_NO.equals(courseChapterDto.getRelease())){
+                    courseTreeResp.setIcon("fa fa-send-o icon-state-success");
+                }
                 courseTreeResp.setState(state);
                 list.add(courseTreeResp);
             }
