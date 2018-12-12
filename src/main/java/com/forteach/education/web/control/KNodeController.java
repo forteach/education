@@ -41,7 +41,7 @@ public class KNodeController {
             @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "kNodeType", value = "知识点类型", dataType = "string", required = true, example = "1", paramType = "from")
     })
-    public WebResult save(@Valid @RequestBody KNode kNode){
+    public WebResult save(@Valid @ApiParam(name = "kNode", value = "知识点对象") @RequestBody KNode kNode){
         return WebResult.okResult(kNodeService.save(kNode));
     }
 
@@ -56,7 +56,7 @@ public class KNodeController {
             @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "kNodeType", value = "知识点类型", dataType = "string", required = true, example = "1", paramType = "from")
     })
-    public WebResult edit(@Valid @RequestBody KNode kNode){
+    public WebResult edit(@Valid @ApiParam(value = "知识点对像") @RequestBody KNode kNode){
         return WebResult.okResult(kNodeService.edit(kNode));
     }
 

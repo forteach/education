@@ -57,8 +57,11 @@ public class CourseChapter extends Entitys implements Serializable {
     private Integer sort = 1;
 
     @ApiModelProperty(name = "chapterType", value = "目录类型", notes = "目录类型：1.章、２.节、3.小节", dataType = "int", required = true)
-    @Column(name = "chapter_type", columnDefinition = "INT(11) COMMENT '目录类型：1.章、２.节、3.小节 '")
+    @Column(name = "chapter_type", columnDefinition = "TINYINT(1) COMMENT '目录类型：1.章、２.节、3.小节 '")
     private Integer chapterType;
+
+    @Column(name = "chapter_level", columnDefinition = "TINYINT(1) COMMENT '层级　树层级'")
+    private Integer chapterLevel;
 
     @NotNull(message = "是否发布")
     @ApiModelProperty(value = "是否发布", name = "publish", dataType = "string", required = true, notes = "是否发布　Y(是) N(否)", example = "Y")

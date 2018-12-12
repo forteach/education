@@ -27,13 +27,17 @@ public class CourseChapterDto {
     @ApiModelProperty(value = "是否发布", name = "publish", dataType = "string", notes = "是否发布　Y(是) N(否)", example = "Y")
     private String publish;
 
+    @ApiModelProperty(value = "层级位置", name = "sort", dataType = "int", notes = "当前层级位置")
+    private Integer sort;
+
     public CourseChapterDto() {
     }
 
-    public CourseChapterDto(String chapterId, String chapterName, String chapterParentId, String publish) {
+    public CourseChapterDto(String chapterId, String chapterName, String chapterParentId, String publish, Integer sort) {
         this.chapterId = chapterId;
         this.chapterName = chapterName;
         this.chapterParentId = chapterParentId;
         this.publish = publish;
+        this.sort = sort;
     }
 }

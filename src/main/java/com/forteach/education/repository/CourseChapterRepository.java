@@ -26,18 +26,19 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param courseId　科目ID
      * @return 章节目录基本信息
      */
-    @Query("select new com.forteach.education.dto.CourseChapterDto(chapterId, chapterName, chapterParentId, publish) " +
+    @Query("select new com.forteach.education.dto.CourseChapterDto(chapterId, chapterName, chapterParentId, publish, sort) " +
             "from CourseChapter where isValidated = '0' and courseId = ?1 order by sort asc")
     List<CourseChapterDto> findByCourseId(String courseId);
 
     /**
      * 根据章节信息查询对应小节信息
+     * @param courseId
      * @param chapterParentId
      * @return 所属的章节信息按照从顺序排列
      */
-    @Query("select new com.forteach.education.dto.CourseChapterDto(chapterId, chapterName, chapterParentId, publish) from CourseChapter" +
-            " where isValidated = '0' and chapterParentId = :chapterParentId order by sort asc")
-    List<CourseChapterDto> findByChapterParentId(@Param("chapterParentId") String chapterParentId);
+    @Query("select new com.forteach.education.dto.CourseChapterDto(chapterId, chapterName, chapterParentId, publish, sort) from CourseChapter" +
+            " where isValidated = '0' and courseId = :courseId and chapterParentId = :chapterParentId order by sort asc")
+    List<CourseChapterDto> findByChapterParentId(@Param("courseId") String courseId, @Param("chapterParentId") String chapterParentId);
 
     /**
      * 根据章节ID和是否有效查询章节目录信息

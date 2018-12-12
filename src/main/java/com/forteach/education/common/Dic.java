@@ -19,8 +19,12 @@ public class Dic {
     //公开
     public static final int COURSE_SHARE_TYPE_PUBLIC = 3;
     //课程章节发布
-    public static final String RELEASE_YES = "Y";
+    public static final String PUBLISH_YES = "Y";
     //课程章节不发布
-    public static final String RELEASE_NO = "N";
+    public static final String PUBLISH_NO = "N";
+    //章节科目父节点ID
+    public static final String COURSE_CHAPTER_CHAPTER_PARENT_ID = "0";
+    // 是当前树结构第一个
+    public static final int COURSE_CHAPTER_SORT = 1;
 
 }

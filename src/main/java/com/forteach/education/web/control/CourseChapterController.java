@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 /**
@@ -90,17 +91,18 @@ public class CourseChapterController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "chapterId", value = "科目id", required = true, dataType = "string")
     })
-    public WebResult deleteById(@Valid @NotEmpty(message = "章节ID不为空") @ApiParam(name = "chapterId", value = "根据章节ID删除对应的信息(物理删除)", required = true) String chapterId){
-        courseChapterService.deleteById(chapterId);
+    public WebResult deleteById(@Valid @NotBlank(message = "章节不为空") @ApiParam(name = "chapterId", value = "根据章节ID删除对应的信息(物理删除)", required = true)@RequestBody String chapterId){
+        courseChapterService.deleteById(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId")));
         return WebResult.okResult();
     }
+
     @PostMapping("/deleteIsValidById")
     @ApiOperation(notes = "根据ID删除对应的科目章节信息(逻辑删除)", value = "删除科目章节信息(逻辑删除)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "chapterId", value = "科目id", required = true, dataType = "string")
     })
-    public WebResult deleteIsValidById(@Valid @NotEmpty(message = "章节ID不为空") @ApiParam(name = "chapterId", value = "根据章节ID删除对应的信息(逻辑删除)", required = true) String chapterId){
-        courseChapterService.deleteIsValidById(chapterId);
+    public WebResult deleteIsValidById(@Valid @NotBlank(message = "章节ID不为空") @ApiParam(name = "chapterId", value = "根据章节ID删除对应的信息(逻辑删除)", required = true)@RequestBody String chapterId){
+        courseChapterService.deleteIsValidById(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId")));
         return WebResult.okResult();
     }
 

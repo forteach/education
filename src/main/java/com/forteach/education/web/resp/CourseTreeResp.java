@@ -19,6 +19,7 @@ public class CourseTreeResp implements Serializable {
 
     @ApiModelProperty(value = "ID")
     private String id;
+
     @ApiModelProperty(value = "父ID")
     private String parent;
 

@@ -8,4 +8,5 @@ package com.forteach.education.util;
  * @Description:
  */
 public class JwtUtil {
+
 }

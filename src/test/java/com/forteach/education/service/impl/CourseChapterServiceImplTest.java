@@ -34,4 +34,9 @@ public class CourseChapterServiceImplTest {
         log.info("courseTreeResp : {}", courseTreeResp.toString());
         });
     }
+
+    @Test
+    public void deleteById() {
+        courseChapterService.deleteById("2c91809267462308016746293a2a0002");
+    }
 }
