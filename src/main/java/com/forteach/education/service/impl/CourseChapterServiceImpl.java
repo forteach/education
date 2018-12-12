@@ -44,12 +44,12 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Transactional(rollbackFor = Exception.class)
     public CourseChapter save(CourseChapter courseChapter) {
         //判断是顶层章节
-//        if (COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId())){
-//            courseChapter.setChapterLevel(1);
-//        }else {
-//
-//            List<CourseChapterDto> courseChapterDtos = courseChapterRepository.findByChapterParentId(courseChapter.getCourseId(), courseChapter.getChapterParentId());
-//        }
+        if (COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId())){
+            courseChapter.setChapterLevel(1);
+        }else {
+            CourseChapter c = courseChapterRepository.findById(courseChapter.getChapterParentId()).get();
+            courseChapter.setChapterLevel(c.getChapterLevel() + 1);
+        }
         return courseChapterRepository.save(courseChapter);
     }
 
@@ -109,7 +109,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
             }else if (PUBLISH_NO.equals(courseChapterDto.getPublish())){
                 courseTreeResp.setIcon("fa fa-send-o icon-state-success");
             }
-            if (COURSE_CHAPTER_SORT == courseChapterDto.getSort()){
+            if (COURSE_CHAPTER_SORT == courseChapterDto.getSort() && COURSE_CHAPTER_LEVERL == courseChapterDto.getChapterLevel()){
                 state.setSelected(true);
             }else {
                 state.setSelected(false);
@@ -118,6 +118,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
             return courseTreeResp;
         }).collect(Collectors.toList());
         return list;
+//        dtoList.stream().map(courseChapterDto -> courseChapterDto.getSort())
     }
 
     /**

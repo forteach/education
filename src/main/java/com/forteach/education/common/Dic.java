@@ -26,5 +26,7 @@ public class Dic {
     public static final String COURSE_CHAPTER_CHAPTER_PARENT_ID = "0";
     // 是当前树结构第一个
     public static final int COURSE_CHAPTER_SORT = 1;
+    //所处的层级是2
+    public static final int COURSE_CHAPTER_LEVERL = 2;
 
 }

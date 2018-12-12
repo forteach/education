@@ -30,14 +30,18 @@ public class CourseChapterDto {
     @ApiModelProperty(value = "层级位置", name = "sort", dataType = "int", notes = "当前层级位置")
     private Integer sort;
 
+    @ApiModelProperty(name = "chapterLevel", value = "层级位置", notes = "当前章节在树状目录处于层级位置")
+    private Integer chapterLevel;
+
     public CourseChapterDto() {
     }
 
-    public CourseChapterDto(String chapterId, String chapterName, String chapterParentId, String publish, Integer sort) {
+    public CourseChapterDto(String chapterId, String chapterName, String chapterParentId, String publish, Integer sort, Integer chapterLevel) {
         this.chapterId = chapterId;
         this.chapterName = chapterName;
         this.chapterParentId = chapterParentId;
         this.publish = publish;
         this.sort = sort;
+        this.chapterLevel = chapterLevel;
     }
 }
