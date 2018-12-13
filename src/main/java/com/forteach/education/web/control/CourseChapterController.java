@@ -79,12 +79,12 @@ public class CourseChapterController {
         return WebResult.okResult(courseChapterService.getCourseChapterById(JSONObject.parseObject(chapterId).getString("chapterId")));
     }
 
-    @PostMapping("/delete")
-    @ApiOperation(value = "删除科目章节信息", notes = "删除科目章节信息(物理删除)")
-    public WebResult delete(@Valid @ApiParam(value = "删除科目章节信息(物理删除)", name = "courseChapter", required = true) @RequestBody CourseChapter courseChapter){
-        courseChapterService.delete(courseChapter);
-        return WebResult.okResult();
-    }
+//    @PostMapping("/delete")
+//    @ApiOperation(value = "删除科目章节信息", notes = "删除科目章节信息(物理删除)")
+//    public WebResult delete(@Valid @ApiParam(value = "删除科目章节信息(物理删除)", name = "courseChapter", required = true) @RequestBody CourseChapter courseChapter){
+//        courseChapterService.delete(courseChapter);
+//        return WebResult.okResult();
+//    }
 
     @PostMapping("/deleteById")
     @ApiOperation(notes = "根据ID删除对应的科目章节信息(物理删除)", value = "删除科目章节信息(物理删除)")

@@ -3,11 +3,15 @@ package com.forteach.education.repository;
 import com.forteach.education.domain.CourseChapter;
 import com.forteach.education.dto.CourseChapterDto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Auther: zhangyy
@@ -16,8 +20,8 @@ import java.util.List;
  * @Version: 1.0
  * @Description:　科目章节
  */
-@Repository
-public interface CourseChapterRepository extends JpaRepository<CourseChapter, String>{
+@Repository("courseChapterRepository")
+public interface CourseChapterRepository extends JpaRepository<CourseChapter, String>, JpaSpecificationExecutor<CourseChapterRepository> {
 
 
     /**
@@ -27,7 +31,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @return 章节目录基本信息
      */
     @Query("select new com.forteach.education.dto.CourseChapterDto(chapterId, chapterName, chapterParentId, publish, sort, chapterLevel) " +
-            "from CourseChapter where isValidated = '0' and courseId = ?1 order by sort asc")
+            "from CourseChapter where isValidated = '0' and courseId = ?1 order by chapterLevel asc, sort asc")
     List<CourseChapterDto> findByCourseId(String courseId);
 
     /**
@@ -57,4 +61,32 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
     @Query("select new com.forteach.education.domain.CourseChapter(courseId, chapterName, chapterParentId, sort, publish)" +
             "from CourseChapter where isValidated = :isValidated and  courseId = :courseId and chapterParentId is null ORDER BY  sort asc")
     List<CourseChapter> findAllCourseChapterByChapterIdAndIsValidated(@Param("isValidated") String isValidated, @Param("courseId") String courseId);
+
+    /**
+     * 查询有效的章节科目信息行数
+     * @param isValidated
+     * @param courseId
+     * @param chapterParentId
+     * @return
+     */
+    Long countByIsValidatedEqualsAndCourseIdAndChapterParentId(String isValidated, String courseId, String chapterParentId);
+
+    List<CourseChapter> findByCourseIdAndAndChapterParentId(String courseId, String chapterParentId);
+
+//    @Modifying
+//    @Transactional
+//    @Query("delete from CourseChapter c where c.chapterId in (?1)")
+//    void deleteBath(List<String> ids);
+    /**
+     * 根据id批量删除
+     */
+    @Modifying
+    @Transactional
+    @Query(value = "delete from CourseChapter c where c.chapterId in (:ids) ")
+    int deleteBathIds(@Param("ids") Set<String> ids);
+
+    @Transactional
+    @Modifying
+    @Query(value = " update CourseChapter c set c.isValidated = :isValidated where c.chapterId in (:ids) ")
+    int updateIsValidatedIds(@Param("isValidated") String isValidated, @Param("ids") Set<String> ids);
 }

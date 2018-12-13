@@ -6,17 +6,18 @@ import com.forteach.education.repository.CourseChapterRepository;
 import com.forteach.education.service.CourseChapterService;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.CourseChapterEditReq;
-import com.forteach.education.web.req.CourseDataDatumReq;
 import com.forteach.education.web.resp.CourseTreeResp;
 import com.forteach.education.web.resp.State;
 import com.forteach.education.web.vo.CourseChapterVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.forteach.education.common.Dic.*;
@@ -33,12 +34,8 @@ import static com.forteach.education.common.Dic.*;
 public class CourseChapterServiceImpl implements CourseChapterService {
 
 
-    private final CourseChapterRepository courseChapterRepository;
-
-    @Autowired
-    public CourseChapterServiceImpl(CourseChapterRepository courseChapterRepository) {
-        this.courseChapterRepository = courseChapterRepository;
-    }
+    @Resource
+    private CourseChapterRepository courseChapterRepository;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -46,10 +43,15 @@ public class CourseChapterServiceImpl implements CourseChapterService {
         //判断是顶层章节
         if (COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId())){
             courseChapter.setChapterLevel(1);
+
         }else {
             CourseChapter c = courseChapterRepository.findById(courseChapter.getChapterParentId()).get();
             courseChapter.setChapterLevel(c.getChapterLevel() + 1);
         }
+        //查询当前科目章节有多少条数据
+        long count = courseChapterRepository.countByIsValidatedEqualsAndCourseIdAndChapterParentId(TAKE_EFFECT_OPEN,
+                courseChapter.getCourseId(), courseChapter.getChapterParentId());
+        courseChapter.setSort(Integer.valueOf(String.valueOf(count + 1)));
         return courseChapterRepository.save(courseChapter);
     }
 
@@ -74,18 +76,46 @@ public class CourseChapterServiceImpl implements CourseChapterService {
         courseChapterRepository.delete(courseChapter);
     }
 
+    /**
+     * 删除树状结构科目课程章节及子章节
+     * @param chapterId
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(String chapterId) {
-        courseChapterRepository.deleteById(chapterId);
+        CourseChapter courseChapter = courseChapterRepository.findById(chapterId).get();
+        Set<String> stringSet = findLists(courseChapter.getCourseId(), chapterId);
+        stringSet.add(chapterId);
+        int result = courseChapterRepository.deleteBathIds(stringSet);
+        log.info("chapterId : {}, deleteBath : {}", result);
+    }
+
+    /**
+     * 根据父节点查询子章节的ID信息
+     * @param courseId
+     * @param ChapterParentId
+     * @return
+     */
+    private Set<String> findLists(String courseId, String ChapterParentId){
+        List<CourseChapter> lists = courseChapterRepository.findByCourseIdAndAndChapterParentId(courseId, ChapterParentId);
+        Set<String> stringSet = lists.stream().filter(courseChapter -> !COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId()))
+                .map(CourseChapter::getChapterId)
+                .collect(Collectors.toSet());
+        stringSet.parallelStream().map(s -> {
+            //查询对应的目录集合
+            return findLists(s, courseId);
+        });
+        return stringSet;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteIsValidById(String chapterId) {
         CourseChapter courseChapter = courseChapterRepository.findById(chapterId).get();
-        courseChapter.setIsValidated(TAKE_EFFECT_CLOSE);
-        courseChapterRepository.save(courseChapter);
+        Set<String> stringSet = findLists(courseChapter.getCourseId(), chapterId);
+        stringSet.add(chapterId);
+        int result = courseChapterRepository.updateIsValidatedIds(TAKE_EFFECT_CLOSE, stringSet);
+        log.info("chapterId : {}, resoult : {}", chapterId, result);
     }
 
     /**
@@ -98,9 +128,11 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Transactional(readOnly = true)
     public List<CourseTreeResp> findByCourseId(String courseId){
         List<CourseChapterDto> dtoList = courseChapterRepository.findByCourseId(courseId);
-        State state = new State();
-        List<CourseTreeResp> list =  dtoList.stream().map(courseChapterDto -> {
-            CourseTreeResp  courseTreeResp = new CourseTreeResp();
+        List<CourseTreeResp> courseTreeResps = new ArrayList<>();
+        for (int i = 0; i < dtoList.size(); i++) {
+            State state = new State();
+            CourseChapterDto courseChapterDto = dtoList.get(i);
+            CourseTreeResp courseTreeResp = new CourseTreeResp();
             courseTreeResp.setId(courseChapterDto.getChapterId());
             courseTreeResp.setText(courseChapterDto.getChapterName());
             courseTreeResp.setParent(courseChapterDto.getChapterParentId());
@@ -109,16 +141,13 @@ public class CourseChapterServiceImpl implements CourseChapterService {
             }else if (PUBLISH_NO.equals(courseChapterDto.getPublish())){
                 courseTreeResp.setIcon("fa fa-send-o icon-state-success");
             }
-            if (COURSE_CHAPTER_SORT == courseChapterDto.getSort() && COURSE_CHAPTER_LEVERL == courseChapterDto.getChapterLevel()){
+            if (i == 0) {
                 state.setSelected(true);
-            }else {
-                state.setSelected(false);
             }
             courseTreeResp.setState(state);
-            return courseTreeResp;
-        }).collect(Collectors.toList());
-        return list;
-//        dtoList.stream().map(courseChapterDto -> courseChapterDto.getSort())
+            courseTreeResps.add(courseTreeResp);
+        }
+        return courseTreeResps;
     }
 
     /**
@@ -142,10 +171,5 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Transactional(readOnly = true)
     public List<CourseChapter> findAllCourseChapter(CourseChapterVo vo){
         return courseChapterRepository.findAllCourseChapterByChapterIdAndIsValidated(vo.getIsValidated(), vo.getCourseId());
-    }
-
-    @Override
-    public void saveCourseDataDatum(CourseDataDatumReq courseDataDatumReq) {
-
     }
 }

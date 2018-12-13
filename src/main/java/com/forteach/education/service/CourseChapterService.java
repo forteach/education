@@ -3,7 +3,6 @@ package com.forteach.education.service;
 import com.forteach.education.domain.CourseChapter;
 import com.forteach.education.dto.CourseChapterDto;
 import com.forteach.education.web.req.CourseChapterEditReq;
-import com.forteach.education.web.req.CourseDataDatumReq;
 import com.forteach.education.web.resp.CourseTreeResp;
 import com.forteach.education.web.vo.CourseChapterVo;
 
@@ -35,6 +34,4 @@ public interface CourseChapterService {
     List<CourseChapterDto> findByChapterParentId(String chapterParentId);
 
     List<CourseChapter> findAllCourseChapter(CourseChapterVo vo);
-
-    void saveCourseDataDatum(CourseDataDatumReq courseDataDatumReq);
 }

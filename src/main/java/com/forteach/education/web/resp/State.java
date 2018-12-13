@@ -3,6 +3,8 @@ package com.forteach.education.web.resp;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -11,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @Description:
  */
 @ApiModel(value = "树型菜单是否展开, 默认是展开")
-public class State {
+public class State implements Serializable {
 
     @ApiModelProperty(value = "是否展开", notes = "默认打开true")
     private final boolean opened = true;
