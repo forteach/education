@@ -41,7 +41,7 @@
 *.jar
 *.properties
 *.yml
-
+*.sh
 ### generated files ###
 /bin/
 gen/
