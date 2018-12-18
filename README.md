@@ -17,7 +17,7 @@ docker run -p 27017:27017 -v /data/mongodb/data:/data/db　--restart=always -d  
 ``` 
 
 
-##### 安装 `docker` ==> `fastdfs`
+##### 安装 `docker` --> `fastdfs`
 (https://www.imooc.com/article/66981?block_id=tuijian_wz)
 
 ##### 搭建私有`docker` 仓库
@@ -55,13 +55,16 @@ DOCKER_CERT_PATH=/etc/docker
 * 客户端和服务端修改添加这句话
 vim /etc/docker/daemon.json
 * 添加下面这句话没有话新建对应的文件，　registriy 为docker 仓库所在服务器ip
+```json
 {
     "insecure-registries": ["registriy:5000"]
 }
-*　重启服务　
-service docker restart
 ```
 
+重启服务　
+```shell
+service docker restart
+```
 > 本地镜像上传到私有仓库
 
 [参考](https://www.cnblogs.com/kangoroo/p/7994801.html)[https://www.cnblogs.com/kangoroo/p/7994801.html]
