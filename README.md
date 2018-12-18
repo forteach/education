@@ -17,7 +17,7 @@ docker run -p 27017:27017 -v /data/mongodb/data:/data/db　--restart=always -d  
 ``` 
 
 
-##### 安装 `docker` -> `fastdfs`
+##### 安装 `docker` ==> `fastdfs`
 (https://www.imooc.com/article/66981?block_id=tuijian_wz)
 
 ##### 搭建私有`docker` 仓库
@@ -47,18 +47,18 @@ other_args="--exec-driver=lxc --selinux-enabled --insecure-registry 100.90.61.14
 DOCKER_CERT_PATH=/etc/docker
 ```
 ------------------------------
-##改为下面的参数
+* 改为下面的参数
 other_args="--insecure-registry 100.90.61.14:5000"
 DOCKER_CERT_PATH=/etc/docker
-# 说明　--insecure-registry 100.90.61.14:5000，表示开启5000端口的非安全模式，也就是http模式
+* 说明　--insecure-registry 100.90.61.14:5000，表示开启5000端口的非安全模式，也就是http模式
 
-# 客户端和服务端修改添加这句话
+* 客户端和服务端修改添加这句话
 vim /etc/docker/daemon.json
-## 添加下面这句话没有话新建对应的文件，　registriy 为docker 仓库所在服务器ip
+* 添加下面这句话没有话新建对应的文件，　registriy 为docker 仓库所在服务器ip
 {
     "insecure-registries": ["registriy:5000"]
 }
-#　重启服务　
+*　重启服务　
 service docker restart
 ```
 
