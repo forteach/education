@@ -23,7 +23,8 @@ public class CourseShareServiceImpl implements CourseShareService {
     @Resource
     private CourseShareRepository courseShareRepository;
 
+    @Override
     public List<CourseShareTeacherDto> selectCourseShareTeachersByCourseId(String courseId) {
-        return null;//courseShareRepository.findTeachersByCourseId(courseId);
+        return courseShareRepository.findTeachersByCourseId(courseId);
     }
 }

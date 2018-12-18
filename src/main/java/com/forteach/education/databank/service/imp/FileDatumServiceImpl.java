@@ -4,9 +4,9 @@ import cn.hutool.core.util.StrUtil;
 import com.forteach.education.databank.domain.ChapteData;
 import com.forteach.education.databank.domain.FileDatum;
 import com.forteach.education.databank.repository.ChapteDataRepository;
+import com.forteach.education.databank.repository.DatabankRepositoryIml;
 import com.forteach.education.databank.repository.FileDatumRepository;
 import com.forteach.education.databank.service.FileDatumService;
-import com.forteach.education.databank.repository.RepositoryImpl;
 import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
@@ -43,7 +43,7 @@ public class FileDatumServiceImpl implements FileDatumService {
     private FileDatumRepository fileDatumRepository;
 
     @Resource
-    private RepositoryImpl repository;
+    private DatabankRepositoryIml repository;
 
     @Resource
     private ChapteDataRepository chapteDataRepository;

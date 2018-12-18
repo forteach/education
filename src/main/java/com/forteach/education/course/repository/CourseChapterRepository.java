@@ -24,25 +24,25 @@ import java.util.Set;
 public interface CourseChapterRepository extends JpaRepository<CourseChapter, String>, JpaSpecificationExecutor<CourseChapterRepository> {
 
 
-//    /**
-//     * 根据查询科目编号查询父章节编号是空的章节并按照正序排列
-//     * 查询条件 1、有效 2 父章节编号是空 3 按照层级正序排列
-//     * @param courseId　科目ID
-//     * @return 章节目录基本信息
-//     */
-//    @Query("select new CourseChapterDto(chapterId, chapterName, chapterParentId, publish, sort, chapterLevel) " +
-//            "from CourseChapter where isValidated = '0' and courseId = ?1 order by chapterLevel asc, sort asc")
-//    List<CourseChapterDto> findByCourseId(String courseId);
+    /**
+     * 根据查询科目编号查询父章节编号是空的章节并按照正序排列
+     * 查询条件 1、有效 2 父章节编号是空 3 按照层级正序排列
+     * @param courseId　科目ID
+     * @return 章节目录基本信息
+     */
+    @Query("select new com.forteach.education.course.dto.CourseChapterDto(chapterId, chapterName, chapterParentId, publish, sort, chapterLevel) " +
+            "from CourseChapter where isValidated = '0' and courseId = ?1 order by chapterLevel asc, sort asc")
+    List<CourseChapterDto> findByCourseId(String courseId);
 
-//    /**
-//     * 根据章节信息查询对应小节信息
-//     * @param courseId
-//     * @param chapterParentId
-//     * @return 所属的章节信息按照从顺序排列
-//     */
-//    @Query("select new CourseChapterDto(chapterId, chapterName, chapterParentId, publish, sort, chapterLevel) from CourseChapter" +
-//            " where isValidated = '0' and courseId = :courseId and chapterParentId = :chapterParentId order by sort asc")
-//    List<CourseChapterDto> findByChapterParentId(@Param("courseId") String courseId, @Param("chapterParentId") String chapterParentId);
+    /**
+     * 根据章节信息查询对应小节信息
+     * @param courseId
+     * @param chapterParentId
+     * @return 所属的章节信息按照从顺序排列
+     */
+    @Query("select new com.forteach.education.course.dto.CourseChapterDto(chapterId, chapterName, chapterParentId, publish, sort, chapterLevel) from CourseChapter" +
+            " where isValidated = '0' and courseId = :courseId and chapterParentId = :chapterParentId order by sort asc")
+    List<CourseChapterDto> findByChapterParentId(@Param("courseId") String courseId, @Param("chapterParentId") String chapterParentId);
 
     /**
      * 根据科目章节查询科目章节信息

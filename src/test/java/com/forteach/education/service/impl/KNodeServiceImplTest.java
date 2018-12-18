@@ -1,8 +1,8 @@
 package com.forteach.education.service.impl;
 
 import com.forteach.education.course.domain.KNode;
+import com.forteach.education.course.repository.CourseRepositoryImpl;
 import com.forteach.education.course.repository.KNodeRepository;
-import com.forteach.education.databank.repository.RepositoryImpl;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class KNodeServiceImplTest {
     @Resource
     private KNodeRepository kNodeRepository;
     @Resource
-    private RepositoryImpl repository;
+    private CourseRepositoryImpl repository;
     @Test
     public void save() {
         kNodeRepository.save(KNode.builder()

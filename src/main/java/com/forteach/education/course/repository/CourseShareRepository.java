@@ -25,13 +25,13 @@ public interface CourseShareRepository extends JpaRepository<CourseShare, String
 
     List<CourseShare> findByCourseId(String courseId);
 
-//    /**
-//     * 根据课程ID查询对应的协作者教师ID
-//     * @param courseId
-//     * @return
-//     */
-//    @Query(value = "select new CourseShareTeacherDto " +
-//            "(t.teacherId, t.teacherName) from CourseShare AS c left join Teacher AS t on c.teacherId = t.teacherId where " +
-//            "c.isValidated = '0' AND c.courseId = :courseId")
-//    List<CourseShareTeacherDto> findTeachersByCourseId(@Param("courseId") String courseId);
+    /**
+     * 根据课程ID查询对应的协作者教师ID
+     * @param courseId
+     * @return
+     */
+    @Query(value = "select new com.forteach.education.course.dto.CourseShareTeacherDto " +
+            "(t.teacherId, t.teacherName) from CourseShare AS c left join Teacher AS t on c.teacherId = t.teacherId where " +
+            "c.isValidated = '0' AND c.courseId = :courseId")
+    List<CourseShareTeacherDto> findTeachersByCourseId(@Param("courseId") String courseId);
 }

@@ -1,9 +1,9 @@
 package com.forteach.education.course.service.imp;
 
 import com.forteach.education.course.domain.KNode;
+import com.forteach.education.course.repository.CourseRepositoryImpl;
 import com.forteach.education.course.repository.KNodeRepository;
 import com.forteach.education.course.service.KNodeService;
-import com.forteach.education.databank.repository.RepositoryImpl;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.KNodeReq;
@@ -31,7 +31,7 @@ public class KNodeServiceImpl implements KNodeService {
     @Resource
     private KNodeRepository kNodeRepository;
     @Resource
-    private RepositoryImpl repository;
+    private CourseRepositoryImpl repository;
 
     @Override
     public KNode save(KNode kNode){

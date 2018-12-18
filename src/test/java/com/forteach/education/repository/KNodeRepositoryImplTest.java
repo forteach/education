@@ -1,6 +1,6 @@
 package com.forteach.education.repository;
 
-import com.forteach.education.databank.repository.RepositoryImpl;
+import com.forteach.education.course.repository.CourseRepositoryImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 public class KNodeRepositoryImplTest {
 
     @Resource
-    private RepositoryImpl kNodeRepository;
+    private CourseRepositoryImpl kNodeRepository;
     @Test
     public void findKNodePage() {
 //        kNodeRepository.findKNodePage(TAKE_EFFECT_OPEN, "")

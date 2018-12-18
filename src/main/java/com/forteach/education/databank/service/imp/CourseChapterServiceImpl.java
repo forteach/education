@@ -127,7 +127,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Override
     @Transactional(readOnly = true)
     public List<CourseTreeResp> findByCourseId(String courseId){
-        List<CourseChapterDto> dtoList = null;//courseChapterRepository.findByCourseId(courseId);
+        List<CourseChapterDto> dtoList = courseChapterRepository.findByCourseId(courseId);
         List<CourseTreeResp> courseTreeResps = new ArrayList<>();
         for (int i = 0; i < dtoList.size(); i++) {
             State state = new State();
@@ -158,7 +158,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Override
     @Transactional(readOnly = true)
     public List<CourseChapterDto> findByChapterParentId(String chapterParentId){
-        return null;//courseChapterRepository.findByChapterParentId("", chapterParentId);
+        return courseChapterRepository.findByChapterParentId("", chapterParentId);
     }
     /**
      * １. 章节ID
