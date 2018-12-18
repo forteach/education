@@ -1,8 +1,8 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.domain.CourseChapter;
-import com.forteach.education.repository.CourseChapterRepository;
-import com.forteach.education.service.CourseChapterService;
+import com.forteach.education.course.domain.CourseChapter;
+import com.forteach.education.course.repository.CourseChapterRepository;
+import com.forteach.education.course.service.CourseChapterService;
 import com.forteach.education.web.resp.CourseTreeResp;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.forteach.education.common.Dic.COURSE_CHAPTER_CHAPTER_PARENT_ID;
+import static com.forteach.education.common.keyword.Dic.COURSE_CHAPTER_CHAPTER_PARENT_ID;
 
 /**
  * @Auther: zhangyy

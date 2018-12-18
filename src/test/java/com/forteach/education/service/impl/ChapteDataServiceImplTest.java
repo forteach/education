@@ -1,7 +1,7 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.domain.ChapteData;
-import com.forteach.education.service.ChapteDataService;
+import com.forteach.education.databank.domain.ChapteData;
+import com.forteach.education.databank.service.ChapteDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

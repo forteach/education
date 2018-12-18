@@ -1,9 +1,9 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.forteach.education.common.WebResult;
-import com.forteach.education.domain.KNode;
-import com.forteach.education.service.KNodeService;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.course.domain.KNode;
+import com.forteach.education.course.service.KNodeService;
 import com.forteach.education.web.req.KNodeReq;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.*;

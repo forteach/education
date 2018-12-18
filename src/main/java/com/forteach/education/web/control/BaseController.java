@@ -1,7 +1,7 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.forteach.education.domain.SysUsers;
+import com.forteach.education.authority.domain.SysUsers;
 import com.forteach.education.exception.TokenException;
 import com.forteach.education.util.TokenUtil;
 import com.forteach.education.web.vo.CheckTokenVo;

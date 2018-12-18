@@ -1,14 +1,14 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.forteach.education.common.WebResult;
-import com.forteach.education.domain.Course;
-import com.forteach.education.domain.Teacher;
-import com.forteach.education.domain.ViewDatum;
-import com.forteach.education.service.CourseService;
-import com.forteach.education.service.CourseShareService;
-import com.forteach.education.service.FileDatumService;
-import com.forteach.education.service.ViewDatumService;
+import com.forteach.education.classes.domain.Teacher;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.course.domain.Course;
+import com.forteach.education.databank.domain.ViewDatum;
+import com.forteach.education.databank.service.FileDatumService;
+import com.forteach.education.databank.service.ViewDatumService;
+import com.forteach.education.course.service.CourseService;
+import com.forteach.education.course.service.CourseShareService;
 import com.forteach.education.web.req.CourseFileDataReq;
 import com.forteach.education.web.req.CourseFileListReq;
 import com.forteach.education.web.req.CourseImagesReq;

@@ -1,7 +1,7 @@
 package com.forteach.education.web.control;
 
-import com.forteach.education.common.WebResult;
-import com.forteach.education.domain.SysUsers;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.authority.domain.SysUsers;
 import com.forteach.education.service.UserMgrService;
 import com.forteach.education.web.vo.CastVo;
 import io.swagger.annotations.Api;

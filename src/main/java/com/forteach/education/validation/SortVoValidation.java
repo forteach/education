@@ -1,6 +1,6 @@
 package com.forteach.education.validation;
 
-import com.forteach.education.common.SortVoEnum;
+import com.forteach.education.common.keyword.SortVoEnum;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

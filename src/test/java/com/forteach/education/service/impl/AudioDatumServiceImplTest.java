@@ -1,7 +1,7 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.domain.AudioDatum;
-import com.forteach.education.service.AudioDatumService;
+import com.forteach.education.databank.domain.AudioDatum;
+import com.forteach.education.databank.service.AudioDatumService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

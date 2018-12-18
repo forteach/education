@@ -1,10 +1,10 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.forteach.education.common.WebResult;
-import com.forteach.education.domain.PhotoSort;
-import com.forteach.education.domain.Photos;
-import com.forteach.education.service.PhotoSortService;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.databank.domain.PhotoSort;
+import com.forteach.education.databank.domain.Photos;
+import com.forteach.education.databank.service.PhotoSortService;
 import com.forteach.education.web.vo.PhotoSortVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;

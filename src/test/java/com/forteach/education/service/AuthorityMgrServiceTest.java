@@ -1,6 +1,7 @@
 package com.forteach.education.service;
 
 import com.alibaba.fastjson.JSON;
+import com.forteach.education.authority.service.AuthorityMgrService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

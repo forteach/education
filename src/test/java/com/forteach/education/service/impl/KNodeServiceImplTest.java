@@ -1,8 +1,8 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.domain.KNode;
-import com.forteach.education.repository.KNodeRepository;
-import com.forteach.education.repository.RepositoryImpl;
+import com.forteach.education.course.domain.KNode;
+import com.forteach.education.course.repository.KNodeRepository;
+import com.forteach.education.databank.repository.RepositoryImpl;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
-import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
 /**
  * @Auther: zhangyy

@@ -1,8 +1,8 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.domain.Course;
-import com.forteach.education.domain.CourseImages;
-import com.forteach.education.service.CourseService;
+import com.forteach.education.course.domain.Course;
+import com.forteach.education.course.domain.CourseImages;
+import com.forteach.education.course.service.CourseService;
 import com.forteach.education.web.req.CourseImagesReq;
 import com.forteach.education.web.vo.DataDatumVo;
 import com.forteach.education.web.vo.SortVo;

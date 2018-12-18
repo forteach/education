@@ -1,9 +1,9 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.forteach.education.common.WebResult;
-import com.forteach.education.domain.Specialty;
-import com.forteach.education.service.SpecialtyService;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.course.domain.Specialty;
+import com.forteach.education.course.service.SpecialtyService;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;

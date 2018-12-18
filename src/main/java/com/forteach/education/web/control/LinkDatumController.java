@@ -2,10 +2,10 @@ package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.forteach.education.common.WebResult;
-import com.forteach.education.domain.LinkDatum;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.databank.domain.LinkDatum;
+import com.forteach.education.databank.service.LinkDatumService;
 import com.forteach.education.filter.View;
-import com.forteach.education.service.LinkDatumService;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;

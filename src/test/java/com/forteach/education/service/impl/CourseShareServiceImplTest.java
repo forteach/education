@@ -1,7 +1,7 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.dto.CourseShareTeacherDto;
-import com.forteach.education.service.CourseShareService;
+import com.forteach.education.course.dto.CourseShareTeacherDto;
+import com.forteach.education.course.service.CourseShareService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

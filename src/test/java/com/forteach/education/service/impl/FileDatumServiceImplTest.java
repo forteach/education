@@ -1,7 +1,7 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.domain.FileDatum;
-import com.forteach.education.service.FileDatumService;
+import com.forteach.education.databank.domain.FileDatum;
+import com.forteach.education.databank.service.FileDatumService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

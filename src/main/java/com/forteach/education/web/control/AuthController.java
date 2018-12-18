@@ -1,8 +1,8 @@
 package com.forteach.education.web.control;
 
-import com.forteach.education.common.WebResult;
-import com.forteach.education.domain.SysUsers;
-import com.forteach.education.service.UserService;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.authority.domain.SysUsers;
+import com.forteach.education.authority.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;

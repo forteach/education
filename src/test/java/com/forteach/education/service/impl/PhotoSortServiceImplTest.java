@@ -1,8 +1,8 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.domain.PhotoSort;
-import com.forteach.education.domain.Photos;
-import com.forteach.education.service.PhotoSortService;
+import com.forteach.education.databank.domain.PhotoSort;
+import com.forteach.education.databank.domain.Photos;
+import com.forteach.education.databank.service.PhotoSortService;
 import com.forteach.education.web.vo.PhotoSortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

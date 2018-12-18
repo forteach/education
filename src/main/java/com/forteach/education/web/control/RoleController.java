@@ -1,9 +1,9 @@
 package com.forteach.education.web.control;
 
-import com.forteach.education.common.WebResult;
-import com.forteach.education.domain.SysRole;
-import com.forteach.education.service.AuthorityMgrService;
-import com.forteach.education.service.RoleService;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.authority.domain.SysRole;
+import com.forteach.education.authority.service.AuthorityMgrService;
+import com.forteach.education.authority.service.RoleService;
 import com.forteach.education.web.vo.AuthorityVo;
 import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.Api;

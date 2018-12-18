@@ -1,6 +1,6 @@
 package com.forteach.education.util;
 
-import com.forteach.education.service.ObjectRedisService;
+import com.forteach.education.common.service.ObjectRedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 

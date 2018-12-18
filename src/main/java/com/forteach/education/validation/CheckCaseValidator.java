@@ -1,6 +1,6 @@
 package com.forteach.education.validation;
 
-import com.forteach.education.common.CaseModeEnum;
+import com.forteach.education.common.keyword.CaseModeEnum;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,10 +1,10 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.forteach.education.common.WebResult;
-import com.forteach.education.domain.CourseChapter;
-import com.forteach.education.service.CourseChapterService;
-import com.forteach.education.service.FileDatumService;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.course.domain.CourseChapter;
+import com.forteach.education.databank.service.FileDatumService;
+import com.forteach.education.course.service.CourseChapterService;
 import com.forteach.education.web.req.CourseChapterEditReq;
 import com.forteach.education.web.req.CourseDataDatumReq;
 import io.swagger.annotations.*;

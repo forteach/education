@@ -1,7 +1,7 @@
 package com.forteach.education.web.req;
 
-import com.forteach.education.domain.Course;
-import com.forteach.education.domain.Teacher;
+import com.forteach.education.classes.domain.Teacher;
+import com.forteach.education.course.domain.Course;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

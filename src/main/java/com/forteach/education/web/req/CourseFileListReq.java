@@ -1,6 +1,6 @@
 package com.forteach.education.web.req;
 
-import com.forteach.education.domain.FileDatum;
+import com.forteach.education.databank.domain.FileDatum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

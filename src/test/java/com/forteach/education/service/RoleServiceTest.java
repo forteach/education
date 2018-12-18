@@ -1,6 +1,7 @@
 package com.forteach.education.service;
 
-import com.forteach.education.domain.SysRole;
+import com.forteach.education.authority.domain.SysRole;
+import com.forteach.education.authority.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
-import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
 /**
  * public class Role

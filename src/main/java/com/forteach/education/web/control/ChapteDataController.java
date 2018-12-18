@@ -1,9 +1,9 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.forteach.education.common.WebResult;
-import com.forteach.education.domain.ChapteData;
-import com.forteach.education.service.ChapteDataService;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.databank.domain.ChapteData;
+import com.forteach.education.databank.service.ChapteDataService;
 import com.forteach.education.web.req.ChapteDataReq;
 import com.forteach.education.web.vo.DataDatumVo;
 import io.swagger.annotations.*;

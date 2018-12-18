@@ -1,7 +1,7 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.domain.Teacher;
-import com.forteach.education.service.TeacherService;
+import com.forteach.education.classes.domain.Teacher;
+import com.forteach.education.classes.service.TeacherService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,7 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.domain.ViewDatum;
-import com.forteach.education.service.ViewDatumService;
+import com.forteach.education.databank.domain.ViewDatum;
+import com.forteach.education.databank.service.ViewDatumService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

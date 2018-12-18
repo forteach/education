@@ -5,7 +5,7 @@ import com.forteach.education.web.vo.SortVo;
 
 import java.util.UUID;
 
-import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
 
 /**
