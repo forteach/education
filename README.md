@@ -41,8 +41,7 @@ curl -X GET http://127.0.0.1:5000/v2/_catalog
 ```shell
 # 修改服务端配置文件
 vim /etc/sysconfig/docker
-------------------------------
-```shell
+
 other_args="--exec-driver=lxc --selinux-enabled --insecure-registry 100.90.61.14:5000"
 DOCKER_CERT_PATH=/etc/docker
 ```
