@@ -1,7 +1,7 @@
 package com.forteach.education.course.service;
 
 import com.forteach.education.course.domain.CourseChapter;
-import com.forteach.education.course.dto.CourseChapterDto;
+import com.forteach.education.course.dto.ICourseChapterDto;
 import com.forteach.education.web.req.CourseChapterEditReq;
 import com.forteach.education.web.resp.CourseTreeResp;
 import com.forteach.education.web.vo.CourseChapterVo;
@@ -31,7 +31,7 @@ public interface CourseChapterService {
 
     public  List<CourseTreeResp> findByCourseId(String courseId);
 
-    public List<CourseChapterDto> findByChapterParentId(String chapterParentId);
+    public List<ICourseChapterDto> findByChapterParentId(String isValidated, String chapterParentId);
 
-    public List<CourseChapter> findAllCourseChapter(CourseChapterVo vo);
+    public List<ICourseChapterDto> findAllCourseChapter(CourseChapterVo vo);
 }

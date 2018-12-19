@@ -1,6 +1,8 @@
 package com.forteach.education.course.service;
 
-import com.forteach.education.course.dto.CourseShareTeacherDto;
+
+import com.forteach.education.course.dto.ICourseShareTeacherDto;
+import com.forteach.education.course.dto.ICourseShareTeacherDto1;
 
 import java.util.List;
 
@@ -17,5 +19,6 @@ public interface CourseShareService {
      * @param courseId
      * @return
      */
-    List<CourseShareTeacherDto> selectCourseShareTeachersByCourseId(String courseId);
+    List<ICourseShareTeacherDto> selectCourseShareTeachersByCourseId(String courseId);
+
 }

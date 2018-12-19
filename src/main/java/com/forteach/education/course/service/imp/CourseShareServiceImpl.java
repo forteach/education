@@ -1,6 +1,8 @@
 package com.forteach.education.course.service.imp;
 
-import com.forteach.education.course.dto.CourseShareTeacherDto;
+
+import com.forteach.education.course.dto.ICourseShareTeacherDto;
+import com.forteach.education.course.dto.ICourseShareTeacherDto1;
 import com.forteach.education.course.repository.CourseShareRepository;
 import com.forteach.education.course.service.CourseShareService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+
 
 /**
  * @Auther: zhangyy
@@ -24,7 +27,9 @@ public class CourseShareServiceImpl implements CourseShareService {
     private CourseShareRepository courseShareRepository;
 
     @Override
-    public List<CourseShareTeacherDto> selectCourseShareTeachersByCourseId(String courseId) {
+    public List<ICourseShareTeacherDto> selectCourseShareTeachersByCourseId(String courseId) {
         return courseShareRepository.findTeachersByCourseId(courseId);
     }
+
+
 }

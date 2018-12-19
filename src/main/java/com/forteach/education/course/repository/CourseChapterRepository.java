@@ -1,7 +1,7 @@
 package com.forteach.education.course.repository;
 
 import com.forteach.education.course.domain.CourseChapter;
-import com.forteach.education.course.dto.CourseChapterDto;
+import com.forteach.education.course.dto.ICourseChapterDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -30,19 +30,19 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param courseId　科目ID
      * @return 章节目录基本信息
      */
-    @Query("select new com.forteach.education.course.dto.CourseChapterDto(chapterId, chapterName, chapterParentId, publish, sort, chapterLevel) " +
-            "from CourseChapter where isValidated = '0' and courseId = ?1 order by chapterLevel asc, sort asc")
-    List<CourseChapterDto> findByCourseId(String courseId);
+    @Query("select chapterId as chapterId, chapterName as chapterName, chapterParentId as chapterParentId, publish as publish, sort as sort, chapterLevel as chapterLevel " +
+            "from CourseChapter where  courseId = ?1 order by chapterLevel asc, sort asc")
+    List<ICourseChapterDto> findByCourseId(String courseId);
 
     /**
      * 根据章节信息查询对应小节信息
-     * @param courseId
+     * @param isValidated
      * @param chapterParentId
      * @return 所属的章节信息按照从顺序排列
      */
-    @Query("select new com.forteach.education.course.dto.CourseChapterDto(chapterId, chapterName, chapterParentId, publish, sort, chapterLevel) from CourseChapter" +
-            " where isValidated = '0' and courseId = :courseId and chapterParentId = :chapterParentId order by sort asc")
-    List<CourseChapterDto> findByChapterParentId(@Param("courseId") String courseId, @Param("chapterParentId") String chapterParentId);
+    @Query("select chapterId as chapterId, chapterName as chapterName, chapterParentId as chapterParentId, publish as publish, sort as sort, chapterLevel as chapterLevel from CourseChapter" +
+            " where isValidated = :isValidated and chapterParentId = :chapterParentId order by sort asc")
+    List<ICourseChapterDto> findByChapterParentId(@Param("isValidated") String isValidated, @Param("chapterParentId") String chapterParentId);
 
     /**
      * 根据科目章节查询科目章节信息
@@ -58,9 +58,9 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param courseId　科目ID
      * @return　目录章节基本信息
      */
-    @Query("select new CourseChapter(courseId, chapterName, chapterParentId, sort, publish)" +
+    @Query("select chapterId as chapterId, chapterName as chapterName, chapterParentId as chapterParentId, publish as publish, sort as sort, chapterLevel as chapterLevel " +
             "from CourseChapter where isValidated = :isValidated and  courseId = :courseId and chapterParentId is null ORDER BY  sort asc")
-    List<CourseChapter> findAllCourseChapterByChapterIdAndIsValidated(@Param("isValidated") String isValidated, @Param("courseId") String courseId);
+    List<ICourseChapterDto> findCourseId(@Param("isValidated") String isValidated, @Param("courseId") String courseId);
 
     /**
      * 查询有效的章节科目信息行数

@@ -1,8 +1,8 @@
 package com.forteach.education.databank.service.imp;
 
 import com.forteach.education.course.domain.CourseChapter;
+import com.forteach.education.course.dto.ICourseChapterDto;
 import com.forteach.education.course.repository.CourseChapterRepository;
-import com.forteach.education.course.dto.CourseChapterDto;
 import com.forteach.education.course.service.CourseChapterService;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.CourseChapterEditReq;
@@ -127,11 +127,11 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Override
     @Transactional(readOnly = true)
     public List<CourseTreeResp> findByCourseId(String courseId){
-        List<CourseChapterDto> dtoList = courseChapterRepository.findByCourseId(courseId);
+        List<ICourseChapterDto> dtoList = courseChapterRepository.findByCourseId(courseId);
         List<CourseTreeResp> courseTreeResps = new ArrayList<>();
         for (int i = 0; i < dtoList.size(); i++) {
             State state = new State();
-            CourseChapterDto courseChapterDto = dtoList.get(i);
+            ICourseChapterDto courseChapterDto = dtoList.get(i);
             CourseTreeResp courseTreeResp = new CourseTreeResp();
             courseTreeResp.setId(courseChapterDto.getChapterId());
             courseTreeResp.setText(courseChapterDto.getChapterName());
@@ -157,8 +157,8 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<CourseChapterDto> findByChapterParentId(String chapterParentId){
-        return courseChapterRepository.findByChapterParentId("", chapterParentId);
+    public List<ICourseChapterDto> findByChapterParentId(String isValidated, String chapterParentId){
+        return courseChapterRepository.findByChapterParentId(isValidated, chapterParentId);
     }
     /**
      * １. 章节ID
@@ -169,7 +169,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<CourseChapter> findAllCourseChapter(CourseChapterVo vo){
-        return courseChapterRepository.findAllCourseChapterByChapterIdAndIsValidated(vo.getIsValidated(), vo.getCourseId());
+    public List<ICourseChapterDto> findAllCourseChapter(CourseChapterVo vo){
+        return courseChapterRepository.findCourseId(vo.getIsValidated(), vo.getCourseId());
     }
 }

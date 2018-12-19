@@ -1,6 +1,7 @@
 package com.forteach.education.service.impl;
 
 import com.forteach.education.course.domain.CourseChapter;
+import com.forteach.education.course.dto.ICourseChapterDto;
 import com.forteach.education.course.repository.CourseChapterRepository;
 import com.forteach.education.course.service.CourseChapterService;
 import com.forteach.education.web.resp.CourseTreeResp;
@@ -43,6 +44,14 @@ public class CourseChapterServiceImplTest {
         list.forEach(courseTreeResp -> {
 
         log.info("courseTreeResp : {}", courseTreeResp.toString());
+        });
+    }
+
+    @Test
+    public void findByChapterParentId(){
+        List<ICourseChapterDto> list=courseChapterService.findByChapterParentId("0","2c91808d678e620701679c214f500001");
+        list.forEach(dto -> {
+            log.info("ICourseChapterDto : {}", dto.getChapterName());
         });
     }
 

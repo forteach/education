@@ -1,7 +1,8 @@
 package com.forteach.education.course.repository;
 
 import com.forteach.education.course.domain.CourseShare;
-import com.forteach.education.course.dto.CourseShareTeacherDto;
+import com.forteach.education.course.dto.ICourseShareTeacherDto;
+import com.forteach.education.course.dto.ICourseShareTeacherDto1;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,8 +31,12 @@ public interface CourseShareRepository extends JpaRepository<CourseShare, String
      * @param courseId
      * @return
      */
-    @Query(value = "select new com.forteach.education.course.dto.CourseShareTeacherDto " +
-            "(t.teacherId, t.teacherName) from CourseShare AS c left join Teacher AS t on c.teacherId = t.teacherId where " +
-            "c.isValidated = '0' AND c.courseId = :courseId")
-    List<CourseShareTeacherDto> findTeachersByCourseId(@Param("courseId") String courseId);
+    @Query(value = "select  " +
+            "teacherId as teacherId, teacherName as teacherName from CourseShare where " +
+            "isValidated = '0' AND courseId = :courseId")
+    List<ICourseShareTeacherDto> findTeachersByCourseId(@Param("courseId") String courseId);
+
+    @Query("select courseId as courseId  from CourseShare ")
+    List<ICourseShareTeacherDto1> findCourseList();
+
 }

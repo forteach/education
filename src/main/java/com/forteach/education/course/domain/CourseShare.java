@@ -5,6 +5,7 @@ import com.forteach.education.common.domain.Entitys;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -56,4 +57,7 @@ public class CourseShare extends Entitys implements Serializable {
     @JsonIgnore
     @Column(name = "teacher_id", columnDefinition = "VARCHAR(32) COMMENT '对应的教师ID'", nullable = false)
     private String teacherId;
+
+    @Formula("(select t.teacher_name from teacher t where t.teacher_id=teacher_id)")
+    private String teacherName;
 }
