@@ -14,6 +14,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -72,11 +73,11 @@ public class Course extends Entitys implements Serializable {
     @JsonView(View.Summary.class)
     private String teachingType;
 
-//    @NotEmpty(message = "备课类型不为空")
-//    @Size(min = 1, max = 2, message = "备课类型不正确")
-//    @ApiModelProperty(value = "备课类型", name = "lessonPreparationType", notes = "1、单人备课２、集体备课", required = true)
-//    @Column(name = "lesson_preparation_type", columnDefinition = "INT COMMENT '备课类型　1、单人备课２、集体备课'")
-//    private Integer LessonPreparationType;
+    @NotEmpty(message = "备课类型不为空")
+    @Size(min = 1, max = 2, message = "备课类型不正确")
+    @ApiModelProperty(value = "备课类型", name = "lessonPreparationType", notes = "1、单人备课２、集体备课", required = true)
+    @Column(name = "lesson_preparation_type", columnDefinition = "INT COMMENT '备课类型　1、单人备课２、集体备课'")
+    private Integer LessonPreparationType;
 
 //    @URL(message = "不是一个URL")
     @NotBlank(message = "封面图片路径")
@@ -85,7 +86,7 @@ public class Course extends Entitys implements Serializable {
     @JsonView(View.Summary.class)
     private String topPicSrc;
 
-    @Column(name = "course_describe", columnDefinition = "MEDIUMTEXT COMMENT'课程描述'")
+    @Column(name = "course_describe", columnDefinition = "MEDIUMTEXT COMMENT'课程描述'" )
     @ApiModelProperty(name = "courseDescribe", value = "课程描述富文本", notes = "长字段富文本", example = "<p>富文本</p>", required = true)
     @JsonView(View.Summary.class)
     private String courseDescribe;
