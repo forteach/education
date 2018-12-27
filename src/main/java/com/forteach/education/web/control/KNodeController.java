@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.course.domain.KNode;
 import com.forteach.education.course.service.KNodeService;
-import com.forteach.education.web.req.KNodeReq;
-import com.forteach.education.web.vo.SortVo;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,8 +36,8 @@ public class KNodeController {
             @ApiImplicitParam(name = "nodeDesc", value = "知识点描述", example = "知识点说明", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "courseId", value = "科目课程ID", example = "科目课程ID", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "chapterId", value = "章节ID", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "kNodeType", value = "知识点类型", dataType = "string", required = true, example = "1", paramType = "from")
+           // @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", paramType = "from"),
+           // @ApiImplicitParam(name = "kNodeType", value = "知识点类型", dataType = "string", required = true, example = "1", paramType = "from")
     })
     public WebResult save(@Valid @ApiParam(name = "kNode", value = "知识点对象") @RequestBody KNode kNode){
         return WebResult.okResult(kNodeService.save(kNode));
@@ -53,25 +51,25 @@ public class KNodeController {
             @ApiImplicitParam(name = "nodeDesc", value = "知识点描述", example = "知识点说明", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "courseId", value = "科目课程ID", example = "科目课程ID", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "chapterId", value = "章节ID", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "kNodeType", value = "知识点类型", dataType = "string", required = true, example = "1", paramType = "from")
+           // @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", paramType = "from"),
+            //@ApiImplicitParam(name = "kNodeType", value = "知识点类型", dataType = "string", required = true, example = "1", paramType = "from")
     })
     public WebResult edit(@Valid @ApiParam(value = "知识点对像") @RequestBody KNode kNode){
         return WebResult.okResult(kNodeService.edit(kNode));
     }
 
-    @ApiOperation(value = "分页筛选查询知识点信息")
-    @PostMapping("/findAllPage")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "科目课程ID", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "chapterId", value = "章节ID", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "dataId", value = "资料id", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "kNodeType", value = "知识点类型", example = "1", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "SortVo", value = "分页对象", dataTypeClass = SortVo.class, required = true, paramType = "query")
-    })
-    public WebResult findAllPage(@Valid @ApiParam(value = "查询知识点分页对象") @RequestBody KNodeReq kNodeReq){
-        return WebResult.okResult(kNodeService.selectById(kNodeReq));
-    }
+//    @ApiOperation(value = "分页筛选查询知识点信息")
+//    @PostMapping("/findAllPage")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "courseId", value = "科目课程ID", dataType = "string", paramType = "query"),
+//            @ApiImplicitParam(name = "chapterId", value = "章节ID", dataType = "string", paramType = "query"),
+//            @ApiImplicitParam(name = "dataId", value = "资料id", dataType = "string", paramType = "query"),
+//            @ApiImplicitParam(name = "kNodeType", value = "知识点类型", example = "1", dataType = "string", paramType = "query"),
+//            @ApiImplicitParam(name = "SortVo", value = "分页对象", dataTypeClass = SortVo.class, required = true, paramType = "query")
+//    })
+//    public WebResult findAllPage(@Valid @ApiParam(value = "查询知识点分页对象") @RequestBody KNodeReq kNodeReq){
+//        return WebResult.okResult(kNodeService.selectById(kNodeReq));
+//    }
 
     @ApiOperation(value = "根据知识点ID查询知识点信息")
     @PostMapping("/findByKNodeId")
@@ -80,6 +78,24 @@ public class KNodeController {
     })
     public WebResult findById(@Valid @ApiParam(name = "kNodeId", value = "知识点ID", required = true, readOnly = true) @RequestBody String kNodeId){
         return WebResult.okResult(kNodeService.findById(String.valueOf(JSONObject.parseObject(kNodeId).getString("kNodeId"))));
+    }
+
+    @ApiOperation(value = "根据章节ID查询知识点信息")
+    @PostMapping("/findByChapter")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "chapterId", value = "章节ID", example = "", dataType = "string", required = true, readOnly = true)
+    })
+    public WebResult findByChapter(@Valid @ApiParam(name = "chapterId", value = "章节ID", required = true, readOnly = true) @RequestBody String chapterId){
+        return WebResult.okResult(kNodeService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));
+    }
+
+    @ApiOperation(value = "根据课程ID查询知识点信息")
+    @PostMapping("/findByCourse")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "课程ID", example = "", dataType = "string", required = true, readOnly = true)
+    })
+    public WebResult findByCourse(@Valid @ApiParam(name = "courseId", value = "章节ID", required = true, readOnly = true) @RequestBody String courseId){
+        return WebResult.okResult(kNodeService.findByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
     }
 
     @ApiOperation(value = "根据知识点ID删除知识点(物理删除)")

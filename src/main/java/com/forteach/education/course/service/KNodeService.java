@@ -3,6 +3,9 @@ package com.forteach.education.course.service;
 import com.forteach.education.course.domain.KNode;
 import com.forteach.education.web.req.KNodeReq;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -12,15 +15,21 @@ import org.springframework.data.domain.Page;
  * @Description:
  */
 public interface KNodeService {
-    KNode save(KNode kNode);
+    public KNode save(KNode kNode);
 
-    KNode edit(KNode kNode);
+    public  KNode edit(KNode kNode);
 
-    Page<KNode> selectById(KNodeReq kNodeReq);
+    public List<KNode> findByChapterId(String chapterId);
 
-    KNode findById(String kNodeId);
+    public List<KNode> findByCourseId(String courseId);
 
-    void deleteById(String kNodeId);
+   // public Page<KNode> selectById(KNodeReq kNodeReq);
 
-    void deleteIsValidById(String kNodeId);
+    public KNode findById(String kNodeId);
+
+    public void deleteById(String kNodeId);
+
+    public void deleteIsValidById(String kNodeId);
+
+    //public Page<KNode> findKNodePage(String isValidated, String courseId, String chapterId, String dataId, String kNodeType, Pageable pageable);
 }

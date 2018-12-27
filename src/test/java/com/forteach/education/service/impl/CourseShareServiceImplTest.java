@@ -1,6 +1,7 @@
 package com.forteach.education.service.impl;
 
 
+import com.forteach.education.course.domain.CourseShareUsers;
 import com.forteach.education.course.dto.ICourseShareTeacherDto;
 import com.forteach.education.course.service.CourseShareService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +29,9 @@ public class CourseShareServiceImplTest {
     private CourseShareService courseShareService;
     @Test
     public void selectCourseShareTeachersByCourseId() {
-        List<ICourseShareTeacherDto> list = courseShareService.selectCourseShareTeachersByCourseId("ff808181677d238701677d26fdae0002");
+        List<CourseShareUsers> list = courseShareService.findByShareId("40288d5c67df334e0167df3393aa0001");
         list.forEach(dto ->{
-            log.info("courseShareDto---1 : {}", dto.getTeacherName());
+            log.info("courseShareDto---1 : {}", dto.getUserName());
         });
     }
 

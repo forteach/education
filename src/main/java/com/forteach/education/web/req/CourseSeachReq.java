@@ -1,6 +1,6 @@
 package com.forteach.education.web.req;
 
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import lombok.*;
 
 import java.io.Serializable;

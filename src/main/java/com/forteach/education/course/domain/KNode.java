@@ -40,10 +40,6 @@ public class KNode extends Entitys implements Serializable {
     @Column(name = "node_name", columnDefinition = "VARCHAR(32) COMMENT '知识点名称'")
     private String nodeName;
 
-    @ApiModelProperty(value = "知识点描述", name = "node_desc", notes = "描述知识点说明", dataType = "string", example = "计算机描述详细信息")
-    @Column(name = "node_desc", columnDefinition = "VARCHAR(256) COMMENT '知识点描述'")
-    private String nodeDesc;
-
     @ApiModelProperty(name = "course_id", value = "科目课程ID", dataType = "string", example = "ff808181677d1d5501677d1d9f9e0000")
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目课程ID'")
     private String courseId;
@@ -52,12 +48,16 @@ public class KNode extends Entitys implements Serializable {
     @Column(name = "chapter_id", columnDefinition = "VARCHAR(32) COMMENT '章节ID'")
     private String chapterId;
 
-    @ApiModelProperty(name = "dataId", value = "对应的资料ID", dataType = "string", example = "ff808181674ee66201674ee6aff50000")
-    @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '资料ID'")
-    private String dataId;
+//    @ApiModelProperty(value = "知识点描述", name = "node_desc", notes = "描述知识点说明", dataType = "string", example = "计算机描述详细信息")
+//    @Column(name = "node_desc", columnDefinition = "VARCHAR(256) COMMENT '知识点描述'")
+//    private String nodeDesc;
 
-    @ApiModelProperty(name = "kNodeType", value = "知识点类型", notes = "1 单个知识点 2 复合多个知识点", example = "1")
-    @Column(name = "k_node_type", columnDefinition = "VARCHAR(32) COMMENT '知识点类型１ 单个知识点，２　多个知识点'")
-    private String kNodeType;
+//    @ApiModelProperty(name = "dataId", value = "对应的资料ID", dataType = "string", example = "ff808181674ee66201674ee6aff50000")
+//    @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '资料ID'")
+//    private String dataId;
+//
+//    @ApiModelProperty(name = "kNodeType", value = "知识点类型", notes = "1 单个知识点 2 复合多个知识点", example = "1")
+//    @Column(name = "k_node_type", columnDefinition = "VARCHAR(32) COMMENT '知识点类型１ 单个知识点，２　多个知识点'")
+//    private String kNodeType;
 
 }

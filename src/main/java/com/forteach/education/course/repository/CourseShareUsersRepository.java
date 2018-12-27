@@ -2,6 +2,10 @@ package com.forteach.education.course.repository;
 
 import com.forteach.education.course.domain.CourseShareUsers;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -12,9 +16,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface CourseShareUsersRepository extends JpaRepository<CourseShareUsers, String> {
 
-//    @Modifying
-//    @Transactional(rollbackOn = Exception.class)
-//    int deleteByCourseId(String courseId);
+
+
+    @Modifying
+    @Transactional(rollbackOn = Exception.class)
+    public int deleteByShareId(String shareId);
+
+    public List<CourseShareUsers> findByShareId(String shareId);
 //
 //    List<CourseShare> findByCourseId(String courseId);
 //

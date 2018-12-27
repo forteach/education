@@ -4,7 +4,7 @@ import com.forteach.education.databank.domain.FileDatum;
 import com.forteach.education.web.req.CourseDataDatumReq;
 import com.forteach.education.web.req.CourseFileDataReq;
 import com.forteach.education.web.req.CourseFileListReq;
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

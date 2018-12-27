@@ -1,7 +1,7 @@
 package com.forteach.education.course.service;
 
 import com.forteach.education.course.domain.Specialty;
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import org.springframework.data.domain.Page;
 
 /**

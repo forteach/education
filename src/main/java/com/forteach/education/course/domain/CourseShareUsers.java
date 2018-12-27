@@ -1,12 +1,9 @@
 package com.forteach.education.course.domain;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.forteach.education.common.domain.Entitys;
-import com.forteach.education.filter.View;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -20,10 +17,13 @@ import java.io.Serializable;
  */
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "course_share_users", indexes = {@Index(columnList = "share_id"), @Index(columnList = "user_id")})
 @EqualsAndHashCode(callSuper = true)
 @IdClass(CourseShareUsersPk.class)
-@org.hibernate.annotations.Table(appliesTo = "course_share_users", comment = "课程内容协作访问成员")
+//@org.hibernate.annotations.Table(appliesTo = "course_share_users", comment = "课程内容协作访问成员")
 @ApiModel(value = "课程内容协作访问成员")
 public class CourseShareUsers extends Entitys implements Serializable {
 
@@ -33,17 +33,15 @@ public class CourseShareUsers extends Entitys implements Serializable {
     @ApiModelProperty(value = "协作内容成员主键", hidden = true)
     private CourseShareUsersPk shareUsersPk;
 
-    @ApiModelProperty(value = "内容分享ID", name = "shareId", dataType = "string")
+    @ApiModelProperty(value = "内容分享ID", name = "shareId", dataType = "string",example = "40288d5c67df334e0167df3393aa0001")
     private String shareId;
 
-    @ApiModelProperty(value = "分享成员编号", name = "userId", dataType = "string")
+    @ApiModelProperty(value = "接受分享成员编号", name = "userId", dataType = "string")
     private String userId;
 
-    @NotBlank(message = "成员名称")
-    @ApiModelProperty(name = "courseName", value = "科目名称", dataType = "string", example = "商务英语", required = true)
-    @Column(name = "course_name", columnDefinition = "VARCHAR(40) COMMENT '科目名称'")
-    @JsonView(View.Summary.class)
-    private String courseName;
-
+    @NotBlank(message = "接受分享成员名称")
+    @ApiModelProperty(name = "courseName", value = "接受分享成员名称", dataType = "string",  required = true)
+    @Column(name = "user_name", columnDefinition = "VARCHAR(40) COMMENT '接受分享成员名称'")
+    private String userName;
 
 }

@@ -1,9 +1,11 @@
-package com.forteach.education.web.control;
+package com.forteach.education.course.web.control;
 
 import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.course.domain.Course;
+import com.forteach.education.course.web.req.CourseFindAllReq;
+import com.forteach.education.course.web.res.CourseSaveResp;
 import com.forteach.education.databank.domain.ViewDatum;
 import com.forteach.education.databank.service.FileDatumService;
 import com.forteach.education.databank.service.ViewDatumService;
@@ -12,10 +14,11 @@ import com.forteach.education.course.service.CourseShareService;
 import com.forteach.education.web.req.CourseFileDataReq;
 import com.forteach.education.web.req.CourseFileListReq;
 import com.forteach.education.web.req.CourseImagesReq;
-import com.forteach.education.web.req.CourseSaveReq;
+import com.forteach.education.course.web.req.CourseSaveReq;
 import com.forteach.education.web.vo.DataDatumVo;
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +37,7 @@ import javax.validation.constraints.NotNull;
  * @Version: 1.0
  * @Description:　科目课程信息操作
  */
+@Slf4j
 @RestController
 @RequestMapping(path = "/course", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "课程科目操作", tags = {"课程科目操作相关信息"})
@@ -58,10 +62,14 @@ public class CourseController {
 //    @JsonView(View.SummaryExtend.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "course", value = "科目课程对象", dataTypeClass = Course.class, required = true),
+            @ApiImplicitParam(name = "oldShareId", value = "编辑修改前条记录的分享编号", dataTypeClass = String.class),
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
     })
     public WebResult save(@Valid @ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody CourseSaveReq courseReq){
-        return WebResult.okResult(courseService.save(courseReq));
+        CourseSaveResp cs=courseService.save(courseReq);
+        log.info(cs.toString());
+        return WebResult.okResult(cs);
+
     }
 
     @ApiOperation(value = "修改科目课程信息", notes = "修改科目信息")
@@ -69,10 +77,46 @@ public class CourseController {
 //    @JsonView(View.Summary.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "course", value = "科目课程对象", dataTypeClass = Course.class, required = true),
+            @ApiImplicitParam(name = "oldShareId", value = "修改前课程的备课共享编号", dataTypeClass = String.class),
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
     })
     public WebResult edit(@Valid @ApiParam(name = "courseReq", value = "科目课程对象", required = true) @RequestBody CourseSaveReq courseReq){
         return WebResult.okResult(courseService.edit(courseReq));
+    }
+
+
+    @PostMapping("/getCourse")
+//    @JsonView(View.SummaryExtend.class)
+    @ApiOperation(value = "获取科目课程信息", notes = "根据科目课程ID查询科目信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true, example = "{\"courseId\":\"2c918099676317d0016763e051f50000\"}")
+    })
+    public WebResult getCourseByCourseId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "courseId", value = "根据科目ID 查询对应科目信息", type = "string", required = true, example = "{\"courseId\":\"2c918099676317d0016763e051f50000\"}")
+                                             @RequestBody String courseId){
+        return WebResult.okResult(courseService.getCourseById(String.valueOf(JSONObject.parseObject(courseId).get("courseId"))));
+    }
+
+    @ApiOperation(value = "分页查询", notes = "分页查询分页科目信息")
+    @PostMapping("/findAll")
+//    @JsonView(View.SummaryExtend.class)
+    public WebResult findAll(@Valid @ApiParam(name = "sortVo", value = "分页查科目信息",required = true) @RequestBody CourseFindAllReq sortVo){
+        return WebResult.okResult(courseService.findAll(sortVo));
+    }
+
+    /**
+     * 通过文件资源 ID 逻辑删除文件资源信息
+     * @param courseId
+     * @return
+     */
+    @ApiOperation(value = "使其无效", notes = "删除科目信息(逻辑删除)")
+    @PostMapping("/deleteIsValidById")
+//    @JsonView(View.SummaryExtend.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true)
+    })
+    public WebResult deleteIsValidById(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "courseId", value = "根据资源ID 逻辑删除对应科目信息", type = "string", required = true) @RequestBody String courseId){
+        courseService.deleteIsValidById(courseId);
+        return WebResult.okResult();
     }
 
     @ApiOperation(value = "删除科目信息", notes = "删除科目对象 (物理删除)")
@@ -93,40 +137,6 @@ public class CourseController {
     })
     public WebResult deleteById(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "courseId", value = "根据科目ID 删除对应科目信息", type = "string", required = true) @RequestBody String courseId){
         courseService.deleteById(String.valueOf(JSONObject.parseObject(courseId).get("courseId")));
-        return WebResult.okResult();
-    }
-
-    @PostMapping("/getCourseId")
-//    @JsonView(View.SummaryExtend.class)
-    @ApiOperation(value = "获取科目课程信息", notes = "根据科目课程ID查询科目信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true, example = "{\"courseId\":\"2c918099676317d0016763e051f50000\"}")
-    })
-    public WebResult getCourseByCourseId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "courseId", value = "根据科目ID 查询对应科目信息", type = "string", required = true, example = "{\"courseId\":\"2c918099676317d0016763e051f50000\"}")
-                                             @RequestBody String courseId){
-        return WebResult.okResult(courseService.getCourseById(String.valueOf(JSONObject.parseObject(courseId).get("courseId"))));
-    }
-
-    @ApiOperation(value = "分页查询", notes = "分页查询分页科目信息")
-    @PostMapping("/findAll")
-//    @JsonView(View.SummaryExtend.class)
-    public WebResult findAll(@Valid @ApiParam(name = "sortVo", value = "分页查科目信息",required = true) @RequestBody SortVo sortVo){
-        return WebResult.okResult(courseService.findAll(sortVo));
-    }
-
-    /**
-     * 通过文件资源 ID 逻辑删除文件资源信息
-     * @param courseId
-     * @return
-     */
-    @ApiOperation(value = "使其无效", notes = "删除科目信息(逻辑删除)")
-    @PostMapping("/deleteIsValidById")
-//    @JsonView(View.SummaryExtend.class)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true)
-    })
-    public WebResult deleteIsValidById(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "courseId", value = "根据资源ID 逻辑删除对应科目信息", type = "string", required = true) @RequestBody String courseId){
-        courseService.deleteIsValidById(courseId);
         return WebResult.okResult();
     }
 
@@ -201,13 +211,14 @@ public class CourseController {
         return WebResult.okResult(courseService.findImagesByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
     }
 
-    @PostMapping("/selectTeachersByCourseId")
-    @ApiOperation(value = "根据课程ID查询对应的协作老师信息")
+    @PostMapping("/selectTeachersByShareId")
+    @ApiOperation(value = "根据课程备课分享ID查询对应的协作老师信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true, example = "ff808181677d238701677d26fdae0002")
+            @ApiImplicitParam(name = "shareId", value = "科目备课分享ID", dataType = "string", required = true, example = "")
     })
-    public WebResult selectTeachersByCourseId(@Valid @ApiParam(name = "courseId", value = "查询对应的协作老师信息", type = "string", required = true) @RequestBody String courseId){
-        return WebResult.okResult(courseShareService.selectCourseShareTeachersByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
+
+    public WebResult selectTeachersByCourseId(@Valid @ApiParam(name = "shareId", value = "查询对应的协作老师信息", type = "string", required = true) @RequestBody String shareId){
+        return WebResult.okResult(courseShareService.findByShareId(String.valueOf(JSONObject.parseObject(shareId).getString("shareId"))));
     }
 
     @PostMapping("/editCourseFileList")

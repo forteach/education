@@ -59,7 +59,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @return　目录章节基本信息
      */
     @Query("select chapterId as chapterId, chapterName as chapterName, chapterParentId as chapterParentId, publish as publish, sort as sort, chapterLevel as chapterLevel " +
-            "from CourseChapter where isValidated = :isValidated and  courseId = :courseId and chapterParentId is null ORDER BY  sort asc")
+            "from CourseChapter where isValidated = :isValidated and  courseId = :courseId  ORDER BY  sort asc")
     List<ICourseChapterDto> findCourseId(@Param("isValidated") String isValidated, @Param("courseId") String courseId);
 
     /**

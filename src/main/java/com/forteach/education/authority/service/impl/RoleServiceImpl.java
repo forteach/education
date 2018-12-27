@@ -97,12 +97,10 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(rollbackFor = Exception.class)
     public SysRole edit(SysRole role) {
         SysRole sysRole = sysRoleRepository.findByRoleId(role.getRoleId());
-        role.setUTime(new Date());
+//        role.setUTime(new Date());
         if (sysRole == null) {
             editCheck(role);
-            role.setCTime(new Date());
-        } else {
-            role.setCTime(sysRole.getCTime());
+//            role.setCTime(new Date());
         }
         return sysRoleRepository.save(role);
     }
