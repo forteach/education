@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.classes.service.TeacherService;
 import com.forteach.education.common.keyword.WebResult;
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

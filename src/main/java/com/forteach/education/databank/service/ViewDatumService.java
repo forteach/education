@@ -2,7 +2,7 @@ package com.forteach.education.databank.service;
 
 
 import com.forteach.education.databank.domain.ViewDatum;
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import org.springframework.data.domain.Page;
 
 

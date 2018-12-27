@@ -5,7 +5,7 @@ import com.forteach.education.authority.domain.SysRole;
 import com.forteach.education.authority.service.AuthorityMgrService;
 import com.forteach.education.authority.service.RoleService;
 import com.forteach.education.web.vo.AuthorityVo;
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

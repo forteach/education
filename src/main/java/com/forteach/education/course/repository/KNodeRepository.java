@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -15,6 +17,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface KNodeRepository extends JpaRepository<KNode, String> {
 
-    Page<KNode> findAll(Specification<KNode> specification, Pageable pageable);
+    //根据章节编号查找知识点
+    List<KNode> findByChapterId(String chapterId);
+
+    //根绝课程编号查找知识点
+    List<KNode> findByCourseId(String courseId);
+
+//    Page<KNode> findAll(Specification<KNode> specification, Pageable pageable);
 
 }

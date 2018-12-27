@@ -1,4 +1,4 @@
-package com.forteach.education.databank.service.imp;
+package com.forteach.education.course.service.imp;
 
 import com.forteach.education.course.domain.CourseChapter;
 import com.forteach.education.course.dto.ICourseChapterDto;
@@ -38,7 +38,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     private CourseChapterRepository courseChapterRepository;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackForClassName="Exception")
     public CourseChapter save(CourseChapter courseChapter) {
         //判断是顶层章节
         if (COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId())){
@@ -56,7 +56,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackForClassName="Exception")
     public CourseChapter edit(CourseChapterEditReq courseChapterEditReq) {
         CourseChapter source = courseChapterRepository.findById(courseChapterEditReq.getChapterId()).get();
         CourseChapter courseChapter = CourseChapter.builder().build();
@@ -71,7 +71,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackForClassName="Exception")
     public void delete(CourseChapter courseChapter) {
         courseChapterRepository.delete(courseChapter);
     }
@@ -81,7 +81,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      * @param chapterId
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackForClassName="Exception")
     public void deleteById(String chapterId) {
         CourseChapter courseChapter = courseChapterRepository.findById(chapterId).get();
         Set<String> stringSet = findLists(courseChapter.getCourseId(), chapterId);
@@ -109,7 +109,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackForClassName="Exception")
     public void deleteIsValidById(String chapterId) {
         CourseChapter courseChapter = courseChapterRepository.findById(chapterId).get();
         Set<String> stringSet = findLists(courseChapter.getCourseId(), chapterId);
@@ -125,7 +125,6 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      * @return
      */
     @Override
-    @Transactional(readOnly = true)
     public List<CourseTreeResp> findByCourseId(String courseId){
         List<ICourseChapterDto> dtoList = courseChapterRepository.findByCourseId(courseId);
         List<CourseTreeResp> courseTreeResps = new ArrayList<>();
@@ -156,7 +155,6 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      * @return
      */
     @Override
-    @Transactional(readOnly = true)
     public List<ICourseChapterDto> findByChapterParentId(String isValidated, String chapterParentId){
         return courseChapterRepository.findByChapterParentId(isValidated, chapterParentId);
     }

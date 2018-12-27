@@ -1,6 +1,6 @@
 package com.forteach.education.util;
 
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import org.springframework.data.domain.Sort;
 
 /**

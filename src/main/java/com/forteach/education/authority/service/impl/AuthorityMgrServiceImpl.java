@@ -240,8 +240,8 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
                 roleColAct.setRoleId(m.get("roleId").toString());
                 roleColAct.setColId(m.get("colId").toString());
                 roleColAct.setSysActId(actId);
-                roleColAct.setCTime(new Date());
-                roleColAct.setUTime(new Date());
+//                roleColAct.setcTime(new Date());
+//                roleColAct.setuTime(new Date());
                 roleColActRepository.save(roleColAct);
             }
         });

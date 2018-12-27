@@ -6,7 +6,7 @@ import com.forteach.education.databank.service.LinkDatumService;
 import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.util.UpdateUtil;
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

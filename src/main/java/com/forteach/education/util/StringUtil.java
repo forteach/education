@@ -1,7 +1,7 @@
 package com.forteach.education.util;
 
 import cn.hutool.core.util.StrUtil;
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 
 import java.util.UUID;
 

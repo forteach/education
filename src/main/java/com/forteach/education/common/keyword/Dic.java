@@ -18,6 +18,7 @@ public class Dic {
     public static final int COURSE_SHARE_TYPE_COOPERATION = 2;
     //公开
     public static final int COURSE_SHARE_TYPE_PUBLIC = 3;
+
     //课程章节发布
     public static final String PUBLISH_YES = "Y";
     //课程章节不发布
@@ -25,8 +26,19 @@ public class Dic {
     //章节科目父节点ID
     public static final String COURSE_CHAPTER_CHAPTER_PARENT_ID = "0";
     // 是当前树结构第一个
-    public static final int COURSE_CHAPTER_SORT = 1;
+    public static final String COURSE_CHAPTER_SORT = "1";
     //所处的层级是2
-    public static final int COURSE_CHAPTER_LEVERL = 2;
+    public static final String COURSE_CHAPTER_LEVERL = "2";
+
+    //个人备课
+    public static final String LESSON_PREPARATION_TYPE_PRIVATE="1";
+    //集体备课
+    public static final String LESSON_PREPARATION_TYPE_GROUP="2";
+
+    //课程分享范围-全部
+    public static final String COURSE_SHARE_AREA_ALL="1";
+
+    //课程分享范围-章节
+    public static final String COURSE_SHARE_AREA_CHAPTER="2";
 
 }

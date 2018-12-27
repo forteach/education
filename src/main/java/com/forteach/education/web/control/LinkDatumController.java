@@ -6,7 +6,7 @@ import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.databank.domain.LinkDatum;
 import com.forteach.education.databank.service.LinkDatumService;
 import com.forteach.education.filter.View;
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -1,7 +1,7 @@
 package com.forteach.education.databank.service;
 
 import com.forteach.education.databank.domain.AudioDatum;
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

@@ -25,6 +25,7 @@ public class CourseShareUsersPk implements Serializable {
     private String userId;
 
     public CourseShareUsersPk() {
+
     }
 
     public CourseShareUsersPk(String shareId, String userId) {

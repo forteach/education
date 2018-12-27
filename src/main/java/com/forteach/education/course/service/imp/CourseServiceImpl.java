@@ -3,22 +3,27 @@ package com.forteach.education.course.service.imp;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseImages;
 import com.forteach.education.course.domain.CourseShare;
+import com.forteach.education.course.dto.ICourseListDto;
 import com.forteach.education.course.repository.CourseImagesRepository;
 import com.forteach.education.course.repository.CourseRepository;
-import com.forteach.education.course.repository.CourseShareRepository;
-
-
 import com.forteach.education.course.service.CourseService;
+import com.forteach.education.course.service.CourseShareService;
+import com.forteach.education.course.web.req.CourseFindAllReq;
+import com.forteach.education.course.web.res.CourseListResp;
+import com.forteach.education.course.web.res.CourseResp;
+import com.forteach.education.course.web.vo.RCourse;
+import com.forteach.education.course.web.res.CourseSaveResp;
 import com.forteach.education.util.SortUtil;
-import com.forteach.education.util.StringUtil;
+
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.CourseImagesReq;
-import com.forteach.education.web.req.CourseSaveReq;
+import com.forteach.education.course.web.req.CourseSaveReq;
 import com.forteach.education.web.vo.DataDatumVo;
-import com.forteach.education.web.vo.SortVo;
+import com.forteach.education.common.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import static java.util.stream.Collectors.toList;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +51,7 @@ public class CourseServiceImpl implements CourseService {
     private CourseImagesRepository courseImagesRepository;
 
     @Resource
-    private CourseShareRepository courseShareRepository;
+    private CourseShareService courseShareService;
 
     /**
      * 保存课程科目信息，和协作信息
@@ -54,64 +59,98 @@ public class CourseServiceImpl implements CourseService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Course save(CourseSaveReq courseReq) {
-        int shareType = courseReq.getCourse().getShareType();
-        Course course = courseRepository.saveAndFlush(courseReq.getCourse());
-        if (COURSE_SHARE_TYPE_COOPERATION == shareType){
-            //是协作处理
-            List<CourseShare> list = new ArrayList<>();
-            courseReq.getTeachers().forEach(teacher -> {
-                list.add(CourseShare.builder()
-                        .courseId(course.getCourseId())
-                        .shareArea(1)
-                        .teacherId(teacher.getTeacherId())
-                        .build());
-            });
-            courseShareRepository.saveAll(list);
+    @Transactional(rollbackForClassName="Exception")
+    public CourseSaveResp save(CourseSaveReq courseReq) {
+        String lessonPre = courseReq.getCourse().getLessonPreparationType();
+        RCourse rcourse=courseReq.getCourse();
+        Course course=new Course();
+        UpdateUtil.copyNullProperties(rcourse, course);
+        course = courseRepository.save(course);
+
+        if (LESSON_PREPARATION_TYPE_GROUP.equals(lessonPre)) {
+            courseShareService.save(course, courseReq.getTeachers());
         }
-        return course;
+
+        //创建输出课程对象
+        CourseSaveResp courseSaveResp=CourseSaveResp.builder()
+                .courseId(course.getCourseId())
+                .build();
+
+        return courseSaveResp;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackForClassName="Exception")
     public void deleteById(String courseId) {
         courseRepository.deleteById(courseId);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackForClassName="Exception")
     public void delete(Course course) {
         courseRepository.delete(course);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class, timeout = 10)
-    public Course edit(CourseSaveReq courseReq) {
-        Course course = courseReq.getCourse();
-        int shareType = course.getShareType();
+    @Transactional(rollbackForClassName="Exception")
+    public CourseSaveResp edit(CourseSaveReq courseReq) {
+        RCourse rcourse=courseReq.getCourse();
+        Course course=new Course();
+        UpdateUtil.copyNullProperties(rcourse, course);
         String courseId = course.getCourseId();
         Course source = courseRepository.findById(courseId).get();
-        //删除协作者信息
-        courseShareRepository.deleteByCourseId(courseId);
-        if (COURSE_SHARE_TYPE_COOPERATION == shareType){
-            //是协作课程
-            List<CourseShare> shareList = new ArrayList<>();
-            courseReq.getTeachers().forEach(teacher -> {
-                shareList.add(CourseShare.builder()
-                        .courseId(courseId)
-                        .shareArea(1)
-                        .shareId(source.getCUser())
-                        .teacherId(teacher.getTeacherId())
-                        .build());
-            });
-        }
         UpdateUtil.copyNullProperties(source, course);
-        return courseRepository.save(course);
+        course.setCTime(source.getCTime());
+        //保存课程信息
+        courseRepository.save(course);
+
+        //判断原有的备课类型是否是集体备课
+
+        courseShareService.update(source.getLessonPreparationType(),courseReq.getOldShareId(),course, courseReq.getTeachers());
+
+        CourseSaveResp courseSaveResp=CourseSaveResp.builder()
+                .courseId(course.getCourseId())
+                .build();
+
+        return courseSaveResp;
     }
 
+
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    public List<CourseListResp> findAll(CourseFindAllReq courseFindAllReq) {
+        SortVo sortVo=courseFindAllReq.getSortVo();
+        PageRequest req=PageRequest.of(sortVo.getPage(), sortVo.getSize());
+        return courseRepository.findByIsValidatedEquals(sortVo.getIsValidated(),req )
+                .getContent().stream()
+                .map((item)->{return new CourseListResp(item.getCourseId(),item.getCourseName(),item.getCourseNumber(),item.getLessonPreparationType(),item.getTopPicSrc());})
+                .collect(toList());
+}
+
+    @Override
+    public CourseResp getCourseById(String courseId) {
+
+        Course course = courseRepository.findById(courseId).get();
+        String shareId="";
+        //课程为集体备课
+        if(course.getLessonPreparationType().equals(LESSON_PREPARATION_TYPE_GROUP)){
+            CourseShare cs= courseShareService.findByAndCourseIdAndAndShareArea(course.getCourseId());
+            shareId=cs.getShareId();
+        }
+
+        return new CourseResp(course.getCourseId(),
+                course.getCourseName(),
+                course.getCourseNumber(),
+                course.getLessonPreparationType(),
+                course.getTopPicSrc(),
+                course.getShareType(),
+                course.getCourseDescribe(),
+                shareId);
+
+    }
+
+
+    @Override
+    @Transactional(rollbackForClassName="Exception")
     public void deleteIsValidById(String courseId) {
         Course course = courseRepository.findById(courseId).get();
         course.setIsValidated(TAKE_EFFECT_CLOSE);
@@ -119,17 +158,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Page<Course> findAll(SortVo sortVo) {
-        return courseRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
-    }
-
-    @Override
-    public Course getCourseById(String courseId) {
-        return courseRepository.findById(courseId).get();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackForClassName="Exception")
     public void saveCourseImages(CourseImagesReq courseImagesReq){
         List<CourseImages> list = new ArrayList<>();
         List<DataDatumVo> dataDatumVos = courseImagesReq.getImages();
@@ -166,4 +195,6 @@ public class CourseServiceImpl implements CourseService {
         String cUser = "string";
         return courseRepository.findByIsValidatedEqualsAndCUser(sortVo.getIsValidated(), cUser, PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
     }
+
+
 }

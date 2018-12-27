@@ -47,12 +47,4 @@ public class SysRole extends Entitys implements Serializable {
     @Column(name = "remark", columnDefinition = "varchar(255) COMMENT '备注 角色说明'")
     private String remark;
 
-    @Column(name = "u_time", columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date uTime;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
-    private Date cTime;
-
 }

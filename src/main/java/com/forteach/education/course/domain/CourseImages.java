@@ -5,10 +5,7 @@ import com.forteach.education.common.domain.Entitys;
 import com.forteach.education.filter.View;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,6 +21,7 @@ import java.io.Serializable;
  */
 @Builder
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -63,43 +61,4 @@ public class CourseImages extends Entitys implements Serializable {
     @Column(name = "index_num", columnDefinition = "INT(11) COMMENT '顺序ID'")
     private Integer indexNum;
 
-    public String getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-
-    public Integer getIndexNum() {
-        return indexNum;
-    }
-
-    public void setIndexNum(Integer indexNum) {
-        this.indexNum = indexNum;
-    }
 }
