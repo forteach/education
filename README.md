@@ -16,9 +16,12 @@ docker run -p 27017:27017 -v /data/mongodb/data:/data/db　--restart=always -d  
 
 ``` 
 
-
 ##### 安装 `docker` --> `fastdfs`
+
 (https://www.imooc.com/article/66981?block_id=tuijian_wz)
+
+##### 安装　docker fastdfs 集群
+[参考](http://www.voidcn.com/article/p-henmynqs-boc.html)
 
 ##### 搭建私有`docker` 仓库
 
