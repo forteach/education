@@ -1,7 +1,7 @@
 package com.forteach.education.web.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.forteach.education.databank.domain.Photos;
+import com.forteach.education.databank.domain.ziliao.Photos;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

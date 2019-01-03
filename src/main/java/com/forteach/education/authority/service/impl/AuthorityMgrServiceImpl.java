@@ -201,6 +201,7 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
      */
     @Override
     public List<ActionColumn> findTreeAll() {
+
         return actionColumnRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN);
     }
 

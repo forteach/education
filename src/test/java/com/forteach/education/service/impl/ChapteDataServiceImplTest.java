@@ -1,6 +1,5 @@
 package com.forteach.education.service.impl;
 
-import com.forteach.education.databank.domain.ChapteData;
 import com.forteach.education.databank.service.ChapteDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -8,8 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -28,19 +25,19 @@ public class ChapteDataServiceImplTest {
     @Test
     public void findByChapterId() {
 
-        List<ChapteData> chapteDataList = chapteDataService.findByChapterId("ff808181673e9f6801673ea011950000");
-        chapteDataList.forEach(chapteData -> {
-                log.info("ChapteData : {}", chapteData.toString());
-                }
-        );
+//        List<ChapteData> chapteDataList = chapteDataService.findByChapterId("ff808181673e9f6801673ea011950000");
+//        chapteDataList.forEach(chapteData -> {
+//                log.info("ChapteData : {}", chapteData.toString());
+//                }
+//        );
     }
 
     @Test
     public void findByCourseId() {
-        List<ChapteData> chapteDataList = chapteDataService.findByCourseId("ff808181673e5e6c01673e5f792b0001");
-        chapteDataList.forEach(chapteData -> {
-            log.info("chapteData : {} \r\n", chapteData.toString());
-        });
+//        List<ChapteData> chapteDataList = chapteDataService.findByCourseId("ff808181673e5e6c01673e5f792b0001");
+//        chapteDataList.forEach(chapteData -> {
+//            log.info("chapteData : {} \r\n", chapteData.toString());
+//        });
     }
 
     @Test
@@ -60,8 +57,8 @@ public class ChapteDataServiceImplTest {
 
     @Test
     public void edit() {
-        ChapteData chapteData = chapteDataService.findById("ff808181674ee66201674ee6aff50000");
-        chapteData.setCourseId("ff808181673e5e6c01673e5f792b0001");
-        chapteDataService.edit(chapteData);
+//        ChapteData chapteData = chapteDataService.findById("ff808181674ee66201674ee6aff50000");
+//        chapteData.setCourseId("ff808181673e5e6c01673e5f792b0001");
+//        chapteDataService.edit(chapteData);
     }
 }

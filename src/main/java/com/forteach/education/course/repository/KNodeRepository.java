@@ -18,10 +18,10 @@ import java.util.List;
 public interface KNodeRepository extends JpaRepository<KNode, String> {
 
     //根据章节编号查找知识点
-    List<KNode> findByChapterId(String chapterId);
+    List<KNode> findByChapterIdAndIsValidated(String chapterId,String isVal);
 
-    //根绝课程编号查找知识点
-    List<KNode> findByCourseId(String courseId);
+    //根据课程编号查找知识点
+    List<KNode> findByCourseIdAndIsValidated(String courseId,String isVal);
 
 //    Page<KNode> findAll(Specification<KNode> specification, Pageable pageable);
 

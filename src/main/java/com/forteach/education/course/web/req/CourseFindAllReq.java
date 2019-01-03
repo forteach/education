@@ -22,10 +22,10 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "课程添加请求对象")
+@ApiModel(value = "课程所有列表")
 public class CourseFindAllReq implements Serializable {
 
     @ApiModelProperty(value = "分页排序字段", name = "sortVo")
-    private SortVo sortVo;
+    private SortVo sortVo=new SortVo();
 
 }
