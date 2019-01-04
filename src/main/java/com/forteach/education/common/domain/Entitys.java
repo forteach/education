@@ -7,7 +7,6 @@ import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 
 /**
@@ -20,14 +19,12 @@ import java.io.Serializable;
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Entitys implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public abstract class Entitys {
 
 //    @JsonView(View.SummaryExtend.class)
     @Column(name = "is_validated", columnDefinition = "CHAR(1) DEFAULT 0 COMMENT '生效标识 0生效 1失效'", nullable = false)
 //    @ApiModelProperty(value = "生效标示", name = "isValidated", notes = "生效标识 0生效 1失效 默认生效 0 ", dataType = "string", example = "0")
-    private String isValidated = "0";
+    public String isValidated = "0";
 
 //    @LastModifiedDate
 //    @Temporal(TemporalType.TIMESTAMP)
@@ -36,7 +33,7 @@ public abstract class Entitys implements Serializable {
     @Column(name = "u_time", columnDefinition = "VARCHAR(32)  COMMENT '更新时间'")
 //    @Generated(GenerationTime.ALWAYS)
 //    @ApiModelProperty(value = "修改时间", name = "uTime", dataType = "date", notes = "修改的时间", hidden = true, example = "2018-12-05 04:56:45")
-    private String uTime=DateUtil.now();
+    public String uTime=DateUtil.now();
 
 //    @CreatedDate
 //    @Temporal(TemporalType.TIMESTAMP)
@@ -45,20 +42,19 @@ public abstract class Entitys implements Serializable {
     @Column(updatable = false, name = "c_time", columnDefinition = "VARCHAR(32) COMMENT '创建时间'")
 //    @Generated(GenerationTime.INSERT)
 //    @ApiModelProperty(value = "创建时间", name = "cTime", dataType = "date", notes = "创建时间", hidden = true, example = "2018-12-05 04:56:45")
-    private String cTime=StrUtil.isBlank(this.cTime)?DateUtil.now():this.cTime;
+    public String cTime=StrUtil.isBlank(this.cTime)?DateUtil.now():this.cTime;
 
 //    @CreatedBy
 //    @JsonView(View.SummaryDetail.class)
     @Column(updatable = false, name = "c_user", columnDefinition = "VARCHAR(32) COMMENT '创建人'")
 //    @ApiModelProperty(value = "创建人", name = "cUser", dataType = "string", notes = "创建人ID", hidden = true, example = "df4sf4dsf4s34")
-    private String cUser;
+    public String cUser;
 
 //    @LastModifiedBy
 //    @JsonView(View.SummaryDetail.class)
-    @Column(name = "u_user", columnDefinition = "VARCHAR(32) COMMENT '修改人'"//, nullable = true
-             )
+    @Column(name = "u_user", columnDefinition = "VARCHAR(32) COMMENT '修改人'")
 //    @ApiModelProperty(value = "修改人", name = "uUser", dataType = "string", notes = "修改人ID", hidden = true, example = "df4sf4dsf4s34")
-    private String uUser;
+    public String uUser;
 
     @Override
     public String toString() {

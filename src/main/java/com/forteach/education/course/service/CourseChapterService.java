@@ -2,7 +2,8 @@ package com.forteach.education.course.service;
 
 import com.forteach.education.course.domain.CourseChapter;
 import com.forteach.education.course.dto.ICourseChapterDto;
-import com.forteach.education.web.req.CourseChapterEditReq;
+import com.forteach.education.course.web.req.CourseChapterEditReq;
+import com.forteach.education.course.web.res.CourseChapterSaveResp;
 import com.forteach.education.web.resp.CourseTreeResp;
 import com.forteach.education.web.vo.CourseChapterVo;
 
@@ -17,11 +18,11 @@ import java.util.List;
  */
 public interface CourseChapterService {
 
-    public CourseChapter save(CourseChapter courseChapter);
+    public CourseChapterSaveResp save(CourseChapter courseChapter);
 
-    public CourseChapter edit(CourseChapterEditReq courseChapterEditReq);
+    public CourseChapterSaveResp edit(CourseChapterEditReq courseChapterEditReq);
 
-    public CourseChapter getCourseChapterById(String chapterId);
+    public CourseChapterSaveResp getCourseChapterById(String chapterId);
 
     public void delete(CourseChapter courseChapter);
 

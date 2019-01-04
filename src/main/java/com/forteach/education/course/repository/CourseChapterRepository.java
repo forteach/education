@@ -69,7 +69,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param chapterParentId
      * @return
      */
-    Long countByIsValidatedEqualsAndCourseIdAndChapterParentId(String isValidated, String courseId, String chapterParentId);
+    int countByIsValidatedEqualsAndCourseIdAndChapterParentId(String isValidated, String courseId, String chapterParentId);
 
     List<CourseChapter> findByCourseIdAndAndChapterParentId(String courseId, String chapterParentId);
 

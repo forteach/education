@@ -4,8 +4,9 @@ import com.forteach.education.course.domain.CourseChapter;
 import com.forteach.education.course.dto.ICourseChapterDto;
 import com.forteach.education.course.repository.CourseChapterRepository;
 import com.forteach.education.course.service.CourseChapterService;
+import com.forteach.education.course.web.res.CourseChapterSaveResp;
 import com.forteach.education.util.UpdateUtil;
-import com.forteach.education.web.req.CourseChapterEditReq;
+import com.forteach.education.course.web.req.CourseChapterEditReq;
 import com.forteach.education.web.resp.CourseTreeResp;
 import com.forteach.education.web.resp.State;
 import com.forteach.education.web.vo.CourseChapterVo;
@@ -39,35 +40,52 @@ public class CourseChapterServiceImpl implements CourseChapterService {
 
     @Override
     @Transactional(rollbackForClassName="Exception")
-    public CourseChapter save(CourseChapter courseChapter) {
+    public CourseChapterSaveResp save(CourseChapter courseChapter) {
         //判断是顶层章节
         if (COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId())){
-            courseChapter.setChapterLevel(1);
+            courseChapter.setChapterLevel("1");
 
         }else {
             CourseChapter c = courseChapterRepository.findById(courseChapter.getChapterParentId()).get();
-            courseChapter.setChapterLevel(c.getChapterLevel() + 1);
+            courseChapter.setChapterLevel(String.valueOf(Integer.parseInt(c.getChapterLevel())+1));
         }
         //查询当前科目章节有多少条数据
-        long count = courseChapterRepository.countByIsValidatedEqualsAndCourseIdAndChapterParentId(TAKE_EFFECT_OPEN,
+        int count = courseChapterRepository.countByIsValidatedEqualsAndCourseIdAndChapterParentId(TAKE_EFFECT_OPEN,
                 courseChapter.getCourseId(), courseChapter.getChapterParentId());
-        courseChapter.setSort(Integer.valueOf(String.valueOf(count + 1)));
-        return courseChapterRepository.save(courseChapter);
+        //设置当前章节下的最大序号
+        courseChapter.setSort(String.valueOf(count + 1));
+        courseChapterRepository.save(courseChapter);
+        //创建输出对象
+        CourseChapterSaveResp resp=new CourseChapterSaveResp();
+        UpdateUtil.copyNullProperties(courseChapter, resp);
+        return resp;
     }
 
     @Override
     @Transactional(rollbackForClassName="Exception")
-    public CourseChapter edit(CourseChapterEditReq courseChapterEditReq) {
+    public CourseChapterSaveResp edit(CourseChapterEditReq courseChapterEditReq) {
         CourseChapter source = courseChapterRepository.findById(courseChapterEditReq.getChapterId()).get();
         CourseChapter courseChapter = CourseChapter.builder().build();
         BeanUtils.copyProperties(courseChapterEditReq, courseChapter);
         UpdateUtil.copyNullProperties(source, courseChapter);
-        return courseChapterRepository.save(courseChapter);
+        //设置创建时间
+        courseChapter.setCTime(source.getCTime());
+        courseChapterRepository.save(courseChapter);
+
+        //创建输出对象
+        CourseChapterSaveResp resp=new CourseChapterSaveResp();
+        UpdateUtil.copyNullProperties(courseChapter, resp);
+        return resp;
     }
 
     @Override
-    public CourseChapter getCourseChapterById(String chapterId) {
-        return courseChapterRepository.findById(chapterId).get();
+    public CourseChapterSaveResp getCourseChapterById(String chapterId) {
+        CourseChapter courseChapter= courseChapterRepository.findById(chapterId).get();
+
+        //创建输出对象
+        CourseChapterSaveResp resp=new CourseChapterSaveResp();
+        UpdateUtil.copyNullProperties(courseChapter, resp);
+        return resp;
     }
 
     @Override
@@ -166,7 +184,6 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      * @return
      */
     @Override
-    @Transactional(readOnly = true)
     public List<ICourseChapterDto> findAllCourseChapter(CourseChapterVo vo){
         return courseChapterRepository.findCourseId(vo.getIsValidated(), vo.getCourseId());
     }

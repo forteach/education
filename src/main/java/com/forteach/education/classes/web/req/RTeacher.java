@@ -22,7 +22,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "教师信息")
-public class RTeacher extends BaseReq implements Serializable {
+public class RTeacher implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -3,7 +3,6 @@ package com.forteach.education.course.service.imp;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseImages;
 import com.forteach.education.course.domain.CourseShare;
-import com.forteach.education.course.dto.ICourseListDto;
 import com.forteach.education.course.repository.CourseImagesRepository;
 import com.forteach.education.course.repository.CourseRepository;
 import com.forteach.education.course.service.CourseService;

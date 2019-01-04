@@ -3,6 +3,7 @@ package com.forteach.education.course.service.imp;
 import com.forteach.education.course.domain.KNode;
 import com.forteach.education.course.repository.KNodeRepository;
 import com.forteach.education.course.service.KNodeService;
+import com.forteach.education.course.web.req.KNodeAll;
 import com.forteach.education.util.UpdateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
 /**
  * @Auther: zhangyy
@@ -28,16 +31,27 @@ public class KNodeServiceImpl implements KNodeService {
     private KNodeRepository kNodeRepository;
 
     @Override
-    public KNode save(KNode kNode){
-        return kNodeRepository.save(kNode);
+    public KNodeAll save(KNode kNode){
+
+       kNodeRepository.save(kNode);
+
+        //创建输出对象
+        KNodeAll resp=new KNodeAll();
+        UpdateUtil.copyNullProperties(kNode, resp);
+        return resp;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public KNode edit(KNode kNode){
+    public KNodeAll edit(KNode kNode){
         KNode source = kNodeRepository.findById(kNode.getKNodeId()).get();
         UpdateUtil.copyNullProperties(source, kNode);
-        return kNodeRepository.save(kNode);
+        kNodeRepository.save(kNode);
+
+        //创建输出对象
+        KNodeAll resp=new KNodeAll();
+        UpdateUtil.copyNullProperties(kNode, resp);
+        return resp;
     }
 
     /**
@@ -46,8 +60,12 @@ public class KNodeServiceImpl implements KNodeService {
      * @return
      */
     @Override
-    public List<KNode> findByChapterId(String chapterId){
-        return kNodeRepository.findByChapterId(chapterId);
+    public List<KNodeAll> findByChapterId(String chapterId)
+    {
+        return kNodeRepository
+                .findByChapterIdAndIsValidated(chapterId,TAKE_EFFECT_OPEN)
+                .stream().map((item)->{return new KNodeAll(item.getCourseId(),item.getChapterId(),item.getKNodeId(),item.getNodeName());})
+                .collect(Collectors.toList());
     }
 
     /**
@@ -56,14 +74,21 @@ public class KNodeServiceImpl implements KNodeService {
      * @return
      */
     @Override
-    public List<KNode> findByCourseId(String courseId){
-        return kNodeRepository.findByCourseId(courseId);
+    public List<KNodeAll> findByCourseId(String courseId){
+        return kNodeRepository.findByCourseIdAndIsValidated(courseId,TAKE_EFFECT_OPEN)
+                .stream().map((item)->{return new KNodeAll(item.getCourseId(),item.getChapterId(),item.getKNodeId(),item.getNodeName());})
+                .collect(Collectors.toList());
     }
 
 
     @Override
-    public KNode findById(String kNodeId){
-        return kNodeRepository.findById(kNodeId).get();
+    public KNodeAll findById(String kNodeId){
+        KNode kNode= kNodeRepository.findById(kNodeId).get();
+
+        //创建输出对象
+        KNodeAll resp=new KNodeAll();
+        UpdateUtil.copyNullProperties(kNode, resp);
+        return resp;
     }
 
     @Override

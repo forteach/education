@@ -95,13 +95,14 @@ public class CourseControlTest {
         CourseFindAllReq req=new CourseFindAllReq();
         SortVo sv=new SortVo();
         req.setSortVo(sv);
+        log.info("------*{}" ,JSON.toJSONString(req));
         WebResult r=courseController.findAll(req);
         log.info("*********{}" ,JSON.toJSONString(r));
     }
 
     @Test
     public void findId(){
-       String id="{\"courseId\":\"40288d5c67df334e0167df33937d0000\"}";
+       String id="{\"courseId\":\"2c91808d678e620701679bfccf570000\"}";
         WebResult r=courseController.getCourseByCourseId(id);
         log.info("*********{}" ,JSON.toJSONString(r));
     }
