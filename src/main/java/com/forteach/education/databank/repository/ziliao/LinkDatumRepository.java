@@ -14,7 +14,7 @@ import java.util.List;
  * @Version: 1.0
  * @Description: 链接资料库
  */
-public interface LinkDatumRepository extends JpaRepository<LinkDatum, String> {
+public interface LinkDatumRepository extends IDatumRepoitory<LinkDatum, String> {
     /**
      * 分页查询链接资源
      * @param isValidated

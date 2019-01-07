@@ -1,13 +1,11 @@
 package com.forteach.education.databank.repository.ziliao;
 
 import com.forteach.education.databank.domain.ziliao.ChapteData;
-import com.forteach.education.databank.dto.IChapterDataCountDto;
 import com.forteach.education.databank.dto.IChapterDataListDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -52,16 +50,5 @@ public interface ChapteDataRepository extends JpaRepository<ChapteData, String> 
 
    public List<IChapterDataListDto> findByCourseIdAndChapterIdAndDatumAreaAndIsValidated(String courseId,String chapterId, String datumArea,String isValidated);
 
-   public int countByCourseIdAndDatumAreaAndIsValidated(String courseId,String datumArea,String isValidated);
-
-    /**
-     * 课件数量
-     * @param courseId
-     * @param datumArea
-     * @param isValidated
-     * @return
-     */
-   @Query("SELECT datumType as datumType,count(datumType) as dCount from ChapteData where courseId=:courseId and datumArea=:datumArea and isValidated=:isValidated group by datumType ")
-   public List<IChapterDataCountDto> countKeJian(String courseId, String datumArea, String isValidated);
 
 }

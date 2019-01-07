@@ -42,5 +42,6 @@ public abstract class AbsDatum extends Entitys{
     @Column(name = "file_url", columnDefinition = "VARCHAR(255) COMMENT '文件URL'")
     public String fileUrl;
 
-    
+    @Column(name = "datum_type", columnDefinition = "VARCHAR(3) COMMENT '资料类型 1文档　2图册　3视频　4音频　5链接'")
+    private String datumType;
 }

@@ -40,8 +40,8 @@ public class ChapteDataReq {
     @ApiModelProperty(name = "kNodeId", value = "知识点标签", dataType = "string", notes = "知识点 ‘,’ 进行分割")
     private String kNodeId;
 
-    @ApiModelProperty(name = "photoName", value = "图集名称", dataType = "string", notes = "图集名称")
-    private String photoName;
+    @ApiModelProperty(name = "datumName", value = "资料名称", dataType = "string", notes = "资料名称")
+    private String datumName;
 
     @ApiModelProperty(value = "files", name = "文件列表信息", required = true)
     private List<DataDatumVo> files;

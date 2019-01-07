@@ -14,7 +14,7 @@ import java.util.List;
  * @Version: 1.0
  * @Description: 音频资料库
  */
-public interface AudioDatumRepository extends JpaRepository<AudioDatum, String> {
+public interface AudioDatumRepository extends IDatumRepoitory<AudioDatum, String> {
     /**
      * 分页查询生效音频资源
      * @param isValidated

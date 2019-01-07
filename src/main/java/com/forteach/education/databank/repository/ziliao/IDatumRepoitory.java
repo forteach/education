@@ -29,6 +29,24 @@ public interface IDatumRepoitory<T,ID>  extends JpaRepository<T, ID> {
     public  List<T> findByChapterIdAndIsValidated(String chapterId,String isValidated);
 
     /**
+     * 分页查询科目课程文件信息
+     * @param isValidated
+     * @param courseId
+     * @param chapterId
+     * @return
+     */
+    public Page<T> findByCourseIdAndChapterIdAndIsValidated( String courseId, String chapterId,String isValidated, Pageable pageable);
+
+
+    /**
+     * 分页查询科目章节文件类型文件信息
+     * @param isValidated
+     * @param courseId
+     * @param chapterId
+     * @return
+     */
+    public Page<T> findByCourseIdAndChapterIdAndDatumTypeAndIsValidated( String courseId, String chapterId,String datumType,String isValidated, Pageable pageable);
+    /**
      * 多条件查询课程科目文件挂载
      * @param specification
      * @param pageable
@@ -36,12 +54,4 @@ public interface IDatumRepoitory<T,ID>  extends JpaRepository<T, ID> {
      */
     public Page<T> findAll(Specification<T> specification, Pageable pageable);
 
-    /**
-     * 分页查询科目课程文件信息
-     * @param isValidated
-     * @param courseId
-     * @param chapterId
-     * @return
-     */
-    Page<T> findByIsValidatedAndCourseIdAndChapterId(String isValidated, String courseId, String chapterId, Pageable pageable);
 }

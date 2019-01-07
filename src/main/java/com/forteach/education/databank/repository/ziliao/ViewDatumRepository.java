@@ -14,7 +14,7 @@ import java.util.List;
  * @Version: 1.0
  * @Description: 视频资料库
  */
-public interface ViewDatumRepository extends JpaRepository<ViewDatum, String> {
+public interface ViewDatumRepository extends IDatumRepoitory<ViewDatum, String> {
 
     /**
      * 分页查询生效视频资源
