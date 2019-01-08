@@ -1,7 +1,9 @@
 package com.forteach.education.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.forteach.education.course.domain.KNode;
 import com.forteach.education.course.service.imp.KNodeServiceImpl;
+import com.forteach.education.course.web.req.KNodeAll;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -32,14 +35,16 @@ public class KNodeServiceImplTest {
                 .chapterId("2c91809267462308016746293a2a0002")
                 //.dataId("ff808181674ef03301674ef0809d0000")
                // .kNodeType("1")
-                .nodeName("电子商务定义")
+                .nodeName("电子商务定义1")
                // .nodeDesc("电子商务定义")
                 .build());
     }
 
     @Test
-    public void edit() {
-//        kNodeRepository.ed
+    public void findByfindByChapterId() {
+
+        List<KNodeAll> list=kNodeServiceImpl.findByChapterId("2c91809267462308016746293a2a0002");
+        log.info("*********{}" , JSON.toJSONString(list));
     }
 
 //    @Test
