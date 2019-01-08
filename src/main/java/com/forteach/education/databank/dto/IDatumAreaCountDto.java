@@ -8,7 +8,7 @@ package com.forteach.education.databank.dto;
  * @Description:  根据课程领域返回资料类型的个数
  */
 
-public interface IChapterDataCountDto {
+public interface IDatumAreaCountDto {
 
     /**
      *资料类型

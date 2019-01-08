@@ -5,6 +5,7 @@ import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.databank.domain.ziliao.ChapteData;
 import com.forteach.education.databank.service.ChapteDataService;
+import com.forteach.education.databank.web.req.ChapteDataCountReq;
 import com.forteach.education.databank.web.req.ChapteDataListReq;
 import com.forteach.education.databank.web.req.ChapteDataReq;
 import com.forteach.education.web.vo.DataDatumVo;
@@ -53,17 +54,25 @@ public class ChapteDataController {
     }
 
     @ApiOperation(value = "资料信息列表" , notes = "{\"chapterId\":\"2c9180c067ee2be40167eeb29a7f0004\",\"courseId\":\"2c91808d678e620701679bfccf570000\",\"datumArea\":\"1\",\"sortVo\":{\"isValidated\":\"0\",\"page\":0,\"size\":15,\"sort\":1}}")
-    @PostMapping("/findDataList")
+    @PostMapping("/findDatumList")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", required = true, paramType = "from"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "int", required = true, paramType = "from", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例"),
             @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "int", required = true, paramType = "from", example = "资料类型 1文档　2图册　3视频　4音频　5链接"),
     })
-    public WebResult findDataList(@Valid @ApiParam(value = "保存资料信息", name = "chapteData") @RequestBody ChapteDataListReq req) {
+    public WebResult findDatumList(@Valid @ApiParam(value = "资料信息列表", name = "chapteData") @RequestBody ChapteDataListReq req) {
         SortVo sortVo=req.getSortVo();
         PageRequest pageReq=PageRequest.of(sortVo.getPage(), sortVo.getSize());
-        return WebResult.okResult( chapteDataService.findDataList(req.getCourseId(),req.getChapterId(),req.getKNodeId(),req.getDatumArea(),req.getDatumType(),pageReq));
+        return WebResult.okResult( chapteDataService.findDatumList(req.getCourseId(),req.getChapterId(),req.getKNodeId(),req.getDatumArea(),req.getDatumType(),pageReq));
+    }
+
+    public WebResult countJiaoAn(@Valid @ApiParam(value = "章节教案资料总数", name = "chapteData") @RequestBody ChapteDataCountReq req) {
+        return WebResult.okResult( chapteDataService.countJiaoAn(req.getCourseId(),req.getChapterId()));
+    }
+
+    public WebResult countKeJian(@Valid @ApiParam(value = "章节课件资料总数", name = "chapteData") @RequestBody ChapteDataCountReq req) {
+        return WebResult.okResult( chapteDataService.countKeJian(req.getCourseId(),req.getChapterId()));
     }
 
     @PostMapping("/deleteById")

@@ -41,4 +41,10 @@ public class Dic {
     //课程分享范围-章节
     public static final String COURSE_SHARE_AREA_CHAPTER="2";
 
+    //1文档　2图册　3视频　4音频　5链接
+    public static final String COURSE_ZILIAO_FILE="1";
+    public static final String COURSE_ZILIAO_PHOTO="2";
+    public static final String COURSE_ZILIAO_VIEW="3";
+    public static final String COURSE_ZILIAO_AUDIO="4";
+    public static final String COURSE_ZILIAO_LINK="5";
 }

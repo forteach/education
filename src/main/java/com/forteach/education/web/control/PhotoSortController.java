@@ -1,20 +1,9 @@
 package com.forteach.education.web.control;
 
-import com.alibaba.fastjson.JSONObject;
-import com.forteach.education.common.keyword.WebResult;
-import com.forteach.education.databank.domain.ziliao.Photos;
-import com.forteach.education.web.vo.PhotoSortVo;
 import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * @Auther: zhangyy

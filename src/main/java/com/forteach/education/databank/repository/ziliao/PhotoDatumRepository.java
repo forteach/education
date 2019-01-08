@@ -1,11 +1,7 @@
 package com.forteach.education.databank.repository.ziliao;
 
-import com.forteach.education.databank.domain.ziliao.Photos;
+import com.forteach.education.databank.domain.ziliao.PhotoDatum;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-
-import javax.transaction.Transactional;
-import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -14,7 +10,7 @@ import java.util.List;
  * @Version: 1.0
  * @Description:　图片
  */
-public interface PhotosRepository extends JpaRepository<Photos, String> {
+public interface PhotoDatumRepository extends IDatumRepoitory<PhotoDatum, String> {
 
 
 }
