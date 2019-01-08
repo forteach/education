@@ -1,5 +1,6 @@
 package com.forteach.education.course.web.control;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.course.domain.CourseChapter;
@@ -8,6 +9,7 @@ import com.forteach.education.course.service.CourseChapterService;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.course.web.req.CourseChapterEditReq;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +29,7 @@ import javax.validation.constraints.NotEmpty;
  * @Version: 1.0
  * @Description: 科目章节
  */
+@Slf4j
 @RestController
 @RequestMapping(path = "/courseChapter", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "科目章节接口", tags = {"科目章节信息"})
@@ -48,7 +51,12 @@ public class CourseChapterController {
     public WebResult save(@Valid @ApiParam(name = "courseChapter", value = "科目章节对象", required = true) @RequestBody CourseChapterReq req){
         CourseChapter cs=new  CourseChapter();
         UpdateUtil.copyNullProperties(req, cs);
-        return WebResult.okResult(courseChapterService.save(cs));
+
+        log.info("------*{}" , JSON.toJSONString(cs));
+
+        WebResult r=WebResult.okResult(courseChapterService.save(cs));
+        log.info("*********{}" ,JSON.toJSONString(r));
+        return r;
     }
 
     @ApiOperation(value = "修改科目章节", notes = "修改科目章节信息")

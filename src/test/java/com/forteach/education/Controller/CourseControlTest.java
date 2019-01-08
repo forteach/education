@@ -5,7 +5,9 @@ import com.alibaba.fastjson.JSON;
 import com.forteach.education.classes.web.req.RTeacher;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
+import com.forteach.education.course.web.control.CourseChapterController;
 import com.forteach.education.course.web.control.CourseController;
+import com.forteach.education.course.web.req.CourseChapterReq;
 import com.forteach.education.course.web.req.CourseFindAllReq;
 
 import com.forteach.education.course.web.req.CourseSaveReq;
@@ -38,6 +40,9 @@ public class CourseControlTest {
     @Autowired
     private CourseController courseController;
 
+    @Autowired
+    private CourseChapterController courseChapterController;
+
     @Test
     public void save(){
         RCourse c=new RCourse();
@@ -65,6 +70,7 @@ public class CourseControlTest {
 
     @Test
     public void edit(){
+
         RCourse c=new RCourse();
         c.setCourseId("2c91808d678e620701679bfccf570000");
         c.setCourseName("电子商务基础");
@@ -86,8 +92,10 @@ public class CourseControlTest {
                 .oldShareId("40288d5c67ed61250167ed635a280000")
                 .teachers(list)
                 .build();
-
-        courseController.edit(req);
+        log.info("------*{}" ,JSON.toJSONString(req));
+        WebResult r= courseController.edit(req);
+        log.info("*********{}" ,JSON.toJSONString(r));
+        log.info("ok");
     }
 
     @Test
@@ -106,6 +114,18 @@ public class CourseControlTest {
         WebResult r=courseController.getCourseByCourseId(id);
         log.info("*********{}" ,JSON.toJSONString(r));
     }
+//*****************************************************************
 
+    @Test
+    public void chapterSave(){
+        CourseChapterReq req= new CourseChapterReq();
+        req.setChapterParentId("0");
+        req.setCourseId("2c9180846827407401682b57f4a60000");
+        req.setChapterName("第一章");
+        log.info("------*{}" ,JSON.toJSONString(req));
+        WebResult r=courseChapterController.save(req);
+        log.info("*********{}" ,JSON.toJSONString(r));
+        log.info("ok");
+    }
 
 }

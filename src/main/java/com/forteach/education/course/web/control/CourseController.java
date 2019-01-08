@@ -15,7 +15,6 @@ import com.forteach.education.web.vo.DataDatumVo;
 import com.forteach.education.common.web.vo.SortVo;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

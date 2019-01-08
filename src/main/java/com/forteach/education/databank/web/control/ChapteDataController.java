@@ -64,7 +64,7 @@ public class ChapteDataController {
     public WebResult findDatumList(@Valid @ApiParam(value = "资料信息列表", name = "chapteData") @RequestBody ChapteDataListReq req) {
         SortVo sortVo=req.getSortVo();
         PageRequest pageReq=PageRequest.of(sortVo.getPage(), sortVo.getSize());
-        return WebResult.okResult( chapteDataService.findDatumList(req.getCourseId(),req.getChapterId(),req.getKNodeId(),req.getDatumArea(),req.getDatumType(),pageReq));
+        return WebResult.okResult( chapteDataService.findDatumList(req.getCourseId(),req.getChapterId(),req.getKNodeId(),req.getDatumType(),pageReq));
     }
 
     public WebResult countJiaoAn(@Valid @ApiParam(value = "章节教案资料总数", name = "chapteData") @RequestBody ChapteDataCountReq req) {

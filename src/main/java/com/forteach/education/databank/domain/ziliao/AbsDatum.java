@@ -44,4 +44,8 @@ public abstract class AbsDatum extends Entitys{
 
     @Column(name = "datum_type", columnDefinition = "VARCHAR(3) COMMENT '资料类型 1文档　2图册　3视频　4音频　5链接'")
     private String datumType;
+
+    @Column(name = "k_node_id", columnDefinition = "VARCHAR(32) COMMENT '所属单知识点'")
+    private String kNodeId;
+
 }

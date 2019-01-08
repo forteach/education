@@ -55,7 +55,7 @@ public class KNodeServiceImpl implements KNodeService {
     }
 
     /**
-     * 根据章节获得知识点
+     * 根据章节获得知识点  kNodeType  1复合知识点 2、单知识点 这两种类型
      * @param chapterId
      * @return
      */
@@ -63,7 +63,7 @@ public class KNodeServiceImpl implements KNodeService {
     public List<KNodeAll> findByChapterId(String chapterId)
     {
         return kNodeRepository
-                .findByChapterIdAndIsValidated(chapterId,TAKE_EFFECT_OPEN)
+                .findByChapterIdAndKNodeTypeIsGreaterThanAndIsValidated(chapterId,0,TAKE_EFFECT_OPEN)
                 .stream().map((item)->{return new KNodeAll(item.getCourseId(),item.getChapterId(),item.getKNodeId(),item.getNodeName());})
                 .collect(Collectors.toList());
     }

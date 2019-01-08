@@ -22,4 +22,6 @@ public class CourseSaveResp implements Serializable {
     @ApiModelProperty(value = "CourseId")
     private String courseId;
 
+    @ApiModelProperty(value = "shareId")
+    private String shareId;
 }

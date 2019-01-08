@@ -2,27 +2,15 @@ package com.forteach.education.Controller;
 
 
 import com.alibaba.fastjson.JSON;
-import com.forteach.education.classes.web.req.RTeacher;
 import com.forteach.education.common.keyword.WebResult;
-import com.forteach.education.common.web.vo.SortVo;
-import com.forteach.education.course.web.control.CourseController;
 import com.forteach.education.course.web.control.KNodeController;
-import com.forteach.education.course.web.req.CourseFindAllReq;
-import com.forteach.education.course.web.req.CourseSaveReq;
 import com.forteach.education.course.web.req.KNodeAll;
-import com.forteach.education.course.web.vo.RCourse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.forteach.education.common.keyword.Dic.LESSON_PREPARATION_TYPE_GROUP;
-
 
 /**
  * @Auther: zhangyy
@@ -44,15 +32,18 @@ public class KNodeControlTest {
 
         KNodeAll req=new KNodeAll();
         req.setChapterId("2c9180c067ee2be40167eeb29a7f0004");
-        req.setCourseId("40288d5c67ed87b80167ed9569ed0000");
+        req.setCourseId("2c9180846827407401682b57f4a60000");
         req.setNodeName("12345");
+        log.info("*********{}" , JSON.toJSONString(req));
         WebResult r=kNodeController.save(req);
         log.info("*********{}" ,JSON.toJSONString(r));
+        log.info("ok");
     }
 
     @Test
     public void findByfindByChapterId() {
-        String id="{\"chapterId\":\"2c91809267462308016746293a2a0002\"}";
+        String id="{\"chapterId\":\"2c9180c067ee2be40167eeb29a7f0004\"}";
+        log.info("*********{}" , JSON.toJSONString(id));
         WebResult r=kNodeController.findByChapter(id);
         log.info("*********{}" , JSON.toJSONString(r));
     }

@@ -65,16 +65,16 @@ public class CourseServiceImpl implements CourseService {
         Course course=new Course();
         UpdateUtil.copyNullProperties(rcourse, course);
         course = courseRepository.save(course);
-
+        String shareId="";
         if (LESSON_PREPARATION_TYPE_GROUP.equals(lessonPre)) {
-            courseShareService.save(course, courseReq.getTeachers());
+            shareId= courseShareService.save(course, courseReq.getTeachers());
         }
 
         //创建输出课程对象
         CourseSaveResp courseSaveResp=CourseSaveResp.builder()
                 .courseId(course.getCourseId())
                 .build();
-
+        courseSaveResp.setShareId(shareId);
         return courseSaveResp;
     }
 
@@ -140,6 +140,7 @@ public class CourseServiceImpl implements CourseService {
                 course.getCourseName(),
                 course.getCourseNumber(),
                 course.getLessonPreparationType(),
+                course.getTeachingType(),
                 course.getTopPicSrc(),
                 course.getShareType(),
                 course.getCourseDescribe(),

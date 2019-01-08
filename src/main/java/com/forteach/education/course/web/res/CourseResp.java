@@ -39,11 +39,14 @@ public class CourseResp {
     @ApiModelProperty(value = "shareId")
     private String shareId;
 
-    public CourseResp(String courseId, String courseName, String courseNumber, String lessonPreparationType, String topPicSrc, String shareType, String courseDescribe, String shareId) {
+    private String teachingType;
+
+    public CourseResp(String courseId, String courseName, String courseNumber, String lessonPreparationType,String teachingType, String topPicSrc, String shareType, String courseDescribe, String shareId) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.courseNumber = courseNumber;
         this.lessonPreparationType = lessonPreparationType;
+        this.teachingType=teachingType;
         this.topPicSrc = topPicSrc;
         this.shareType = shareType;
         this.courseDescribe = courseDescribe;

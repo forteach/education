@@ -3,10 +3,7 @@ package com.forteach.education.course.web.req;
 import com.forteach.education.common.domain.Entitys;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -25,6 +22,7 @@ import java.io.Serializable;
 @Builder
 @ApiModel(value = "科目章节")
 @AllArgsConstructor
+@NoArgsConstructor
 public class CourseChapterReq  implements Serializable {
 
     @NotNull(message = "科目编号不为空")
@@ -41,7 +39,7 @@ public class CourseChapterReq  implements Serializable {
     @ApiModelProperty(value = "章节父编号", name = "chapterParentId", dataType = "string")
     private String chapterParentId;
 
-    @NotNull(message = "当前层级位置不为空")
+
     @ApiModelProperty(value = "层级位置", name = "sort", dataType = "String", notes = "树型结构所处的顺序默认１")
     private String sort = "1";
 
@@ -51,7 +49,7 @@ public class CourseChapterReq  implements Serializable {
     @ApiModelProperty(name = "chapterType", value = "层级")
     private String chapterLevel;
 
-    @NotNull(message = "是否发布")
+
     @ApiModelProperty(value = "是否发布", name = "publish", dataType = "string",  notes = "是否发布　Y(是) N(否)", example = "Y")
     public String publish="Y";
 
