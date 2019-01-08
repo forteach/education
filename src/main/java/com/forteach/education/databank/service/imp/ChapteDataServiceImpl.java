@@ -89,34 +89,33 @@ public class ChapteDataServiceImpl implements ChapteDataService {
 
     /**
      *   获得按资料领域、课程、章节、资料列表
-     * @param courseId
      * @param chapterId
      * @param kNodeId
-     * @param datumArea
      * @param datumType
      * @param pageable
      * @return
      */
-    public List<DatumResp> findDatumList(String courseId, String chapterId, String kNodeId, String datumType, Pageable pageable){
+    @Override
+    public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumType, Pageable pageable){
         Page<? extends AbsDatum> plist=null;
         if(datumType.equals(Dic.COURSE_ZILIAO_FILE)){
-            plist=findFileDatumPage(courseId,chapterId,kNodeId,datumType,pageable);
+            plist=findFileDatumPage(chapterId,kNodeId,datumType,pageable);
         }
 
         if(datumType.equals(Dic.COURSE_ZILIAO_PHOTO)){
-            plist=findPhotoDatumPage(courseId,chapterId,kNodeId,datumType,pageable);
+            plist=findPhotoDatumPage(chapterId,kNodeId,datumType,pageable);
         }
 
         if(datumType.equals(Dic.COURSE_ZILIAO_AUDIO)){
-            plist=findAudioDatumPage(courseId,chapterId,kNodeId,datumType,pageable);
+            plist=findAudioDatumPage(chapterId,kNodeId,datumType,pageable);
         }
 
         if(datumType.equals(Dic.COURSE_ZILIAO_VIEW)){
-            plist=findViewDatumPage(courseId,chapterId,kNodeId,datumType,pageable);
+            plist=findViewDatumPage(chapterId,kNodeId,datumType,pageable);
         }
 
         if(datumType.equals(Dic.COURSE_ZILIAO_LINK)){
-            plist=findLinkDatumPage(courseId,chapterId,kNodeId,datumType,pageable);
+            plist=findLinkDatumPage(chapterId,kNodeId,datumType,pageable);
         }
 
         //转换LIST对象
@@ -129,35 +128,31 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                 }).collect(toList());
     }
 
-    public Page<FileDatum> findFileDatumPage(String courseId, String chapterId, String kNodeId,String datumType, Pageable pageable) {
-        return fileDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,courseId,chapterId,kNodeId,datumType);}, pageable);
+    public Page<FileDatum> findFileDatumPage(String chapterId, String kNodeId,String datumType, Pageable pageable) {
+        return fileDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,chapterId,kNodeId,datumType);}, pageable);
     }
 
-    public Page<PhotoDatum> findPhotoDatumPage(String courseId, String chapterId, String kNodeId,String datumType, Pageable pageable) {
-        return photoDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,courseId,chapterId,kNodeId,datumType);}, pageable);
+    public Page<PhotoDatum> findPhotoDatumPage(String chapterId, String kNodeId,String datumType, Pageable pageable) {
+        return photoDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,chapterId,kNodeId,datumType);}, pageable);
     }
 
-    public Page<ViewDatum> findViewDatumPage(String courseId, String chapterId, String kNodeId,String datumType, Pageable pageable) {
-        return viewDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,courseId,chapterId,kNodeId,datumType);}, pageable);
+    public Page<ViewDatum> findViewDatumPage(String chapterId, String kNodeId,String datumType, Pageable pageable) {
+        return viewDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,chapterId,kNodeId,datumType);}, pageable);
     }
 
-    public Page<AudioDatum> findAudioDatumPage(String courseId, String chapterId, String kNodeId,String datumType, Pageable pageable) {
-        return audioDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,courseId,chapterId,kNodeId,datumType);}, pageable);
+    public Page<AudioDatum> findAudioDatumPage(String chapterId, String kNodeId,String datumType, Pageable pageable) {
+        return audioDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,chapterId,kNodeId,datumType);}, pageable);
     }
 
-    public Page<LinkDatum> findLinkDatumPage(String courseId, String chapterId, String kNodeId,String datumType, Pageable pageable) {
-        return linkDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,courseId,chapterId,kNodeId,datumType);}, pageable);
+    public Page<LinkDatum> findLinkDatumPage( String chapterId, String kNodeId,String datumType, Pageable pageable) {
+        return linkDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,chapterId,kNodeId,datumType);}, pageable);
     }
 
-   private Predicate setSpecification(Root<?> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder,String courseId,String chapterId,String kNodeId,String datumType){
+   private Predicate setSpecification(Root<?> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder,String chapterId,String kNodeId,String datumType){
     List<Predicate> predicatesList = new ArrayList<Predicate>();
 
     predicatesList.add(criteriaBuilder.equal(root.get("isValidated"), TAKE_EFFECT_OPEN));
 
-    if (StrUtil.isNotBlank(courseId)) {
-        predicatesList.add(
-                criteriaBuilder.equal(root.get("courseId"), courseId));
-    }
     if (StrUtil.isNotBlank(chapterId)) {
         predicatesList.add(
                 criteriaBuilder.equal(root.get("chapterId"), chapterId));
@@ -167,11 +162,6 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                 criteriaBuilder.equal(root.get("kNodeId"), kNodeId));
     }
 
-//    if (StrUtil.isNotBlank(datumArea)) {
-//        predicatesList.add(
-//                criteriaBuilder.equal(root.get("datumArea"), datumArea));
-//    }
-
     //资料类型 1文档　2图册　3视频　4音频　5链接
     if (StrUtil.isNotBlank(datumType)) {
         predicatesList.add(
@@ -180,17 +170,44 @@ public class ChapteDataServiceImpl implements ChapteDataService {
     return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
     }
 
-    public List<DatumResp> a(String chapterId, String kNodeId, String datumArea, String datumType, Pageable pageable ){
+    @Override
+    public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumArea, String datumType, Pageable pageable ){
         List<String>  datumTypes=Arrays.asList(datumArea.split(","));
         List list=null;
+        List<AbsDatum> fileList=null;
         if(StrUtil.isBlank(kNodeId)){
-             list=datumAreaRepository.findByChapterIdAndDatumAreaIn(chapterId,datumTypes,pageable).getContent();
+             list=datumAreaRepository.findByChapterIdAndDatumAreaIn(chapterId,datumTypes,pageable).getContent().stream().map(item->item.getFileId()).collect(toList());
         }else{
-            list=datumAreaRepository.findByChapterIdAndKNodeIdAndDatumAreaIn(chapterId,kNodeId,datumTypes,pageable).getContent();
+            list=datumAreaRepository.findByChapterIdAndKNodeIdAndDatumAreaIn(chapterId,kNodeId,datumTypes,pageable).getContent().stream().map(item->item.getFileId()).collect(toList());
         }
 
-        fileDatumRepository.findAllById(list);
-        return null;
+        if(datumType.equals(Dic.COURSE_ZILIAO_FILE)){
+            fileList= fileDatumRepository.findAllById(list);
+        }
+
+        if(datumType.equals(Dic.COURSE_ZILIAO_PHOTO)){
+            fileList= photoDatumRepository.findAllById(list);
+        }
+
+        if(datumType.equals(Dic.COURSE_ZILIAO_AUDIO)){
+            fileList= audioDatumRepository.findAllById(list);
+        }
+
+        if(datumType.equals(Dic.COURSE_ZILIAO_VIEW)){
+            fileList= viewDatumRepository.findAllById(list);
+        }
+
+        if(datumType.equals(Dic.COURSE_ZILIAO_LINK)){
+            fileList= linkDatumRepository.findAllById(list);
+        }
+
+        //转换LIST对象
+        return fileList.stream()
+                .map((AbsDatum item)->{
+                    DatumResp dr=new DatumResp();
+                    UpdateUtil.copyNullProperties(item, dr);
+                    return  dr;
+                }).collect(toList());
     }
 
     @Override

@@ -26,7 +26,9 @@ public interface ChapteDataService {
 
 
     //课程资料列表
-    public List<DatumResp> findDatumList(String courseId, String chapterId, String kNodeId, String datumType, Pageable pageable);
+    public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumType, Pageable pageable);
+
+    public List<DatumResp> findDatumList(String chapterId, String kNodeId,String datumArea, String datumType, Pageable pageable);
 
     //教案数量
     public ChapteDataCountResp countJiaoAn(String courseId, String chapterId);
