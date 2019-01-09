@@ -38,14 +38,13 @@ public class CharteDateControlTest {
     @Test
     public void save(){
         ChapteDataReq req=new ChapteDataReq();
-        req.setChapterId("2c9180c067ee2be40167eeb29a7f0004");
-        req.setCourseId("40288d5c67ed87b80167ed9569ed0000");
+        req.setChapterId("40288d5c682b825e01682b8442630001");
         req.setDatumName("");
-        req.setDatumArea("1");
-        req.setDatumType("5");
+        req.setDatumArea("3,4,5");
+        req.setDatumType("1");
 
         DataDatumVo dv=new DataDatumVo();
-        dv.setFileName("工作汇报");
+        dv.setFileName("工作汇报2");
         dv.setFilePath("http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.jpg");
 
         List<DataDatumVo> list=new ArrayList<DataDatumVo>();
@@ -63,7 +62,7 @@ public class CharteDateControlTest {
     public void findDataList(){
         ChapteDataListReq req=new ChapteDataListReq();
         req.setChapterId("40288d5c682b825e01682b8442630001");
-       // req.setDatumArea("4");
+        req.setDatumArea("6");
         req.setDatumType("1");
         SortVo sv=new SortVo();
         req.setSortVo(sv);

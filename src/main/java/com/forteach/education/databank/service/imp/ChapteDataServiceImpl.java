@@ -285,6 +285,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
             final  String type=absDatum.getDatumType();
             final  String  chapterId=absDatum.getChapterId();
             final  String  knodeId=absDatum.getKNodeId();
+            List<DatumArea>  list=new ArrayList<DatumArea>();
             Arrays.stream(datumArea.split(",")).forEach((area)->{
                 DatumArea da=new DatumArea();
                 da.setFileId(id);
@@ -292,8 +293,11 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                 da.setDatumType(type);
                 da.setChapterId(chapterId);
                 da.setKNodeId(knodeId);
-                datumAreaRepository.save(da);
+                list.add(da);
+                //datumAreaRepository.save(da);
             });
+            datumAreaRepository.saveAll(list);
+            log.info("-------{}",list.size());
         });
 
         return String.valueOf(fileDatumList.size());

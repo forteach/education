@@ -18,7 +18,7 @@ public class CourseSpecialtyPk implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "course_d", columnDefinition = "varchar(32) COMMENT '课程ID'",insertable = false,updatable = false)
+    @Column(name = "course_id", columnDefinition = "varchar(32) COMMENT '课程ID'",insertable = false,updatable = false)
     private String courseId;
 
     @Column(name = "specialty_id", columnDefinition = "varchar(32) COMMENT '专业编号'",insertable = false,updatable = false)
