@@ -1,5 +1,6 @@
 package com.forteach.education.databank.service.imp;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.databank.domain.ziliao.*;
@@ -241,7 +242,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
 
     private String saveT(ChapteDataReq chapteDataReq, IDatumRepoitory rep, AbsDatum fd){
         //添加资料文件关联记录
-        String dataId = StrUtil.uuid().replace("-", "");
+        String dataId = IdUtil.fastSimpleUUID();
         String chapterid=chapteDataReq.getChapterId();
         String courseid=chapteDataReq.getCourseId();
         String datumArea=chapteDataReq.getDatumArea();
@@ -263,7 +264,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         //添加资料文件列表明细
         List<AbsDatum> fileDatumList = new ArrayList<>();
         for (DataDatumVo dataDatumVo : chapteDataReq.getFiles()) {
-            String uuid = StrUtil.uuid().replace("-", "");
+            String uuid = IdUtil.fastSimpleUUID();
             fd.setCourseId(courseid);
             fd.setChapterId(chapterid);
             fd.setFileId(uuid);

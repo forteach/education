@@ -43,6 +43,6 @@ public class ChapteDataReq {
     @ApiModelProperty(name = "datumName", value = "资料名称", dataType = "string", notes = "资料名称")
     private String datumName;
 
-    @ApiModelProperty(value = "files", name = "文件列表信息", required = true)
+    @ApiModelProperty(value = "files", name = "文件列表信息", dataType = "list",required = true)
     private List<DataDatumVo> files;
 }

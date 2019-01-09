@@ -45,12 +45,10 @@
 ### generated files ###
 /bin/
 gen/
-
+### vscode
+/.vscode/
 ### Log Files ###
 src/main/java/com/forteach/education/assertions/
 src/main/resources/static/
 /logs/
-将删除 access-2018-11-20_0.log.zip
-将删除 logs/
-将删除 src/main/java/com/forteach/education/common/SortVoEnum.java
 *zip

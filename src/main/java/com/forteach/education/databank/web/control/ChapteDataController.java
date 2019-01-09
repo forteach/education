@@ -13,10 +13,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -44,9 +41,10 @@ public class ChapteDataController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", required = true, paramType = "from"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
+            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "string", required = true, paramType = "from", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例"),
             @ApiImplicitParam(name = "datumName", value = "资料名称", dataType = "string", paramType = "from", required = true),
-            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "int", required = true, paramType = "from", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例"),
-            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "int", required = true, paramType = "from", example = "资料类型 1文档　2图册　3视频　4音频　5链接"),
+            @ApiImplicitParam(name = "kNodeId", value = "知识点id", dataType = "string", paramType = "from", example = "知识点 ‘,’ 进行分割"),
+            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "string", required = true, paramType = "from", example = "资料类型 1文档　2图册　3视频　4音频　5链接"),
             @ApiImplicitParam(name = "files", value = "文件对象", dataTypeClass = DataDatumVo.class, paramType = "from", required = true)
     })
     public WebResult save(@Valid @ApiParam(value = "保存资料信息", name = "chapteData") @RequestBody ChapteDataReq chapteDataReq){
@@ -58,8 +56,10 @@ public class ChapteDataController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", required = true, paramType = "from"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "int", required = true, paramType = "from", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例"),
-            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "int", required = true, paramType = "from", example = "资料类型 1文档　2图册　3视频　4音频　5链接"),
+            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "string", required = true, paramType = "from", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例"),
+            @ApiImplicitParam(name = "kNodeId", value = "知识点标签", dataType = "string", paramType = "from", example = "知识点 ‘,’ 进行分割"),
+            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "string", required = true, paramType = "from", example = "资料类型 1文档　2图册　3视频　4音频　5链接"),
+            @ApiImplicitParam(name = "sortVo", value = "分页排序对象", dataTypeClass = SortVo.class, required = true)
     })
     public WebResult findDatumList(@Valid @ApiParam(value = "资料信息列表", name = "chapteData") @RequestBody ChapteDataListReq req) {
         SortVo sortVo=req.getSortVo();
@@ -67,10 +67,22 @@ public class ChapteDataController {
         return WebResult.okResult( chapteDataService.findDatumList(req.getCourseId(),req.getChapterId(),req.getKNodeId(),req.getDatumType(),pageReq));
     }
 
+    @ApiOperation(value = "章节教案资料总数", notes = "章节教案资料总数")
+    @GetMapping("/countJiaoAn")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "科目编号", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", required = true, paramType = "query")
+    })
     public WebResult countJiaoAn(@Valid @ApiParam(value = "章节教案资料总数", name = "chapteData") @RequestBody ChapteDataCountReq req) {
         return WebResult.okResult( chapteDataService.countJiaoAn(req.getCourseId(),req.getChapterId()));
     }
 
+    @ApiOperation(value = "章节课件资料总数", notes = "章节课件资料总数")
+    @GetMapping("/countKeJian")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "科目编号", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", required = true, paramType = "query")
+    })
     public WebResult countKeJian(@Valid @ApiParam(value = "章节课件资料总数", name = "chapteData") @RequestBody ChapteDataCountReq req) {
         return WebResult.okResult( chapteDataService.countKeJian(req.getCourseId(),req.getChapterId()));
     }
