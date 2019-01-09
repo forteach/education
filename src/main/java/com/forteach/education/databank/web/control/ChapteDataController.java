@@ -75,7 +75,7 @@ public class ChapteDataController {
     }
 
     @ApiOperation(value = "章节教案资料总数", notes = "章节教案资料总数")
-    @GetMapping("/countJiaoAn")
+    @PostMapping("/countJiaoAn")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目编号", required = true, dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", required = true, paramType = "query")
@@ -85,7 +85,7 @@ public class ChapteDataController {
     }
 
     @ApiOperation(value = "章节课件资料总数", notes = "章节课件资料总数")
-    @GetMapping("/countKeJian")
+    @PostMapping("/countKeJian")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目编号", required = true, dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", required = true, paramType = "query")
