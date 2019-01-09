@@ -283,11 +283,15 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         {
             final  String id= absDatum.getFileId();
             final  String type=absDatum.getDatumType();
+            final  String  chapterId=absDatum.getChapterId();
+            final  String  knodeId=absDatum.getKNodeId();
             Arrays.stream(datumArea.split(",")).forEach((area)->{
                 DatumArea da=new DatumArea();
                 da.setFileId(id);
                 da.setDatumArea(area);
                 da.setDatumType(type);
+                da.setChapterId(chapterId);
+                da.setKNodeId(knodeId);
                 datumAreaRepository.save(da);
             });
         });

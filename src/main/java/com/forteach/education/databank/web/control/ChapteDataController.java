@@ -1,5 +1,6 @@
 package com.forteach.education.databank.web.control;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
@@ -54,7 +55,7 @@ public class ChapteDataController {
     @ApiOperation(value = "资料信息列表" , notes = "{\"chapterId\":\"2c9180c067ee2be40167eeb29a7f0004\",\"courseId\":\"2c91808d678e620701679bfccf570000\",\"datumArea\":\"1\",\"sortVo\":{\"isValidated\":\"0\",\"page\":0,\"size\":15,\"sort\":1}}")
     @PostMapping("/findDatumList")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", required = true, paramType = "from"),
+
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "string", required = true, paramType = "from", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例"),
             @ApiImplicitParam(name = "kNodeId", value = "知识点标签", dataType = "string", paramType = "from", example = "知识点 ‘,’ 进行分割"),
@@ -64,7 +65,13 @@ public class ChapteDataController {
     public WebResult findDatumList(@Valid @ApiParam(value = "资料信息列表", name = "chapteData") @RequestBody ChapteDataListReq req) {
         SortVo sortVo=req.getSortVo();
         PageRequest pageReq=PageRequest.of(sortVo.getPage(), sortVo.getSize());
-        return WebResult.okResult( chapteDataService.findDatumList(req.getCourseId(),req.getChapterId(),req.getKNodeId(),req.getDatumType(),pageReq));
+        if(StrUtil.isBlank(req.getDatumArea())){
+
+            return WebResult.okResult( chapteDataService.findDatumList(req.getChapterId(),req.getKNodeId(),req.getDatumType(),pageReq));
+        }else{
+            return WebResult.okResult( chapteDataService.findDatumList(req.getChapterId(),req.getKNodeId(),req.getDatumArea(),req.getDatumType(),pageReq));
+        }
+
     }
 
     @ApiOperation(value = "章节教案资料总数", notes = "章节教案资料总数")

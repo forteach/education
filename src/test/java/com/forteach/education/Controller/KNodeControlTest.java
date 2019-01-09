@@ -42,7 +42,7 @@ public class KNodeControlTest {
 
     @Test
     public void findByfindByChapterId() {
-        String id="{\"chapterId\":\"2c9180c067ee2be40167eeb29a7f0004\"}";
+        String id="{\"chapterId\":\"40288d5c682b825e01682b8442630001\"}";
         log.info("*********{}" , JSON.toJSONString(id));
         WebResult r=kNodeController.findByChapter(id);
         log.info("*********{}" , JSON.toJSONString(r));

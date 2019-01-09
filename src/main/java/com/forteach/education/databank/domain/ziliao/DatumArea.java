@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(name = "datum_area" , indexes = {@Index(columnList = "chapter_id"),@Index(columnList = "datum_area")})
+@Table(name = "datum_area" , indexes = {@Index(columnList = "chapter_id"),@Index(columnList = "datum_area"),@Index(columnList = "k_node_id")})
 @org.hibernate.annotations.Table(appliesTo = "datum_area", comment = "资料领域对照表")
 @ApiModel(value = "章节资料领域对照表")
 @AllArgsConstructor

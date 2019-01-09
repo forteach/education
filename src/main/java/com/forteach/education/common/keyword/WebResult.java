@@ -1,5 +1,6 @@
 package com.forteach.education.common.keyword;
 
+import com.alibaba.fastjson.JSON;
 import com.forteach.education.util.PropertiesUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -49,7 +50,9 @@ public class WebResult implements Serializable {
      * 成功操作 操作码默认为0   只有返回数据
      **/
     public static WebResult okResult(Object data) {
-        return okResult(getOkCode(), data);
+         WebResult wr=okResult(getOkCode(), data);
+        log.info("*********{}" , JSON.toJSONString(wr));
+         return wr;
     }
 
     /**

@@ -44,9 +44,9 @@ public class KNode extends Entitys implements Serializable {
     @Column(name = "chapter_id", columnDefinition = "VARCHAR(32) COMMENT '章节ID'")
     private String chapterId;
 
-    //@ApiModelProperty(name = "kNodeType", value = "知识点类型", notes = "1 单个知识点 2 复合多个知识点", example = "1")
-    @Column(name = "k_node_type", columnDefinition = "int COMMENT '知识点类型１ 单个知识点，２　多个知识点'")
-    private String kNodeType;
+    //@ApiModelProperty(name = "kNodeType", value = "知识点类型", notes = "2 单个知识点 1 复合多个知识点", example = "1")
+    @Column(name = "k_node_type", columnDefinition = "int COMMENT '知识点类型2 单个知识点，1　多个知识点'")
+    private int kNodeType;
 
     //******************************************************************************
 //    @ApiModelProperty(value = "知识点描述", name = "node_desc", notes = "描述知识点说明", dataType = "string", example = "计算机描述详细信息")
