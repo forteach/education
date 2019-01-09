@@ -5,6 +5,7 @@
 
     <property name="LOG_PATH" value="logs/"/>
 
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
     <!-- ch.qos.logback.core.ConsoleAppender 控制台输出 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
