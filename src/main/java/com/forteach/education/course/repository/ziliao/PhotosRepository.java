@@ -19,5 +19,5 @@ public interface PhotosRepository extends JpaRepository<Photos, String> {
 
         public List<Photos> findByArlitsIdAndIsValidated(String arlitsId,String isValidated);
 
-         public Page<Photos> findByArlitsIdAndIsValidated(String arlitsId, String isValidated, Pageable pageable);
+        public Page<Photos> findByArlitsIdAndIsValidated(String arlitsId, String isValidated, Pageable pageable);
 }

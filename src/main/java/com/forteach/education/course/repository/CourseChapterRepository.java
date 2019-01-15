@@ -86,7 +86,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
     int deleteBathIds(@Param("ids") Set<String> ids);
 
     @Transactional
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query(value = " update CourseChapter c set c.isValidated = :isValidated where c.chapterId in (:ids) ")
     int updateIsValidatedIds(@Param("isValidated") String isValidated, @Param("ids") Set<String> ids);
 }
