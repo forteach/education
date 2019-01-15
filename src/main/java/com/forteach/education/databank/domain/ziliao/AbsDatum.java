@@ -24,13 +24,10 @@ public abstract class AbsDatum extends Entitys{
     @Column(name = "file_id", columnDefinition = "VARCHAR(32) COMMENT '文件编号'")
     public String fileId;
 
-    @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '章节资料编号'")
-    public String dataId;
-
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
     public String courseId;
 
-    @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
+    @Column(name = "chapter_id", columnDefinition = "VARCHAR(32) COMMENT '章节编号'")
     public String chapterId;
 
     @Column(name = "file_name", columnDefinition = "VARCHAR(255) COMMENT '文件名称'")
@@ -47,5 +44,17 @@ public abstract class AbsDatum extends Entitys{
 
     @Column(name = "k_node_id", columnDefinition = "VARCHAR(32) COMMENT '所属单知识点'")
     private String kNodeId;
+
+    @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '课程资料编号'")
+    private String dataId;
+
+    @Column(name = "datum_area", columnDefinition = "VARCHAR(20) COMMENT '资料领域：1教案 2课件1 3预习参考 4课堂参考 5授课案例、6复习参考'")
+    private String datumArea;
+
+    @Column(name = "teach_share", columnDefinition = "CHAR(1) COMMENT '教师共享 0不共享 1共享'")
+    private String teachShare="0";
+
+    @Column(name = "stu_share", columnDefinition = "CHAR(1) COMMENT '学生共享 0不共享 1共享'")
+    private String stuShare="0";
 
 }

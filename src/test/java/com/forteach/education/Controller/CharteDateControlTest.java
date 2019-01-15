@@ -62,7 +62,7 @@ public class CharteDateControlTest {
     public void findDataList(){
         ChapteDataListReq req=new ChapteDataListReq();
         req.setChapterId("40288d5c682b825e01682b8442630001");
-        req.setDatumArea("3,4,5");
+        req.setDatumArea("2");
         req.setDatumType("1");
         SortVo sv=new SortVo();
         req.setSortVo(sv);
@@ -71,25 +71,25 @@ public class CharteDateControlTest {
         log.info("*********{}" , JSON.toJSONString(r));
     }
 
-    @Test
-    public void countJiaoAn(){
-        ChapteDataCountReq req=new ChapteDataCountReq();
-        req.setChapterId("2c9180c067ee2be40167eeb29a7f0004");
-        req.setCourseId("40288d5c67ed87b80167ed9569ed0000");
-        log.info("------*{}" ,JSON.toJSONString(req));
-        WebResult r=chapteDataController.countJiaoAn(req);
-        log.info("*********{}" ,JSON.toJSONString(r));
-    }
+//    @Test
+//    public void countJiaoAn(){
+//        ChapteDataCountReq req=new ChapteDataCountReq();
+//        req.setChapterId("2c9180c067ee2be40167eeb29a7f0004");
+//        req.setCourseId("40288d5c67ed87b80167ed9569ed0000");
+//        log.info("------*{}" ,JSON.toJSONString(req));
+//        WebResult r=chapteDataController.countJiaoAn(req);
+//        log.info("*********{}" ,JSON.toJSONString(r));
+//    }
 
-    @Test
-    public void countKejian(){
-        ChapteDataCountReq req=new ChapteDataCountReq();
-        req.setChapterId("2c9180c067ee2be40167eeb29a7f0004");
-        req.setCourseId("40288d5c67ed87b80167ed9569ed0000");
-        log.info("------*{}" ,JSON.toJSONString(req));
-        WebResult r=chapteDataController.countKeJian(req);
-        log.info("*********{}" ,JSON.toJSONString(r));
-    }
+//    @Test
+//    public void countKejian(){
+//        ChapteDataCountReq req=new ChapteDataCountReq();
+//        req.setChapterId("2c9180c067ee2be40167eeb29a7f0004");
+//        req.setCourseId("40288d5c67ed87b80167ed9569ed0000");
+//        log.info("------*{}" ,JSON.toJSONString(req));
+//        WebResult r=chapteDataController.countKeJian(req);
+//        log.info("*********{}" ,JSON.toJSONString(r));
+//    }
 
 
 }

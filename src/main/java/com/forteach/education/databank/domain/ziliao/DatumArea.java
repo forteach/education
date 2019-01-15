@@ -39,4 +39,7 @@ public class DatumArea extends Entitys implements Serializable{
 
     @Column(name = "k_node_id", columnDefinition = "VARCHAR(32) COMMENT '所属单知识点'")
     private String kNodeId;
+
+    @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '章节资料编号'")
+    public String dataId;
 }

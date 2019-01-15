@@ -34,15 +34,7 @@ public interface DatumAreaRepository extends JpaRepository<DatumArea, String> {
     public int countByCourseIdAndChapterIdAndDatumAreaAndIsValidated(String courseId,String chapterId, String datumArea,String isValidated);
 
 
-    /**
-     * 课件列表
-     * @param courseId
-     * @param datumArea
-     * @param isValidated
-     * @return
-     */
-    @Query("SELECT datumType as datumType,count(datumType) as dCount from ChapteData where courseId=:courseId and chapterId=:chapterId and datumArea=:datumArea and isValidated=:isValidated group by datumType ")
-    public List<IDatumAreaCountDto> countKeJian(String courseId,String chapterId, String datumArea, String isValidated);
+
 
 
 }

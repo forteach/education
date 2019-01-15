@@ -5,6 +5,7 @@ import com.forteach.education.course.domain.CourseImages;
 import com.forteach.education.course.domain.CourseShare;
 import com.forteach.education.course.repository.CourseImagesRepository;
 import com.forteach.education.course.repository.CourseRepository;
+import com.forteach.education.course.repository.ziliao.ImpCoursewareRepoitory;
 import com.forteach.education.course.service.CourseService;
 import com.forteach.education.course.service.CourseShareService;
 import com.forteach.education.course.web.req.CourseFindAllReq;
@@ -42,7 +43,7 @@ import static com.forteach.education.common.keyword.Dic.*;
 @Service
 @Slf4j
 public class CourseServiceImpl implements CourseService {
-
+//课程基本信息
     @Resource
     private CourseRepository courseRepository;
 

@@ -1,9 +1,7 @@
 package com.forteach.education.databank.service;
 
 import com.forteach.education.databank.domain.ziliao.ChapteData;
-import com.forteach.education.databank.dto.IDatumAreaCountDto;
 import com.forteach.education.databank.web.req.ChapteDataReq;
-import com.forteach.education.databank.web.res.ChapteDataCountResp;
 import com.forteach.education.databank.web.res.DatumResp;
 import org.springframework.data.domain.Pageable;
 
@@ -25,15 +23,14 @@ public interface ChapteDataService {
     public void deleteById(String dataId);
 
 
-    //课程资料列表
+    //课程资料详细列表
     public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumType, Pageable pageable);
 
     public List<DatumResp> findDatumList(String chapterId, String kNodeId,String datumArea, String datumType, Pageable pageable);
 
-    //教案数量
-    public ChapteDataCountResp countJiaoAn(String courseId, String chapterId);
-    //课件数量
-    public List<IDatumAreaCountDto> countKeJian(String courseId,String chapterId);
+    //获得图集列表
+    public List<DatumResp> findPhotoList(String chapterId, String kNodeId, String datumType, Pageable pageable);
+
 
     //课程资料列表
 //    public Page<ChapteData> findDataPage(String courseId, String chapterId, String kNodeId, String datumArea, String datumType, Pageable pageable);

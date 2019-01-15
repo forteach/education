@@ -1,7 +1,7 @@
 package com.forteach.education.web.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.forteach.education.databank.domain.ziliao.PhotoDatum;
+import com.forteach.education.course.domain.ziliao.Photos;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -59,5 +59,5 @@ public class PhotoSortVo {
 
     @Transient
     @ApiModelProperty(value = "图册对象集信息", name = "photos", dataType = "list")
-    private List<PhotoDatum> photos;
+    private List<Photos> photos;
 }

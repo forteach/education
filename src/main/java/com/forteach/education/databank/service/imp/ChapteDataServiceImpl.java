@@ -4,10 +4,8 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.databank.domain.ziliao.*;
-import com.forteach.education.databank.dto.IDatumAreaCountDto;
 import com.forteach.education.databank.repository.ziliao.*;
 import com.forteach.education.databank.service.ChapteDataService;
-import com.forteach.education.databank.web.res.ChapteDataCountResp;
 import com.forteach.education.databank.web.res.DatumResp;
 import com.forteach.education.util.FileUtils;
 import com.forteach.education.databank.web.req.ChapteDataReq;
@@ -50,8 +48,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
     private LinkDatumRepository linkDatumRepository;
     @Resource
     private ViewDatumRepository viewDatumRepository;
-    @Resource
-    private PhotoDatumRepository photoDatumRepository;
+
     @Resource
     private DatumAreaRepository datumAreaRepository;
 
@@ -64,16 +61,16 @@ public class ChapteDataServiceImpl implements ChapteDataService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public String save(ChapteDataReq chapteDataReq) {
-        //1文档　2图册　3视频　4音频　5链接
+        //1文档　　3视频　4音频　5链接
         String datumType = chapteDataReq.getDatumType();
         String size="";
         switch (datumType){
             case Dic.COURSE_ZILIAO_FILE:
                 size=saveT(chapteDataReq,fileDatumRepository,new FileDatum());
                 break;
-            case Dic.COURSE_ZILIAO_PHOTO:  //图册添加
-                size= saveT(chapteDataReq,photoDatumRepository,new PhotoDatum());
-                break;
+//            case Dic.COURSE_ZILIAO_PHOTO:  //图册添加
+//                size= saveT(chapteDataReq,photoDatumRepository,new PhotoDatum());
+//                break;
             case Dic.COURSE_ZILIAO_VIEW:
                 size= saveT(chapteDataReq,viewDatumRepository,new ViewDatum());
                 break;
@@ -103,9 +100,9 @@ public class ChapteDataServiceImpl implements ChapteDataService {
             plist=findFileDatumPage(chapterId,kNodeId,datumType,pageable);
         }
 
-        if(datumType.equals(Dic.COURSE_ZILIAO_PHOTO)){
-            plist=findPhotoDatumPage(chapterId,kNodeId,datumType,pageable);
-        }
+//        if(datumType.equals(Dic.COURSE_ZILIAO_PHOTO)){
+//            plist=findPhotoDatumPage(chapterId,kNodeId,datumType,pageable);
+//        }
 
         if(datumType.equals(Dic.COURSE_ZILIAO_AUDIO)){
             plist=findAudioDatumPage(chapterId,kNodeId,datumType,pageable);
@@ -133,9 +130,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         return fileDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,chapterId,kNodeId,datumType);}, pageable);
     }
 
-    public Page<PhotoDatum> findPhotoDatumPage(String chapterId, String kNodeId,String datumType, Pageable pageable) {
-        return photoDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,chapterId,kNodeId,datumType);}, pageable);
-    }
+
 
     public Page<ViewDatum> findViewDatumPage(String chapterId, String kNodeId,String datumType, Pageable pageable) {
         return viewDatumRepository.findAll((root, criteriaQuery, criteriaBuilder) ->{return setSpecification(root,criteriaQuery,criteriaBuilder,chapterId,kNodeId,datumType);}, pageable);
@@ -163,7 +158,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                 criteriaBuilder.equal(root.get("kNodeId"), kNodeId));
     }
 
-    //资料类型 1文档　2图册　3视频　4音频　5链接
+    //资料类型 1文档　　3视频　4音频　5链接
     if (StrUtil.isNotBlank(datumType)) {
         predicatesList.add(
                 criteriaBuilder.equal(root.get("datumType"), datumType));
@@ -186,9 +181,9 @@ public class ChapteDataServiceImpl implements ChapteDataService {
             fileList= fileDatumRepository.findAllById(list);
         }
 
-        if(datumType.equals(Dic.COURSE_ZILIAO_PHOTO)){
-            fileList= photoDatumRepository.findAllById(list);
-        }
+//        if(datumType.equals(Dic.COURSE_ZILIAO_PHOTO)){
+//            fileList= photoDatumRepository.findAllById(list);
+//        }
 
         if(datumType.equals(Dic.COURSE_ZILIAO_AUDIO)){
             fileList= audioDatumRepository.findAllById(list);
@@ -211,21 +206,13 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                 }).collect(toList());
     }
 
+    //获得图集列表
     @Override
-    public ChapteDataCountResp countJiaoAn(String courseId, String chapterId) {
+    public List<DatumResp> findPhotoList(String chapterId, String kNodeId, String datumType, Pageable pageable){
 
-         ChapteDataCountResp cd=new ChapteDataCountResp();
-         cd.setDatumArea("1");
-         cd.setDatumType("0");
-         cd.setDCount(datumAreaRepository.countByCourseIdAndChapterIdAndDatumAreaAndIsValidated(courseId,chapterId,"1",TAKE_EFFECT_OPEN));
-         return cd;
+        return null;
     }
 
-    @Override
-    public  List<IDatumAreaCountDto> countKeJian(String courseId,String chapterId) {
-        //ChapteDataResp
-        return datumAreaRepository.countKeJian(courseId,chapterId,"2",TAKE_EFFECT_OPEN);
-    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -243,8 +230,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
     private String saveT(ChapteDataReq chapteDataReq, IDatumRepoitory rep, AbsDatum fd){
         //添加资料文件关联记录
         String dataId = IdUtil.fastSimpleUUID();
-        String chapterid=chapteDataReq.getChapterId();
-        String courseid=chapteDataReq.getCourseId();
+        String chapterId=chapteDataReq.getChapterId();
         String datumArea=chapteDataReq.getDatumArea();
         String datumName=chapteDataReq.getDatumName();
         String datumType=chapteDataReq.getDatumType();
@@ -252,8 +238,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
 
         ChapteData cd=new  ChapteData();
         cd.setDataId(dataId);
-        cd.setChapterId(chapterid);
-        cd.setCourseId(courseid);
+        cd.setChapterId(chapterId);
         cd.setDatumArea(datumArea);
         cd.setDatumType(datumType);
         cd.setDatumName(datumName);
@@ -265,8 +250,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         List<AbsDatum> fileDatumList = new ArrayList<>();
         for (DataDatumVo dataDatumVo : chapteDataReq.getFiles()) {
             String uuid = IdUtil.fastSimpleUUID();
-            fd.setCourseId(courseid);
-            fd.setChapterId(chapterid);
+            fd.setChapterId(chapterId);
             fd.setFileId(uuid);
             fd.setDataId(dataId);
             fd.setFileName(dataDatumVo.getFileName());
@@ -283,7 +267,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         {
             final  String id= absDatum.getFileId();
             final  String type=absDatum.getDatumType();
-            final  String  chapterId=absDatum.getChapterId();
+            final  String  chapterId1=absDatum.getChapterId();
             final  String  knodeId=absDatum.getKNodeId();
             List<DatumArea>  list=new ArrayList<DatumArea>();
             Arrays.stream(datumArea.split(",")).forEach((area)->{
@@ -291,8 +275,10 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                 da.setFileId(id);
                 da.setDatumArea(area);
                 da.setDatumType(type);
-                da.setChapterId(chapterId);
+                da.setChapterId(chapterId1);
+                da.setDataId(dataId);
                 da.setKNodeId(knodeId);
+
                 list.add(da);
                 //datumAreaRepository.save(da);
             });

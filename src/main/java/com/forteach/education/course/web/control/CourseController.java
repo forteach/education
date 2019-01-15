@@ -42,7 +42,6 @@ public class CourseController {
     @Resource
     private  CourseService courseService;
 
-
     @Resource
     private  CourseShareService courseShareService;
 

@@ -74,25 +74,25 @@ public class ChapteDataController {
 
     }
 
-    @ApiOperation(value = "章节教案资料总数", notes = "章节教案资料总数")
-    @PostMapping("/countJiaoAn")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "科目编号", required = true, dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", required = true, paramType = "query")
-    })
-    public WebResult countJiaoAn(@Valid @ApiParam(value = "章节教案资料总数", name = "chapteData") @RequestBody ChapteDataCountReq req) {
-        return WebResult.okResult( chapteDataService.countJiaoAn(req.getCourseId(),req.getChapterId()));
-    }
+//    @ApiOperation(value = "章节教案资料总数", notes = "章节教案资料总数")
+//    @PostMapping("/countJiaoAn")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "courseId", value = "科目编号", required = true, dataType = "string", paramType = "query"),
+//            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", required = true, paramType = "query")
+//    })
+//    public WebResult countJiaoAn(@Valid @ApiParam(value = "章节教案资料总数", name = "chapteData") @RequestBody ChapteDataCountReq req) {
+//        return WebResult.okResult( chapteDataService.countJiaoAn(req.getCourseId(),req.getChapterId()));
+//    }
 
-    @ApiOperation(value = "章节课件资料总数", notes = "章节课件资料总数")
-    @PostMapping("/countKeJian")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "科目编号", required = true, dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", required = true, paramType = "query")
-    })
-    public WebResult countKeJian(@Valid @ApiParam(value = "章节课件资料总数", name = "chapteData") @RequestBody ChapteDataCountReq req) {
-        return WebResult.okResult( chapteDataService.countKeJian(req.getCourseId(),req.getChapterId()));
-    }
+//    @ApiOperation(value = "章节课件资料总数", notes = "章节课件资料总数")
+//    @PostMapping("/countKeJian")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "courseId", value = "科目编号", required = true, dataType = "string", paramType = "query"),
+//            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", required = true, paramType = "query")
+//    })
+//    public WebResult countKeJian(@Valid @ApiParam(value = "章节课件资料总数", name = "chapteData") @RequestBody ChapteDataCountReq req) {
+//        return WebResult.okResult( chapteDataService.countKeJian(req.getCourseId(),req.getChapterId()));
+//    }
 
     @PostMapping("/deleteById")
     @ApiOperation(value = "删除资料信息", notes = "根据ID 删除资源表")

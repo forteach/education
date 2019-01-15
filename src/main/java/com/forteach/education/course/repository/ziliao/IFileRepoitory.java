@@ -1,4 +1,4 @@
-package com.forteach.education.databank.repository.ziliao;
+package com.forteach.education.course.repository.ziliao;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +9,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.List;
 
 @NoRepositoryBean
-public interface IDatumRepoitory<T,ID>  extends JpaRepository<T, ID> {
+public interface IFileRepoitory<T,ID>  extends JpaRepository<T, ID> {
 
     Page<T> findByIsValidated(String isValidated, Pageable pageable);
 
@@ -19,26 +19,33 @@ public interface IDatumRepoitory<T,ID>  extends JpaRepository<T, ID> {
      * @param chapterId
      * @return
      */
-    public  List<T> findByChapterIdAndIsValidated(String chapterId,String isValidated);
+    public  List<T> findByChapterIdAndIsValidated(String chapterId, String isValidated);
 
     /**
      * 分页查询科目课程文件信息
      * @param isValidated
-     * @param courseId
      * @param chapterId
      * @return
      */
-    public Page<T> findByCourseIdAndChapterIdAndIsValidated( String courseId, String chapterId,String isValidated, Pageable pageable);
+    public Page<T> findByChapterIdAndIsValidated( String chapterId, String isValidated, Pageable pageable);
 
 
     /**
      * 分页查询科目章节文件类型文件信息
      * @param isValidated
-     * @param courseId
      * @param chapterId
      * @return
      */
-    public Page<T> findByCourseIdAndChapterIdAndDatumTypeAndIsValidated( String courseId, String chapterId,String datumType,String isValidated, Pageable pageable);
+    public Page<T> findByChapterIdAndDatumTypeAndIsValidated( String chapterId, String datumType, String isValidated, Pageable pageable);
+
+    /**
+     * 分页查询科目章节文件类型文件信息
+     * @param isValidated
+     * @param chapterId
+     * @return
+     */
+    public List<T> findByChapterIdAndDatumTypeAndIsValidated( String chapterId, String datumType, String isValidated);
+
     /**
      * 多条件查询课程科目文件挂载
      * @param specification

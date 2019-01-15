@@ -25,13 +25,13 @@ public interface CourseService {
 
     public CourseSaveResp save(CourseSaveReq courseReq);
 
-    public void deleteById(String courseId);
-
-    public void delete(Course course);
-
     public CourseSaveResp edit(CourseSaveReq courseReq);
 
     public void deleteIsValidById(String courseId);
+
+    public void deleteById(String courseId);
+
+    public void delete(Course course);
 
     public List<CourseListResp> findAll(CourseFindAllReq courseFindAllReq);
 
