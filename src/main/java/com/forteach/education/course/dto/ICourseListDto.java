@@ -32,7 +32,7 @@ public interface ICourseListDto {
      *备课类型
      * @return
      */
-    public int getLessonPreparationType();
+    public String getLessonPreparationType();
 
     /**
      *课程封面

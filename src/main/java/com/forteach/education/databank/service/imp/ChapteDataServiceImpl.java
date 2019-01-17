@@ -3,6 +3,7 @@ package com.forteach.education.databank.service.imp;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.common.keyword.Dic;
+import com.forteach.education.course.domain.ziliao.CourseData;
 import com.forteach.education.databank.domain.ziliao.*;
 import com.forteach.education.databank.repository.ziliao.*;
 import com.forteach.education.databank.service.ChapteDataService;
@@ -38,8 +39,8 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 public class ChapteDataServiceImpl implements ChapteDataService {
 
-    @Resource
-    private  ChapteDataRepository chapteDataRepository;
+//    @Resource
+//    private  ChapteDataRepository chapteDataRepository;
     @Resource
     private FileDatumRepository fileDatumRepository;
     @Resource
@@ -206,24 +207,20 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                 }).collect(toList());
     }
 
-    //获得图集列表
-    @Override
-    public List<DatumResp> findPhotoList(String chapterId, String kNodeId, String datumType, Pageable pageable){
-
-        return null;
-    }
 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(ChapteData chapteData) {
-        chapteDataRepository.delete(chapteData);
+    public void delete(CourseData chapteData) {
+
+
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(String dataId) {
-        chapteDataRepository.deleteById(dataId);
+
+
     }
 
 
@@ -236,15 +233,15 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         String datumType=chapteDataReq.getDatumType();
         String kNodeId=chapteDataReq.getKNodeId();
 
-        ChapteData cd=new  ChapteData();
-        cd.setDataId(dataId);
-        cd.setChapterId(chapterId);
-        cd.setDatumArea(datumArea);
-        cd.setDatumType(datumType);
-        cd.setDatumName(datumName);
-        cd.setKNodeId(kNodeId);
-
-        chapteDataRepository.save(cd);
+//        ChapteData cd=new  ChapteData();
+//        cd.setDataId(dataId);
+//        cd.setChapterId(chapterId);
+//        cd.setDatumArea(datumArea);
+//        cd.setDatumType(datumType);
+//        cd.setDatumName(datumName);
+//        cd.setKNodeId(kNodeId);
+//
+//        chapteDataRepository.save(cd);
 
         //添加资料文件列表明细
         List<AbsDatum> fileDatumList = new ArrayList<>();
@@ -252,7 +249,6 @@ public class ChapteDataServiceImpl implements ChapteDataService {
             String uuid = IdUtil.fastSimpleUUID();
             fd.setChapterId(chapterId);
             fd.setFileId(uuid);
-            fd.setDataId(dataId);
             fd.setFileName(dataDatumVo.getFileName());
             fd.setFileType(FileUtils.ext(dataDatumVo.getFileName()));
             fd.setFileUrl(dataDatumVo.getFilePath());
@@ -276,7 +272,6 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                 da.setDatumArea(area);
                 da.setDatumType(type);
                 da.setChapterId(chapterId1);
-                da.setDataId(dataId);
                 da.setKNodeId(knodeId);
 
                 list.add(da);

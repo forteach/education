@@ -1,5 +1,6 @@
 package com.forteach.education.web.req;
 
+import com.forteach.education.course.web.vo.RCourseData;
 import com.forteach.education.web.vo.DataDatumVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,7 +17,6 @@ import java.util.List;
  * @Version: 1.0
  * @Description: 保存课程对象
  */
-@Builder
 @Data
 @ApiModel(value = "课程章节保存文件")
 public class CourseDataDatumReq implements Serializable {
@@ -28,5 +28,5 @@ public class CourseDataDatumReq implements Serializable {
     private String chapterId;
 
     @ApiModelProperty(value = "files", name = "文件列表信息", required = true)
-    private List<DataDatumVo> files;
+    private List<RCourseData> files;
 }

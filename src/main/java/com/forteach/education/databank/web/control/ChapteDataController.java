@@ -1,12 +1,9 @@
 package com.forteach.education.databank.web.control;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
-import com.forteach.education.databank.domain.ziliao.ChapteData;
 import com.forteach.education.databank.service.ChapteDataService;
-import com.forteach.education.databank.web.req.ChapteDataCountReq;
 import com.forteach.education.databank.web.req.ChapteDataListReq;
 import com.forteach.education.databank.web.req.ChapteDataReq;
 import com.forteach.education.web.vo.DataDatumVo;
@@ -94,30 +91,30 @@ public class ChapteDataController {
 //        return WebResult.okResult( chapteDataService.countKeJian(req.getCourseId(),req.getChapterId()));
 //    }
 
-    @PostMapping("/deleteById")
-    @ApiOperation(value = "删除资料信息", notes = "根据ID 删除资源表")
-    @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", required = true, paramType = "query")
-    public WebResult deleteById(@Valid @ApiParam(value = "根据dataId删除对应资料信息", name = "dataId", type = "string") @RequestBody String dataId){
-        chapteDataService.deleteById(String.valueOf(JSONObject.parseObject(dataId).getString("dataId")));
-        return WebResult.okResult();
-    }
-
-
-    @ApiOperation(value = "删除科目章节资料信息")
-    @PostMapping("/delete")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "dataId", value = "资料编号", dataType = "string", required = true, paramType = "from"),
-            @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "sortImgId", value = "图册编号", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "datumName", value = "资料名称", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "int", paramType = "from"),
-            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "int", paramType = "from"),
-            //@ApiImplicitParam(name = "remark", value = "备注说明", dataType = "string", paramType = "from")
-    })
-    public WebResult delete(@Valid @ApiParam(value = "删除资料信息", name = "chapteData") @RequestBody ChapteData chapteData){
-        chapteDataService.delete(chapteData);
-        return WebResult.okResult();
-    }
+//    @PostMapping("/deleteById")
+//    @ApiOperation(value = "删除资料信息", notes = "根据ID 删除资源表")
+//    @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", required = true, paramType = "query")
+//    public WebResult deleteById(@Valid @ApiParam(value = "根据dataId删除对应资料信息", name = "dataId", type = "string") @RequestBody String dataId){
+//       // chapteDataService.deleteById(String.valueOf(JSONObject.parseObject(dataId).getString("dataId")));
+//        return WebResult.okResult();
+//    }
+//
+//
+//    @ApiOperation(value = "删除科目章节资料信息")
+//    @PostMapping("/delete")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "dataId", value = "资料编号", dataType = "string", required = true, paramType = "from"),
+//            @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", paramType = "from"),
+//            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
+//            @ApiImplicitParam(name = "sortImgId", value = "图册编号", dataType = "string", paramType = "from"),
+//            @ApiImplicitParam(name = "datumName", value = "资料名称", dataType = "string", paramType = "from"),
+//            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "int", paramType = "from"),
+//            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "int", paramType = "from"),
+//            //@ApiImplicitParam(name = "remark", value = "备注说明", dataType = "string", paramType = "from")
+//    })
+//    public WebResult delete(@Valid @ApiParam(value = "删除资料信息", name = "chapteData") @RequestBody CourseData chapteData){
+//       // chapteDataService.delete(chapteData);
+//        return WebResult.okResult();
+//    }
 
 }

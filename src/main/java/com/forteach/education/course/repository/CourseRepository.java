@@ -30,5 +30,5 @@ public interface CourseRepository extends JpaRepository<Course, String> {
      * @param pageable
      * @return
      */
-    Page<Course> findByIsValidatedEqualsAndCUser(String isValidated, String cUser, Pageable pageable);
+    Page<Course> findByIsValidatedEqualsAndCreateUser(String isValidated, String cUser, Pageable pageable);
 }

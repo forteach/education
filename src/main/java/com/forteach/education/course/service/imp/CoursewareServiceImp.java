@@ -11,7 +11,6 @@ import com.forteach.education.course.repository.ziliao.PhotosRepository;
 import com.forteach.education.course.service.CoursewareService;
 import com.forteach.education.course.web.req.CoursewareAll;
 import com.forteach.education.course.web.req.ImpCoursewareAll;
-import com.forteach.education.course.web.res.CourseAtlitListResp;
 import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.UpdateUtil;
 import lombok.extern.slf4j.Slf4j;

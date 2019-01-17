@@ -59,7 +59,7 @@ public class CourseShareServiceImpl implements CourseShareService {
             CourseShare courseShare= CourseShare.builder()
                     .shareArea(COURSE_SHARE_AREA_ALL)//分享整套课程
                     .build();
-          courseShare.setCTime(course.getCTime());
+          courseShare.setCreateTime(course.getCreateTime());
           UpdateUtil.copyNullProperties(course, courseShare);
           courseShareRepository.save(courseShare);
 
@@ -72,7 +72,7 @@ public class CourseShareServiceImpl implements CourseShareService {
                             .userId(teacher.getTeacherId())  //用户编号
                             .userName(teacher.getTeacherName())
                             .build();
-                    cs.setCTime(courseShare.getCTime());
+                    cs.setCreateTime(courseShare.getCreateTime());
                     UpdateUtil.copyNullProperties(courseShare, cs);
                 list.add(cs);
             });

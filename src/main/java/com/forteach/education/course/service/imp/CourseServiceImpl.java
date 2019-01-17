@@ -100,7 +100,7 @@ public class CourseServiceImpl implements CourseService {
         String courseId = course.getCourseId();
         Course source = courseRepository.findById(courseId).get();
         UpdateUtil.copyNullProperties(source, course);
-        course.setCTime(source.getCTime());
+        course.setCreateTime(source.getCreateTime());
         //保存课程信息
         courseRepository.save(course);
 
@@ -194,7 +194,7 @@ public class CourseServiceImpl implements CourseService {
     public Page<Course> findMyCourse(SortVo sortVo){
         //TODO 查询用户ID
         String cUser = "string";
-        return courseRepository.findByIsValidatedEqualsAndCUser(sortVo.getIsValidated(), cUser, PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
+        return courseRepository.findByIsValidatedEqualsAndCreateUser(sortVo.getIsValidated(), cUser, PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
     }
 
 

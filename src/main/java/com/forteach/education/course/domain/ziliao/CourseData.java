@@ -1,4 +1,4 @@
-package com.forteach.education.databank.domain.ziliao;
+package com.forteach.education.course.domain.ziliao;
 
 import com.forteach.education.common.domain.Entitys;
 import io.swagger.annotations.ApiModel;
@@ -16,16 +16,16 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(name = "chapte_data", indexes = {
+@Table(name = "course_data", indexes = {
         @Index(columnList = "data_id"),
         @Index(columnList = "chapter_id")
 })
 @EqualsAndHashCode(callSuper = true)
-@org.hibernate.annotations.Table(appliesTo = "chapte_data", comment = "章节资料")
+@org.hibernate.annotations.Table(appliesTo = "course_data", comment = "章节资料")
 @ApiModel(value = "章节资料库")
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChapteData extends Entitys implements Serializable {
+public class CourseData extends Entitys implements Serializable {
 
     @Id
     @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '资料编号'")
@@ -34,10 +34,10 @@ public class ChapteData extends Entitys implements Serializable {
     @Column(name = "datum_name", columnDefinition = "VARCHAR(60) COMMENT '资料名称'")
     private String datumName;
 
-    @Column(name = "datum_area", columnDefinition = "VARCHAR(20) COMMENT '资料领域：1教案 2课件1 3预习参考 4课堂参考 5授课案例、6复习参考'")
+    @Column(name = "datum_area", columnDefinition = "VARCHAR(20) COMMENT '资料领域：3预习参考 4课堂参考 5授课案例、6复习参考'")
     private String datumArea;
 
-    @Column(name = "datum_type", columnDefinition = "VARCHAR(3) COMMENT '资料类型 1文档　2图册　3视频　4音频　5链接'")
+    @Column(name = "datum_type", columnDefinition = "VARCHAR(3) COMMENT '资料类型 1文档　3视频　4音频　5链接'")
     private String datumType;
 
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '课程科目ID'")
@@ -48,5 +48,11 @@ public class ChapteData extends Entitys implements Serializable {
 
     @Column(name = "k_node_Id", columnDefinition = "CHAR(32) COMMENT '知识点编号'")
     private String kNodeId;
+
+    @Column(name = "teach_share", columnDefinition = "CHAR(1) COMMENT '教师共享 0不共享 1共享'")
+    private String teachShare="0";
+
+    @Column(name = "stu_share", columnDefinition = "CHAR(1) COMMENT '学生共享 0不共享 1共享'")
+    private String stuShare="0";
 
 }

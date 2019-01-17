@@ -20,6 +20,6 @@ public interface IDatumAreaCountDto {
      *count数量
      * @return
      */
-    public String getDCount();
+    public int getDCount();
 
 }

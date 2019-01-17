@@ -15,7 +15,7 @@ import java.io.Serializable;
 //@Builder
 @Data
 @Entity
-@Table(name = "file_datum", indexes = {@Index(columnList = "chapter_id"),@Index(columnList = "data_id")})
+@Table(name = "file_datum", indexes = {@Index(columnList = "chapter_id")})
 @ApiModel(description = "文件数据信息", value = "文件数据")
 @org.hibernate.annotations.Table(appliesTo = "file_datum", comment = "文档资料库")
 @EqualsAndHashCode(callSuper = true)

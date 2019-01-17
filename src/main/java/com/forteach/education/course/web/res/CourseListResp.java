@@ -26,12 +26,12 @@ public class CourseListResp {
     private String courseNumber;
 
     @ApiModelProperty(value = "lessonPreparationType")
-    private int lessonPreparationType;
+    private String lessonPreparationType;
 
     @ApiModelProperty(value = "topPicSrc")
     private String topPicSrc;
 
-    public CourseListResp(String courseId, String courseName, String courseNumber, int lessonPreparationType, String topPicSrc) {
+    public CourseListResp(String courseId, String courseName, String courseNumber, String lessonPreparationType, String topPicSrc) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.courseNumber = courseNumber;

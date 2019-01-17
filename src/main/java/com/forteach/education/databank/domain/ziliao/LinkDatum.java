@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "link_datum", comment = "链接资料库")
-@Table(name = "link_datum", indexes = {@Index(columnList = "chapter_id"),@Index(columnList = "data_id")})
+@Table(name = "link_datum", indexes = {@Index(columnList = "chapter_id")})
 @ApiModel(value = "链接资料库")
 //@AllArgsConstructor
 //@NoArgsConstructor

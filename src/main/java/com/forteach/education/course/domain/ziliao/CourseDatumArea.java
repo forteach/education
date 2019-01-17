@@ -1,27 +1,30 @@
-package com.forteach.education.databank.domain.ziliao;
+package com.forteach.education.course.domain.ziliao;
 
 import com.forteach.education.common.domain.Entitys;
-import com.forteach.education.course.domain.CourseShareUsersPk;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
 @Entity
 @Builder
-@Table(name = "datum_area" , indexes = {@Index(columnList = "chapter_id"),@Index(columnList = "datum_area"),@Index(columnList = "k_node_id")})
-@org.hibernate.annotations.Table(appliesTo = "datum_area", comment = "资料领域对照表")
-@IdClass(DatumAreaPk.class)
+@Table(name = "course_datum_area" , indexes = {@Index(columnList = "chapter_id"),@Index(columnList = "datum_area"),@Index(columnList = "k_node_id")})
+@org.hibernate.annotations.Table(appliesTo = "course_datum_area", comment = "课程资料领域对照表")
+@IdClass(CourseDatumAreaPk.class)
 @ApiModel(value = "章节资料领域对照表")
 @AllArgsConstructor
 @NoArgsConstructor
-public class DatumArea extends Entitys implements Serializable{
+public class CourseDatumArea extends Entitys implements Serializable{
 
     @EmbeddedId
     @ApiModelProperty(value = "资料领域主键", hidden = true)
-    private DatumAreaPk datumAreaPk;
+    private CourseDatumAreaPk courseDatumAreaPk;
 
     public String fileId;
 
@@ -40,6 +43,6 @@ public class DatumArea extends Entitys implements Serializable{
     @Column(name = "k_node_id", columnDefinition = "VARCHAR(32) COMMENT '所属单知识点'")
     private String kNodeId;
 
-//    @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '章节资料编号'")
-//    public String dataId;
+    @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '章节资料编号'")
+    public String dataId;
 }

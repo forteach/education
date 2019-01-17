@@ -69,7 +69,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
         BeanUtils.copyProperties(courseChapterEditReq, courseChapter);
         UpdateUtil.copyNullProperties(source, courseChapter);
         //设置创建时间
-        courseChapter.setCTime(source.getCTime());
+        courseChapter.setCreateTime(source.getCreateTime());
         courseChapterRepository.save(courseChapter);
 
         //创建输出对象

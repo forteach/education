@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "view_datum", indexes = {@Index(columnList = "chapter_id"),@Index(columnList = "data_id")})
+@Table(name = "view_datum", indexes = {@Index(columnList = "chapter_id")})
 @org.hibernate.annotations.Table(appliesTo = "view_datum", comment = "视频资料库")
 @ApiModel(value = "视频资料信息")
 //@AllArgsConstructor

@@ -69,7 +69,7 @@ public class CoursewareController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataTypeClass = Course.class, required = true),
             @ApiImplicitParam(name = "importantType", value = "重要课件资料类型1 教案 2 课件", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "datumType", value = "课件类型1、文件 2、图集 3 视频", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "datumType", value = "课件类型1、文件  3 视频", dataTypeClass = String.class)
     })
     public WebResult getImpCourseware(@Valid @ApiParam(name = "courseReq", value = "科目课程对象", required = true) @RequestBody FindImpCoursewareReq req){
         return WebResult.okResult(coursewareService.getImpCourseware(req.getChapterId(),req.getImportantType(),req.getDatumType()));
