@@ -29,7 +29,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping(path = "/courseware", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = "/courseData", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "课程资料挂接操作", tags = {"课程资料挂接信息"})
 public class CourseDataController {
 

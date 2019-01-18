@@ -43,10 +43,6 @@ public class CourseShare extends Entitys implements Serializable {
     @Column(name = "chapter_id", columnDefinition = "CHAR(32) COMMENT '章节编号'")
     private String chapterId;
 
-    @ApiModelProperty(value = "分享人", name = "shareUser", dataType = "string")
-    @Column(name = "share_user", columnDefinition = "VARCHAR(32) COMMENT '分享人'")
-    private String shareUser;
-
     @ApiModelProperty(value = "分享范围", name = "shareArea", dataType = "int")
     @Column(name = "share_area", columnDefinition = "INT COMMENT '分享范围 1,全部　２,章节'")
     private String shareArea;

@@ -29,7 +29,7 @@ public class ImpCoursewareAll {
  //文件数量
  private int dCount;
 
- //1文件2、图集3、视频
+ //1文件 3、视频
  private String datumType;
 
  //图集名称
@@ -38,5 +38,14 @@ public class ImpCoursewareAll {
  //课件或教案文件列表
  private List<CoursewareAll> files;
 
+ private String createUser;
 
+ public ImpCoursewareAll(String chapterId, String importantType, int dCount, String datumType, String photoDatumName, List<CoursewareAll> files) {
+  this.chapterId = chapterId;
+  this.importantType = importantType;
+  this.dCount = dCount;
+  this.datumType = datumType;
+  this.photoDatumName = photoDatumName;
+  this.files = files;
+ }
 }

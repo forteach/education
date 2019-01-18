@@ -9,6 +9,7 @@ import com.forteach.education.course.repository.ziliao.CourseDatumAreaRepository
 import com.forteach.education.course.service.CourseDataService;
 import com.forteach.education.databank.web.res.DatumResp;
 
+import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.CourseDataDatumReq;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,7 @@ public class CourseDataServiceImpl implements CourseDataService {
                     CourseData cd=new  CourseData();
                     cd.setDataId(IdUtil.fastSimpleUUID());
                     UpdateUtil.copyNullProperties(item, cd);
+                    cd.setDatumExt(FileUtils.ext(cd.getDatumName()));
                     return cd;
                 }).collect(Collectors.toList());
 
@@ -113,21 +115,34 @@ public class CourseDataServiceImpl implements CourseDataService {
                 .stream()
                 .map((item)->{
                     DatumResp dr=new DatumResp();
-                    UpdateUtil.copyNullProperties(item, dr);
+                    dr.setChapterId(item.getChapterId());
+                    dr.setFileName(item.getDatumName());
+                    dr.setFileName(item.getDatumArea());
+                    dr.setFileType(item.getDatumExt());
+                    dr.setFileId(item.getDataId());
+                    dr.setFileUrl(item.getDatumUrl());
+                    dr.setDatumArea(item.getDatumArea());
+                    dr.setStuShare(item.getStuShare());
+                    dr.setTeachShare(item.getTeachShare());
                     return  dr;
                 }).collect(toList());
     }
 
     @Override
         public List<DatumResp> findDatumList(String chapterId, String datumType, Pageable pageable) {
-        //转换LIST对象
-        return courseDataRepository.findByChapterIdAndDatumTypeAndIsValidatedOrderByCreateTimeAsc(chapterId,datumType,Dic.TAKE_EFFECT_OPEN,pageable).getContent()
+
+        //再根据资料编号查找资料信息，转换LIST对象
+        List<DatumResp> list= courseDataRepository.findByChapterIdAndDatumTypeAndIsValidatedOrderByCreateTimeAsc(chapterId,datumType,Dic.TAKE_EFFECT_OPEN,pageable).getContent()
                 .stream()
                 .map((item)->{
                     DatumResp dr=new DatumResp();
                     UpdateUtil.copyNullProperties(item, dr);
+                    dr.setFileName(item.getDatumName());
+                    dr.setFileUrl(item.getDatumUrl());
                     return  dr;
                 }).collect(toList());
+
+        return list;
     }
 
     @Override

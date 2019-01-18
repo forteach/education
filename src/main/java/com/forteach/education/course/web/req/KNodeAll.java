@@ -34,4 +34,12 @@ public class KNodeAll implements Serializable {
     @ApiModelProperty(name = "nodeName", value = "知识点名称", dataType = "string")
     private String nodeName;
 
+    private String createUser;
+
+    public KNodeAll(String courseId, String chapterId, String kNodeId, String nodeName) {
+        this.courseId = courseId;
+        this.chapterId = chapterId;
+        this.kNodeId = kNodeId;
+        this.nodeName = nodeName;
+    }
 }

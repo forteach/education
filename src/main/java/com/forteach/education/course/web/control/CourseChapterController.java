@@ -51,7 +51,7 @@ public class CourseChapterController {
     public WebResult save(@Valid @ApiParam(name = "courseChapter", value = "科目章节对象", required = true) @RequestBody CourseChapterReq req){
         CourseChapter cs=new  CourseChapter();
         UpdateUtil.copyNullProperties(req, cs);
-
+        cs.setCreateUser(req.getCreateUser());
         log.info("------*{}" , JSON.toJSONString(cs));
 
         WebResult r=WebResult.okResult(courseChapterService.save(cs));

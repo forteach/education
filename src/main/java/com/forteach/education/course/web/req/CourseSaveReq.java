@@ -35,4 +35,7 @@ public class CourseSaveReq implements Serializable {
 
     @ApiModelProperty(value = "集体备课教师信息", name = "teachers", notes = "如果是协作字段对象是必传字段")
     private List<RTeacher> teachers;
+
+    @ApiModelProperty(name = "createUser", value = "创建人")
+    private String createUser;
 }

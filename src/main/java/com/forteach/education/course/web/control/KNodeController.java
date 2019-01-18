@@ -44,6 +44,7 @@ public class KNodeController {
     public WebResult save(@Valid @ApiParam(name = "kNode", value = "知识点对象") @RequestBody KNodeAll req){
         KNode kn=new KNode();
         UpdateUtil.copyNullProperties(req, kn);
+        kn.setCreateUser(req.getCreateUser());
         return WebResult.okResult(kNodeService.save(kn));
     }
 

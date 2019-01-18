@@ -39,8 +39,7 @@ public class CourseShareUsers extends Entitys implements Serializable {
     @ApiModelProperty(value = "接受分享成员编号", name = "userId", dataType = "string")
     private String userId;
 
-    @NotBlank(message = "接受分享成员名称")
-    @ApiModelProperty(name = "courseName", value = "接受分享成员名称", dataType = "string",  required = true)
+    @ApiModelProperty(name = "user_name", value = "接受分享成员名称", dataType = "string",  required = true)
     @Column(name = "user_name", columnDefinition = "VARCHAR(40) COMMENT '接受分享成员名称'")
     private String userName;
 

@@ -31,9 +31,10 @@ public class KNodeControlTest {
     public void save(){
 
         KNodeAll req=new KNodeAll();
-        req.setChapterId("2c9180c067ee2be40167eeb29a7f0004");
-        req.setCourseId("2c9180846827407401682b57f4a60000");
-        req.setNodeName("12345");
+        req.setChapterId("40289fa0685ea88101685ea8c2cd0000");
+        req.setCourseId("40289fa0685e89b901685e8a100d0000");
+        req.setNodeName("测试A");
+        req.setCreateUser("000");
         log.info("*********{}" , JSON.toJSONString(req));
         WebResult r=kNodeController.save(req);
         log.info("*********{}" ,JSON.toJSONString(r));
@@ -42,7 +43,7 @@ public class KNodeControlTest {
 
     @Test
     public void findByfindByChapterId() {
-        String id="{\"chapterId\":\"40288d5c682b825e01682b8442630001\"}";
+        String id="{\"chapterId\":\"40289fa0685ea88101685ea8c2cd0000\"}";
         log.info("*********{}" , JSON.toJSONString(id));
         WebResult r=kNodeController.findByChapter(id);
         log.info("*********{}" , JSON.toJSONString(r));

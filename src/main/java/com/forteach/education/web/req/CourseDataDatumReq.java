@@ -29,4 +29,6 @@ public class CourseDataDatumReq implements Serializable {
 
     @ApiModelProperty(value = "files", name = "文件列表信息", required = true)
     private List<RCourseData> files;
+
+    private String createUser;
 }

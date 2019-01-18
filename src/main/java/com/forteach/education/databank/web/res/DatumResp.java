@@ -1,14 +1,10 @@
 package com.forteach.education.databank.web.res;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 
 /**
@@ -28,7 +24,7 @@ public class DatumResp {
 
  public String dataId;
 
- public String courseId;
+ public String datumArea;
 
  public String chapterId;
 
@@ -39,5 +35,9 @@ public class DatumResp {
  public String fileUrl;
 
  private String datumType;
+
+ private String teachShare="0";
+
+ private String stuShare="0";
 
 }

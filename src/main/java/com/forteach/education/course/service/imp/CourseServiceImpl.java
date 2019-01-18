@@ -65,6 +65,7 @@ public class CourseServiceImpl implements CourseService {
         RCourse rcourse=courseReq.getCourse();
         Course course=new Course();
         UpdateUtil.copyNullProperties(rcourse, course);
+        course.setCreateUser(courseReq.getCreateUser());
         course = courseRepository.save(course);
         String shareId="";
         if (LESSON_PREPARATION_TYPE_GROUP.equals(lessonPre)) {

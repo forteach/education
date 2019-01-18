@@ -52,5 +52,5 @@ public class ChapteDataReq {
     @ApiModelProperty(value = "files", name = "文件列表信息", dataType = "list",required = true)
     private List<DataDatumVo> files;
 
-
+    private String createUser;
 }

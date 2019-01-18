@@ -28,6 +28,8 @@ public class RCourseData implements Serializable {
 
     private String datumName;
 
+    private String datumUrl;
+
     private String datumArea;
 
     private String datumType;
