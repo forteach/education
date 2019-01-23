@@ -20,22 +20,8 @@ import java.util.List;
  */
 public interface CourseShareRepository extends JpaRepository<CourseShare, String> {
 
-//    @Modifying
-//    int deleteByCourseId(String courseId);
-
     public List<CourseShare> findByCourseId(String courseId);
 
-//    /**
-//     * 根据课程ID查询对应的协作者教师ID
-//     * @param courseId
-//     * @return
-//     */
-//    @Query(value = "select  " +
-//            "teacherId as teacherId, teacherName as teacherName from CourseShare where " +
-//            "isValidated = '0' AND courseId = :courseId")
-//    List<ICourseShareTeacherDto> findTeachersByCourseId(@Param("courseId") String courseId);
-
-
-   public  CourseShare findByAndCourseIdAndAndShareArea(String courseId,String shareArea );
+    public  CourseShare findByCourseIdAndShareArea(String courseId,String shareArea );
 
 }

@@ -23,7 +23,6 @@ import java.io.Serializable;
 @Table(name = "course_share_users", indexes = {@Index(columnList = "share_id"), @Index(columnList = "user_id")})
 @EqualsAndHashCode(callSuper = true)
 @IdClass(CourseShareUsersPk.class)
-//@org.hibernate.annotations.Table(appliesTo = "course_share_users", comment = "课程内容协作访问成员")
 @ApiModel(value = "课程内容协作访问成员")
 public class CourseShareUsers extends Entitys implements Serializable {
 

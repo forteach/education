@@ -1,5 +1,6 @@
 package com.forteach.education.course.service;
 
+import com.forteach.education.classes.web.req.RTeacher;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseImages;
 import com.forteach.education.course.dto.ICourseListDto;
@@ -11,8 +12,10 @@ import com.forteach.education.web.req.CourseImagesReq;
 import com.forteach.education.course.web.req.CourseSaveReq;
 import com.forteach.education.common.web.vo.SortVo;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: zhangyy
@@ -23,9 +26,9 @@ import java.util.List;
  */
 public interface CourseService {
 
-    public CourseSaveResp save(CourseSaveReq courseReq);
+    public List<String> save(Course course, List<RTeacher> teachers);
 
-    public CourseSaveResp edit(CourseSaveReq courseReq);
+    public String edit(Course course,String oldShareId,List<RTeacher> teachers);
 
     public void deleteIsValidById(String courseId);
 
@@ -33,14 +36,16 @@ public interface CourseService {
 
     public void delete(Course course);
 
-    public List<CourseListResp> findAll(CourseFindAllReq courseFindAllReq);
+    public List<ICourseListDto> findAll(PageRequest page);
 
-    public CourseResp getCourseById(String courseId);
+    public Map<String,Object> getCourseById(String courseId);
 
     public List<CourseImages> findImagesByCourseId(String courseId);
 
     public void saveCourseImages(CourseImagesReq courseImagesReq);
 
-    public Page<Course> findMyCourse(SortVo sortVo);
+    public List<ICourseListDto> findMyCourse(String userId,PageRequest page);
+
+    public Course getById(String id);
 
 }

@@ -1,35 +1,32 @@
 package com.forteach.education.course.service.imp;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
+import com.forteach.education.classes.web.req.RTeacher;
+import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseImages;
 import com.forteach.education.course.domain.CourseShare;
+import com.forteach.education.course.dto.ICourseListDto;
 import com.forteach.education.course.repository.CourseImagesRepository;
 import com.forteach.education.course.repository.CourseRepository;
-import com.forteach.education.course.repository.ziliao.ImpCoursewareRepoitory;
 import com.forteach.education.course.service.CourseService;
 import com.forteach.education.course.service.CourseShareService;
-import com.forteach.education.course.web.req.CourseFindAllReq;
-import com.forteach.education.course.web.res.CourseListResp;
-import com.forteach.education.course.web.res.CourseResp;
-import com.forteach.education.course.web.vo.RCourse;
-import com.forteach.education.course.web.res.CourseSaveResp;
 import com.forteach.education.util.SortUtil;
-
-import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.req.CourseImagesReq;
-import com.forteach.education.course.web.req.CourseSaveReq;
 import com.forteach.education.web.vo.DataDatumVo;
 import com.forteach.education.common.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import static java.util.stream.Collectors.toList;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.forteach.education.common.keyword.Dic.*;
 
@@ -38,115 +35,116 @@ import static com.forteach.education.common.keyword.Dic.*;
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-11-21 15:59
  * @Version: 1.0
- * @Description:　科目管理
+ * @Description:　课程管理
  */
 @Service
 @Slf4j
 public class CourseServiceImpl implements CourseService {
-//课程基本信息
+
+    //课程基本信息
     @Resource
     private CourseRepository courseRepository;
 
+    //课程轮播图
     @Resource
     private CourseImagesRepository courseImagesRepository;
 
+    //集体备课课程共享资源
     @Resource
     private CourseShareService courseShareService;
 
     /**
-     * 保存课程科目信息，和协作信息
-     * @param courseReq
-     * @return
+     * 保存课程基本信息
+     * @param course  课程基本信息
+     * @param teachers  集体备课教师信息
+     * @return  课程编号和集体备课资源编号
      */
     @Override
     @Transactional(rollbackForClassName="Exception")
-    public CourseSaveResp save(CourseSaveReq courseReq) {
-        String lessonPre = courseReq.getCourse().getLessonPreparationType();
-        RCourse rcourse=courseReq.getCourse();
-        Course course=new Course();
-        UpdateUtil.copyNullProperties(rcourse, course);
-        course.setCreateUser(courseReq.getCreateUser());
+    public List<String> save(Course course, List<RTeacher> teachers) {
+        //1、保存课程基本信息
+        if(StrUtil.isBlank(course.getCourseId())){
+            course.setCourseId(IdUtil.fastSimpleUUID());
+        }
         course = courseRepository.save(course);
+
+        //2、如果是集体备课，保存集体备课基本信息
         String shareId="";
-        if (LESSON_PREPARATION_TYPE_GROUP.equals(lessonPre)) {
-            shareId= courseShareService.save(course, courseReq.getTeachers());
+        if (LESSON_PREPARATION_TYPE_GROUP.equals(course.getLessonPreparationType())) {
+            shareId= courseShareService.save(course, teachers);
         }
 
-        //创建输出课程对象
-        CourseSaveResp courseSaveResp=CourseSaveResp.builder()
-                .courseId(course.getCourseId())
-                .build();
-        courseSaveResp.setShareId(shareId);
-        return courseSaveResp;
+        //3、设置返回数据
+        List<String> result=new ArrayList<String>();
+        result.add(course.getCourseId());
+        result.add(shareId);
+        return result;
     }
 
     @Override
     @Transactional(rollbackForClassName="Exception")
-    public void deleteById(String courseId) {
-        courseRepository.deleteById(courseId);
-    }
+    public String  edit(Course course,String oldShareId,List<RTeacher> teachers) {
 
-    @Override
-    @Transactional(rollbackForClassName="Exception")
-    public void delete(Course course) {
-        courseRepository.delete(course);
-    }
-
-    @Override
-    @Transactional(rollbackForClassName="Exception")
-    public CourseSaveResp edit(CourseSaveReq courseReq) {
-        RCourse rcourse=courseReq.getCourse();
-        Course course=new Course();
-        UpdateUtil.copyNullProperties(rcourse, course);
-        String courseId = course.getCourseId();
-        Course source = courseRepository.findById(courseId).get();
-        UpdateUtil.copyNullProperties(source, course);
-        course.setCreateTime(source.getCreateTime());
-        //保存课程信息
+        //修改课程信息
         courseRepository.save(course);
 
-        //判断原有的备课类型是否是集体备课
+        //判断原有的备课类型是否是集体备课，并修改集体备课信息
+        return  courseShareService.update(course.getLessonPreparationType(),oldShareId,course, teachers);
+    }
 
-        courseShareService.update(source.getLessonPreparationType(),courseReq.getOldShareId(),course, courseReq.getTeachers());
-
-        CourseSaveResp courseSaveResp=CourseSaveResp.builder()
-                .courseId(course.getCourseId())
-                .build();
-
-        return courseSaveResp;
+    /**
+     * 获得所有可用课程列表
+     * @param page
+     * @return
+     */
+    @Override
+    public List<ICourseListDto> findAll(PageRequest page) {
+        return courseRepository.findByIsValidated(Dic.TAKE_EFFECT_OPEN,page )
+                .getContent();
     }
 
 
+    /**
+     * 分页查询我的课程科目
+     * @param page
+     * @return
+     */
     @Override
-    public List<CourseListResp> findAll(CourseFindAllReq courseFindAllReq) {
-        SortVo sortVo=courseFindAllReq.getSortVo();
-        PageRequest req=PageRequest.of(sortVo.getPage(), sortVo.getSize());
-        return courseRepository.findByIsValidatedEquals(sortVo.getIsValidated(),req )
-                .getContent().stream()
-                .map((item)->{return new CourseListResp(item.getCourseId(),item.getCourseName(),item.getCourseNumber(),item.getLessonPreparationType(),item.getTopPicSrc());})
-                .collect(toList());
-}
+    public List<ICourseListDto> findMyCourse(String userId,PageRequest page){
+        return courseRepository.findByCreateUserAndIsValidated( userId, TAKE_EFFECT_OPEN,page)
+                .getContent();
+    }
 
+    /**
+     * 根据课程编号，获得课程基本信息
+     * @param id
+     * @return
+     */
     @Override
-    public CourseResp getCourseById(String courseId) {
+    public Course getById(String id){
+        return courseRepository.findById(id).get();
+    }
+
+    /**
+     * 根据课程ID，获得课程基本信息和集体备课共享编号
+     * @param courseId
+     * @return
+     */
+    @Override
+    public Map<String,Object> getCourseById(String courseId) {
 
         Course course = courseRepository.findById(courseId).get();
         String shareId="";
         //课程为集体备课
         if(course.getLessonPreparationType().equals(LESSON_PREPARATION_TYPE_GROUP)){
-            CourseShare cs= courseShareService.findByAndCourseIdAndAndShareArea(course.getCourseId());
+            CourseShare cs= courseShareService.findByCourseIdAll(course.getCourseId());
             shareId=cs.getShareId();
         }
 
-        return new CourseResp(course.getCourseId(),
-                course.getCourseName(),
-                course.getCourseNumber(),
-                course.getLessonPreparationType(),
-                course.getTeachingType(),
-                course.getTopPicSrc(),
-                course.getShareType(),
-                course.getCourseDescribe(),
-                shareId);
+        Map result=new HashMap();
+        result.put("course",course);
+        result.put("shareId",shareId);
+       return result;
 
     }
 
@@ -176,6 +174,20 @@ public class CourseServiceImpl implements CourseService {
         courseImagesRepository.saveAll(list);
     }
 
+
+
+    @Override
+    @Transactional(rollbackForClassName="Exception")
+    public void deleteById(String courseId) {
+        courseRepository.deleteById(courseId);
+    }
+
+    @Override
+    @Transactional(rollbackForClassName="Exception")
+    public void delete(Course course) {
+        courseRepository.delete(course);
+    }
+
     /**
      * 查询封面图片信息
      * @param courseId
@@ -184,18 +196,6 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<CourseImages> findImagesByCourseId(String courseId) {
         return courseImagesRepository.findByIsValidatedEqualsAndCourseIdOrderByIndexNumAsc(TAKE_EFFECT_OPEN, courseId);
-    }
-
-    /**
-     * 分页查询我的课程科目
-     * @param sortVo
-     * @return
-     */
-    @Override
-    public Page<Course> findMyCourse(SortVo sortVo){
-        //TODO 查询用户ID
-        String cUser = "string";
-        return courseRepository.findByIsValidatedEqualsAndCreateUser(sortVo.getIsValidated(), cUser, PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
     }
 
 

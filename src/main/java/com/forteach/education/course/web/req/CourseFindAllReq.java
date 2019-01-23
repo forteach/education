@@ -25,6 +25,9 @@ import java.io.Serializable;
 @ApiModel(value = "课程所有列表")
 public class CourseFindAllReq implements Serializable {
 
+    @ApiModelProperty(value = "用户编号", name = "userId")
+    private String userId;
+
     @ApiModelProperty(value = "分页排序字段", name = "sortVo")
     private SortVo sortVo=new SortVo();
 

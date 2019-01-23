@@ -20,24 +20,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DatumResp {
 
+ //文件编号
  public String fileId;
-
- public String dataId;
-
+//文件领域（预习,复习...）多领域逗号分隔
  public String datumArea;
-
+//章节编号
  public String chapterId;
-
+//文件名称
  public String fileName;
-
+//文件扩展名
  public String fileType;
-
+//文件URl
  public String fileUrl;
-
+//文件类型（音频、视频....）
  private String datumType;
-
+//教师共享
  private String teachShare="0";
-
+//学生可见
  private String stuShare="0";
 
 }

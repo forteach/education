@@ -19,8 +19,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(name = "course_share", indexes = {@Index(columnList = "share_id"), @Index(columnList = "chapter_id"),
-        @Index(columnList = "course_id")})
+@Table(name = "course_share", indexes = {@Index(columnList = "share_id"), @Index(columnList = "chapter_id"), @Index(columnList = "course_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "course_share", comment = "分享范围")
 @ApiModel(value = "分享范围")
@@ -47,11 +46,4 @@ public class CourseShare extends Entitys implements Serializable {
     @Column(name = "share_area", columnDefinition = "INT COMMENT '分享范围 1,全部　２,章节'")
     private String shareArea;
 
-//    @ApiModelProperty(hidden = true)
-//    @JsonIgnore
-//    @Column(name = "teacher_id", columnDefinition = "VARCHAR(32) COMMENT '对应的教师ID'", nullable = false)
-//    private String teacherId;
-//
-//    @Formula("(select t.teacher_name from teacher t where t.teacher_id=teacher_id)")
-//    private String teacherName;
 }

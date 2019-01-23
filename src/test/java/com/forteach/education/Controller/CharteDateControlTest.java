@@ -121,5 +121,5 @@ public class CharteDateControlTest {
         WebResult r=courseDataController.findDatumList(req);
         log.info("*********{}" ,JSON.toJSONString(r));
     }
-    
+
 }

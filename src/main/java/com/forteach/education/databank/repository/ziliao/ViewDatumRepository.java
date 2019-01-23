@@ -16,26 +16,4 @@ import java.util.List;
  */
 public interface ViewDatumRepository extends IDatumRepoitory<ViewDatum, String> {
 
-    /**
-     * 分页查询生效视频资源
-     * @param isValidated
-     * @param pageable
-     * @return
-     */
-    Page<ViewDatum> findByIsValidatedEquals(String isValidated, Pageable pageable);
-
-    /**
-     * 根据对应的章节查询有效视频资料信息
-     * @param chapterId
-     * @return
-     */
-    List<ViewDatum> findByIsValidatedEqualsAndChapterId(String isValidated, String chapterId);
-
-    /**
-     * 查询课程视频信息
-     * 条件　１，是否有效　２　课程ID 3 课程id为空是课程id信息
-     * @param courseId
-     * @return
-     */
-    List<ViewDatum> findByIsValidatedEqualsAndCourseIdAndChapterIdIsNull(String isValidated, String courseId);
 }

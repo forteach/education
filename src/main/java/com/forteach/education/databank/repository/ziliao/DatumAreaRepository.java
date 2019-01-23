@@ -24,17 +24,4 @@ public interface DatumAreaRepository extends JpaRepository<DatumArea, String> {
     //章节、知识点、资料领域
     public Page<DatumArea> findByChapterIdAndKNodeIdAndDatumAreaIn(String chapterId,String kNodeId,List<String> datumAreas,Pageable pageable);
 
-    /**
-     * 章节领域资料数量
-     * @param courseId
-     * @param datumArea
-     * @param isValidated
-     * @return
-     */
-    public int countByCourseIdAndChapterIdAndDatumAreaAndIsValidated(String courseId,String chapterId, String datumArea,String isValidated);
-
-
-
-
-
 }

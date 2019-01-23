@@ -12,15 +12,12 @@ import java.io.Serializable;
  * @Version: 1.0
  * @Description: 链接资料库
  */
-//@Builder
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "link_datum", comment = "链接资料库")
 @Table(name = "link_datum", indexes = {@Index(columnList = "chapter_id")})
 @ApiModel(value = "链接资料库")
-//@AllArgsConstructor
-//@NoArgsConstructor
 public class LinkDatum extends AbsDatum implements Serializable {
 
 }

@@ -1,13 +1,9 @@
 package com.forteach.education.classes.web.req;
 
-import com.forteach.education.common.domain.Entitys;
-import com.forteach.education.common.request.BaseReq;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 

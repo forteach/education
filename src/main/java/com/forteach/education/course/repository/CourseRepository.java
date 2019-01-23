@@ -16,12 +16,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CourseRepository extends JpaRepository<Course, String> {
 
     /**
-     * 分页查询生效视频资源
+     * 分页查询所有有效课程
      * @param isValidated
      * @param pageable
      * @return
      */
-    Page<ICourseListDto> findByIsValidatedEquals(String isValidated, Pageable pageable);
+    Page<ICourseListDto> findByIsValidated(String isValidated, Pageable pageable);
 
     /**
      * 分页查询我的课程科目
@@ -30,5 +30,5 @@ public interface CourseRepository extends JpaRepository<Course, String> {
      * @param pageable
      * @return
      */
-    Page<Course> findByIsValidatedEqualsAndCreateUser(String isValidated, String cUser, Pageable pageable);
+    Page<ICourseListDto> findByCreateUserAndIsValidated( String cUser,String isValidated, Pageable pageable);
 }

@@ -12,15 +12,13 @@ import java.io.Serializable;
  * @Version: 1.0
  * @Description: 音频资料库
  */
-//@Builder
+
 @Data
 @Entity
 @Table(name = "audio_datum", indexes = {@Index(columnList = "chapter_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "audio_datum", comment = "音频资料库")
 @ApiModel(value = "音频资料库")
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class AudioDatum extends AbsDatum implements Serializable {
 
 

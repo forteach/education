@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 
 /**
@@ -20,7 +19,7 @@ import javax.validation.Valid;
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-11-26 15:43
  * @Version: 1.0
- * @Description:
+ * @Description:  章节资料库资料操作
  */
 @RestController
 @RequestMapping(path = "/chapteData", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -52,7 +51,6 @@ public class ChapteDataController {
     @ApiOperation(value = "资料信息列表" , notes = "{\"chapterId\":\"2c9180c067ee2be40167eeb29a7f0004\",\"courseId\":\"2c91808d678e620701679bfccf570000\",\"datumArea\":\"1\",\"sortVo\":{\"isValidated\":\"0\",\"page\":0,\"size\":15,\"sort\":1}}")
     @PostMapping("/findDatumList")
     @ApiImplicitParams({
-
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "string", required = true, paramType = "from", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例"),
             @ApiImplicitParam(name = "kNodeId", value = "知识点标签", dataType = "string", paramType = "from", example = "知识点 ‘,’ 进行分割"),
@@ -63,58 +61,10 @@ public class ChapteDataController {
         SortVo sortVo=req.getSortVo();
         PageRequest pageReq=PageRequest.of(sortVo.getPage(), sortVo.getSize());
         if(StrUtil.isBlank(req.getDatumArea())){
-
             return WebResult.okResult( chapteDataService.findDatumList(req.getChapterId(),req.getKNodeId(),req.getDatumType(),pageReq));
         }else{
             return WebResult.okResult( chapteDataService.findDatumList(req.getChapterId(),req.getKNodeId(),req.getDatumArea(),req.getDatumType(),pageReq));
         }
-
     }
-
-//    @ApiOperation(value = "章节教案资料总数", notes = "章节教案资料总数")
-//    @PostMapping("/countJiaoAn")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "courseId", value = "科目编号", required = true, dataType = "string", paramType = "query"),
-//            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", required = true, paramType = "query")
-//    })
-//    public WebResult countJiaoAn(@Valid @ApiParam(value = "章节教案资料总数", name = "chapteData") @RequestBody ChapteDataCountReq req) {
-//        return WebResult.okResult( chapteDataService.countJiaoAn(req.getCourseId(),req.getChapterId()));
-//    }
-
-//    @ApiOperation(value = "章节课件资料总数", notes = "章节课件资料总数")
-//    @PostMapping("/countKeJian")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "courseId", value = "科目编号", required = true, dataType = "string", paramType = "query"),
-//            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", required = true, paramType = "query")
-//    })
-//    public WebResult countKeJian(@Valid @ApiParam(value = "章节课件资料总数", name = "chapteData") @RequestBody ChapteDataCountReq req) {
-//        return WebResult.okResult( chapteDataService.countKeJian(req.getCourseId(),req.getChapterId()));
-//    }
-
-//    @PostMapping("/deleteById")
-//    @ApiOperation(value = "删除资料信息", notes = "根据ID 删除资源表")
-//    @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", required = true, paramType = "query")
-//    public WebResult deleteById(@Valid @ApiParam(value = "根据dataId删除对应资料信息", name = "dataId", type = "string") @RequestBody String dataId){
-//       // chapteDataService.deleteById(String.valueOf(JSONObject.parseObject(dataId).getString("dataId")));
-//        return WebResult.okResult();
-//    }
-//
-//
-//    @ApiOperation(value = "删除科目章节资料信息")
-//    @PostMapping("/delete")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "dataId", value = "资料编号", dataType = "string", required = true, paramType = "from"),
-//            @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", paramType = "from"),
-//            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "from"),
-//            @ApiImplicitParam(name = "sortImgId", value = "图册编号", dataType = "string", paramType = "from"),
-//            @ApiImplicitParam(name = "datumName", value = "资料名称", dataType = "string", paramType = "from"),
-//            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "int", paramType = "from"),
-//            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "int", paramType = "from"),
-//            //@ApiImplicitParam(name = "remark", value = "备注说明", dataType = "string", paramType = "from")
-//    })
-//    public WebResult delete(@Valid @ApiParam(value = "删除资料信息", name = "chapteData") @RequestBody CourseData chapteData){
-//       // chapteDataService.delete(chapteData);
-//        return WebResult.okResult();
-//    }
 
 }

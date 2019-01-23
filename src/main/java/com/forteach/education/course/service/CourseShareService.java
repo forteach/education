@@ -25,11 +25,12 @@ public interface CourseShareService {
      * @param shareId
      * @return
      */
-    public List<CourseShareUsers> findByShareId(String shareId);
+    public List<CourseShareUsers> findByShareIdUsers(String shareId);
 
     public String save( Course course, List<RTeacher> teacherList);
 
     public String update(String lessonPreType,String shareId, Course course, List<RTeacher> teacherList);
 
-    public CourseShare findByAndCourseIdAndAndShareArea(String courseId );
+    //根据课程编号查询所有领域信息
+    public CourseShare findByCourseIdAll(String courseId );
 }

@@ -15,18 +15,6 @@ import java.util.List;
  * @Description: 音频资料库
  */
 public interface AudioDatumRepository extends IDatumRepoitory<AudioDatum, String> {
-    /**
-     * 分页查询生效音频资源
-     * @param isValidated
-     * @param pageable
-     * @return
-     */
-    Page<AudioDatum> findByIsValidatedEquals(String isValidated, Pageable pageable);
 
-    /**
-     * 根据对应的章节查询有效音频资料信息
-     * @param chapterId
-     * @return
-     */
-    List<AudioDatum> findByIsValidatedEqualsAndChapterId(String isValidated, String chapterId);
+
 }
