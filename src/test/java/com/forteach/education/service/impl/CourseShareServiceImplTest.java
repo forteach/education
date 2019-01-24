@@ -29,10 +29,10 @@ public class CourseShareServiceImplTest {
     private CourseShareService courseShareService;
     @Test
     public void selectCourseShareTeachersByCourseId() {
-        List<CourseShareUsers> list = courseShareService.findByShareId("40288d5c67df334e0167df3393aa0001");
-        list.forEach(dto ->{
-            log.info("courseShareDto---1 : {}", dto.getUserName());
-        });
+//        List<CourseShareUsers> list = courseShareService.findByShareId("40288d5c67df334e0167df3393aa0001");
+//        list.forEach(dto ->{
+//            log.info("courseShareDto---1 : {}", dto.getUserName());
+//        });
     }
 
 //    @Test
