@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import java.io.Serializable;
+
 @Data
 @Entity
 @Table(name = "course_atlits",indexes = {@Index(columnList = "chapter_id")})

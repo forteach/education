@@ -9,6 +9,9 @@ import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+/**
+ * 重要课件信息父类
+ */
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
@@ -29,6 +32,6 @@ public abstract class AbsFile extends Entitys {
     @Column(name = "file_url", columnDefinition = "VARCHAR(255) COMMENT '文件URL'")
     public String fileUrl;
 
-    @Column(name = "datum_type", columnDefinition = "VARCHAR(3) COMMENT '资料类型 1文档　　3视频　4音频　5链接'")
+    @Column(name = "datum_type", columnDefinition = "VARCHAR(3) COMMENT '资料类型 1文档　3视频　4音频　5链接'")
     private String datumType;
 }

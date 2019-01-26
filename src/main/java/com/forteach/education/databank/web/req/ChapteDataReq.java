@@ -22,6 +22,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChapteDataReq {
+    //资料编号
+    private String fileId;
 
     @NotNull(message = "科目编号不为空")
     @ApiModelProperty(name = "courseId", value = "科目编号", dataType = "string", required = true)

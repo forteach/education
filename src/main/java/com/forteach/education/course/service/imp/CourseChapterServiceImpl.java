@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,21 +40,23 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Override
     @Transactional(rollbackForClassName="Exception")
     public CourseChapterSaveResp save(CourseChapter courseChapter) {
-        //判断是顶层章节
+        //1、判断是顶层章节，设置目录层级为1
         if (COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId())){
             courseChapter.setChapterLevel("1");
 
         }else {
+            //获得当前层级+1
             CourseChapter c = courseChapterRepository.findById(courseChapter.getChapterParentId()).get();
             courseChapter.setChapterLevel(String.valueOf(Integer.parseInt(c.getChapterLevel())+1));
         }
-        //查询当前科目章节有多少条数据
-        int count = courseChapterRepository.countByIsValidatedEqualsAndCourseIdAndChapterParentId(TAKE_EFFECT_OPEN,
-                courseChapter.getCourseId(), courseChapter.getChapterParentId());
-        //设置当前章节下的最大序号
+        //2、查询当前科目章节有多少条数据
+        int count = courseChapterRepository.countByIsValidatedEqualsAndCourseIdAndChapterParentId(TAKE_EFFECT_OPEN, courseChapter.getCourseId(), courseChapter.getChapterParentId());
+
+        //3、设置当前章节下的最大序号
         courseChapter.setSort(String.valueOf(count + 1));
         courseChapterRepository.save(courseChapter);
-        //创建输出对象
+
+        //4、创建输出对象
         CourseChapterSaveResp resp=new CourseChapterSaveResp();
         UpdateUtil.copyNullProperties(courseChapter, resp);
         return resp;
@@ -64,15 +65,16 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Override
     @Transactional(rollbackForClassName="Exception")
     public CourseChapterSaveResp edit(CourseChapterEditReq courseChapterEditReq) {
+        //1、获得当前数据库对象
         CourseChapter source = courseChapterRepository.findById(courseChapterEditReq.getChapterId()).get();
         CourseChapter courseChapter = CourseChapter.builder().build();
         BeanUtils.copyProperties(courseChapterEditReq, courseChapter);
         UpdateUtil.copyNullProperties(source, courseChapter);
-        //设置创建时间
+        //2、设置创建时间
         courseChapter.setCreateTime(source.getCreateTime());
         courseChapterRepository.save(courseChapter);
 
-        //创建输出对象
+        //3、创建输出对象
         CourseChapterSaveResp resp=new CourseChapterSaveResp();
         UpdateUtil.copyNullProperties(courseChapter, resp);
         return resp;

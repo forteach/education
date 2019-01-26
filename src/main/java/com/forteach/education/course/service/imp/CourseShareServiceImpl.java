@@ -24,7 +24,7 @@ import static com.forteach.education.common.keyword.Dic.LESSON_PREPARATION_TYPE_
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-12-5 15:36
  * @Version: 1.0
- * @Description: 课程分享范围
+ * @Description: 课程章节分享范围  章节全部分享和部分分享，分享给的那些教师
  */
 @Slf4j
 @Service

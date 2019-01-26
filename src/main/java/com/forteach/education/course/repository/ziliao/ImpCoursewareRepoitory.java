@@ -1,11 +1,14 @@
 package com.forteach.education.course.repository.ziliao;
 
 import com.forteach.education.course.domain.ziliao.ImportantCourseware;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
 
-public interface ImpCoursewareRepoitory extends IFileRepoitory<ImportantCourseware, String> {
+public interface ImpCoursewareRepoitory extends JpaRepository<ImportantCourseware, String> {
 
     /**
+     *重要课件资料（教案、课件）图集类型除外,按章节、文件类型、课件类型查询
      *
      * @param chapterId
      * @param datumType
@@ -15,12 +18,5 @@ public interface ImpCoursewareRepoitory extends IFileRepoitory<ImportantCoursewa
      */
     public List<ImportantCourseware> findByChapterIdAndDatumTypeAndImportantTypeAndIsValidated( String chapterId, String datumType,String importantType, String isValidated);
 
-//    /**
-//     *重要课件数量
-//     * @param isValidated
-//     * @return
-//     */
-//    @Query("SELECT datumType as datumType,count(datumType) as dCount from ChapteData where   chapterId=:chapterId and importantType=:importantType and isValidated=:isValidated group by datumType ")
-//    public List<IDatumAreaCountDto> countKeJian( String chapterId, String importantType, String isValidated);
 
 }

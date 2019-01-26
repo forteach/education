@@ -1,6 +1,7 @@
 package com.forteach.education.course.service;
 
 import com.forteach.education.course.domain.ziliao.CourseData;
+import com.forteach.education.course.web.vo.RCourseData;
 import com.forteach.education.databank.web.req.ChapteDataReq;
 import com.forteach.education.databank.web.res.DatumResp;
 import com.forteach.education.web.req.CourseDataDatumReq;
@@ -18,7 +19,9 @@ import java.util.List;
  */
 public interface CourseDataService {
 
-    public int save(CourseDataDatumReq req);
+    public int save(String chapterId,List<RCourseData> files);
+
+    public String updateAreaAndShare(String courseId,String chapterId,String kNodeId,String fileId,String datumType,String datumArea,String teachShare,String stuShare);
 
     //课程资料详细列表
     public List<DatumResp> findDatumList(String chapterId, String datumType, Pageable pageable);

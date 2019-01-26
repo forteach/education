@@ -9,7 +9,6 @@ import com.forteach.education.databank.repository.ziliao.*;
 import com.forteach.education.databank.service.ChapteDataService;
 import com.forteach.education.databank.web.res.DatumResp;
 import com.forteach.education.util.FileUtils;
-import com.forteach.education.databank.web.req.ChapteDataReq;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.vo.DataDatumVo;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +24,8 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 import static java.util.stream.Collectors.toList;
 
@@ -53,34 +54,94 @@ public class ChapteDataServiceImpl implements ChapteDataService {
 
     /**
      *
-     * @param chapteDataReq  章节资源文件信息
-     * @return  int 新增文件数量
+     * @param chapterId
+     * @param datumArea
+     * @param datumType
+     * @param files
+     * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public String save(ChapteDataReq chapteDataReq) {
+    public String save(String courseId,String chapterId,String datumArea,String datumType, String teachShare,String stuShare, List<DataDatumVo> files) {
         //根据文件类型，对应保存信息
         //1文档　3视频　4音频　5链接
-        String datumType = chapteDataReq.getDatumType();
         String size="";
         switch (datumType){
             case Dic.COURSE_ZILIAO_FILE:  //文档
-                size=saveT(chapteDataReq,fileDatumRepository,new FileDatum());
+                size=saveT(courseId,chapterId,datumArea,datumType,teachShare,stuShare,files,fileDatumRepository,new FileDatum());
                 break;
             case Dic.COURSE_ZILIAO_VIEW://视频
-                size= saveT(chapteDataReq,viewDatumRepository,new ViewDatum());
+                size= saveT(courseId,chapterId,datumArea,datumType,teachShare,stuShare,files,viewDatumRepository,new ViewDatum());
                 break;
             case Dic.COURSE_ZILIAO_AUDIO://音频
-                size= saveT(chapteDataReq,audioDatumRepository,new AudioDatum());
+                size= saveT(courseId,chapterId,datumArea,datumType,teachShare,stuShare,files,audioDatumRepository,new AudioDatum());
                 break;
             case Dic.COURSE_ZILIAO_LINK://链接
-                size= saveT(chapteDataReq,linkDatumRepository,new LinkDatum());
+                size= saveT(courseId,chapterId,datumArea,datumType,teachShare,stuShare,files,linkDatumRepository,new LinkDatum());
                 break;
         }
         //添加成功后的文件数量
         return size;
     }
 
+    /**
+     *单个资料领域修改
+     * @param fileId  资料类型
+     * @param datumType  资料类型
+     * @param datumArea  资料领域
+     * @param teachShare 教师分享
+     * @param stuShare   学生可见
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public String  updateAreaAndShare(String courseId,String chapterId,String kNodeId,String fileId,String datumType,String datumArea,String teachShare,String stuShare) {
+
+        //1、根据资料编号和领域编号，获得领域表信息
+        DatumArea da= datumAreaRepository.findByFileIdAndDatumArea(fileId,datumArea);
+
+        //2、如果存在就删除，相反就添加
+        if(da!=null){
+            datumAreaRepository.deleteByFileIdAndDatumArea(fileId,datumArea);
+        }else{
+            da=new DatumArea();
+            da.setFileId(IdUtil.fastSimpleUUID());
+            da.setDatumArea(datumArea);
+            da.setDatumType(datumType);
+            da.setKNodeId(kNodeId);
+            da.setChapterId(chapterId);
+            da.setCourseId(courseId);
+            datumAreaRepository.save(da);
+        }
+
+        //3、根据资料ID，获得领域信息，组装成都好分割的字符串
+        List<String> list=datumAreaRepository.findByFileId(fileId).stream().map(item->{return item.getDatumArea();}).collect(Collectors.toList());
+        String newArea=String.join(",",list);
+
+        //4、修改文件资料表的资料领域字段
+        switch (datumType){
+            case Dic.COURSE_ZILIAO_FILE:  //文档
+                fileDatumRepository.updateDatumArea(fileId,newArea);
+                fileDatumRepository.updateStuShare(fileId,stuShare);
+                fileDatumRepository.updateTeachShare(fileId,teachShare);
+                break;
+            case Dic.COURSE_ZILIAO_VIEW://视频
+                viewDatumRepository.updateDatumArea(fileId,newArea);
+                viewDatumRepository.updateStuShare(fileId,stuShare);
+                viewDatumRepository.updateTeachShare(fileId,teachShare);
+                break;
+            case Dic.COURSE_ZILIAO_AUDIO://音频
+                audioDatumRepository.updateDatumArea(fileId,newArea);
+                audioDatumRepository.updateStuShare(fileId,stuShare);
+                audioDatumRepository.updateTeachShare(fileId,teachShare);
+                break;
+            case Dic.COURSE_ZILIAO_LINK://链接
+                linkDatumRepository.updateDatumArea(fileId,newArea);
+                linkDatumRepository.updateStuShare(fileId,stuShare);
+                linkDatumRepository.updateTeachShare(fileId,teachShare);
+                break;
+        }
+        return "ok";
+    }
 
     /**
      *   根据资料领域、课程、章节、资料列表
@@ -219,15 +280,11 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                 }).collect(toList());
     }
 
-    private String saveT(ChapteDataReq chapteDataReq, IDatumRepoitory rep, AbsDatum fd){
-
-        String chapterId=chapteDataReq.getChapterId();
-        String datumArea=chapteDataReq.getDatumArea();
-        String datumType=chapteDataReq.getDatumType();
+    private String saveT(String courseId,String chapterId,String datumArea,String datumType, String teachShare,String stuShare, List<DataDatumVo> files, IDatumRepoitory rep, AbsDatum fd){
 
         //1、添加资料文件列表明细
         List<AbsDatum> fileDatumList = new ArrayList<>();
-        for (DataDatumVo dataDatumVo : chapteDataReq.getFiles()) {
+        for (DataDatumVo dataDatumVo : files) {
             String uuid = IdUtil.fastSimpleUUID();
             fd.setChapterId(chapterId);
             fd.setFileId(uuid);
@@ -235,6 +292,9 @@ public class ChapteDataServiceImpl implements ChapteDataService {
             fd.setFileType(FileUtils.ext(dataDatumVo.getFileName()));
             fd.setFileUrl(dataDatumVo.getFilePath());
             fd.setDatumType(datumType);
+            fd.setStuShare(stuShare);
+            fd.setTeachShare(teachShare);
+            fd.setCourseId(courseId);
             fileDatumList.add(fd);
         }
         rep.saveAll(fileDatumList);
@@ -255,7 +315,6 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                 da.setDatumType(type);
                 da.setChapterId(chapterId1);
                 da.setKNodeId(knodeId);
-
                 list.add(da);
             });
             datumAreaRepository.saveAll(list);

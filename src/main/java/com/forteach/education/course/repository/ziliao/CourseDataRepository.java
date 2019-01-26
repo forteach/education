@@ -5,6 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,40 +18,23 @@ import java.util.List;
  * @Version: 1.0
  * @Description: 章节资料
  */
-public interface CourseDataRepository extends JpaRepository<CourseData, String> {
-    /**
-     * 查询科目有效资料信息
-     * @param isValidated
-     * @param courseId
-     * @return
-     */
-   public  List<CourseData> findByCourseIdAndIsValidated( String courseId,String isValidated);
-    /**
-     * 根据有效状态可科目ID查询章节资料信息
-     * @param isValidated
-     * @param chapterId
-     * @return
-     */
-   public  List<CourseData> findByChapterIdAndIsValidated(String chapterId,String isValidated);
+public interface CourseDataRepository extends IFileRepoitory<CourseData, String> {
+    //修改资料领域
+    @Modifying
+    @Query("UPDATE CourseData p SET p.datumArea = :datumArea where p.dataId = :dataId")
+    public void updateDatumArea(String dataId,String datumArea);
 
-    /**
-     * 根据知识点获得资料列表
-     * @param kNodeId
-     * @param isValidated
-     * @return
-     */
-   public Page<CourseData> findByKNodeIdAndIsValidated(String kNodeId,String isValidated,Pageable pageable);
+    //修改教师分享
+    @Modifying
+    @Query("UPDATE CourseData p SET p.teachShare = :teachShare where p.dataId = :dataId")
+    public void updateTeachShare(String dataId,String teachShare);
 
-   public Page<CourseData> findByChapterIdAndDatumTypeAndIsValidatedOrderByCreateTimeAsc(String chapterId,String datumType, String isValidated,Pageable pageable);
+    //修改学生可见
+    @Modifying
+    @Query("UPDATE CourseData p SET p.stuShare = :stuShare where p.dataId = :dataId")
+    public void updateStuShare(String dataId,String stuShare);
 
-    public Page<CourseData> findByChapterIdAndDatumTypeAndKNodeIdAndIsValidated(String chapterId,String datumType,String kNodeId, String isValidated,Pageable pageable);
-
-    /**
-     * 多条件查询课程科目文件挂载
-     * @param specification
-     * @param pageable
-     * @return
-     */
-   public Page<CourseData> findAll(Specification<CourseData> specification, Pageable pageable);
+    @Transactional
+    public int deleteByChapterId(String chapterId);
 
 }

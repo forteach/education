@@ -4,7 +4,6 @@ package com.forteach.education.service.impl;
 import com.forteach.education.classes.web.req.RTeacher;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseImages;
-import com.forteach.education.course.dto.ICourseListDto;
 import com.forteach.education.course.service.CourseService;
 import com.forteach.education.course.web.req.CourseSaveReq;
 import com.forteach.education.course.web.vo.RCourse;
@@ -12,13 +11,11 @@ import com.forteach.education.web.req.CourseImagesReq;
 import com.forteach.education.web.vo.DataDatumVo;
 import com.forteach.education.common.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.Sort;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -62,7 +59,7 @@ public class CourseServiceImplTest {
                 .course(c)
                 .teachers(list)
                 .build();
-//        courseService.save(req);
+        courseService.save(req);
     }
 
 
@@ -100,8 +97,8 @@ public class CourseServiceImplTest {
         sortVo.setPage(0);
         sortVo.setSize(10);
         sortVo.setSort(0);
-        List<ICourseListDto> list = courseService.findMyCourse("", PageRequest.of(sortVo.getPage(), sortVo.getSize()));
-        list.forEach(course -> {
+        Page<Course> page = courseService.findMyCourse(sortVo);
+        page.forEach(course -> {
             log.info(course.toString() +"\r\n");
         });
     }

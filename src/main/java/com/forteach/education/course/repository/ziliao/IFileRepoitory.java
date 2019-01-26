@@ -1,5 +1,6 @@
 package com.forteach.education.course.repository.ziliao;
 
+import com.forteach.education.course.domain.ziliao.CourseData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -47,11 +48,34 @@ public interface IFileRepoitory<T,ID>  extends JpaRepository<T, ID> {
     public List<T> findByChapterIdAndDatumTypeAndIsValidated( String chapterId, String datumType, String isValidated);
 
     /**
+     * 根据章节、文件类型 按时间倒序排列
+     * @param chapterId
+     * @param datumType
+     * @param isValidated
+     * @param pageable
+     * @return
+     */
+    public Page<T> findByChapterIdAndDatumTypeAndIsValidatedOrderByCreateTimeAsc(String chapterId, String datumType, String isValidated, Pageable pageable);
+
+    /**
+     * 根据章节、文件类型、知识点 按时间倒序排列
+     * @param chapterId
+     * @param datumType
+     * @param isValidated
+     * @param pageable
+     * @return
+     */
+    public Page<T> findByChapterIdAndDatumTypeAndKNodeIdAndIsValidatedOrderByCreateTimeAsc(String chapterId,String datumType,String kNodeId, String isValidated,Pageable pageable);
+
+
+
+    /**
      * 多条件查询课程科目文件挂载
      * @param specification
      * @param pageable
      * @return
      */
     public Page<T> findAll(Specification<T> specification, Pageable pageable);
+
 
 }

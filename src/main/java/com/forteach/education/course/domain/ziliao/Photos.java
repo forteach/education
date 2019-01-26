@@ -1,7 +1,5 @@
 package com.forteach.education.course.domain.ziliao;
 
-import com.forteach.education.common.domain.Entitys;
-import com.forteach.education.databank.domain.ziliao.AbsDatum;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 import javax.persistence.*;;
@@ -9,7 +7,7 @@ import java.io.Serializable;
 
 
 /**
- * @Description:　图片
+ * @Description:　图集图片
  * @author: liu zhenming
  * @version: V1.0
  * @date: 2018/11/6 15:45
