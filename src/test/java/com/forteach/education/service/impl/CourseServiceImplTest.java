@@ -59,7 +59,7 @@ public class CourseServiceImplTest {
                 .course(c)
                 .teachers(list)
                 .build();
-        courseService.save(req);
+       // courseService.save(req);
     }
 
 
@@ -97,9 +97,9 @@ public class CourseServiceImplTest {
         sortVo.setPage(0);
         sortVo.setSize(10);
         sortVo.setSort(0);
-        Page<Course> page = courseService.findMyCourse(sortVo);
-        page.forEach(course -> {
-            log.info(course.toString() +"\r\n");
-        });
+//        Page<Course> page = courseService.findMyCourse(sortVo);
+//        page.forEach(course -> {
+//            log.info(course.toString() +"\r\n");
+//        });
     }
 }
