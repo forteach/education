@@ -295,6 +295,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
             fd.setStuShare(stuShare);
             fd.setTeachShare(teachShare);
             fd.setCourseId(courseId);
+            fd.setDatumArea(datumArea);
             fileDatumList.add(fd);
         }
         rep.saveAll(fileDatumList);

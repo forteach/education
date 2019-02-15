@@ -74,9 +74,9 @@ public class CharteDateControlTest {
     @Test
     public void findDataList(){
         ChapteDataListReq req=new ChapteDataListReq();
-        req.setChapterId("40289fa0685ea88101685ea8c2cd0000");
+        req.setChapterId("40288d5c682b825e01682b8442630001");
         req.setCourseId("2c9180846827407401682b57f4a60000");
-        req.setDatumArea("2");
+        req.setDatumArea("3,4,5,6");
         req.setDatumType("1");
         SortVo sv=new SortVo();
         req.setSortVo(sv);
