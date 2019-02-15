@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -35,8 +33,8 @@ public class DatumResp {
 //文件类型（音频、视频....）
  private String datumType;
 //教师共享
- private String teachShare="0";
+ private String teachShare;
 //学生可见
- private String stuShare="0";
+ private String stuShare;
 
 }
