@@ -56,7 +56,6 @@ public class ExceptionInterceptor {
     @ExceptionHandler(AssertErrorException.class)
     @ResponseBody
     public WebResult serverExceptionHandler(AssertErrorException ex) {
-        log.error("----------------"+ex.getMessage(),ex);
-        return WebResult.failResult(ex.getErrorCode());
+        return WebResult.failResult(ex.getErrorCode(),ex.getMessage());
     }
 }

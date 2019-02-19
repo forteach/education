@@ -8,7 +8,6 @@ import com.forteach.education.course.repository.ziliao.CourseDataRepository;
 import com.forteach.education.course.repository.ziliao.CourseDatumAreaRepository;
 import com.forteach.education.course.service.CourseDataService;
 import com.forteach.education.course.web.vo.RCourseData;
-import com.forteach.education.databank.domain.ziliao.DatumArea;
 import com.forteach.education.databank.web.res.DatumResp;
 import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.UpdateUtil;

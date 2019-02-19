@@ -1,6 +1,7 @@
 package com.forteach.education.course.web.control;
 
 import com.alibaba.fastjson.JSONObject;
+import com.forteach.education.common.keyword.MyAssert;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.course.domain.KNode;
 import com.forteach.education.course.service.KNodeService;
@@ -8,10 +9,7 @@ import com.forteach.education.course.web.req.KNodeAll;
 import com.forteach.education.util.UpdateUtil;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -99,6 +97,12 @@ public class KNodeController {
     })
     public WebResult deleteIsValidById(@Valid @ApiParam(name = "kNodeId", value = "知识点ID", required = true) @RequestBody String kNodeId){
         kNodeService.deleteIsValidById(String.valueOf(JSONObject.parseObject(kNodeId).getString("kNodeId")));
+        return WebResult.okResult();
+    }
+
+    @GetMapping("/test")
+    public WebResult test(){
+        MyAssert.isFalse(false,10001,"测试");
         return WebResult.okResult();
     }
 }
