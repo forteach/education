@@ -26,6 +26,9 @@ public interface CourseDataService {
     //课程资料详细列表
     public List<DatumResp> findDatumList(String chapterId, String datumType, Pageable pageable);
 
+    //课程资料详细列表
+    public List<DatumResp> findDatumList(String chapterId, Pageable pageable);
+
     public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumType, Pageable pageable);
 
     public void delete(CourseData chapteData);

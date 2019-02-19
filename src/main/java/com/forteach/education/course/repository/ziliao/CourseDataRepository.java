@@ -22,17 +22,17 @@ public interface CourseDataRepository extends IFileRepoitory<CourseData, String>
     //修改资料领域
     @Modifying
     @Query("UPDATE CourseData p SET p.datumArea = :datumArea where p.dataId = :dataId")
-    public void updateDatumArea(String dataId,String datumArea);
+    public void updateDatumArea(String dataId, String datumArea);
 
     //修改教师分享
     @Modifying
     @Query("UPDATE CourseData p SET p.teachShare = :teachShare where p.dataId = :dataId")
-    public void updateTeachShare(String dataId,String teachShare);
+    public void updateTeachShare(String dataId, String teachShare);
 
     //修改学生可见
     @Modifying
     @Query("UPDATE CourseData p SET p.stuShare = :stuShare where p.dataId = :dataId")
-    public void updateStuShare(String dataId,String stuShare);
+    public void updateStuShare(String dataId, String stuShare);
 
     @Transactional
     public int deleteByChapterId(String chapterId);
