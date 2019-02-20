@@ -47,4 +47,17 @@ public class Dic {
     public static final String COURSE_ZILIAO_VIEW = "3";
     public static final String COURSE_ZILIAO_AUDIO = "4";
     public static final String COURSE_ZILIAO_LINK = "5";
+
+    /**
+     * 微信用户 token 前缀
+     */
+    public final static String WX_USER_PREFIX = "wxUserToken$";
+    /**
+     * 用户 token 前缀
+     */
+    public final static String USER_TOKEN_PREFIX ="userToken$";
+    /**
+     * 用户token 的有效时间
+     */
+    public final static Long TokenValidityTime = 3600L * 24 * 7;
 }
