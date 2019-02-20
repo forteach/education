@@ -181,6 +181,7 @@ public class CourseDataServiceImpl implements CourseDataService {
                 .map((item) -> {
                     DatumResp dr = new DatumResp();
                     UpdateUtil.copyNullProperties(item, dr);
+                    dr.setFileId(item.getDataId());
                     dr.setFileName(item.getDatumName());
                     dr.setFileUrl(item.getDatumUrl());
                     return dr;
@@ -205,6 +206,7 @@ public class CourseDataServiceImpl implements CourseDataService {
                 .map((item) -> {
                     DatumResp dr = new DatumResp();
                     UpdateUtil.copyNullProperties(item, dr);
+                    dr.setFileId(item.getDataId());
                     dr.setFileName(item.getDatumName());
                     dr.setFileUrl(item.getDatumUrl());
                     return dr;
