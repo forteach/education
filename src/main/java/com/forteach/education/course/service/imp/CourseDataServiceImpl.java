@@ -58,7 +58,7 @@ public class CourseDataServiceImpl implements CourseDataService {
         List<CourseData> fileDatumList = files.stream()
                 .map(item -> {
                     CourseData cd = new CourseData();
-                    cd.setDataId(IdUtil.fastSimpleUUID());
+                    cd.setDataId(item.getDataId());
                     UpdateUtil.copyNullProperties(item, cd);
                     cd.setDatumExt(FileUtils.ext(cd.getDatumName()));
                     return cd;
