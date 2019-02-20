@@ -23,12 +23,12 @@ public class SortVoValidation implements ConstraintValidator<SortVo, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value == null){
+        if (value == null) {
             return false;
         }
-        if (sortVoEnum == SortVoEnum.ASC || sortVoEnum == SortVoEnum.DESC){
+        if (sortVoEnum == SortVoEnum.ASC || sortVoEnum == SortVoEnum.DESC) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

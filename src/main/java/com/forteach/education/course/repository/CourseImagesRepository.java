@@ -15,6 +15,7 @@ import java.util.List;
 public interface CourseImagesRepository extends JpaRepository<CourseImages, String> {
     /**
      * 根据有效状态和科目课程查询对应的轮播图信息 排序方式正序
+     *
      * @param isValidated
      * @param courseId
      * @return

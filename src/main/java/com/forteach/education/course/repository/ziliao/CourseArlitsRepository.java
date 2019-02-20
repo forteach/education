@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface CourseArlitsRepository extends JpaRepository<CourseAtlits, String> {
 
-    public List<CourseAtlits> findByChapterIdAndIsValidated(String chapterId,String isValidated);
+    public List<CourseAtlits> findByChapterIdAndIsValidated(String chapterId, String isValidated);
 
     public Page<CourseAtlits> findByChapterIdAndIsValidated(String chapterId, String isValidated, Pageable pageable);
 

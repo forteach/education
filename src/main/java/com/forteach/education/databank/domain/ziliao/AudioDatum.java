@@ -2,6 +2,7 @@ package com.forteach.education.databank.domain.ziliao;
 
 import io.swagger.annotations.ApiModel;
 import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 

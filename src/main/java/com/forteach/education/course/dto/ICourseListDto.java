@@ -12,30 +12,35 @@ public interface ICourseListDto {
 
     /**
      * 课程ID
+     *
      * @return
      */
     public String getCourseId();
 
     /**
-     *课程名称
+     * 课程名称
+     *
      * @return
      */
     public String getCourseName();
 
     /**
-     *课程编号
+     * 课程编号
+     *
      * @return
      */
     public String getCourseNumber();
 
     /**
-     *备课类型
+     * 备课类型
+     *
      * @return
      */
     public String getLessonPreparationType();
 
     /**
-     *课程封面
+     * 课程封面
+     *
      * @return
      */
     public String getTopPicSrc();

@@ -25,8 +25,9 @@ import javax.annotation.Resource;
 public class AuthController {
     @Resource
     private UserService userService;
+
     @PostMapping("/register")
-    public WebResult registerUser(@RequestBody SysUsers user){
+    public WebResult registerUser(@RequestBody SysUsers user) {
         return userService.registerUser(user);
     }
 //    @PostMapping("/login")

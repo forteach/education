@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-11-16 15:36
  * @Version: 1.0
- * @Description:  课程分享范围
+ * @Description: 课程分享范围
  */
 @Data
 @Entity

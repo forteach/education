@@ -5,8 +5,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.forteach.education.paper.repository")
-public class PaperMysqlConfig{
+public class PaperMysqlConfig {
 
-	
-  
+
 }

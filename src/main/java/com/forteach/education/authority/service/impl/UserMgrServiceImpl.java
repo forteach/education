@@ -30,7 +30,7 @@ public class UserMgrServiceImpl implements UserMgrService {
     private UserRepository userRepository;
 
     @Override
-    @Transactional( rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public void updateUserRole(String roleId, List<String> userIds) {
         userRoleRepository.deleteByUserIdIn(userIds);
         //存入新的用户角色信息
@@ -49,13 +49,12 @@ public class UserMgrServiceImpl implements UserMgrService {
      * @return
      */
     @Override
-    @Transactional( rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public SysUsers edit(SysUsers user) {
 //        user.setuTime(new Date());
 //        user.setcTime(new Date());
-       return userRepository.save(user);
+        return userRepository.save(user);
     }
-
 
 
 }

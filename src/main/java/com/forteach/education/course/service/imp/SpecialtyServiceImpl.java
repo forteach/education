@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
@@ -33,7 +34,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     @Override
     public Specialty save(String specialtyName) {
         Specialty specialty = specialtyRepository.findByIsValidatedEqualsAndSpecialtyName(TAKE_EFFECT_OPEN, specialtyName);
-        if (specialty != null){
+        if (specialty != null) {
             return specialtyRepository.save(Specialty.builder().specialtyName(specialtyName).build());
         }
         return specialty;
@@ -74,11 +75,12 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     /**
      * 分页查询科目信息
+     *
      * @param sortVo
      * @return
      */
     @Override
-    public Page<Specialty> findAll(SortVo sortVo){
+    public Page<Specialty> findAll(SortVo sortVo) {
         Page<Specialty> page = specialtyRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
         return page;
     }

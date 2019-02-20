@@ -31,6 +31,6 @@ public class CourseChapterEditReq implements Serializable {
     @ApiModelProperty(value = "章节名称", name = "chapter_name", dataType = "string")
     private String chapterName;
 
-        @ApiModelProperty(value = "是否发布", name = "publish", dataType = "string", notes = "是否发布　Y(是) N(否)", example = "Y")
+    @ApiModelProperty(value = "是否发布", name = "publish", dataType = "string", notes = "是否发布　Y(是) N(否)", example = "Y")
     private String publish;
 }

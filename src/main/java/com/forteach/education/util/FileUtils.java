@@ -16,18 +16,18 @@ public class FileUtils {
 
     public static void writeStringToFile(File file, String ppthtml, String s) throws IOException {
         FileWriter fw = null;
-        if (!file.exists()){
+        if (!file.exists()) {
             file.createNewFile();
         }
         fw = new FileWriter(file);
         BufferedWriter out = new BufferedWriter(fw);
-        out.write(s, 0, s.length()-1);
+        out.write(s, 0, s.length() - 1);
         out.close();
     }
 
     public static String getFileNameWithoutExtension(String filePath) {
         String fName = filePath.trim();
-        return fName.substring(fName.lastIndexOf("\\")+1);
+        return fName.substring(fName.lastIndexOf("\\") + 1);
     }
 
     public static String getFileExtension(String fileName) {
@@ -41,6 +41,7 @@ public class FileUtils {
 
     /**
      * 根据文件名获取文件类型
+     *
      * @param filename
      * @return
      */

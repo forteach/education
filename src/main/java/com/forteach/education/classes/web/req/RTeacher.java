@@ -4,6 +4,7 @@ package com.forteach.education.classes.web.req;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -28,7 +29,6 @@ public class RTeacher implements Serializable {
     @NotNull(message = "教师名称不能为空")
     @ApiModelProperty(value = "教师名称", name = "teacherName", notes = "教师名称", example = "张三", required = true)
     private String teacherName;
-
 
 
 }

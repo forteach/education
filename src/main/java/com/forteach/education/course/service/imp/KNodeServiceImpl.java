@@ -31,62 +31,67 @@ public class KNodeServiceImpl implements KNodeService {
     private KNodeRepository kNodeRepository;
 
     @Override
-    public KNodeAll save(KNode kNode){
+    public KNodeAll save(KNode kNode) {
 
-       kNodeRepository.save(kNode);
+        kNodeRepository.save(kNode);
 
         //创建输出对象
-        KNodeAll resp=new KNodeAll();
+        KNodeAll resp = new KNodeAll();
         UpdateUtil.copyNullProperties(kNode, resp);
         return resp;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public KNodeAll edit(KNode kNode){
+    public KNodeAll edit(KNode kNode) {
         KNode source = kNodeRepository.findById(kNode.getKNodeId()).get();
         UpdateUtil.copyNullProperties(source, kNode);
         kNodeRepository.save(kNode);
 
         //创建输出对象
-        KNodeAll resp=new KNodeAll();
+        KNodeAll resp = new KNodeAll();
         UpdateUtil.copyNullProperties(kNode, resp);
         return resp;
     }
 
     /**
      * 根据章节获得知识点  kNodeType  1复合知识点 2、单知识点 这两种类型
+     *
      * @param chapterId
      * @return
      */
     @Override
-    public List<KNodeAll> findByChapterId(String chapterId)
-    {
+    public List<KNodeAll> findByChapterId(String chapterId) {
         return kNodeRepository
-                .findByChapterIdAndKNodeTypeIsGreaterThanAndIsValidated(chapterId,0,TAKE_EFFECT_OPEN)
-                .stream().map((item)->{return new KNodeAll(item.getCourseId(),item.getChapterId(),item.getKNodeId(),item.getNodeName());})
+                .findByChapterIdAndKNodeTypeIsGreaterThanAndIsValidated(chapterId, 0, TAKE_EFFECT_OPEN)
+                .stream().map((item) -> {
+                    return new KNodeAll(item.getCourseId(), item.getChapterId(), item.getKNodeId(), item.getNodeName());
+                })
                 .collect(Collectors.toList());
     }
 
     /**
      * 根据课程获得知识点
+     *
      * @param courseId
      * @return
      */
     @Override
-    public List<KNodeAll> findByCourseId(String courseId){
-        return kNodeRepository.findByCourseIdAndIsValidated(courseId,TAKE_EFFECT_OPEN)
-                .stream().map((item)->{return new KNodeAll(item.getCourseId(),item.getChapterId(),item.getKNodeId(),item.getNodeName());})
+    public List<KNodeAll> findByCourseId(String courseId) {
+        return kNodeRepository.findByCourseIdAndIsValidated(courseId, TAKE_EFFECT_OPEN)
+                .stream().map((item) -> {
+                    return new KNodeAll(item.getCourseId(), item.getChapterId(), item.getKNodeId(), item.getNodeName());
+                })
                 .collect(Collectors.toList());
     }
 
 
     @Override
-    public KNodeAll findById(String kNodeId){
-        KNode kNode= kNodeRepository.findById(kNodeId).get();
+    public KNodeAll findById(String kNodeId) {
+        KNode kNode = kNodeRepository.findById(kNodeId).get();
 
         //创建输出对象
-        KNodeAll resp=new KNodeAll();
+        KNodeAll resp = new KNodeAll();
         UpdateUtil.copyNullProperties(kNode, resp);
         return resp;
     }

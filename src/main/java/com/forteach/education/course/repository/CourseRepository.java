@@ -17,6 +17,7 @@ public interface CourseRepository extends JpaRepository<Course, String> {
 
     /**
      * 分页查询所有有效课程
+     *
      * @param isValidated
      * @param pageable
      * @return
@@ -25,10 +26,11 @@ public interface CourseRepository extends JpaRepository<Course, String> {
 
     /**
      * 分页查询我的课程科目
+     *
      * @param isValidated
      * @param cUser
      * @param pageable
      * @return
      */
-    Page<ICourseListDto> findByCreateUserAndIsValidated( String cUser,String isValidated, Pageable pageable);
+    Page<ICourseListDto> findByCreateUserAndIsValidated(String cUser, String isValidated, Pageable pageable);
 }

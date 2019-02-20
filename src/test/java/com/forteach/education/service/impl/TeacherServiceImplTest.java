@@ -27,7 +27,7 @@ public class TeacherServiceImplTest {
     private TeacherService teacherService;
 
     @Test
-    public void save(){
+    public void save() {
         Teacher teacher = teacherService.save(
                 Teacher.builder()
                         .specialtyId("2c9180926746230801674625e56f0001")
@@ -43,6 +43,6 @@ public class TeacherServiceImplTest {
         List<Teacher> list = teacherService.findTeachersBySpecialtyId("");
         list.forEach(teacher -> {
             log.info("teacher : {}", teacher.toString());
-                });
+        });
     }
 }

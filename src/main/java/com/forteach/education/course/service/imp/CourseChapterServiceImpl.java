@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,16 +39,16 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     private CourseChapterRepository courseChapterRepository;
 
     @Override
-    @Transactional(rollbackForClassName="Exception")
+    @Transactional(rollbackForClassName = "Exception")
     public CourseChapterSaveResp save(CourseChapter courseChapter) {
         //1、判断是顶层章节，设置目录层级为1
-        if (COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId())){
+        if (COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId())) {
             courseChapter.setChapterLevel("1");
 
-        }else {
+        } else {
             //获得当前层级+1
             CourseChapter c = courseChapterRepository.findById(courseChapter.getChapterParentId()).get();
-            courseChapter.setChapterLevel(String.valueOf(Integer.parseInt(c.getChapterLevel())+1));
+            courseChapter.setChapterLevel(String.valueOf(Integer.parseInt(c.getChapterLevel()) + 1));
         }
         //2、查询当前科目章节有多少条数据
         int count = courseChapterRepository.countByIsValidatedEqualsAndCourseIdAndChapterParentId(TAKE_EFFECT_OPEN, courseChapter.getCourseId(), courseChapter.getChapterParentId());
@@ -57,13 +58,13 @@ public class CourseChapterServiceImpl implements CourseChapterService {
         courseChapterRepository.save(courseChapter);
 
         //4、创建输出对象
-        CourseChapterSaveResp resp=new CourseChapterSaveResp();
+        CourseChapterSaveResp resp = new CourseChapterSaveResp();
         UpdateUtil.copyNullProperties(courseChapter, resp);
         return resp;
     }
 
     @Override
-    @Transactional(rollbackForClassName="Exception")
+    @Transactional(rollbackForClassName = "Exception")
     public CourseChapterSaveResp edit(CourseChapterEditReq courseChapterEditReq) {
         //1、获得当前数据库对象
         CourseChapter source = courseChapterRepository.findById(courseChapterEditReq.getChapterId()).get();
@@ -75,33 +76,34 @@ public class CourseChapterServiceImpl implements CourseChapterService {
         courseChapterRepository.save(courseChapter);
 
         //3、创建输出对象
-        CourseChapterSaveResp resp=new CourseChapterSaveResp();
+        CourseChapterSaveResp resp = new CourseChapterSaveResp();
         UpdateUtil.copyNullProperties(courseChapter, resp);
         return resp;
     }
 
     @Override
     public CourseChapterSaveResp getCourseChapterById(String chapterId) {
-        CourseChapter courseChapter= courseChapterRepository.findById(chapterId).get();
+        CourseChapter courseChapter = courseChapterRepository.findById(chapterId).get();
 
         //创建输出对象
-        CourseChapterSaveResp resp=new CourseChapterSaveResp();
+        CourseChapterSaveResp resp = new CourseChapterSaveResp();
         UpdateUtil.copyNullProperties(courseChapter, resp);
         return resp;
     }
 
     @Override
-    @Transactional(rollbackForClassName="Exception")
+    @Transactional(rollbackForClassName = "Exception")
     public void delete(CourseChapter courseChapter) {
         courseChapterRepository.delete(courseChapter);
     }
 
     /**
      * 删除树状结构科目课程章节及子章节
+     *
      * @param chapterId
      */
     @Override
-    @Transactional(rollbackForClassName="Exception")
+    @Transactional(rollbackForClassName = "Exception")
     public void deleteById(String chapterId) {
         CourseChapter courseChapter = courseChapterRepository.findById(chapterId).get();
         Set<String> stringSet = findLists(courseChapter.getCourseId(), chapterId);
@@ -112,11 +114,12 @@ public class CourseChapterServiceImpl implements CourseChapterService {
 
     /**
      * 根据父节点查询子章节的ID信息
+     *
      * @param courseId
      * @param ChapterParentId
      * @return
      */
-    private Set<String> findLists(String courseId, String ChapterParentId){
+    private Set<String> findLists(String courseId, String ChapterParentId) {
         List<CourseChapter> lists = courseChapterRepository.findByCourseIdAndAndChapterParentId(courseId, ChapterParentId);
         Set<String> stringSet = lists.stream().filter(courseChapter -> !COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId()))
                 .map(CourseChapter::getChapterId)
@@ -129,7 +132,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     }
 
     @Override
-    @Transactional(rollbackForClassName="Exception")
+    @Transactional(rollbackForClassName = "Exception")
     public void deleteIsValidById(String chapterId) {
         CourseChapter courseChapter = courseChapterRepository.findById(chapterId).get();
         Set<String> stringSet = findLists(courseChapter.getCourseId(), chapterId);
@@ -141,11 +144,12 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     /**
      * 根据科目ID查询章节信息
      * 客户端用
+     *
      * @param courseId
      * @return
      */
     @Override
-    public List<CourseTreeResp> findByCourseId(String courseId){
+    public List<CourseTreeResp> findByCourseId(String courseId) {
         List<ICourseChapterDto> dtoList = courseChapterRepository.findByCourseId(courseId);
         List<CourseTreeResp> courseTreeResps = new ArrayList<>();
         for (int i = 0; i < dtoList.size(); i++) {
@@ -157,7 +161,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
             courseTreeResp.setParent(courseChapterDto.getChapterParentId());
             if (PUBLISH_YES.equals(courseChapterDto.getPublish())) {
                 courseTreeResp.setIcon("fa fa-briefcase icon-state-success");
-            }else if (PUBLISH_NO.equals(courseChapterDto.getPublish())){
+            } else if (PUBLISH_NO.equals(courseChapterDto.getPublish())) {
                 courseTreeResp.setIcon("fa fa-send-o icon-state-success");
             }
             if (i == 0) {
@@ -171,22 +175,25 @@ public class CourseChapterServiceImpl implements CourseChapterService {
 
     /**
      * 通过父章节目录信息查询子小节信息
+     *
      * @param chapterParentId
      * @return
      */
     @Override
-    public List<ICourseChapterDto> findByChapterParentId(String isValidated, String chapterParentId){
+    public List<ICourseChapterDto> findByChapterParentId(String isValidated, String chapterParentId) {
         return courseChapterRepository.findByChapterParentId(isValidated, chapterParentId);
     }
+
     /**
      * １. 章节ID
      * ２．是否有效　0 有效　1无效
      * 根据条件筛选查询对应的章节信息
+     *
      * @param vo
      * @return
      */
     @Override
-    public List<ICourseChapterDto> findAllCourseChapter(CourseChapterVo vo){
+    public List<ICourseChapterDto> findAllCourseChapter(CourseChapterVo vo) {
         return courseChapterRepository.findCourseId(vo.getIsValidated(), vo.getCourseId());
     }
 }

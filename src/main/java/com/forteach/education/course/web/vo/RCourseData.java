@@ -40,8 +40,8 @@ public class RCourseData implements Serializable {
 
     private String kNodeId;
 
-    private String teachShare="0";
+    private String teachShare = "0";
 
-    private String stuShare="0";
+    private String stuShare = "0";
 
 }

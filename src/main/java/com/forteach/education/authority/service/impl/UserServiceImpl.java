@@ -33,9 +33,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public WebResult login(SysUsers sysUsers) {
         SysUsers user = userRepository.findByUserName(sysUsers.getUserName());
-        if(user == null){
+        if (user == null) {
             return WebResult.failException("用户不存在");
-        }else if (!user.getPassWord().equals(sysUsers.getPassWord())){
+        } else if (!user.getPassWord().equals(sysUsers.getPassWord())) {
             return WebResult.failException("密码错误");
         }
         Map<String, Object> map = new HashMap<String, Object>(2);
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public WebResult registerUser(SysUsers user) {
         SysUsers sysUsers = userRepository.save(user);
-        if (sysUsers == null){
+        if (sysUsers == null) {
             return WebResult.failException("注册失败，请换个手机号");
         }
         //分配角色

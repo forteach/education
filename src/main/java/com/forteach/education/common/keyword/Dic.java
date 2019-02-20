@@ -31,20 +31,20 @@ public class Dic {
     public static final String COURSE_CHAPTER_LEVERL = "2";
 
     //个人备课
-    public static final String LESSON_PREPARATION_TYPE_PRIVATE="1";
+    public static final String LESSON_PREPARATION_TYPE_PRIVATE = "1";
     //集体备课
-    public static final String LESSON_PREPARATION_TYPE_GROUP="2";
+    public static final String LESSON_PREPARATION_TYPE_GROUP = "2";
 
     //课程分享范围-全部
-    public static final String COURSE_SHARE_AREA_ALL="1";
+    public static final String COURSE_SHARE_AREA_ALL = "1";
 
     //课程分享范围-章节
-    public static final String COURSE_SHARE_AREA_CHAPTER="2";
+    public static final String COURSE_SHARE_AREA_CHAPTER = "2";
 
     //1文档　2图册　3视频　4音频　5链接
-    public static final String COURSE_ZILIAO_FILE="1";
-    public static final String COURSE_ZILIAO_PHOTO="2";
-    public static final String COURSE_ZILIAO_VIEW="3";
-    public static final String COURSE_ZILIAO_AUDIO="4";
-    public static final String COURSE_ZILIAO_LINK="5";
+    public static final String COURSE_ZILIAO_FILE = "1";
+    public static final String COURSE_ZILIAO_PHOTO = "2";
+    public static final String COURSE_ZILIAO_VIEW = "3";
+    public static final String COURSE_ZILIAO_AUDIO = "4";
+    public static final String COURSE_ZILIAO_LINK = "5";
 }

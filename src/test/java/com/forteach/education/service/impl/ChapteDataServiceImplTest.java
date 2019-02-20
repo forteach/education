@@ -22,6 +22,7 @@ public class ChapteDataServiceImplTest {
 
     @Autowired
     private ChapteDataService chapteDataService;
+
     @Test
     public void findByChapterId() {
 

@@ -10,7 +10,7 @@ public class CourseVer {
 
     public static void saveValide(CourseSaveReq req) {
 
-        MyAssert.isNull(req.getCourse(), DefineCode.ERR0010,"课程信息不能为空");
+        MyAssert.isNull(req.getCourse(), DefineCode.ERR0010, "课程信息不能为空");
 
     }
 

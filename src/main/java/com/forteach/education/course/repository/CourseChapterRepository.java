@@ -27,7 +27,8 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
     /**
      * 根据查询科目编号查询父章节编号是空的章节并按照正序排列
      * 查询条件 1、有效 2 父章节编号是空 3 按照层级正序排列
-     * @param courseId　科目ID
+     *
+     * @param courseId 　科目ID
      * @return 章节目录基本信息
      */
     @Query("select chapterId as chapterId, chapterName as chapterName, chapterParentId as chapterParentId, publish as publish, sort as sort, chapterLevel as chapterLevel " +
@@ -36,6 +37,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
 
     /**
      * 根据章节信息查询对应小节信息
+     *
      * @param isValidated
      * @param chapterParentId
      * @return 所属的章节信息按照从顺序排列
@@ -46,16 +48,19 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
 
     /**
      * 根据科目章节查询科目章节信息
+     *
      * @param isValidated
      * @param courseId
      * @param chapterId
      * @return
      */
     List<CourseChapter> findByIsValidatedEqualsAndCourseIdAndChapterId(String isValidated, String courseId, String chapterId);
+
     /**
      * 根据章节ID和是否有效查询章节目录信息
-     * @param isValidated　是否有效 0 有效 1无效
-     * @param courseId　科目ID
+     *
+     * @param isValidated 　是否有效 0 有效 1无效
+     * @param courseId    　科目ID
      * @return　目录章节基本信息
      */
     @Query("select chapterId as chapterId, chapterName as chapterName, chapterParentId as chapterParentId, publish as publish, sort as sort, chapterLevel as chapterLevel " +
@@ -64,6 +69,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
 
     /**
      * 查询有效的章节科目信息行数
+     *
      * @param isValidated
      * @param courseId
      * @param chapterParentId
@@ -77,6 +83,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
 //    @Transactional
 //    @Query("delete from CourseChapter c where c.chapterId in (?1)")
 //    void deleteBath(List<String> ids);
+
     /**
      * 根据id批量删除
      */

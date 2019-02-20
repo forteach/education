@@ -17,14 +17,15 @@ import java.util.List;
  */
 public interface ChapteDataService {
 
-    public String save(String courseId,String chapterId,String datumArea,String datumType, String teachShare,String stuShare,List<DataDatumVo> files);
+    public String save(String courseId, String chapterId, String datumArea, String datumType, String teachShare, String stuShare, List<DataDatumVo> files);
 
     //修改资料领域和共享可见信息
-    public String updateAreaAndShare(String courseId,String chapterId,String kNodeId,String fileId,String datumType,String datumArea,String teachShare,String stuShare);
+    public String updateAreaAndShare(String courseId, String chapterId, String kNodeId, String fileId, String datumType, String datumArea, String teachShare, String stuShare);
+
     //课程资料详细列表
     public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumType, Pageable pageable);
 
-    public List<DatumResp> findDatumList(String chapterId, String kNodeId,String datumArea, String datumType, Pageable pageable);
+    public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumArea, String datumType, Pageable pageable);
 
     public void delete(CourseData chapteData);
 

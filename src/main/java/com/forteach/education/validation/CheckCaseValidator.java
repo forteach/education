@@ -24,12 +24,12 @@ public class CheckCaseValidator implements ConstraintValidator<CheckCase, String
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value == null){
+        if (value == null) {
             return true;
         }
-        if (caseModeEnum == CaseModeEnum.UPPER){
+        if (caseModeEnum == CaseModeEnum.UPPER) {
             return value.equals(value.toUpperCase());
-        }else {
+        } else {
             return value.equals(value.toLowerCase());
         }
     }

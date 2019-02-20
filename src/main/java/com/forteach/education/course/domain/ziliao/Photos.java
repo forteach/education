@@ -2,6 +2,7 @@ package com.forteach.education.course.domain.ziliao;
 
 import io.swagger.annotations.ApiModel;
 import lombok.*;
+
 import javax.persistence.*;;
 import java.io.Serializable;
 
@@ -15,7 +16,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(name = "photos",indexes = {@Index(columnList = "chapter_id"),@Index(columnList = "arlits_id")})
+@Table(name = "photos", indexes = {@Index(columnList = "chapter_id"), @Index(columnList = "arlits_id")})
 @org.hibernate.annotations.Table(appliesTo = "photos", comment = "图片")
 @ApiModel(value = "图集图片")
 @EqualsAndHashCode(callSuper = true)

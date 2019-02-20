@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 
 
@@ -25,11 +26,11 @@ public abstract class Entitys {
 
 
     @Column(name = "u_time", columnDefinition = "VARCHAR(32)  COMMENT '更新时间'")
-    public String updateTime=StrUtil.isBlank(this.updateTime)?DateUtil.now():this.updateTime;
+    public String updateTime = StrUtil.isBlank(this.updateTime) ? DateUtil.now() : this.updateTime;
 
 
     @Column(updatable = false, name = "c_time", columnDefinition = "VARCHAR(32) COMMENT '创建时间'")
-    public String createTime=StrUtil.isBlank(this.createTime)?DateUtil.now():this.createTime;
+    public String createTime = StrUtil.isBlank(this.createTime) ? DateUtil.now() : this.createTime;
 
 
     @Column(updatable = false, name = "c_user", columnDefinition = "VARCHAR(32) COMMENT '创建人'")

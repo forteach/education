@@ -55,102 +55,107 @@ public class CourseServiceImpl implements CourseService {
 
     /**
      * 保存课程基本信息
-     * @param course  课程基本信息
-     * @param teachers  集体备课教师信息
-     * @return  课程编号和集体备课资源编号
+     *
+     * @param course   课程基本信息
+     * @param teachers 集体备课教师信息
+     * @return 课程编号和集体备课资源编号
      */
     @Override
-    @Transactional(rollbackForClassName="Exception")
+    @Transactional(rollbackForClassName = "Exception")
     public List<String> save(Course course, List<RTeacher> teachers) {
         //1、保存课程基本信息
-        if(StrUtil.isBlank(course.getCourseId())){
+        if (StrUtil.isBlank(course.getCourseId())) {
             course.setCourseId(IdUtil.fastSimpleUUID());
         }
         course = courseRepository.save(course);
 
         //2、如果是集体备课，保存集体备课基本信息
-        String shareId="";
+        String shareId = "";
         if (LESSON_PREPARATION_TYPE_GROUP.equals(course.getLessonPreparationType())) {
-            shareId= courseShareService.save(course, teachers);
+            shareId = courseShareService.save(course, teachers);
         }
 
         //3、设置返回数据
-        List<String> result=new ArrayList<String>();
+        List<String> result = new ArrayList<String>();
         result.add(course.getCourseId());
         result.add(shareId);
         return result;
     }
 
     @Override
-    @Transactional(rollbackForClassName="Exception")
-    public String  edit(Course course,String oldShareId,List<RTeacher> teachers) {
+    @Transactional(rollbackForClassName = "Exception")
+    public String edit(Course course, String oldShareId, List<RTeacher> teachers) {
 
         //修改课程信息
         courseRepository.save(course);
 
         //判断原有的备课类型是否是集体备课，并修改集体备课信息
-        return  courseShareService.update(course.getLessonPreparationType(),oldShareId,course, teachers);
+        return courseShareService.update(course.getLessonPreparationType(), oldShareId, course, teachers);
     }
 
     /**
      * 获得所有可用课程列表
+     *
      * @param page
      * @return
      */
     @Override
     public List<ICourseListDto> findAll(PageRequest page) {
-        return courseRepository.findByIsValidated(Dic.TAKE_EFFECT_OPEN,page )
+        return courseRepository.findByIsValidated(Dic.TAKE_EFFECT_OPEN, page)
                 .getContent();
     }
 
 
     /**
      * 分页查询我的课程科目
+     *
      * @param page
      * @return
      */
     @Override
-    public List<ICourseListDto> findMyCourse(String userId,PageRequest page){
-        return courseRepository.findByCreateUserAndIsValidated( userId, TAKE_EFFECT_OPEN,page)
+    public List<ICourseListDto> findMyCourse(String userId, PageRequest page) {
+        return courseRepository.findByCreateUserAndIsValidated(userId, TAKE_EFFECT_OPEN, page)
                 .getContent();
     }
 
     /**
      * 根据课程编号，获得课程基本信息
+     *
      * @param id
      * @return
      */
     @Override
-    public Course getById(String id){
+    public Course getById(String id) {
         return courseRepository.findById(id).get();
     }
 
     /**
      * 根据课程ID，获得课程基本信息和集体备课共享编号
+     *
      * @param courseId
      * @return
      */
     @Override
-    public Map<String,Object> getCourseById(String courseId) {
+    public Map<String, Object> getCourseById(String courseId) {
 
         Course course = courseRepository.findById(courseId).get();
-        String shareId="";
+        String shareId = "";
         //课程为集体备课
-        if(course.getLessonPreparationType().equals(LESSON_PREPARATION_TYPE_GROUP)){
-            CourseShare cs= courseShareService.findByCourseIdAll(course.getCourseId());
-            shareId=cs.getShareId();
+        if (course.getLessonPreparationType().equals(LESSON_PREPARATION_TYPE_GROUP)) {
+            CourseShare cs = courseShareService.findByCourseIdAll(course.getCourseId());
+            shareId = cs.getShareId();
         }
 
-        Map result=new HashMap();
-        result.put("course",course);
-        result.put("shareId",shareId);
-       return result;
+        Map result = new HashMap();
+        result.put("course", course);
+        result.put("shareId", shareId);
+        return result;
 
     }
 
 
     @Override
-    @Transactional(rollbackForClassName="Exception")
+    @Transactional(rollbackForClassName = "Exception")
     public void deleteIsValidById(String courseId) {
         Course course = courseRepository.findById(courseId).get();
         course.setIsValidated(TAKE_EFFECT_CLOSE);
@@ -158,8 +163,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Transactional(rollbackForClassName="Exception")
-    public void saveCourseImages(CourseImagesReq courseImagesReq){
+    @Transactional(rollbackForClassName = "Exception")
+    public void saveCourseImages(CourseImagesReq courseImagesReq) {
         List<CourseImages> list = new ArrayList<>();
         List<DataDatumVo> dataDatumVos = courseImagesReq.getImages();
         for (int i = 0; i < dataDatumVos.size(); i++) {
@@ -175,21 +180,21 @@ public class CourseServiceImpl implements CourseService {
     }
 
 
-
     @Override
-    @Transactional(rollbackForClassName="Exception")
+    @Transactional(rollbackForClassName = "Exception")
     public void deleteById(String courseId) {
         courseRepository.deleteById(courseId);
     }
 
     @Override
-    @Transactional(rollbackForClassName="Exception")
+    @Transactional(rollbackForClassName = "Exception")
     public void delete(Course course) {
         courseRepository.delete(course);
     }
 
     /**
      * 查询封面图片信息
+     *
      * @param courseId
      * @return
      */

@@ -37,7 +37,7 @@ public class PaperQst extends Entitys implements Serializable {
     @ApiModelProperty(value = "试卷编号", name = "paperId", dataType = "string", required = true)
     private String paperId;
 
-    @ApiModelProperty(value = "试题编号", name = "choiceQstId", dataType = "string",required = true)
+    @ApiModelProperty(value = "试题编号", name = "choiceQstId", dataType = "string", required = true)
     private String choiceQstId;
 
 

@@ -37,13 +37,13 @@ public class ChapteDataListReq implements Serializable {
     private String datumArea;
 
 
-        @ApiModelProperty(name = "datumType", dataType = "string", value = "资料类型", example = "1", notes = "资料类型 1文档　2图册　3视频　4音频　5链接", required = true)
+    @ApiModelProperty(name = "datumType", dataType = "string", value = "资料类型", example = "1", notes = "资料类型 1文档　2图册　3视频　4音频　5链接", required = true)
     private String datumType;
 
     @ApiModelProperty(name = "kNodeId", value = "知识点标签", dataType = "string", notes = "知识点 ‘,’ 进行分割")
     private String kNodeId;
 
     @ApiModelProperty(value = "分页排序字段", name = "sortVo")
-    private SortVo sortVo=new SortVo();
+    private SortVo sortVo = new SortVo();
 
 }

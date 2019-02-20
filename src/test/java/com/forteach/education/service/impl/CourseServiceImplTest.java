@@ -39,27 +39,27 @@ public class CourseServiceImplTest {
     private CourseService courseService;
 
     @Test
-    public void save(){
-        RCourse c=new RCourse();
+    public void save() {
+        RCourse c = new RCourse();
         c.setCourseName("测试课程2");
         c.setCourseNumber("123456");
         c.setLessonPreparationType(LESSON_PREPARATION_TYPE_GROUP);//1、个人备课 2、集体备课
-       // c.setSpecialtyId("zhuanye001");
+        // c.setSpecialtyId("zhuanye001");
         c.setTeachingType("3");
         c.setTopPicSrc("http://118.24.120.43:8080/group1/M00/00/03/rBsADFwPZtGAIJdXAAFelcpPBsI922.jpg");
 
-        RTeacher t=new RTeacher();
+        RTeacher t = new RTeacher();
         t.setTeacherId("ff808181675ea68f01675ea6d86b0000");
         t.setTeacherName("测试");
 
-        List<RTeacher> list=new ArrayList<RTeacher>();
+        List<RTeacher> list = new ArrayList<RTeacher>();
         list.add(t);
 
-        CourseSaveReq req=CourseSaveReq.builder()
+        CourseSaveReq req = CourseSaveReq.builder()
                 .course(c)
                 .teachers(list)
                 .build();
-       // courseService.save(req);
+        // courseService.save(req);
     }
 
 

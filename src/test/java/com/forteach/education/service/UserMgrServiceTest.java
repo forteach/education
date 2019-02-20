@@ -25,10 +25,10 @@ public class UserMgrServiceTest {
     private UserMgrService userMgrService;
 
     @Test
-    public void updateUserRole(){
+    public void updateUserRole() {
         List<String> userIds = new ArrayList<>();
         userIds.add("123");
-        userMgrService.updateUserRole("10",userIds);
+        userMgrService.updateUserRole("10", userIds);
 
     }
 

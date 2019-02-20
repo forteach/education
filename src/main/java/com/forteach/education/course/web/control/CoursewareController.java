@@ -44,8 +44,8 @@ public class CoursewareController {
             @ApiImplicitParam(name = "datumType", value = "1、文件 3、视频", dataTypeClass = String.class),
             @ApiImplicitParam(name = "files", value = "图集文件url", dataTypeClass = CoursewareAll.class)
     })
-    public WebResult save(@Valid @ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody ImpCoursewareAll req){
-        ImpCoursewareAll resp=coursewareService.saveFile(req);
+    public WebResult save(@Valid @ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody ImpCoursewareAll req) {
+        ImpCoursewareAll resp = coursewareService.saveFile(req);
         return WebResult.okResult(resp);
 
     }
@@ -58,9 +58,9 @@ public class CoursewareController {
 
             @ApiImplicitParam(name = "files", value = "图集文件url", dataTypeClass = CoursewareAll.class)
     })
-    public WebResult saveCourseAtlit(@Valid @ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody ImpCoursewareAll req){
-        List<CoursewareAll> list=coursewareService.saveCourseAtlit(req);
-        return WebResult.okResult(new CourseAtlitListResp(req.getChapterId(),list.size(),list));
+    public WebResult saveCourseAtlit(@Valid @ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody ImpCoursewareAll req) {
+        List<CoursewareAll> list = coursewareService.saveCourseAtlit(req);
+        return WebResult.okResult(new CourseAtlitListResp(req.getChapterId(), list.size(), list));
 
     }
 
@@ -71,8 +71,8 @@ public class CoursewareController {
             @ApiImplicitParam(name = "importantType", value = "重要课件资料类型1 教案 2 课件", dataTypeClass = String.class),
             @ApiImplicitParam(name = "datumType", value = "课件类型1、文件  3 视频", dataTypeClass = String.class)
     })
-    public WebResult getImpCourseware(@Valid @ApiParam(name = "courseReq", value = "科目课程对象", required = true) @RequestBody FindImpCoursewareReq req){
-        return WebResult.okResult(coursewareService.getImpCourseware(req.getChapterId(),req.getImportantType(),req.getDatumType()));
+    public WebResult getImpCourseware(@Valid @ApiParam(name = "courseReq", value = "科目课程对象", required = true) @RequestBody FindImpCoursewareReq req) {
+        return WebResult.okResult(coursewareService.getImpCourseware(req.getChapterId(), req.getImportantType(), req.getDatumType()));
     }
 
     @ApiOperation(value = "获得重要课件图集列表", notes = "获得重要课件图集列表")
@@ -80,10 +80,10 @@ public class CoursewareController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataTypeClass = String.class, required = true),
     })
-    public WebResult getCourseArlitsList(@Valid @ApiParam(name = "chapterId", value = "章节编号", required = true) @RequestBody String chapterId){
+    public WebResult getCourseArlitsList(@Valid @ApiParam(name = "chapterId", value = "章节编号", required = true) @RequestBody String chapterId) {
 
-            List<CoursewareAll> list=coursewareService.getCourseArlitsList(JSONObject.parseObject(chapterId).getString("chapterId"));
-            return WebResult.okResult(new CourseAtlitListResp(chapterId,list.size(),list));
+        List<CoursewareAll> list = coursewareService.getCourseArlitsList(JSONObject.parseObject(chapterId).getString("chapterId"));
+        return WebResult.okResult(new CourseAtlitListResp(chapterId, list.size(), list));
 
     }
 
@@ -92,8 +92,8 @@ public class CoursewareController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "arlitId", value = "图集编号", dataTypeClass = String.class, required = true),
     })
-    public WebResult getPhotoList(@Valid @ApiParam(name = "arlitId", value = "图集编号", required = true) @RequestBody String arlitId){
-          return WebResult.okResult(coursewareService.getPhotoList(JSONObject.parseObject(arlitId).getString("arlitId")));
+    public WebResult getPhotoList(@Valid @ApiParam(name = "arlitId", value = "图集编号", required = true) @RequestBody String arlitId) {
+        return WebResult.okResult(coursewareService.getPhotoList(JSONObject.parseObject(arlitId).getString("arlitId")));
     }
 
 }

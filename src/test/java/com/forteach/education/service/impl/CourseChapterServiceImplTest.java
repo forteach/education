@@ -43,13 +43,13 @@ public class CourseChapterServiceImplTest {
         List<CourseTreeResp> list = courseChapterService.findByCourseId("ff808181673e5e6c01673e5f792b0001");
         list.forEach(courseTreeResp -> {
 
-        log.info("courseTreeResp : {}", courseTreeResp.toString());
+            log.info("courseTreeResp : {}", courseTreeResp.toString());
         });
     }
 
     @Test
-    public void findByChapterParentId(){
-        List<ICourseChapterDto> list=courseChapterService.findByChapterParentId("0","2c91808d678e620701679c214f500001");
+    public void findByChapterParentId() {
+        List<ICourseChapterDto> list = courseChapterService.findByChapterParentId("0", "2c91808d678e620701679c214f500001");
         list.forEach(dto -> {
             log.info("ICourseChapterDto : {}", dto.getChapterName());
         });
@@ -62,10 +62,11 @@ public class CourseChapterServiceImplTest {
 
     @Test
     public void findLists() {
-        Set<String> set =findLists("ff808181673e5e6c01673e5f792b0001", "ff808181673e9f6801673ea011950000");
+        Set<String> set = findLists("ff808181673e5e6c01673e5f792b0001", "ff808181673e9f6801673ea011950000");
         set.stream().forEach(System.out::println);
     }
-    private Set<String> findLists(String courseId, String chapterParentId){
+
+    private Set<String> findLists(String courseId, String chapterParentId) {
         List<CourseChapter> lists = courseChapterRepository.findByCourseIdAndAndChapterParentId(courseId, chapterParentId);
         Set<String> stringSet = lists.stream().filter(courseChapter -> !COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId()))
                 .map(CourseChapter::getChapterId)

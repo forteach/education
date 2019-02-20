@@ -20,19 +20,19 @@ import java.util.List;
 public interface DatumAreaRepository extends JpaRepository<DatumArea, String> {
 
     //文件编号、单个资料领域
-    public DatumArea findByFileIdAndDatumArea(String fileId,String datumArea);
+    public DatumArea findByFileIdAndDatumArea(String fileId, String datumArea);
 
     //文件编号、单个资料领域
     public List<DatumArea> findByFileId(String fileId);
 
     //章节，资料领域范围
-    public Page<DatumArea> findByChapterIdAndDatumAreaIn(String chapterId, List<String> datumAreas,Pageable pageable);
+    public Page<DatumArea> findByChapterIdAndDatumAreaIn(String chapterId, List<String> datumAreas, Pageable pageable);
 
     //章节、知识点、资料领域
-    public Page<DatumArea> findByChapterIdAndKNodeIdAndDatumAreaIn(String chapterId,String kNodeId,List<String> datumAreas,Pageable pageable);
+    public Page<DatumArea> findByChapterIdAndKNodeIdAndDatumAreaIn(String chapterId, String kNodeId, List<String> datumAreas, Pageable pageable);
 
     //根据文件编号和资料领域删除信息
     @Transactional
-    public int deleteByFileIdAndDatumArea(String fileId,String datumArea);
+    public int deleteByFileIdAndDatumArea(String fileId, String datumArea);
 
 }

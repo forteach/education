@@ -29,6 +29,6 @@ public class CourseFindAllReq implements Serializable {
     private String userId;
 
     @ApiModelProperty(value = "分页排序字段", name = "sortVo")
-    private SortVo sortVo=new SortVo();
+    private SortVo sortVo = new SortVo();
 
 }

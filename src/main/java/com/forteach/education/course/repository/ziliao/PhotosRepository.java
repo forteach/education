@@ -4,6 +4,7 @@ import com.forteach.education.course.domain.ziliao.Photos;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public interface PhotosRepository extends JpaRepository<Photos, String> {
 
-        public List<Photos> findByArlitsIdAndIsValidated(String arlitsId,String isValidated);
+    public List<Photos> findByArlitsIdAndIsValidated(String arlitsId, String isValidated);
 
-        public Page<Photos> findByArlitsIdAndIsValidated(String arlitsId, String isValidated, Pageable pageable);
+    public Page<Photos> findByArlitsIdAndIsValidated(String arlitsId, String isValidated, Pageable pageable);
 }

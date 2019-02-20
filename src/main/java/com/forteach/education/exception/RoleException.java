@@ -6,7 +6,7 @@ package com.forteach.education.exception;
  * @version: V1.0
  * @date: 2018/10/31 12:36
  */
-public class RoleException extends RuntimeException{
+public class RoleException extends RuntimeException {
     /**
      * Constructs a new runtime exception with {@code null} as its
      * detail message.  The cause is not initialized, and may subsequently be

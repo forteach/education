@@ -54,12 +54,4 @@ public class ChoiceQst extends Entitys implements Serializable {
     private String choiceType;
 
 
-
-
-
-
-
-
-
-
 }

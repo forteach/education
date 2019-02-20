@@ -2,6 +2,7 @@ package com.forteach.education.course.service;
 
 import com.forteach.education.course.web.req.CoursewareAll;
 import com.forteach.education.course.web.req.ImpCoursewareAll;
+
 import java.util.List;
 
 public interface CoursewareService {
@@ -15,6 +16,7 @@ public interface CoursewareService {
 
     /**
      * 获得对应类型的重要课件信息数量和列表
+     *
      * @param chapterId
      * @param importantType
      * @param datumType

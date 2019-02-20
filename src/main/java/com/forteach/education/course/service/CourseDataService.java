@@ -19,9 +19,9 @@ import java.util.List;
  */
 public interface CourseDataService {
 
-    public int save(String chapterId,List<RCourseData> files);
+    public int save(String chapterId, List<RCourseData> files);
 
-    public String updateAreaAndShare(String courseId,String chapterId,String kNodeId,String fileId,String datumType,String datumArea,String teachShare,String stuShare);
+    public String updateAreaAndShare(String courseId, String chapterId, String kNodeId, String fileId, String datumType, String datumArea, String teachShare, String stuShare);
 
     //课程资料详细列表
     public List<DatumResp> findDatumList(String chapterId, String datumType, Pageable pageable);

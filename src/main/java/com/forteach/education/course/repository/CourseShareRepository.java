@@ -22,6 +22,6 @@ public interface CourseShareRepository extends JpaRepository<CourseShare, String
 
     public List<CourseShare> findByCourseId(String courseId);
 
-    public  CourseShare findByCourseIdAndShareArea(String courseId,String shareArea );
+    public CourseShare findByCourseIdAndShareArea(String courseId, String shareArea);
 
 }

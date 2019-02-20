@@ -3,6 +3,7 @@ package com.forteach.education.databank.domain.ziliao;
 import com.forteach.education.common.domain.Entitys;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 
 
@@ -17,7 +18,7 @@ import javax.persistence.*;
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbsDatum extends Entitys{
+public abstract class AbsDatum extends Entitys {
 
     @Id
     @Column(name = "file_id", columnDefinition = "VARCHAR(32) COMMENT '文件编号'")
@@ -48,9 +49,9 @@ public abstract class AbsDatum extends Entitys{
     private String datumArea;
 
     @Column(name = "teach_share", columnDefinition = "CHAR(1) COMMENT '教师共享 0不共享 1共享'")
-    private String teachShare="0";
+    private String teachShare = "0";
 
     @Column(name = "stu_share", columnDefinition = "CHAR(1) COMMENT '学生共享 0不共享 1共享'")
-    private String stuShare="0";
+    private String stuShare = "0";
 
 }

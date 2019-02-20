@@ -8,7 +8,7 @@ import java.util.List;
 public interface ImpCoursewareRepoitory extends JpaRepository<ImportantCourseware, String> {
 
     /**
-     *重要课件资料（教案、课件）图集类型除外,按章节、文件类型、课件类型查询
+     * 重要课件资料（教案、课件）图集类型除外,按章节、文件类型、课件类型查询
      *
      * @param chapterId
      * @param datumType
@@ -16,7 +16,7 @@ public interface ImpCoursewareRepoitory extends JpaRepository<ImportantCoursewar
      * @param isValidated
      * @return
      */
-    public List<ImportantCourseware> findByChapterIdAndDatumTypeAndImportantTypeAndIsValidated( String chapterId, String datumType,String importantType, String isValidated);
+    public List<ImportantCourseware> findByChapterIdAndDatumTypeAndImportantTypeAndIsValidated(String chapterId, String datumType, String importantType, String isValidated);
 
 
 }

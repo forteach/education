@@ -51,9 +51,9 @@ public class WebResult implements Serializable {
      * 成功操作 操作码默认为0   只有返回数据
      **/
     public static WebResult okResult(Object data) {
-         WebResult wr=okResult(getOkCode(), data);
-        log.info("*********{}" , JSON.toJSONString(wr));
-         return wr;
+        WebResult wr = okResult(getOkCode(), data);
+        log.info("*********{}", JSON.toJSONString(wr));
+        return wr;
     }
 
     /**
@@ -126,7 +126,7 @@ public class WebResult implements Serializable {
         return wr;
     }
 
-    private static WebResult getWebResult(int code,String msg) {
+    private static WebResult getWebResult(int code, String msg) {
         Map<String, String> propertiesmap = PropertiesUtil.getMapForProperties();
         WebResult wr = new WebResult();
         wr.setData("");

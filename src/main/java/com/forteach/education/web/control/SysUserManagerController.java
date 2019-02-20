@@ -39,7 +39,7 @@ public class SysUserManagerController {
      */
     @PostMapping(value = "/cast")
     @ApiOperation(value = "分配角色", notes = "分配角色")
-    public WebResult cast(@Valid @RequestBody  @ApiParam(value = "分配角色", required = true) CastVo castVo) {
+    public WebResult cast(@Valid @RequestBody @ApiParam(value = "分配角色", required = true) CastVo castVo) {
         userMgrService.updateUserRole(castVo.getRoleId(), castVo.getUserIds());
         return WebResult.okResult();
     }
@@ -51,7 +51,7 @@ public class SysUserManagerController {
      */
     @PostMapping(value = "/edit")
     @ApiOperation(value = "编辑用户", notes = "编辑/保存用户")
-    public WebResult edit(@Valid @RequestBody  @ApiParam(value = "编辑/保存用户", required = true) SysUsers user) {
+    public WebResult edit(@Valid @RequestBody @ApiParam(value = "编辑/保存用户", required = true) SysUsers user) {
         return WebResult.okResult(userMgrService.edit(user));
 
     }

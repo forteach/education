@@ -21,7 +21,7 @@ public class AdTagMapFundPrimarykey implements Serializable {
     @Column(name = "ad_id", columnDefinition = "varchar(32) COMMENT '广告id'", insertable = false, updatable = false)
     private String adId;
 
-    @Column(name = "tag_id", columnDefinition = "varchar(32) COMMENT '标签编号'",insertable = false,updatable = false)
+    @Column(name = "tag_id", columnDefinition = "varchar(32) COMMENT '标签编号'", insertable = false, updatable = false)
     private String tagId;
 
     public AdTagMapFundPrimarykey() {

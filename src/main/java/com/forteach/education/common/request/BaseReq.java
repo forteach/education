@@ -24,7 +24,7 @@ import java.io.Serializable;
  */
 
 @Data
-public abstract  class BaseReq implements Serializable {
+public abstract class BaseReq implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

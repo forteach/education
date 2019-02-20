@@ -226,7 +226,7 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
      * @param json
      */
     @Override
-    @Transactional( rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public void saveRoleColAct(String json) {
         List<Map<String, Object>> listMap = (List<Map<String, Object>>) JSONObject.parse(json);
         listMap.forEach(m -> {

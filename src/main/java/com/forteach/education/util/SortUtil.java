@@ -12,11 +12,11 @@ import org.springframework.data.domain.Sort;
  */
 public class SortUtil {
 
-    public static Sort getSort(SortVo sortVo){
+    public static Sort getSort(SortVo sortVo) {
         Sort sort = null;
-        if (0 == sortVo.getSort()){
+        if (0 == sortVo.getSort()) {
             sort = new Sort(Sort.Direction.ASC, sortVo.getSorting());
-        }else {
+        } else {
             sort = new Sort(Sort.Direction.DESC, sortVo.getSorting());
         }
         return sort;

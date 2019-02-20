@@ -12,7 +12,6 @@ import java.util.List;
  */
 public interface UserMgrService {
     /**
-     *
      * @param roleId
      * @param userIds
      */

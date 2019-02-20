@@ -28,7 +28,7 @@ public interface CourseService {
 
     public List<String> save(Course course, List<RTeacher> teachers);
 
-    public String edit(Course course,String oldShareId,List<RTeacher> teachers);
+    public String edit(Course course, String oldShareId, List<RTeacher> teachers);
 
     public void deleteIsValidById(String courseId);
 
@@ -38,13 +38,13 @@ public interface CourseService {
 
     public List<ICourseListDto> findAll(PageRequest page);
 
-    public Map<String,Object> getCourseById(String courseId);
+    public Map<String, Object> getCourseById(String courseId);
 
     public List<CourseImages> findImagesByCourseId(String courseId);
 
     public void saveCourseImages(CourseImagesReq courseImagesReq);
 
-    public List<ICourseListDto> findMyCourse(String userId,PageRequest page);
+    public List<ICourseListDto> findMyCourse(String userId, PageRequest page);
 
     public Course getById(String id);
 

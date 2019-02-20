@@ -16,11 +16,12 @@ public interface SpecialtyRepository extends JpaRepository<Specialty, String> {
 
     /**
      * 分页查询生效科目信息
+     *
      * @param isValidated
      * @param pageable
      * @return
      */
     Page<Specialty> findByIsValidatedEquals(String isValidated, Pageable pageable);
 
-    Specialty findByIsValidatedEqualsAndSpecialtyName(String isValidated,String specialtyName);
+    Specialty findByIsValidatedEqualsAndSpecialtyName(String isValidated, String specialtyName);
 }

@@ -19,7 +19,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "student_answer", indexes = {@Index(columnList = "class_question_id"),@Index(columnList = "txt_id")})
+@Table(name = "student_answer", indexes = {@Index(columnList = "class_question_id"), @Index(columnList = "txt_id")})
 @IdClass(StudentAnswerFundPrimarykey.class)
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "student_answer", comment = "学生答题的答案")
@@ -63,7 +63,6 @@ public class StudentAnswer extends Entitys implements Serializable {
     @ApiModelProperty(value = "teacherId", name = "teacherId", dataType = "string")
     @Column(name = "teacher_id", columnDefinition = "varchar(32) COMMENT '批改教师'")
     private String teacherId;
-
 
 
 }

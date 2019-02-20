@@ -22,15 +22,16 @@ import java.util.List;
 public interface CourseShareService {
     /**
      * 根据课程分享编号获得被分享用户列表
+     *
      * @param shareId
      * @return
      */
     public List<CourseShareUsers> findByShareIdUsers(String shareId);
 
-    public String save( Course course, List<RTeacher> teacherList);
+    public String save(Course course, List<RTeacher> teacherList);
 
-    public String update(String lessonPreType,String shareId, Course course, List<RTeacher> teacherList);
+    public String update(String lessonPreType, String shareId, Course course, List<RTeacher> teacherList);
 
     //根据课程编号查询所有领域信息
-    public CourseShare findByCourseIdAll(String courseId );
+    public CourseShare findByCourseIdAll(String courseId);
 }

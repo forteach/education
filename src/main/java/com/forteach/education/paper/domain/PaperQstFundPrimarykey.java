@@ -18,10 +18,10 @@ public class PaperQstFundPrimarykey implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "paper_id", columnDefinition = "varchar(32) COMMENT '试卷编号'",insertable = false,updatable = false)
+    @Column(name = "paper_id", columnDefinition = "varchar(32) COMMENT '试卷编号'", insertable = false, updatable = false)
     private String paperId;
 
-    @Column(name = "choice_qst_id", columnDefinition = "varchar(32) COMMENT '试题编号'",insertable = false,updatable = false)
+    @Column(name = "choice_qst_id", columnDefinition = "varchar(32) COMMENT '试题编号'", insertable = false, updatable = false)
     private String choiceQstId;
 
     public PaperQstFundPrimarykey() {

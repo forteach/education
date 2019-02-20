@@ -6,6 +6,7 @@ import com.forteach.education.common.domain.Entitys;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -46,7 +47,7 @@ public class Course extends Entitys implements Serializable {
     @Column(name = "top_pic_src", columnDefinition = "VARCHAR(255) COMMENT'封面图片路径'")
     private String topPicSrc;
 
-    @Column(name = "course_describe", columnDefinition = "MEDIUMTEXT COMMENT'课程描述'" )
+    @Column(name = "course_describe", columnDefinition = "MEDIUMTEXT COMMENT'课程描述'")
     private String courseDescribe;
 
 }

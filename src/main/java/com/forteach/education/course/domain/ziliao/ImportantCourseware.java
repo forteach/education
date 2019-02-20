@@ -2,6 +2,7 @@ package com.forteach.education.course.domain.ziliao;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;

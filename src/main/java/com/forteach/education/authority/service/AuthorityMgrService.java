@@ -69,6 +69,7 @@ public interface AuthorityMgrService {
 
     /**
      * 获取所有的树
+     *
      * @return
      */
     List<ActionColumn> findTreeAll();

@@ -3,6 +3,7 @@ package com.forteach.education.course.domain;
 import com.forteach.education.common.domain.Entitys;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -27,7 +28,7 @@ public class KNode extends Entitys implements Serializable {
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
-   // @ApiModelProperty(name = "k_node_Id", value = "知识点ID", dataType = "string")
+    // @ApiModelProperty(name = "k_node_Id", value = "知识点ID", dataType = "string")
     @Column(name = "k_node_Id", columnDefinition = "VARCHAR(32) COMMENT '知识点编号'")
     private String kNodeId;
 
@@ -40,13 +41,13 @@ public class KNode extends Entitys implements Serializable {
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目课程ID'")
     private String courseId;
 
-   // @ApiModelProperty(name = "chapter_id", value = "章节ID", example = "2c91809267462308016746293a2a0002", dataType = "string")
+    // @ApiModelProperty(name = "chapter_id", value = "章节ID", example = "2c91809267462308016746293a2a0002", dataType = "string")
     @Column(name = "chapter_id", columnDefinition = "VARCHAR(32) COMMENT '章节ID'")
     private String chapterId;
 
     //@ApiModelProperty(name = "kNodeType", value = "知识点类型", notes = "2 单个知识点 1 复合多个知识点", example = "1")
     @Column(name = "k_node_type", columnDefinition = "int COMMENT '知识点类型2 单个知识点，1　多个知识点'")
-    private int kNodeType=2;
+    private int kNodeType = 2;
 
     //******************************************************************************
 //    @ApiModelProperty(value = "知识点描述", name = "node_desc", notes = "描述知识点说明", dataType = "string", example = "计算机描述详细信息")

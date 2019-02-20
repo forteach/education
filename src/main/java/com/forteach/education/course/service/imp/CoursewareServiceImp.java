@@ -36,39 +36,39 @@ public class CoursewareServiceImp implements CoursewareService {
     private PhotosRepository photoDatumRepository;
 
 
-
     //保存除图集以外，重要课件文件
     @Override
-    public ImpCoursewareAll saveFile(ImpCoursewareAll obj){
+    public ImpCoursewareAll saveFile(ImpCoursewareAll obj) {
 
-        List<ImportantCourseware> list=obj.getFiles().stream().map(item->{
-            ImportantCourseware ic=new ImportantCourseware();
+        List<ImportantCourseware> list = obj.getFiles().stream().map(item -> {
+            ImportantCourseware ic = new ImportantCourseware();
             ic.setId(IdUtil.fastSimpleUUID());
             UpdateUtil.copyNullProperties(item, ic);
-            ic.setImportantType(obj.getChapterId());
+            ic.setImportantType(obj.getImportantType());
             ic.setFileType((FileUtils.ext(ic.getFileName())));
+            ic.setChapterId(obj.getChapterId());
             ic.setDatumType(obj.getDatumType());
             ic.setImportantType(obj.getImportantType());
             return ic;
         }).collect(Collectors.toList());
 
         impCoursewareRepoitory.saveAll(list);
-        return getImpCourseware(obj.getChapterId(),obj.getImportantType(),obj.getDatumType());
+        return getImpCourseware(obj.getChapterId(), obj.getImportantType(), obj.getDatumType());
     }
 
     //保存图集
     @Override
-    public List<CoursewareAll> saveCourseAtlit(ImpCoursewareAll obj){
+    public List<CoursewareAll> saveCourseAtlit(ImpCoursewareAll obj) {
 
-        CourseAtlits ca=new CourseAtlits();
+        CourseAtlits ca = new CourseAtlits();
         ca.setId(IdUtil.fastSimpleUUID());
         ca.setChapterId(obj.getChapterId());
         ca.setFileName(obj.getPhotoDatumName());
         //保存图集信息
         courseArlitsRepository.save(ca);
 
-        List<Photos> list=obj.getFiles().stream().map(item->{
-            Photos photo=new Photos();
+        List<Photos> list = obj.getFiles().stream().map(item -> {
+            Photos photo = new Photos();
             photo.setId(IdUtil.fastSimpleUUID());
             photo.setArlitsId(ca.getId());
             photo.setChapterId(obj.getChapterId());
@@ -83,36 +83,37 @@ public class CoursewareServiceImp implements CoursewareService {
 
     /**
      * 获得重要除图集以外，课件文件列表
+     *
      * @param chapterId
      * @param importantType
      * @param datumType
      * @return
      */
     @Override
-    public ImpCoursewareAll getImpCourseware(String chapterId, String importantType, String datumType){
-        List<ImportantCourseware> list= impCoursewareRepoitory.findByChapterIdAndDatumTypeAndImportantTypeAndIsValidated(chapterId,datumType,importantType, Dic.TAKE_EFFECT_OPEN);
-        List<CoursewareAll> files=list.stream().map((ImportantCourseware item)->{
-            CoursewareAll ca=new CoursewareAll();
+    public ImpCoursewareAll getImpCourseware(String chapterId, String importantType, String datumType) {
+        List<ImportantCourseware> list = impCoursewareRepoitory.findByChapterIdAndDatumTypeAndImportantTypeAndIsValidated(chapterId, datumType, importantType, Dic.TAKE_EFFECT_OPEN);
+        List<CoursewareAll> files = list.stream().map((ImportantCourseware item) -> {
+            CoursewareAll ca = new CoursewareAll();
             UpdateUtil.copyNullProperties(item, ca);
             return ca;
         }).collect(Collectors.toList());
 
-        if(list.size()>0){
-            return new ImpCoursewareAll(chapterId,importantType, files.size(),datumType,"",files);
+        if (list.size() > 0) {
+            return new ImpCoursewareAll(chapterId, importantType, files.size(), datumType, "", files);
         }
         return null;
     }
 
     //获得图集列表
     @Override
-    public List<CoursewareAll> getCourseArlitsList(String chapterId){
+    public List<CoursewareAll> getCourseArlitsList(String chapterId) {
 
-        List<CoursewareAll> list=courseArlitsRepository.findByChapterIdAndIsValidated(chapterId,Dic.TAKE_EFFECT_OPEN)
-                .stream().map((item)->{
-                            CoursewareAll ca=new CoursewareAll();
+        List<CoursewareAll> list = courseArlitsRepository.findByChapterIdAndIsValidated(chapterId, Dic.TAKE_EFFECT_OPEN)
+                .stream().map((item) -> {
+                            CoursewareAll ca = new CoursewareAll();
                             UpdateUtil.copyNullProperties(item, ca);
                             return ca;
-                }
+                        }
                 ).collect(Collectors.toList());
 
         return list;
@@ -120,11 +121,11 @@ public class CoursewareServiceImp implements CoursewareService {
     }
 
     @Override
-    public List<CoursewareAll> getPhotoList(String arlitId){
+    public List<CoursewareAll> getPhotoList(String arlitId) {
 
-        List<CoursewareAll> phlist= photoDatumRepository.findByArlitsIdAndIsValidated(arlitId,Dic.TAKE_EFFECT_OPEN)
-                .stream().map((item)->{
-                    CoursewareAll ca=new CoursewareAll();
+        List<CoursewareAll> phlist = photoDatumRepository.findByArlitsIdAndIsValidated(arlitId, Dic.TAKE_EFFECT_OPEN)
+                .stream().map((item) -> {
+                    CoursewareAll ca = new CoursewareAll();
                     UpdateUtil.copyNullProperties(item, ca);
                     return ca;
                 }).collect(Collectors.toList());

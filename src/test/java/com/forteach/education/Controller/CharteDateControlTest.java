@@ -41,9 +41,9 @@ public class CharteDateControlTest {
     private CourseDataController courseDataController;
 
 
-        @Test
-    public void save(){
-        ChapteDataReq req=new ChapteDataReq();
+    @Test
+    public void save() {
+        ChapteDataReq req = new ChapteDataReq();
         req.setChapterId("40289fa0685ea88101685ea8c2cd0000");
         req.setDatumName("");
         req.setDatumArea("3,4,5");
@@ -51,48 +51,48 @@ public class CharteDateControlTest {
         req.setCourseId("2c9180846827407401682b57f4a60000");
         req.setCreateUser("000");
 
-        DataDatumVo dv=new DataDatumVo();
+        DataDatumVo dv = new DataDatumVo();
         dv.setFileName("课程资料添加测试文件");
         dv.setFileUrl("http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.jpg");
 
-            DataDatumVo dv1=new DataDatumVo();
-            dv1.setFileName("课程资料添加测试文件1");
-            dv1.setFileUrl("http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.jpg");
+        DataDatumVo dv1 = new DataDatumVo();
+        dv1.setFileName("课程资料添加测试文件1");
+        dv1.setFileUrl("http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.jpg");
 
 
-            List<DataDatumVo> list=new ArrayList<DataDatumVo>();
-            list.add(dv);
-            list.add(dv1);
+        List<DataDatumVo> list = new ArrayList<DataDatumVo>();
+        list.add(dv);
+        list.add(dv1);
         req.setFiles(list);
 
-        log.info("request-----{}" , JSON.toJSONString(req));
-        WebResult r=chapteDataController.save(req);
-        log.info("*********{}" , JSON.toJSONString(r));
+        log.info("request-----{}", JSON.toJSONString(req));
+        WebResult r = chapteDataController.save(req);
+        log.info("*********{}", JSON.toJSONString(r));
 
     }
 
     @Test
-    public void findDataList(){
-        ChapteDataListReq req=new ChapteDataListReq();
+    public void findDataList() {
+        ChapteDataListReq req = new ChapteDataListReq();
         req.setChapterId("40288d5c682b825e01682b8442630001");
         req.setCourseId("2c9180846827407401682b57f4a60000");
         req.setDatumArea("3,4,5,6");
         req.setDatumType("1");
-        SortVo sv=new SortVo();
+        SortVo sv = new SortVo();
         req.setSortVo(sv);
-        log.info("request-----{}" , JSON.toJSONString(req));
-        WebResult r=chapteDataController.findDatumList(req);
-        log.info("*********{}" , JSON.toJSONString(r));
+        log.info("request-----{}", JSON.toJSONString(req));
+        WebResult r = chapteDataController.findDatumList(req);
+        log.info("*********{}", JSON.toJSONString(r));
     }
 
     @Test
-    public void saveBeike(){
-        CourseDataDatumReq req=new CourseDataDatumReq();
+    public void saveBeike() {
+        CourseDataDatumReq req = new CourseDataDatumReq();
         req.setChapterId("40289fa0685ea88101685ea8c2cd0000");
         req.setCourseId("2c9180846827407401682b57f4a60000");
         req.setCreateUser("000");
 
-        RCourseData rd=new RCourseData();
+        RCourseData rd = new RCourseData();
         rd.setChapterId("40289fa0685ea88101685ea8c2cd0000");
         rd.setDatumArea("3,4,5");
         rd.setDatumType("1");
@@ -101,25 +101,25 @@ public class CharteDateControlTest {
         rd.setDatumUrl("http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.jpg");
 
 
-        List<RCourseData> list=new ArrayList<RCourseData>();
+        List<RCourseData> list = new ArrayList<RCourseData>();
         list.add(rd);
 
         req.setFiles(list);
-        log.info("------*{}" ,JSON.toJSONString(req));
-        WebResult r=courseDataController.save(req);
-        log.info("*********{}" ,JSON.toJSONString(r));
+        log.info("------*{}", JSON.toJSONString(req));
+        WebResult r = courseDataController.save(req);
+        log.info("*********{}", JSON.toJSONString(r));
     }
 
     @Test
-    public void findBeike(){
-        ChapteDataListReq req=new ChapteDataListReq();
+    public void findBeike() {
+        ChapteDataListReq req = new ChapteDataListReq();
         req.setChapterId("40289fa0685ea88101685ea8c2cd0000");
         req.setDatumType("1");
-        SortVo sv=new SortVo();
+        SortVo sv = new SortVo();
         req.setSortVo(sv);
-        log.info("------*{}" ,JSON.toJSONString(req));
-        WebResult r=courseDataController.findDatumList(req);
-        log.info("*********{}" ,JSON.toJSONString(r));
+        log.info("------*{}", JSON.toJSONString(req));
+        WebResult r = courseDataController.findDatumList(req);
+        log.info("*********{}", JSON.toJSONString(r));
     }
 
 }

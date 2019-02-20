@@ -56,7 +56,7 @@ public class RoleController extends BaseController {
      */
     @PostMapping(value = "/edit")
     @ApiOperation(value = "编辑/保存角色", notes = "编辑/保存角色")
-    public WebResult editRole(@Valid @RequestBody  @ApiParam(value = "角色数据", required = true) SysRole sysRole) {
+    public WebResult editRole(@Valid @RequestBody @ApiParam(value = "角色数据", required = true) SysRole sysRole) {
         return WebResult.okResult(roleService.edit(sysRole));
     }
 
@@ -175,7 +175,7 @@ public class RoleController extends BaseController {
      */
     @PostMapping(value = "/saveRoleColAct")
     @ApiOperation(value = "保存对应角色栏目的动作", notes = "传入角色与权限list json 进行操作")
-    public WebResult saveRoleColAct(@RequestBody @ApiParam(value = " json 串", required = true)  String params) {
+    public WebResult saveRoleColAct(@RequestBody @ApiParam(value = " json 串", required = true) String params) {
         authorityMgrService.saveRoleColAct(params);
         return WebResult.okResult();
     }

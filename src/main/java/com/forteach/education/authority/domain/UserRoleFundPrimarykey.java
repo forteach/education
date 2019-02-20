@@ -18,10 +18,10 @@ public class UserRoleFundPrimarykey implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "user_id",columnDefinition = "varchar(32) COMMENT '用户编号'",insertable = false,updatable = false)
+    @Column(name = "user_id", columnDefinition = "varchar(32) COMMENT '用户编号'", insertable = false, updatable = false)
     private String userId;
 
-    @Column(name = "role_id",columnDefinition = "varchar(32) COMMENT '角色编号'",insertable = false,updatable = false)
+    @Column(name = "role_id", columnDefinition = "varchar(32) COMMENT '角色编号'", insertable = false, updatable = false)
     private String roleId;
 
     public UserRoleFundPrimarykey() {

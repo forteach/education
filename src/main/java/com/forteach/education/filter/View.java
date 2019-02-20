@@ -9,9 +9,12 @@ package com.forteach.education.filter;
  */
 public class View {
 
-    public interface Summary {}
+    public interface Summary {
+    }
 
-    public interface SummaryExtend extends Summary {}
+    public interface SummaryExtend extends Summary {
+    }
 
-    public interface SummaryDetail extends SummaryExtend {}
+    public interface SummaryDetail extends SummaryExtend {
+    }
 }

@@ -19,6 +19,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, String>, JpaSp
 
     /**
      * 分页查询有效的教师信息
+     *
      * @param isValidated
      * @param pageable
      * @return
@@ -28,6 +29,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, String>, JpaSp
 
     /**
      * 根据专业ID查询教师信息列表
+     *
      * @param isValidated
      * @param specialtyId
      * @return

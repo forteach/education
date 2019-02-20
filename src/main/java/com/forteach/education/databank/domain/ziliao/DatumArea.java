@@ -3,6 +3,7 @@ package com.forteach.education.databank.domain.ziliao;
 import com.forteach.education.common.domain.Entitys;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,13 +13,13 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(name = "datum_area" , indexes = {@Index(columnList = "chapter_id"),@Index(columnList = "datum_area"),@Index(columnList = "k_node_id")})
+@Table(name = "datum_area", indexes = {@Index(columnList = "chapter_id"), @Index(columnList = "datum_area"), @Index(columnList = "k_node_id")})
 @org.hibernate.annotations.Table(appliesTo = "datum_area", comment = "资料领域对照表")
 @IdClass(DatumAreaPk.class)
 @ApiModel(value = "章节资料领域对照表")
 @AllArgsConstructor
 @NoArgsConstructor
-public class DatumArea extends Entitys implements Serializable{
+public class DatumArea extends Entitys implements Serializable {
 
     @EmbeddedId
     private DatumAreaPk datumAreaPk;

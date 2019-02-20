@@ -23,7 +23,7 @@ import java.io.Serializable;
 @ApiModel(value = "科目章节")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseChapterReq  implements Serializable {
+public class CourseChapterReq implements Serializable {
 
     @NotNull(message = "科目编号不为空")
     @ApiModelProperty(name = "科目编号", value = "courseId", dataType = "string", required = true)
@@ -48,8 +48,8 @@ public class CourseChapterReq  implements Serializable {
     @ApiModelProperty(name = "chapterType", value = "层级")
     private String chapterLevel;
 
-    @ApiModelProperty(value = "是否发布", name = "publish", dataType = "string",  notes = "是否发布　Y(是) N(否)", example = "Y")
-    private String publish="Y";
+    @ApiModelProperty(value = "是否发布", name = "publish", dataType = "string", notes = "是否发布　Y(是) N(否)", example = "Y")
+    private String publish = "Y";
 
     @ApiModelProperty(name = "createUser", value = "创建人")
     private String createUser;

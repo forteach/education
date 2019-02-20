@@ -18,13 +18,13 @@ public class RoleColActFundPrimarykey implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "col_id", columnDefinition = "varchar(32) COMMENT '栏目编号'",insertable = false,updatable = false)
+    @Column(name = "col_id", columnDefinition = "varchar(32) COMMENT '栏目编号'", insertable = false, updatable = false)
     private String colId;
 
-    @Column(name = "sys_act_id", columnDefinition = "int(11) COMMENT '动作编号'",insertable = false,updatable = false)
+    @Column(name = "sys_act_id", columnDefinition = "int(11) COMMENT '动作编号'", insertable = false, updatable = false)
     private String sysActId;
 
-    @Column(name = "role_id", columnDefinition = "varchar(32) COMMENT '角色编号'",insertable = false,updatable = false)
+    @Column(name = "role_id", columnDefinition = "varchar(32) COMMENT '角色编号'", insertable = false, updatable = false)
     private String roleId;
 
     public RoleColActFundPrimarykey() {

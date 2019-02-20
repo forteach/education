@@ -11,38 +11,44 @@ package com.forteach.education.databank.dto;
 public interface IChapterDataListDto {
 
     /**
-     *文件编号
+     * 文件编号
+     *
      * @return
      */
     public String getDataId();
 
     /**
-     *资料名称
+     * 资料名称
+     *
      * @return
      */
     public String getDatumName();
 
     /**
      * 课程ID
+     *
      * @return
      */
     public String getCourseId();
 
     /**
-     *章节编号
+     * 章节编号
+     *
      * @return
      */
     public String getChapterId();
 
 
     /**
-     *资料类型
+     * 资料类型
+     *
      * @return
      */
     public String getDatumType();
 
     /**
-     *资料领域
+     * 资料领域
+     *
      * @return
      */
     public String getDatumArea();

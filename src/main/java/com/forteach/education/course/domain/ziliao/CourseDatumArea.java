@@ -14,13 +14,13 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(name = "course_datum_area" , indexes = {@Index(columnList = "chapter_id"),@Index(columnList = "datum_area"),@Index(columnList = "k_node_id")})
+@Table(name = "course_datum_area", indexes = {@Index(columnList = "chapter_id"), @Index(columnList = "datum_area"), @Index(columnList = "k_node_id")})
 @org.hibernate.annotations.Table(appliesTo = "course_datum_area", comment = "课程资料领域对照表")
 @IdClass(CourseDatumAreaPk.class)
 @ApiModel(value = "章节资料领域对照表")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseDatumArea extends Entitys implements Serializable{
+public class CourseDatumArea extends Entitys implements Serializable {
 
     @EmbeddedId
     @ApiModelProperty(value = "资料领域主键", hidden = true)

@@ -11,5 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Description:　选择题选项
  */
 public interface ChoiceQstOptRepository extends JpaRepository<ChoiceQstOpt, String> {
-    
+
 }

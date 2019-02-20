@@ -31,7 +31,7 @@ public class RCourse implements Serializable {
     @ApiModelProperty(name = "courseName", value = "科目名称", dataType = "string", example = "商务英语", required = true)
     private String courseName;
 
-    @ApiModelProperty(name = "courseNumber", value = "科目编号",dataType = "string", example = "S123456", required = true)
+    @ApiModelProperty(name = "courseNumber", value = "科目编号", dataType = "string", example = "S123456", required = true)
     private String courseNumber;
 
     //授课类型是多选

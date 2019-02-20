@@ -9,6 +9,5 @@ package com.forteach.education.common.keyword;
  */
 public enum CaseModeEnum {
     UPPER,
-    LOWER
-    ;
+    LOWER;
 }

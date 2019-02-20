@@ -18,10 +18,10 @@ public class ExamineeAnswerFundPrimarykey implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "paper_id", columnDefinition = "varchar(32) COMMENT '试卷编号'",insertable = false,updatable = false)
+    @Column(name = "paper_id", columnDefinition = "varchar(32) COMMENT '试卷编号'", insertable = false, updatable = false)
     private String paperId;
 
-    @Column(name = "examinee_id", columnDefinition = "varchar(32) COMMENT '考生id'",insertable = false,updatable = false)
+    @Column(name = "examinee_id", columnDefinition = "varchar(32) COMMENT '考生id'", insertable = false, updatable = false)
     private String examineeId;
 
     public ExamineeAnswerFundPrimarykey() {

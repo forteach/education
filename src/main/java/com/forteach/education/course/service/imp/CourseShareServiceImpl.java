@@ -12,9 +12,11 @@ import com.forteach.education.util.UpdateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+
 import static com.forteach.education.common.keyword.Dic.COURSE_SHARE_AREA_ALL;
 import static com.forteach.education.common.keyword.Dic.LESSON_PREPARATION_TYPE_GROUP;
 
@@ -39,53 +41,53 @@ public class CourseShareServiceImpl implements CourseShareService {
 
     /**
      * 存储集体备课
-     * @param course  课程基本信息
-     * @param teacherList  教师备课成员
-     * @return  ShareId 课程分享编号
+     *
+     * @param course      课程基本信息
+     * @param teacherList 教师备课成员
+     * @return ShareId 课程分享编号
      */
-    @Transactional(rollbackForClassName="Exception")
+    @Transactional(rollbackForClassName = "Exception")
     @Override
-    public String save( Course course, List<RTeacher> teacherList) {
+    public String save(Course course, List<RTeacher> teacherList) {
 
-            //1、保存课程分享范围（ALL全部分享 PART部分分享）
-            CourseShare courseShare= CourseShare.builder()
-                    .shareArea(COURSE_SHARE_AREA_ALL)//分享整套课程
+        //1、保存课程分享范围（ALL全部分享 PART部分分享）
+        CourseShare courseShare = CourseShare.builder()
+                .shareArea(COURSE_SHARE_AREA_ALL)//分享整套课程
+                .build();
+        courseShare.setCreateTime(course.getCreateTime());
+        UpdateUtil.copyNullProperties(course, courseShare);
+        courseShareRepository.save(courseShare);
+
+
+        //2、保存参与分享的教师信息
+        List<CourseShareUsers> list = new ArrayList<>();
+        teacherList.forEach(teacher -> {
+            CourseShareUsers cs = CourseShareUsers.builder()
+                    .userId(teacher.getTeacherId())  //用户编号
+                    .userName(teacher.getTeacherName())
                     .build();
-          courseShare.setCreateTime(course.getCreateTime());
-          UpdateUtil.copyNullProperties(course, courseShare);
-          courseShareRepository.save(courseShare);
+            cs.setCreateTime(courseShare.getCreateTime());
+            UpdateUtil.copyNullProperties(courseShare, cs);
+            list.add(cs);
+        });
+        courseShareUsersRepository.saveAll(list);
 
-
-            //2、保存参与分享的教师信息
-            List<CourseShareUsers> list = new ArrayList<>();
-                teacherList.forEach(teacher -> {
-                    CourseShareUsers cs= CourseShareUsers.builder()
-                            .userId(teacher.getTeacherId())  //用户编号
-                            .userName(teacher.getTeacherName())
-                            .build();
-                    cs.setCreateTime(courseShare.getCreateTime());
-                    UpdateUtil.copyNullProperties(courseShare, cs);
-                list.add(cs);
-            });
-            courseShareUsersRepository.saveAll(list);
-
-            //3、集体备课返回课程分享编号
-            return courseShare.getShareId();
-        }
+        //3、集体备课返回课程分享编号
+        return courseShare.getShareId();
+    }
 
     /**
-     *
-     * @param shareId  原有课程的共享编号
-     * @param course   课程基本信息
-     * @param teacherList  集体备课教师列表
-     * @return  ShareId 新生成课程分享编号
+     * @param shareId     原有课程的共享编号
+     * @param course      课程基本信息
+     * @param teacherList 集体备课教师列表
+     * @return ShareId 新生成课程分享编号
      */
 //    @Transactional(rollbackOn = Exception.class)
-    @Transactional(rollbackForClassName="Exception")
+    @Transactional(rollbackForClassName = "Exception")
     @Override
-    public String update(String lessonPreType,String shareId, Course course, List<RTeacher> teacherList) {
+    public String update(String lessonPreType, String shareId, Course course, List<RTeacher> teacherList) {
         //1、判断是否是集体备课
-        if (LESSON_PREPARATION_TYPE_GROUP.equals(lessonPreType) ) {
+        if (LESSON_PREPARATION_TYPE_GROUP.equals(lessonPreType)) {
             //判断是否存在共享范围编码是否存在
             if (StrUtil.isNotBlank(shareId)) {
 
@@ -107,6 +109,7 @@ public class CourseShareServiceImpl implements CourseShareService {
 
     /**
      * 根据共享编号，获得教师列表
+     *
      * @param shareId
      * @return
      */
@@ -117,11 +120,12 @@ public class CourseShareServiceImpl implements CourseShareService {
 
     /**
      * 获得课程共享范围是---所有的资源信息
+     *
      * @param courseId
      * @return
      */
     @Override
-    public  CourseShare findByCourseIdAll(String courseId ){
-       return  courseShareRepository.findByCourseIdAndShareArea(courseId,COURSE_SHARE_AREA_ALL);
+    public CourseShare findByCourseIdAll(String courseId) {
+        return courseShareRepository.findByCourseIdAndShareArea(courseId, COURSE_SHARE_AREA_ALL);
     }
 }

@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "com.forteach.education.authority.repository")
 public class AuthMysqlConfig {
 
-	
-  
+
 }

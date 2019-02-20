@@ -3,6 +3,7 @@ package com.forteach.education.course.domain.ziliao;
 import com.forteach.education.common.domain.Entitys;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -56,9 +57,9 @@ public class CourseData extends Entitys implements Serializable {
     private String kNodeId;
 
     @Column(name = "teach_share", columnDefinition = "CHAR(1) COMMENT '教师共享 0不共享 1共享'")
-    private String teachShare="0";
+    private String teachShare = "0";
 
     @Column(name = "stu_share", columnDefinition = "CHAR(1) COMMENT '学生共享 0不共享 1共享'")
-    private String stuShare="0";
+    private String stuShare = "0";
 
 }

@@ -36,6 +36,6 @@ public interface CourseDatumAreaRepository extends JpaRepository<CourseDatumArea
 
     //根据文件编号和资料领域删除信息
     @Transactional
-    public int deleteByFileIdAndDatumArea(String fileId,String datumArea);
+    public int deleteByFileIdAndDatumArea(String fileId, String datumArea);
 
 }

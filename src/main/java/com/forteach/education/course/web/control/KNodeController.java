@@ -36,11 +36,9 @@ public class KNodeController {
             @ApiImplicitParam(name = "nodeDesc", value = "知识点描述", example = "知识点说明", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "courseId", value = "科目课程ID", example = "科目课程ID", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "chapterId", value = "章节ID", dataType = "string", paramType = "from"),
-           // @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", paramType = "from"),
-           // @ApiImplicitParam(name = "kNodeType", value = "知识点类型", dataType = "string", required = true, example = "1", paramType = "from")
     })
-    public WebResult save(@Valid @ApiParam(name = "kNode", value = "知识点对象") @RequestBody KNodeAll req){
-        KNode kn=new KNode();
+    public WebResult save(@Valid @ApiParam(name = "kNode", value = "知识点对象") @RequestBody KNodeAll req) {
+        KNode kn = new KNode();
         UpdateUtil.copyNullProperties(req, kn);
         kn.setCreateUser(req.getCreateUser());
         return WebResult.okResult(kNodeService.save(kn));
@@ -51,32 +49,16 @@ public class KNodeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "chapterId", value = "章节ID", example = "", dataType = "string", required = true, readOnly = true)
     })
-    public WebResult findByChapter(@Valid @ApiParam(name = "chapterId", value = "章节ID", required = true, readOnly = true) @RequestBody String chapterId){
+    public WebResult findByChapter(@Valid @ApiParam(name = "chapterId", value = "章节ID", required = true, readOnly = true) @RequestBody String chapterId) {
         return WebResult.okResult(kNodeService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));
     }
-
-//    @ApiOperation(value = "修改知识点")
-//    @PostMapping("/edit")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "kNodeId", value = "知识点ID", dataType = "string", required = true, paramType = "from"),
-//            @ApiImplicitParam(name = "nodeName", value = "知识点名称", example = "电子商务定义", required = true, dataType = "string", paramType = "from"),
-//            @ApiImplicitParam(name = "nodeDesc", value = "知识点描述", example = "知识点说明", dataType = "string", paramType = "from"),
-//            @ApiImplicitParam(name = "courseId", value = "科目课程ID", example = "科目课程ID", dataType = "string", paramType = "from"),
-//            @ApiImplicitParam(name = "chapterId", value = "章节ID", dataType = "string", paramType = "from"),
-//           // @ApiImplicitParam(name = "dataId", value = "资料数据ID", dataType = "string", paramType = "from"),
-//            //@ApiImplicitParam(name = "kNodeType", value = "知识点类型", dataType = "string", required = true, example = "1", paramType = "from")
-//    })
-//    public WebResult edit(@Valid @ApiParam(value = "知识点对像") @RequestBody KNode kNode){
-//        return WebResult.okResult(kNodeService.edit(kNode));
-//    }
-
 
     @ApiOperation(value = "根据课程ID查询知识点信息")
     @PostMapping("/findByCourse")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "课程ID", example = "", dataType = "string", required = true, readOnly = true)
     })
-    public WebResult findByCourse(@Valid @ApiParam(name = "courseId", value = "章节ID", required = true, readOnly = true) @RequestBody String courseId){
+    public WebResult findByCourse(@Valid @ApiParam(name = "courseId", value = "章节ID", required = true, readOnly = true) @RequestBody String courseId) {
         return WebResult.okResult(kNodeService.findByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
     }
 
@@ -85,7 +67,7 @@ public class KNodeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "kNodeId", value = "知识点ID", example = "ff8081816782652001678265779b0000", dataType = "string", required = true)
     })
-    public WebResult deleteByKNodeId(@Valid @ApiParam(name = "kNodeId", value = "知识点ID", required = true) @RequestBody String kNodeId){
+    public WebResult deleteByKNodeId(@Valid @ApiParam(name = "kNodeId", value = "知识点ID", required = true) @RequestBody String kNodeId) {
         kNodeService.deleteById(String.valueOf(JSONObject.parseObject(kNodeId).getString("kNodeId")));
         return WebResult.okResult();
     }
@@ -95,14 +77,14 @@ public class KNodeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "kNodeId", value = "知识点ID", example = "ff8081816782652001678265779b0000", dataType = "string", required = true)
     })
-    public WebResult deleteIsValidById(@Valid @ApiParam(name = "kNodeId", value = "知识点ID", required = true) @RequestBody String kNodeId){
+    public WebResult deleteIsValidById(@Valid @ApiParam(name = "kNodeId", value = "知识点ID", required = true) @RequestBody String kNodeId) {
         kNodeService.deleteIsValidById(String.valueOf(JSONObject.parseObject(kNodeId).getString("kNodeId")));
         return WebResult.okResult();
     }
 
     @PostMapping("/test")
-    public WebResult test(){
-        MyAssert.isFalse(false,10001,"测试");
+    public WebResult test() {
+        MyAssert.isFalse(false, 10001, "测试");
         return WebResult.okResult();
     }
 }

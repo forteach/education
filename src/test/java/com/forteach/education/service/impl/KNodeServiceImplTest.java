@@ -34,17 +34,17 @@ public class KNodeServiceImplTest {
                 .courseId("ff808181677d238701677d2646440000")
                 .chapterId("2c91809267462308016746293a2a0002")
                 //.dataId("ff808181674ef03301674ef0809d0000")
-               // .kNodeType("1")
+                // .kNodeType("1")
                 .nodeName("电子商务定义1")
-               // .nodeDesc("电子商务定义")
+                // .nodeDesc("电子商务定义")
                 .build());
     }
 
     @Test
     public void findByfindByChapterId() {
 
-        List<KNodeAll> list=kNodeServiceImpl.findByChapterId("2c91809267462308016746293a2a0002");
-        log.info("*********{}" , JSON.toJSONString(list));
+        List<KNodeAll> list = kNodeServiceImpl.findByChapterId("2c91809267462308016746293a2a0002");
+        log.info("*********{}", JSON.toJSONString(list));
     }
 
 //    @Test

@@ -15,13 +15,13 @@ import java.util.List;
 public interface KNodeService {
     public KNodeAll save(KNode kNode);
 
-    public  KNodeAll edit(KNode kNode);
+    public KNodeAll edit(KNode kNode);
 
     public List<KNodeAll> findByChapterId(String chapterId);
 
     public List<KNodeAll> findByCourseId(String courseId);
 
-   // public Page<KNode> selectById(KNodeReq kNodeReq);
+    // public Page<KNode> selectById(KNodeReq kNodeReq);
 
     public KNodeAll findById(String kNodeId);
 

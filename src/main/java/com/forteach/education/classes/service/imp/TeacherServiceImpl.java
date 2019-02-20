@@ -39,21 +39,23 @@ public class TeacherServiceImpl implements TeacherService {
 
     /**
      * 保存单个教师信息
+     *
      * @param teacher
      */
     @Override
-    public Teacher save(Teacher teacher){
+    public Teacher save(Teacher teacher) {
         return teacherRepository.save(teacher);
     }
 
     /**
      * 编辑教师信息
+     *
      * @param teacher
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Teacher edit(Teacher teacher){
+    public Teacher edit(Teacher teacher) {
         Teacher source = teacherRepository.findById(teacher.getTeacherId()).get();
         UpdateUtil.copyNullProperties(source, teacher);
         return teacherRepository.save(teacher);
@@ -61,6 +63,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     /**
      * 根据教师ID 删除教师信息
+     *
      * @param teacherId
      */
     @Override
@@ -71,27 +74,30 @@ public class TeacherServiceImpl implements TeacherService {
 
     /**
      * 删除教师对象
+     *
      * @param teacher
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Teacher teacher){
+    public void delete(Teacher teacher) {
         teacherRepository.delete(teacher);
     }
 
     /**
      * 分页查询教师信息
+     *
      * @param sortVo
      * @return
      */
     @Override
-    public Page<Teacher> findAll(SortVo sortVo){
+    public Page<Teacher> findAll(SortVo sortVo) {
         Page<Teacher> page = teacherRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
         return page;
     }
 
     /**
      * 根据教师ID　查询教师信息
+     *
      * @param teacherId
      * @return
      */
@@ -102,6 +108,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     /**
      * 逻辑删除教师信息使其无效不显示
+     *
      * @param teacherId
      */
     @Override
@@ -114,6 +121,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     /**
      * 根据专业号查询教师信息列表
+     *
      * @param specialtyId
      * @return
      */

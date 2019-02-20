@@ -16,12 +16,14 @@ import java.util.List;
 public interface TeacherService {
     /**
      * 保存教师信息
+     *
      * @param teacher
      */
     Teacher save(Teacher teacher);
 
     /**
      * 修改教师信息
+     *
      * @param teacher
      * @return
      */
@@ -29,6 +31,7 @@ public interface TeacherService {
 
     /**
      * 根据教师 ID 删除教师信息
+     *
      * @param teacherId
      * @return
      */
@@ -36,12 +39,14 @@ public interface TeacherService {
 
     /**
      * 删除教师信息
+     *
      * @param teacher
      */
     void delete(Teacher teacher);
 
     /**
      * 分页查询教师信息
+     *
      * @param sortVo
      * @return
      */
@@ -49,6 +54,7 @@ public interface TeacherService {
 
     /**
      * 根据ID 查询教师信息
+     *
      * @param teacherId
      * @return
      */
@@ -56,12 +62,14 @@ public interface TeacherService {
 
     /**
      * 逻辑删除教师信息使其无效不显示
+     *
      * @param teacherId
      */
     void deleteIsValidById(String teacherId);
 
     /**
      * 根据专业ID查询教师列表信息
+     *
      * @param specialtyId
      * @return
      */
