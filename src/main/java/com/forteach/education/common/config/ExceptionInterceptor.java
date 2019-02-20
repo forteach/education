@@ -29,7 +29,7 @@ public class ExceptionInterceptor {
     @ResponseBody
     public WebResult defaultErrorHandler(HttpServletRequest req, Throwable e) {
         log.error("全局异常拦截器  {}   请求地址 {}  /  异常信息  {}", e, req.getRequestURL(), e.getMessage());
-        return WebResult.failException();
+        return WebResult.failException(e.getMessage());
     }
 
     @ExceptionHandler(value = SQLException.class)

@@ -69,7 +69,7 @@ public class CourseServiceImplTest {
         for (int i = 0; i < 5; i++) {
             list.add(DataDatumVo.builder()
                     .fileName("文件_" + i)
-                    .filePath("https://www.bilibili.com/video/av6643537?from=search&seid=14324992629957613357")
+                    .fileUrl("https://www.bilibili.com/video/av6643537?from=search&seid=14324992629957613357")
                     .indexNum(i + 1)
                     .build());
         }

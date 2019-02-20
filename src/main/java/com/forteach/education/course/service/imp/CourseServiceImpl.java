@@ -168,7 +168,7 @@ public class CourseServiceImpl implements CourseService {
                     .courseId(courseImagesReq.getCourseId())
                     .indexNum(i + 1)
                     .imageName(dataDatumVo.getFileName())
-                    .imageUrl(dataDatumVo.getFilePath())
+                    .imageUrl(dataDatumVo.getFileUrl())
                     .build());
         }
         courseImagesRepository.saveAll(list);

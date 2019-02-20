@@ -100,7 +100,7 @@ public class KNodeController {
         return WebResult.okResult();
     }
 
-    @GetMapping("/test")
+    @PostMapping("/test")
     public WebResult test(){
         MyAssert.isFalse(false,10001,"测试");
         return WebResult.okResult();

@@ -53,11 +53,11 @@ public class CharteDateControlTest {
 
         DataDatumVo dv=new DataDatumVo();
         dv.setFileName("课程资料添加测试文件");
-        dv.setFilePath("http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.jpg");
+        dv.setFileUrl("http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.jpg");
 
             DataDatumVo dv1=new DataDatumVo();
             dv1.setFileName("课程资料添加测试文件1");
-            dv1.setFilePath("http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.jpg");
+            dv1.setFileUrl("http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.jpg");
 
 
             List<DataDatumVo> list=new ArrayList<DataDatumVo>();

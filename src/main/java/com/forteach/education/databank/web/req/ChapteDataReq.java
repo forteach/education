@@ -22,10 +22,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChapteDataReq {
+
     //资料编号
     private String fileId;
 
-    @NotNull(message = "科目编号不为空")
     @ApiModelProperty(name = "courseId", value = "科目编号", dataType = "string", required = true)
     private String courseId;
 
@@ -35,7 +35,6 @@ public class ChapteDataReq {
     @ApiModelProperty(name = "datumArea", dataType = "string", value = "资料领域", example = "1", notes = "资料领域：3预习参考 4教学参考 5授课案例", required = true)
     private String datumArea;
 
-    @NotNull(message = "资料类型不为空")
     @ApiModelProperty(name = "datumType", dataType = "string", value = "资料类型", example = "1", notes = "资料类型 1文档　　3视频　4音频　5链接", required = true)
     private String datumType;
 

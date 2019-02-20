@@ -290,7 +290,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
             fd.setFileId(uuid);
             fd.setFileName(dataDatumVo.getFileName());
             fd.setFileType(FileUtils.ext(dataDatumVo.getFileName()));
-            fd.setFileUrl(dataDatumVo.getFilePath());
+            fd.setFileUrl(dataDatumVo.getFileUrl());
             fd.setDatumType(datumType);
             fd.setStuShare(stuShare);
             fd.setTeachShare(teachShare);

@@ -41,12 +41,10 @@ public class CoursewareControlTest {
         req.setCreateUser("000");
 
         CoursewareAll ca=new CoursewareAll();
-        ca.setChapterId("40289fa0685ea88101685ea8c2cd0000");
         ca.setFileName("test.jpg");
         ca.setFileUrl("http://118.24.120.43:8080/group1/M00/00/03/rBsADFw1nxyAaHgHAAoNCP4-KtI739.jpg");
 
         CoursewareAll ca1=new CoursewareAll();
-        ca1.setChapterId("40289fa0685ea88101685ea8c2cd0000");
         ca1.setFileName("test1.jpg");
         ca1.setFileUrl("http://118.24.120.43:8080/group1/M00/00/03/rBsADFw1nxyAaHgHAAoNCP4-KtI739.jpg");
 
@@ -70,7 +68,6 @@ public class CoursewareControlTest {
         req.setCreateUser("000");
 
         CoursewareAll ca=new CoursewareAll();
-        ca.setChapterId("40289fa0685ea88101685ea8c2cd0000");
         ca.setFileName("test1.jpg");
         ca.setFileUrl("http://118.24.120.43:8080/group1/M00/00/03/rBsADFw1nxyAaHgHAAoNCP4-KtI739.jpg");
 

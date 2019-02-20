@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Data
 public class CoursewareAll implements Serializable {
 
-    public String chapterId;
+  //  public String chapterId;
 
     public String fileName;
 

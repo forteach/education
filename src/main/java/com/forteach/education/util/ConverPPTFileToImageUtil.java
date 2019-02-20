@@ -323,7 +323,7 @@ public class ConverPPTFileToImageUtil {
 
     /**
      * 直接抽取幻灯片的全部内容
-     * @param filePath
+     * @param
      * @return
      * @throws IOException
      */

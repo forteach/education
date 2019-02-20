@@ -34,8 +34,8 @@ public class DataDatumVo implements Serializable {
     private String fileName;
 
     @NotNull(message = "文件路径不为空")
-    @ApiModelProperty(value = "文件路径", name = "filePath", dataType = "string", required = true)
-    private String filePath;
+    @ApiModelProperty(value = "文件路径", name = "fileUrl", dataType = "string", required = true)
+    private String fileUrl;
 
     @Length(max = 1, message = "是否挂载最大长度为1位")
     @Pattern(regexp = "^[Y,Z]$", message = "是否挂载文件参数只能是Y,N")

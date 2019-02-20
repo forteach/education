@@ -71,6 +71,7 @@ public class CoursewareServiceImp implements CoursewareService {
             Photos photo=new Photos();
             photo.setId(IdUtil.fastSimpleUUID());
             photo.setArlitsId(ca.getId());
+            photo.setChapterId(obj.getChapterId());
             UpdateUtil.copyNullProperties(item, photo);
             return photo;
         }).collect(Collectors.toList());

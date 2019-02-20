@@ -1,7 +1,6 @@
 package com.forteach.education.course.web.req;
 
 import com.forteach.education.classes.web.req.RTeacher;
-import com.forteach.education.common.request.BaseReq;
 import com.forteach.education.course.web.vo.RCourse;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,7 +16,7 @@ import java.util.List;
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-11-29 16:21
  * @Version: 1.0
- * @Description:
+ * @Description:课程添加Request对象
  */
 @Data
 @Builder
