@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 public interface TokenService {
     /**
      * 用微信openId生成一个一天有效期的token
-     * @param openId
+     * @param userId
      * @return
      */
-    String createToken(String openId);
+    String createToken(String userId);
 
     /**
      * 获取JWT验证
@@ -32,4 +32,11 @@ public interface TokenService {
      * @return
      */
     String getUserId(HttpServletRequest request);
+
+    /**
+     * 查询对应学生id信息
+     * @param request
+     * @return
+     */
+    String getStudentId(HttpServletRequest request);
 }

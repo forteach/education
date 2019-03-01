@@ -6,12 +6,13 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.forteach.education.authority.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-
-import static com.forteach.education.common.keyword.Dic.TokenValidityTime;
+import static com.forteach.education.common.keyword.Dic.*;
 
 /**
  * @Auther: zhangyy
@@ -27,6 +28,9 @@ public class TokenImpl implements TokenService {
     @Value("${token.salt}")
     private String salt;
 
+    @Resource
+    private HashOperations<String, String, String> hashOperations;
+
     /**
      * 生成一个token
      * @param userId
@@ -35,9 +39,9 @@ public class TokenImpl implements TokenService {
     @Override
     public String createToken(String userId) {
         return JWT.create()
-                .withAudience(userId)
+                .withAudience(userId, TOKEN_TEACHER)
                 .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + TokenValidityTime * 1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_VALIDITY_TIME * 1000))
                 .sign(Algorithm.HMAC256(salt.concat(userId)));
     }
 
@@ -60,5 +64,18 @@ public class TokenImpl implements TokenService {
     public String getUserId(HttpServletRequest request) {
         String token = request.getHeader("token");
         return JWT.decode(token).getAudience().get(0);
+    }
+
+    private String getType(String token, int index){
+        return JWT.decode(token).getAudience().get(index);
+    }
+
+    @Override
+    public String getStudentId(HttpServletRequest request){
+        String token = request.getHeader("token");
+        if (TOKEN_STUDENT.equals(getType(token, 1))){
+            return hashOperations.get(USER_TOKEN_PREFIX.concat(getType(token, 0)), "studentId");
+        }
+        return null;
     }
 }

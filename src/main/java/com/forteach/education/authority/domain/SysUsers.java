@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.forteach.education.common.domain.Entitys;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
@@ -74,6 +74,9 @@ public class SysUsers extends Entitys implements Serializable {
     @Column(name = "equipment", columnDefinition = "varchar(40) COMMENT '登陆设备'")
     @ApiModelProperty(name = "equipment", value = "登陆设备", dataType = "string")
     private String equipment;
+
+    @Column(name = "teacher_id", columnDefinition = "varchar(32) comment '教师id'")
+    private String teacherId;
 
     @Transient
     @JsonIgnore

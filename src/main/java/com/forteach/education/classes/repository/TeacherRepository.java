@@ -35,4 +35,12 @@ public interface TeacherRepository extends JpaRepository<Teacher, String>, JpaSp
      * @return
      */
     List<Teacher> findByIsValidatedEqualsAndSpecialtyId(String isValidated, String specialtyId);
+
+    /**
+     * 查询修改的密码账户信息
+     * @param isValidated
+     * @param uTime
+     * @return
+     */
+    List<Teacher> findByIsValidatedEqualsAndUpdateTime(String isValidated, String uTime);
 }

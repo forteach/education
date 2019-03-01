@@ -1,6 +1,7 @@
 package com.forteach.education.course.web.control;
 
 import com.alibaba.fastjson.JSONObject;
+import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.course.domain.Course;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -50,6 +52,9 @@ public class CourseController {
 
     @Resource
     private CourseService courseService;
+
+    @Resource
+    private TokenService tokenService;
 
     @Resource
     private CourseShareService courseShareService;
@@ -147,11 +152,11 @@ public class CourseController {
     @PostMapping("/findMyCourse")
     @ApiOperation(value = "查询我的课程", notes = "分页查询我的课程信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户编号", required = true, dataType = "string", type = "string", example = "0001"),
+//            @ApiImplicitParam(name = "userId", value = "用户编号", required = true, dataType = "string", type = "string", example = "0001"),
             @ApiImplicitParam(name = "sortVo", value = "分页参数息", dataTypeClass = CourseFindAllReq.class, example = "{\"sortVo\":{\"isValidated\":\"0\",\"page\":0,\"size\":15,\"sort\":1}}", required = true, paramType = "query")
     })
-    public WebResult findMyCourse(@Valid @ApiParam(name = "CourseFindAllReq", value = "课程列表请求对象", required = true) @RequestBody CourseFindAllReq req) {
-        String userId = req.getUserId();
+    public WebResult findMyCourse(@Valid @ApiParam(name = "CourseFindAllReq", value = "课程列表请求对象", required = true) @RequestBody CourseFindAllReq req, HttpServletRequest request) {
+        String userId = tokenService.getUserId(request);
         SortVo sortVo = req.getSortVo();
         PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
         return WebResult.okResult(courseService.findMyCourse(userId, page).stream()
