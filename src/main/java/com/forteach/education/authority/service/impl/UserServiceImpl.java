@@ -6,6 +6,7 @@ import com.forteach.education.authority.repository.UserRoleRepository;
 import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.authority.service.UserService;
 import com.forteach.education.authority.web.req.RegisterUserReq;
+import com.forteach.education.authority.web.req.UpdatePassWordReq;
 import com.forteach.education.authority.web.req.UserLoginReq;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.classes.repository.TeacherRepository;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
@@ -92,20 +94,47 @@ public class UserServiceImpl implements UserService {
         return WebResult.okResult();
     }
 
-//    public void addTeacher(String teacherId) {
-//        teacherRepository.findByIsValidatedEqualsAndUpdateTime(TAKE_EFFECT_OPEN, "")
-//                .parallelStream()
-//                .filter(t -> StrUtil.isNotBlank(t.getTeacherId()))
-//                .map(this::saveAllBuildStudent);
-//    }
-//
-//    private void saveAllBuildStudent(final Teacher teacher) {
-//        List<SysUsers> list = new ArrayList<>();
-//        list.add(SysUsers.builder()
-//                .userName(teacher.getTeacherName())
-//                .teacherId(teacher.getTeacherId())
-//                .passWord(Md5Util.macMD5(salt.concat(initPassWord)))
-//                .build());
-//        userRepository.saveAll(list);
-//    }
+    @Override
+    public WebResult resetPassWord(String teacherCode) {
+        SysUsers users = userRepository.findByTeacherId(teacherCode);
+        if (users == null) {
+            return WebResult.failException("不存在您的信息，请联系管理员");
+        }
+        users.setPassWord(Md5Util.macMD5(initPassWord));
+        userRepository.save(users);
+        return WebResult.okResult();
+    }
+
+    @Override
+    public WebResult addSysTeacher(String teacherCode) {
+        Optional<Teacher> teacher = teacherRepository.findById(teacherCode);
+        if (!teacher.isPresent()) {
+            return WebResult.failException("不存在您的信息，请联系管理员");
+        }
+        //验证是否注册
+        SysUsers users = userRepository.findByTeacherId(teacherCode);
+        if (users != null) {
+            return WebResult.failException("您已经注册过了");
+        }
+        SysUsers user = new SysUsers();
+        user.setPassWord(Md5Util.macMD5(initPassWord));
+        user.setTeacherId(teacherCode);
+        user.setUserName(teacher.get().getTeacherName());
+        SysUsers sysUsers = userRepository.save(user);
+        return WebResult.okResult("添加成功");
+    }
+
+    @Override
+    public WebResult updatePassWord(UpdatePassWordReq updatePassWordReq){
+        SysUsers users = userRepository.findByTeacherId(updatePassWordReq.getTeacherCode());
+        if (users == null){
+            return WebResult.failException("不存在相关用户");
+        }
+        if (!Md5Util.macMD5(updatePassWordReq.getOldPassWord()).equals(users.getPassWord())){
+            return WebResult.failException("旧密码不正确");
+        }
+        users.setPassWord(Md5Util.macMD5(updatePassWordReq.getNewPassWord()));
+        userRepository.save(users);
+        return WebResult.okResult("修改成功");
+    }
 }

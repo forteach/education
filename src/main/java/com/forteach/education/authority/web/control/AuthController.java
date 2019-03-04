@@ -1,18 +1,19 @@
 package com.forteach.education.authority.web.control;
 
+import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.authority.service.UserService;
 import com.forteach.education.authority.web.req.RegisterUserReq;
+import com.forteach.education.authority.web.req.UpdatePassWordReq;
 import com.forteach.education.authority.web.req.UserLoginReq;
+import com.forteach.education.common.keyword.DefineCode;
+import com.forteach.education.common.keyword.MyAssert;
 import com.forteach.education.common.keyword.WebResult;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 /**
@@ -49,5 +50,35 @@ public class AuthController {
     })
     public WebResult registerUser(@Valid @RequestBody RegisterUserReq registerUserReq){
         return userService.registerUser(registerUserReq);
+    }
+
+    @ApiOperation("重置教师账户密码为初始化密码")
+    @PostMapping("/resetPassWord")
+    @ApiImplicitParam(name = "teacherCode",value = "教师代码", required = true, dataType = "string",paramType = "from")
+    public WebResult resetPassWord(@Valid @RequestBody String teacherCode){
+        MyAssert.blank(teacherCode, DefineCode.ERR0010, "教师代码不为空");
+        return userService.resetPassWord(JSONObject.parseObject(teacherCode).getString("teacherCode"));
+    }
+
+    @ApiOperation("添加教师用户信息用户账户")
+    @PostMapping("/addSysTeacher")
+    @ApiImplicitParam(name = "teacherCode",value = "教师代码", required = true, dataType = "string",paramType = "from")
+    public WebResult addSysTeacher(@Valid @RequestBody String teacherCode){
+        MyAssert.blank(teacherCode, DefineCode.ERR0010, "教师代码不为空");
+        return userService.addSysTeacher(JSONObject.parseObject(teacherCode).getString("teacherCode"));
+    }
+
+    @ApiOperation("修改密码")
+    @PostMapping("/updatePassWord")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "教师代码", name = "teacherCode", required = true, dataType = "string", paramType = "from"),
+            @ApiImplicitParam(value = "旧密码", name = "oldPassWord", required = true, dataType = "string", paramType = "from"),
+            @ApiImplicitParam(value = "新密码", name = "newPassWord", required = true, dataType = "string", paramType = "from")
+    })
+    public WebResult updatePassWord(@Valid @RequestBody UpdatePassWordReq updatePassWordReq){
+        MyAssert.blank(updatePassWordReq.getTeacherCode(), DefineCode.ERR0010, "教师代码不为空");
+        MyAssert.blank(updatePassWordReq.getOldPassWord(), DefineCode.ERR0010, "旧密码不能为空");
+        MyAssert.blank(updatePassWordReq.getNewPassWord(), DefineCode.ERR0010, "新密码不能为空");
+        return userService.updatePassWord(updatePassWordReq);
     }
 }
