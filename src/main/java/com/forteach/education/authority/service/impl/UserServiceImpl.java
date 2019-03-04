@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService {
         user.setPassWord(Md5Util.macMD5(initPassWord));
         user.setTeacherId(teacherCode);
         user.setUserName(teacher.get().getTeacherName());
-        SysUsers sysUsers = userRepository.save(user);
+        userRepository.save(user);
         return WebResult.okResult("添加成功");
     }
 

@@ -1,6 +1,7 @@
 package com.forteach.education.authority.web.control;
 
 import com.alibaba.fastjson.JSONObject;
+import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.authority.service.UserService;
 import com.forteach.education.authority.web.req.RegisterUserReq;
 import com.forteach.education.authority.web.req.UpdatePassWordReq;
@@ -55,6 +56,7 @@ public class AuthController {
     @ApiOperation("重置教师账户密码为初始化密码")
     @PostMapping("/resetPassWord")
     @ApiImplicitParam(name = "teacherCode",value = "教师代码", required = true, dataType = "string",paramType = "from")
+    @UserLoginToken
     public WebResult resetPassWord(@Valid @RequestBody String teacherCode){
         MyAssert.blank(teacherCode, DefineCode.ERR0010, "教师代码不为空");
         return userService.resetPassWord(JSONObject.parseObject(teacherCode).getString("teacherCode"));
@@ -63,6 +65,7 @@ public class AuthController {
     @ApiOperation("添加教师用户信息用户账户")
     @PostMapping("/addSysTeacher")
     @ApiImplicitParam(name = "teacherCode",value = "教师代码", required = true, dataType = "string",paramType = "from")
+    @UserLoginToken
     public WebResult addSysTeacher(@Valid @RequestBody String teacherCode){
         MyAssert.blank(teacherCode, DefineCode.ERR0010, "教师代码不为空");
         return userService.addSysTeacher(JSONObject.parseObject(teacherCode).getString("teacherCode"));
@@ -75,6 +78,7 @@ public class AuthController {
             @ApiImplicitParam(value = "旧密码", name = "oldPassWord", required = true, dataType = "string", paramType = "from"),
             @ApiImplicitParam(value = "新密码", name = "newPassWord", required = true, dataType = "string", paramType = "from")
     })
+    @UserLoginToken
     public WebResult updatePassWord(@Valid @RequestBody UpdatePassWordReq updatePassWordReq){
         MyAssert.blank(updatePassWordReq.getTeacherCode(), DefineCode.ERR0010, "教师代码不为空");
         MyAssert.blank(updatePassWordReq.getOldPassWord(), DefineCode.ERR0010, "旧密码不能为空");
