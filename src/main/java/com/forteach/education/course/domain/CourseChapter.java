@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Entity
 @Builder
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "course_chapter", indexes = {@Index(columnList = "chapter_id"), @Index(columnList = "course_id")})
+@Table(name = "course_chapter", indexes = {@Index(columnList = "chapter_id", name = "chapter_id_index"), @Index(columnList = "course_id", name = "course_id_index")})
 @org.hibernate.annotations.Table(appliesTo = "course_chapter", comment = "科目章节")
 @GenericGenerator(name = "system-uuid", strategy = "uuid")
 @AllArgsConstructor

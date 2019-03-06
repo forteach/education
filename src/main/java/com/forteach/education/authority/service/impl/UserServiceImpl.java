@@ -65,10 +65,12 @@ public class UserServiceImpl implements UserService {
         } else if (!user.getPassWord().equals(Md5Util.macMD5(userLoginReq.getPassWord()))) {
             return WebResult.failException("密码错误");
         }
-        String token = tokenService.createToken(user.getTeacherId());
+        String token = tokenService.createToken(user.getId());
+        tokenService.saveRedis(token, user);
         Map<String, Object> map = new HashMap<String, Object>(2);
         map.put("token", token);
         map.put("userId", user.getId());
+        //保存token到redis
         return WebResult.okResult(map);
     }
 

@@ -31,11 +31,16 @@ public interface CourseDatumAreaRepository extends JpaRepository<CourseDatumArea
     //章节、知识点、资料领域
     public Page<CourseDatumArea> findByChapterIdAndKNodeIdAndDatumAreaIn(String chapterId, String kNodeId, List<String> datumAreas, Pageable pageable);
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public int deleteByChapterId(String chapterId);
 
-    //根据文件编号和资料领域删除信息
-    @Transactional
+    /**
+     * 根据文件编号和资料领域删除信息
+     * @param fileId
+     * @param datumArea
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
     public int deleteByFileIdAndDatumArea(String fileId, String datumArea);
 
 }

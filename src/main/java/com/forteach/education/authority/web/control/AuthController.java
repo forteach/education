@@ -9,6 +9,7 @@ import com.forteach.education.authority.web.req.UserLoginReq;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.MyAssert;
 import com.forteach.education.common.keyword.WebResult;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +27,7 @@ import javax.validation.Valid;
  */
 @Slf4j
 @RestController
+@Api(value = "用户认证", description = "教师端用户登录,注册，重置密码，等接口", tags = {"用户操作"})
 @RequestMapping(path = "/auth", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class AuthController {
     private final UserService userService;
@@ -34,6 +36,7 @@ public class AuthController {
         this.userService = userService;
     }
 
+    @ApiOperation("用户登录")
     @PostMapping("/login")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "string", paramType = "from"),
@@ -43,6 +46,7 @@ public class AuthController {
         return userService.login(userLoginReq);
     }
 
+    @ApiOperation(value = "用户注册", notes = "用户只能是本校教职工才能注册")
     @PostMapping("/registerUser")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "string", paramType = "from"),

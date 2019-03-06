@@ -1,10 +1,13 @@
 package com.forteach.education.classes.repository;
 
 import com.forteach.education.classes.domain.Teacher;
+import com.forteach.education.classes.dto.TeacherInfoDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,7 +27,20 @@ public interface TeacherRepository extends JpaRepository<Teacher, String>, JpaSp
      * @param pageable
      * @return
      */
-    Page<Teacher> findByIsValidatedEquals(String isValidated, Pageable pageable);
+    @Transactional(readOnly = true)
+//    @Query(value = "SELECT * FROM teacher WHERE is_validated = ?1",
+//            countQuery = "SELECT COUNT(*) FROM teacher where is_validated = ?1",
+//            nativeQuery = true)
+//    Page<Teacher> findByIsValidatedEquals(String isValidated, Pageable pageable);
+    Page<Teacher> findByIsValidatedEqualsOrderByCreateTimeDesc(String isValidated, Pageable pageable);
+    /**
+     * 查询有效教师信息
+     * @param isValidated
+     * @return
+     */
+    @Transactional(readOnly = true)
+    @Query(value = "select teacherId AS teacherId, teacherCode AS teacherCode, teacherName AS teacherName FROM Teacher WHERE isValidated = :isValidated ORDER BY teacherName ASC ")
+    List<TeacherInfoDto> findByIsValidatedEquals(String isValidated);
 
 
     /**
@@ -34,6 +50,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, String>, JpaSp
      * @param specialtyId
      * @return
      */
+    @Transactional(readOnly = true)
     List<Teacher> findByIsValidatedEqualsAndSpecialtyId(String isValidated, String specialtyId);
 
     /**
@@ -42,5 +59,6 @@ public interface TeacherRepository extends JpaRepository<Teacher, String>, JpaSp
      * @param uTime
      * @return
      */
+    @Transactional(readOnly = true)
     List<Teacher> findByIsValidatedEqualsAndUpdateTime(String isValidated, String uTime);
 }

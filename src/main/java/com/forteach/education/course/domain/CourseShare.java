@@ -19,7 +19,8 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(name = "course_share", indexes = {@Index(columnList = "share_id"), @Index(columnList = "chapter_id"), @Index(columnList = "course_id")})
+@Table(name = "course_share", indexes = {@Index(columnList = "share_id", name = "share_id_index"),
+        @Index(columnList = "chapter_id", name = "chapter_id_index"), @Index(columnList = "course_id", name = "course_id_index")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "course_share", comment = "分享范围")
 @ApiModel(value = "分享范围")

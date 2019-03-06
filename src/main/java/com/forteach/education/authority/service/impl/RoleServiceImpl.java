@@ -54,23 +54,28 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    public List<Map<String, Object>> findUsersInfo(int page, int size, String sorting) {
+    public Page<SysUsers> findUsersInfo(int page, int size) {
 
-        Sort sort = new Sort(Sort.Direction.DESC, sorting);
+//        Sort sort = new Sort(Sort.Direction.DESC);
 
-        Page<SysUsers> userList = userRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN, PageRequest.of(page, size, sort));
-        List<Map<String, Object>> list = new ArrayList<>();
-
+        Page<SysUsers> userList = userRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(TAKE_EFFECT_OPEN, PageRequest.of(page, size));
         userList.forEach(m -> {
-            Map<String, Object> resultMap = new HashMap<>(10);
-            resultMap.put("userId", m.getId());
-            resultMap.put("userName", m.getUserName());
-            resultMap.put("email", m.getEmail());
-            resultMap.put("account", m.getAccount());
-            resultMap.put("register_phone", m.getRegisterPhone());
-            list.add(resultMap);
+            m.setPassWord(null);
         });
-        return list;
+        return userList;
+//        List<Map<String, Object>> list = new ArrayList<>();
+
+//        userList.forEach(m -> {
+//            Map<String, Object> resultMap = new HashMap<>(10);
+//            resultMap.put("userId", m.getId());
+//            resultMap.put("teacherId", m.getTeacherId());
+//            resultMap.put("userName", m.getUserName());
+//            resultMap.put("email", m.getEmail());
+//            resultMap.put("account", m.getAccount());
+//            resultMap.put("registerPhone", m.getRegisterPhone());
+//            list.add(resultMap);
+//        });
+//        return list;
     }
 
     /**

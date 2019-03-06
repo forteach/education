@@ -1,6 +1,8 @@
 package com.forteach.education.authority.service;
 
 import com.forteach.education.authority.domain.SysRole;
+import com.forteach.education.authority.domain.SysUsers;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -24,10 +26,9 @@ public interface RoleService {
      *
      * @param page    分页位
      * @param size    分页数量
-     * @param sorting 排序（倒叙）
      * @return
      */
-    List<Map<String, Object>> findUsersInfo(int page, int size, String sorting);
+    Page<SysUsers> findUsersInfo(int page, int size);
 
     /**
      * 删除角色

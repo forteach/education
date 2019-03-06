@@ -22,7 +22,7 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "article", indexes = {@Index(columnList = "article_id"), @Index(columnList = "sort_article_id")})
+@Table(name = "article", indexes = {@Index(columnList = "article_id", name = "article_id_index"), @Index(columnList = "sort_article_id", name = "sort_article_id_index")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "article", comment = "文章")
 @ApiModel(value = "文章")

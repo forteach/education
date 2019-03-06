@@ -1,6 +1,7 @@
 package com.forteach.education.authority.service;
 
 import com.auth0.jwt.JWTVerifier;
+import com.forteach.education.authority.domain.SysUsers;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,4 +40,11 @@ public interface TokenService {
      * @return
      */
     String getStudentId(HttpServletRequest request);
+
+    /**
+     * 保存token 到redis
+     * @param token
+     * @param users
+     */
+    void saveRedis(String token, SysUsers users);
 }

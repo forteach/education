@@ -1,14 +1,13 @@
 package com.forteach.education.web.control;
 
+import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.authority.domain.SysRole;
 import com.forteach.education.authority.service.AuthorityMgrService;
 import com.forteach.education.authority.service.RoleService;
 import com.forteach.education.web.vo.AuthorityVo;
 import com.forteach.education.common.web.vo.SortVo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,10 +64,15 @@ public class RoleController extends BaseController {
      *
      * @return
      */
+    @UserLoginToken
     @PostMapping(value = "/users")
     @ApiOperation(value = "用户列表", notes = "通过 分页 及排序获得用户列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "分页从0开始", required = true, dataType = "int", type = "int", example = "0"),
+            @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10")
+    })
     public WebResult userList(@Valid @RequestBody @ApiParam(value = "分页对象", required = true) SortVo sortVo) {
-        return WebResult.okResult(roleService.findUsersInfo(sortVo.getPage(), sortVo.getSize(), sortVo.getSorting()));
+        return WebResult.okResult(roleService.findUsersInfo(sortVo.getPage(), sortVo.getSize()));
     }
 
     /**

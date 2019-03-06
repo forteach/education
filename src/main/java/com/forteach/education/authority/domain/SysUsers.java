@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -19,9 +21,11 @@ import java.io.Serializable;
  * @date: 2018/10/30 15:51
  */
 @EqualsAndHashCode(callSuper = true)
+@DynamicUpdate
+@DynamicInsert
 @Data
 @Entity
-@Table(name = "sys_users")
+@Table(name = "sys_users", indexes = {@Index(name = "id_index", columnList = "id")})
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 @org.hibernate.annotations.Table(appliesTo = "sys_users", comment = "系统用户")
 public class SysUsers extends Entitys implements Serializable {

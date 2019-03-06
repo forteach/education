@@ -3,10 +3,10 @@ package com.forteach.education.classes.service.imp;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.classes.repository.TeacherRepository;
 import com.forteach.education.classes.service.TeacherService;
-import com.forteach.education.util.SortUtil;
+import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.util.UpdateUtil;
-import com.forteach.education.common.web.vo.SortVo;
+import com.forteach.education.web.resp.TeacherInfoResp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
@@ -91,7 +92,7 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     public Page<Teacher> findAll(SortVo sortVo) {
-        Page<Teacher> page = teacherRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
+        Page<Teacher> page = teacherRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize()));
         return page;
     }
 
@@ -128,6 +129,21 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<Teacher> findTeachersBySpecialtyId(String specialtyId) {
         return teacherRepository.findByIsValidatedEqualsAndSpecialtyId(TAKE_EFFECT_OPEN, specialtyId);
+    }
+
+    @Override
+    public List<TeacherInfoResp> findAllTeacherInfo() {
+        List<TeacherInfoResp> list = new ArrayList<>();
+        teacherRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN)
+                .parallelStream()
+                .forEach(t -> {
+                    list.add(TeacherInfoResp.builder()
+                            .teacherId(t.getTeacherId())
+                            .teacherCode(t.getTeacherCode())
+                            .teacherName(t.getTeacherName())
+                            .build());
+                });
+        return list;
     }
 
 

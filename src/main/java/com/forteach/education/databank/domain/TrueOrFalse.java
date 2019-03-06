@@ -20,7 +20,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "true_or_false", indexes = {@Index(columnList = "question_id")})
+@Table(name = "true_or_false", indexes = {@Index(columnList = "question_id", name = "question_id_index")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "true_or_false", comment = "判断题")
 @ApiModel(value = "判断题")

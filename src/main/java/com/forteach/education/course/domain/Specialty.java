@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(name = "specialty", indexes = {@Index(columnList = "specialty_id")})
+@Table(name = "specialty", indexes = {@Index(columnList = "specialty_id", name = "specialty_id_index")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "specialty", comment = "专业")
 @ApiModel(value = "专业信息", description = "专业信息")

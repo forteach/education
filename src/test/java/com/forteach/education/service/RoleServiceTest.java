@@ -59,7 +59,7 @@ public class RoleServiceTest {
     @Test
     public void findUsersInfo() {
         log.info("---------------------------------------------");
-        log.warn("{}", roleService.findUsersInfo(0, 10, "cTime").toString());
+        log.warn("{}", roleService.findUsersInfo(0, 10).toString());
         log.info("---------------------------------------------");
     }
 
@@ -73,7 +73,7 @@ public class RoleServiceTest {
     @Test
     public void sysRoleRepository() {
         log.info("---------------------------------------------");
-        log.warn("{}", roleService.findById("4028098166c8b1fa0166c8b208c10000"));
+        log.warn("{}", roleService.findById("2c91803f69510917016951e023520002"));
         log.info("---------------------------------------------");
     }
 

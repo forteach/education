@@ -22,7 +22,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "action_column", indexes = {@Index(columnList = "col_id")})
+@Table(name = "action_column", indexes = {@Index(columnList = "col_id", name = "col_id_index")})
 @org.hibernate.annotations.Table(appliesTo = "action_column", comment = "系统栏目表")
 @ApiModel(value = "系统栏目表")
 @AllArgsConstructor

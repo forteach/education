@@ -22,7 +22,7 @@ import java.util.List;
 public class UserMgrServiceTest {
 
     @Resource
-    private UserMgrService userMgrService;
+    private com.forteach.education.service.UserMgrService userMgrService;
 
     @Test
     public void updateUserRole() {

@@ -21,7 +21,7 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "ad", indexes = {@Index(columnList = "ad_id")})
+@Table(name = "ad", indexes = {@Index(columnList = "ad_id", name = "ad_id_index")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "ad", comment = "广告")
 @ApiModel(value = "广告")

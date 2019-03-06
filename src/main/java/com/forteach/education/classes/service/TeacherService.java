@@ -1,7 +1,9 @@
 package com.forteach.education.classes.service;
 
 import com.forteach.education.classes.domain.Teacher;
+import com.forteach.education.classes.dto.TeacherInfoDto;
 import com.forteach.education.common.web.vo.SortVo;
+import com.forteach.education.web.resp.TeacherInfoResp;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -74,4 +76,10 @@ public interface TeacherService {
      * @return
      */
     List<Teacher> findTeachersBySpecialtyId(String specialtyId);
+
+    /**
+     * 查询所用有效的教师信息
+     * @return
+     */
+    List<TeacherInfoResp> findAllTeacherInfo();
 }
