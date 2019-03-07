@@ -7,6 +7,8 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.forteach.education.authority.annotation.PassToken;
 import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.authority.service.TokenService;
+import com.forteach.education.common.keyword.DefineCode;
+import com.forteach.education.common.keyword.MyAssert;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,25 +61,22 @@ public class SysUserLoginInterceptor implements HandlerInterceptor {
             UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
             if (userLoginToken.required()) {
                 // 执行认证
-                if (token == null) {
-                    log.error("没有 token 请求");
-                    throw new TokenExpiredException("无token，请重新登录");
-                }
+                MyAssert.blank(token, DefineCode.ERR0004, "token is null");
                 // 获取 token 中的 openId
-                String openId;
+                String openId = null;
                 try {
                     openId = JWT.decode(token).getAudience().get(0);
                 } catch (JWTDecodeException j) {
                     if (log.isErrorEnabled()){
                         log.error("token 校验非法 401");
                     }
-                    throw new TokenExpiredException("401");
+                    MyAssert.fail(DefineCode.ERR0004, j, "401");
                 }
                 if (!stringRedisTemplate.hasKey(USER_TOKEN_PREFIX.concat(openId))) {
                     if (log.isErrorEnabled()){
                         log.error("token 已经过期，请重新登录");
                     }
-                    throw new TokenExpiredException("token 已经过期，请重新登录");
+                    MyAssert.fail(DefineCode.ERR0004, new TokenExpiredException("token 已经过期，请重新登录"), "token 已经过期，请重新登录");
                 }
                 // 验证 token
                 try {
@@ -86,7 +85,7 @@ public class SysUserLoginInterceptor implements HandlerInterceptor {
                     if (log.isErrorEnabled()){
                         log.error("token 非法无效 401");
                     }
-                    throw new TokenExpiredException("token 无效非法请求 401");
+                    MyAssert.fail(DefineCode.ERR0004, e, "非法 token");
                 }
                 return true;
             }

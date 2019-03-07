@@ -5,12 +5,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Description:　系统角色
@@ -21,6 +22,8 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "sys_role", indexes = {@Index(name = "role_id_index", columnList = "role_id")})
 @ApiModel(value = "角色对象")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")

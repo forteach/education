@@ -24,10 +24,10 @@ import javax.validation.constraints.NotBlank;
  * @Version: 1.0
  * @Description:
  */
-@RestController
-@RequestMapping(path = "/audioDatum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "音频资料操作", tags = {"音频资源接口"})
-public class AudioDatumController {
+//@RestController
+//@RequestMapping(path = "/audioDatum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//@Api(value = "音频资料操作", tags = {"音频资源接口"})
+//public class AudioDatumController {
 //    private final AudioDatumService audioDatumService;
 //
 //    @Autowired
@@ -126,4 +126,4 @@ public class AudioDatumController {
 //    public WebResult findByChapterId(@Valid @NotBlank(message = "章节ID不为空") @ApiParam(name = "chapterId", value = "根据章节 ID 查询音频信息", required = true) @RequestBody String chapterId){
 //        return WebResult.okResult(audioDatumService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));
 //    }
-}
+//}

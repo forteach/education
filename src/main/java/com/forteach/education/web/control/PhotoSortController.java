@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version: 1.0
  * @Description:
  */
-@RestController
-@RequestMapping(path = "/photoSort", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "课件图册操作", tags = {"课件图册操作"})
-public class PhotoSortController {
+//@RestController
+//@RequestMapping(path = "/photoSort", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//@Api(value = "课件图册操作", tags = {"课件图册操作"})
+//public class PhotoSortController {
 
 //    private final PhotoSortService photoSortService;
 //
@@ -70,4 +70,4 @@ public class PhotoSortController {
 //    public WebResult edit(@Valid @NotNull(message = "图册信息不为空") @ApiParam(value = "修改图册", name = "photoSort", required = true) @RequestBody PhotoSort photoSort){
 //        return WebResult.okResult(photoSortService.edit(photoSort));
 //    }
-}
+//}

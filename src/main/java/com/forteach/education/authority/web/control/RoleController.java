@@ -1,13 +1,14 @@
-package com.forteach.education.web.control;
+package com.forteach.education.authority.web.control;
 
-import com.forteach.education.authority.annotation.UserLoginToken;
-import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.authority.domain.SysRole;
 import com.forteach.education.authority.service.AuthorityMgrService;
 import com.forteach.education.authority.service.RoleService;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.web.control.BaseController;
 import com.forteach.education.web.vo.AuthorityVo;
-import com.forteach.education.common.web.vo.SortVo;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +28,7 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequestMapping(path = "/role", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "/role", tags = "权限管理 角色权限 栏目权限 ")
+@Api(value = "/role", tags = {"权限管理 角色权限 栏目权限 "})
 public class RoleController extends BaseController {
 
     @Resource
@@ -57,22 +58,6 @@ public class RoleController extends BaseController {
     @ApiOperation(value = "编辑/保存角色", notes = "编辑/保存角色")
     public WebResult editRole(@Valid @RequestBody @ApiParam(value = "角色数据", required = true) SysRole sysRole) {
         return WebResult.okResult(roleService.edit(sysRole));
-    }
-
-    /**
-     * 用户列表
-     *
-     * @return
-     */
-    @UserLoginToken
-    @PostMapping(value = "/users")
-    @ApiOperation(value = "用户列表", notes = "通过 分页 及排序获得用户列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "分页从0开始", required = true, dataType = "int", type = "int", example = "0"),
-            @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10")
-    })
-    public WebResult userList(@Valid @RequestBody @ApiParam(value = "分页对象", required = true) SortVo sortVo) {
-        return WebResult.okResult(roleService.findUsersInfo(sortVo.getPage(), sortVo.getSize()));
     }
 
     /**

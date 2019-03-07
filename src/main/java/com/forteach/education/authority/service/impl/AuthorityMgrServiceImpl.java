@@ -241,8 +241,6 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
                 roleColAct.setRoleId(m.get("roleId").toString());
                 roleColAct.setColId(m.get("colId").toString());
                 roleColAct.setSysActId(actId);
-//                roleColAct.setcTime(new Date());
-//                roleColAct.setuTime(new Date());
                 roleColActRepository.save(roleColAct);
             }
         });
@@ -308,5 +306,9 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
             listMap.add(tempMap);
         }
         return listMap;
+    }
+
+    public void saveActionColumn(){
+
     }
 }

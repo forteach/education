@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.forteach.education.common.domain.Entitys;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
@@ -20,11 +19,11 @@ import java.io.Serializable;
  * @version: V1.0
  * @date: 2018/10/30 15:51
  */
+@Data
+@Entity
 @EqualsAndHashCode(callSuper = true)
 @DynamicUpdate
 @DynamicInsert
-@Data
-@Entity
 @Table(name = "sys_users", indexes = {@Index(name = "id_index", columnList = "id")})
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 @org.hibernate.annotations.Table(appliesTo = "sys_users", comment = "系统用户")

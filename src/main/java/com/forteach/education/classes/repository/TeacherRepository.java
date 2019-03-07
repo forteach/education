@@ -28,10 +28,6 @@ public interface TeacherRepository extends JpaRepository<Teacher, String>, JpaSp
      * @return
      */
     @Transactional(readOnly = true)
-//    @Query(value = "SELECT * FROM teacher WHERE is_validated = ?1",
-//            countQuery = "SELECT COUNT(*) FROM teacher where is_validated = ?1",
-//            nativeQuery = true)
-//    Page<Teacher> findByIsValidatedEquals(String isValidated, Pageable pageable);
     Page<Teacher> findByIsValidatedEqualsOrderByCreateTimeDesc(String isValidated, Pageable pageable);
     /**
      * 查询有效教师信息

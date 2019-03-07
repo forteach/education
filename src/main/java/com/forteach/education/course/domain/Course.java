@@ -5,6 +5,8 @@ import com.forteach.education.common.domain.Entitys;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -18,7 +20,13 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "course", indexes = {@Index(columnList = "course_id", name = "course_id_index")})
+@DynamicUpdate
+@DynamicInsert
+
+
+
+
+
 @EqualsAndHashCode(callSuper = true)
 public class Course extends Entitys implements Serializable {
 

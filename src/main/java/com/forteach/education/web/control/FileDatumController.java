@@ -23,10 +23,10 @@ import javax.validation.constraints.NotNull;
  * @Version: 1.0
  * @Description:
  */
-@RestController
-@RequestMapping(path = "/fileDatum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "文件资料操作", tags = {"文件资源接口"})
-public class FileDatumController {
+//@RestController
+//@RequestMapping(path = "/fileDatum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//@Api(value = "文件资料操作", tags = {"文件资源接口"})
+//public class FileDatumController {
 //
 //    @Resource
 //    private  FileDatumService fileDatumService;
@@ -127,4 +127,4 @@ public class FileDatumController {
 //    public WebResult findByChapterId(@Valid @NotNull(message = "ID不为空") @ApiParam(name = "chapterId", value = "根据章节 ID 查询文件信息", required = true) @RequestBody String chapterId) {
 //        return WebResult.okResult(fileDatumService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));
 //    }
-}
+//}

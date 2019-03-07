@@ -1,4 +1,4 @@
-package com.forteach.education.web.control;
+package com.forteach.education.authority.web.control;
 
 import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.authority.annotation.UserLoginToken;
@@ -125,9 +125,6 @@ public class TeacherController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", value = "分页从0开始", required = true, dataType = "int", type = "int", example = "0"),
             @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10"),
-//            @ApiImplicitParam(value = "排序规则", dataType = "string", name = "sorting", example = "cTime", required = true),
-//            @ApiImplicitParam(value = "有无效", name = "isValidated", dataType = "string", example = "0", required = true),
-//            @ApiImplicitParam(value = "sort", name = "排序方式", dataType = "int", example = "1")
     })
     public WebResult findAll(@Valid @ApiParam(value = "分页对象", name = "sortVo", required = true) @RequestBody SortVo sortVo) {
         return WebResult.okResult(teacherService.findAll(sortVo));

@@ -1,5 +1,6 @@
 package com.forteach.education.util;
 
+import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.common.service.ObjectRedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,8 @@ public class TokenUtil {
 
     @Resource
     private ObjectRedisService objectRedisService;
+    @Resource
+    private TokenService tokenService;
 
     /**
      * 检查传入的Token值Radio中是否存入，如果不为空是正确

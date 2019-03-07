@@ -17,8 +17,6 @@ import java.io.Serializable;
 @Data
 public class UpdatePassWordReq implements Serializable {
 
-    @NotBlank(message = "教师不为空")
-    @ApiModelProperty(name = "teacherCode", value = "教师代码", dataType = "string", required = true)
     private String teacherCode;
 
     @NotBlank(message = "旧密码不为空")

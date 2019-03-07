@@ -22,11 +22,11 @@ import javax.validation.constraints.NotBlank;
  * @Version: 1.0
  * @Description: 视频资料操作
  */
-@RestController
-@RequestMapping(path = "/viewDatum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "视频资料操作", tags = {"视频资源接口"})
-public class ViewDatumController {
-
+//@RestController
+//@RequestMapping(path = "/viewDatum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//@Api(value = "视频资料操作", tags = {"视频资源接口"})
+//public class ViewDatumController {
+//
 //    private final ViewDatumService viewDatumService;
 //
 //    @Autowired
@@ -130,4 +130,4 @@ public class ViewDatumController {
 //    public WebResult findByChapterId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "chapterId", value = "根据视频资源ID 查询视频信息", required = true) @RequestBody String chapterId){
 //        return WebResult.okResult(viewDatumService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));
 //    }
-}
+//}

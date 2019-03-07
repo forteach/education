@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
     private TeacherRepository teacherRepository;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WebResult login(UserLoginReq userLoginReq) {
         SysUsers user = userRepository.findByUserName(userLoginReq.getUserName());
         if (user == null) {
@@ -97,6 +98,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WebResult resetPassWord(String teacherCode) {
         SysUsers users = userRepository.findByTeacherId(teacherCode);
         if (users == null) {
@@ -108,6 +110,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WebResult addSysTeacher(String teacherCode) {
         Optional<Teacher> teacher = teacherRepository.findById(teacherCode);
         if (!teacher.isPresent()) {
@@ -127,11 +130,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WebResult updatePassWord(UpdatePassWordReq updatePassWordReq){
-        SysUsers users = userRepository.findByTeacherId(updatePassWordReq.getTeacherCode());
-        if (users == null){
+        Optional<SysUsers> usersOptional = userRepository.findById(updatePassWordReq.getTeacherCode());
+        if (!usersOptional.isPresent()){
             return WebResult.failException("不存在相关用户");
         }
+        SysUsers users = usersOptional.get();
         if (!Md5Util.macMD5(updatePassWordReq.getOldPassWord()).equals(users.getPassWord())){
             return WebResult.failException("旧密码不正确");
         }

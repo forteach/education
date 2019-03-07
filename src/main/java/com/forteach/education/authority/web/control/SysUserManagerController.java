@@ -1,7 +1,7 @@
-package com.forteach.education.web.control;
+package com.forteach.education.authority.web.control;
 
-import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.authority.domain.SysUsers;
+import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.service.UserMgrService;
 import com.forteach.education.web.vo.CastVo;
 import io.swagger.annotations.Api;
@@ -26,11 +26,15 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequestMapping(path = "/sysUserMgr", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "/sysUserMgr", tags = "用户角色相关操作 ")
+@Api(value = "/sysUserMgr", tags = {"用户角色相关操作 "})
 public class SysUserManagerController {
 
-    @Resource
-    private UserMgrService userMgrService;
+    private final UserMgrService userMgrService;
+
+    private SysUserManagerController(UserMgrService userMgrService){
+        this.userMgrService = userMgrService;
+    }
+
 
     /**
      * @Description: 分配角色
@@ -53,8 +57,6 @@ public class SysUserManagerController {
     @ApiOperation(value = "编辑用户", notes = "编辑/保存用户")
     public WebResult edit(@Valid @RequestBody @ApiParam(value = "编辑/保存用户", required = true) SysUsers user) {
         return WebResult.okResult(userMgrService.edit(user));
-
     }
-
 
 }

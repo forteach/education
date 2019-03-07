@@ -24,10 +24,10 @@ import javax.validation.constraints.NotBlank;
  * @Version: 1.0
  * @Description:
  */
-@RestController
-@RequestMapping(path = "/linkDatum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "链接资料操作", tags = {"链接资源接口"})
-public class LinkDatumController {
+//@RestController
+//@RequestMapping(path = "/linkDatum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//@Api(value = "链接资料操作", tags = {"链接资源接口"})
+//public class LinkDatumController {
 
 //    private final LinkDatumService linkDatumService;
 //
@@ -125,4 +125,4 @@ public class LinkDatumController {
 //    public WebResult findByChapterId(@Valid @NotBlank(message = "ID不为空") @ApiParam(name = "chapterId", value = "根据章节 ID 查询链接信息", required = true) @RequestBody String chapterId){
 //        return WebResult.okResult(linkDatumService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));
 //    }
-}
+//}

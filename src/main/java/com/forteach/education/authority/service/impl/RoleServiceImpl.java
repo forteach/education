@@ -55,27 +55,11 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Page<SysUsers> findUsersInfo(int page, int size) {
-
-//        Sort sort = new Sort(Sort.Direction.DESC);
-
         Page<SysUsers> userList = userRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(TAKE_EFFECT_OPEN, PageRequest.of(page, size));
         userList.forEach(m -> {
             m.setPassWord(null);
         });
         return userList;
-//        List<Map<String, Object>> list = new ArrayList<>();
-
-//        userList.forEach(m -> {
-//            Map<String, Object> resultMap = new HashMap<>(10);
-//            resultMap.put("userId", m.getId());
-//            resultMap.put("teacherId", m.getTeacherId());
-//            resultMap.put("userName", m.getUserName());
-//            resultMap.put("email", m.getEmail());
-//            resultMap.put("account", m.getAccount());
-//            resultMap.put("registerPhone", m.getRegisterPhone());
-//            list.add(resultMap);
-//        });
-//        return list;
     }
 
     /**
@@ -102,10 +86,8 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(rollbackFor = Exception.class)
     public SysRole edit(SysRole role) {
         SysRole sysRole = sysRoleRepository.findByRoleId(role.getRoleId());
-//        role.setUTime(new Date());
         if (sysRole == null) {
             editCheck(role);
-//            role.setCTime(new Date());
         }
         return sysRoleRepository.save(role);
     }

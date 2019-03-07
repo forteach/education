@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -27,6 +29,8 @@ import java.util.List;
 @ApiModel(value = "系统栏目表")
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
+@DynamicUpdate
 public class ActionColumn extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -64,21 +68,7 @@ public class ActionColumn extends Entitys implements Serializable {
 
     @ApiModelProperty(name = "isOrder", value = "栏目顺序", dataType = "string")
     @Column(name = "is_order", columnDefinition = "int(11) COMMENT '栏目顺序'")
-    private String isOrder;
-
-//    @ApiModelProperty(name = "isValidated", value = "生效标记", dataType = "string")
-//    @Column(name = "is_validated", columnDefinition = "char(1) COMMENT '生效标记'")
-//    private String isValidated;
-//
-//    @ApiModelProperty(name = "adId", value = "更新时间", dataType = "date")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    @Column(name = "u_time", columnDefinition = "timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'")
-//    private Date uTime;
-//
-//    @ApiModelProperty(name = "adId", value = "创建时间", dataType = "date")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    @Column(name = "c_time", columnDefinition = "datetime COMMENT '创建时间'")
-//    private Date cTime;
+    private Integer isOrder;
 
     @Transient
     private List<ActionColumn> children;

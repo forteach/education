@@ -81,7 +81,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
      */
     @Override
     public Page<Specialty> findAll(SortVo sortVo) {
-        Page<Specialty> page = specialtyRepository.findByIsValidatedEquals(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize(), SortUtil.getSort(sortVo)));
+        Page<Specialty> page = specialtyRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize()));
         return page;
     }
 }

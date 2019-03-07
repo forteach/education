@@ -2,6 +2,8 @@ package com.forteach.education.authority.web.control;
 
 import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.authority.annotation.UserLoginToken;
+import com.forteach.education.authority.service.RoleService;
+import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.authority.service.UserService;
 import com.forteach.education.authority.web.req.RegisterUserReq;
 import com.forteach.education.authority.web.req.UpdatePassWordReq;
@@ -9,13 +11,16 @@ import com.forteach.education.authority.web.req.UserLoginReq;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.MyAssert;
 import com.forteach.education.common.keyword.WebResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import com.forteach.education.common.web.vo.SortVo;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -30,10 +35,17 @@ import javax.validation.Valid;
 @Api(value = "用户认证", description = "教师端用户登录,注册，重置密码，等接口", tags = {"用户操作"})
 @RequestMapping(path = "/auth", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class AuthController {
+
     private final UserService userService;
 
-    public AuthController(UserService userService){
+    private final RoleService roleService;
+
+    private final TokenService tokenService;
+
+    public AuthController(UserService userService, RoleService roleService, TokenService tokenService){
         this.userService = userService;
+        this.roleService = roleService;
+        this.tokenService = tokenService;
     }
 
     @ApiOperation("用户登录")
@@ -46,16 +58,16 @@ public class AuthController {
         return userService.login(userLoginReq);
     }
 
-    @ApiOperation(value = "用户注册", notes = "用户只能是本校教职工才能注册")
-    @PostMapping("/registerUser")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "passWord", value = "密码", dataType = "string", required = true, paramType = "from"),
-            @ApiImplicitParam(name = "teacherCode", value = "教师代码", dataType = "string", required = true, paramType = "from")
-    })
-    public WebResult registerUser(@Valid @RequestBody RegisterUserReq registerUserReq){
-        return userService.registerUser(registerUserReq);
-    }
+//    @ApiOperation(value = "用户注册", notes = "用户只能是本校教职工才能注册")
+//    @PostMapping("/registerUser")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "string", paramType = "from"),
+//            @ApiImplicitParam(name = "passWord", value = "密码", dataType = "string", required = true, paramType = "from"),
+//            @ApiImplicitParam(name = "teacherCode", value = "教师代码", dataType = "string", required = true, paramType = "from")
+//    })
+//    public WebResult registerUser(@Valid @RequestBody RegisterUserReq registerUserReq){
+//        return userService.registerUser(registerUserReq);
+//    }
 
     @ApiOperation("重置教师账户密码为初始化密码")
     @PostMapping("/resetPassWord")
@@ -78,15 +90,29 @@ public class AuthController {
     @ApiOperation("修改密码")
     @PostMapping("/updatePassWord")
     @ApiImplicitParams({
-            @ApiImplicitParam(value = "教师代码", name = "teacherCode", required = true, dataType = "string", paramType = "from"),
             @ApiImplicitParam(value = "旧密码", name = "oldPassWord", required = true, dataType = "string", paramType = "from"),
             @ApiImplicitParam(value = "新密码", name = "newPassWord", required = true, dataType = "string", paramType = "from")
     })
     @UserLoginToken
-    public WebResult updatePassWord(@Valid @RequestBody UpdatePassWordReq updatePassWordReq){
-        MyAssert.blank(updatePassWordReq.getTeacherCode(), DefineCode.ERR0010, "教师代码不为空");
+    public WebResult updatePassWord(@Valid @RequestBody UpdatePassWordReq updatePassWordReq, HttpServletRequest request){
         MyAssert.blank(updatePassWordReq.getOldPassWord(), DefineCode.ERR0010, "旧密码不能为空");
         MyAssert.blank(updatePassWordReq.getNewPassWord(), DefineCode.ERR0010, "新密码不能为空");
+        updatePassWordReq.setTeacherCode(tokenService.getUserId(request));
         return userService.updatePassWord(updatePassWordReq);
+    }
+    /**
+     * 用户列表
+     *
+     * @return
+     */
+    @UserLoginToken
+    @PostMapping(value = "/users")
+    @ApiOperation(value = "用户列表", notes = "通过 分页 及排序获得用户列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "分页从0开始", required = true, dataType = "int", type = "int", example = "0"),
+            @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10")
+    })
+    public WebResult userList(@Valid @RequestBody @ApiParam(value = "分页对象", required = true) SortVo sortVo) {
+        return WebResult.okResult(roleService.findUsersInfo(sortVo.getPage(), sortVo.getSize()));
     }
 }
