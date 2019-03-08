@@ -1,5 +1,6 @@
 package com.forteach.education.course.web.control;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.common.keyword.WebResult;
@@ -62,7 +63,7 @@ public class CourseController {
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
     })
     public WebResult save(@Valid @ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody CourseSaveReq req) {
-
+        log.info("课程保存请求##：{}", JSON.toJSONString(req));
         //验证请求信息
         CourseVer.saveValide(req);
 
