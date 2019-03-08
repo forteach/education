@@ -1,8 +1,10 @@
 package com.forteach.education.authority.repository;
 
-import com.forteach.education.authority.domain.ActionColumn;
 import com.forteach.education.authority.domain.SysUsers;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -13,4 +15,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface SysUsersRepository extends JpaRepository<SysUsers, String> {
 
+
+    /**
+     * 有效的教师信息
+     * @param isValidated
+     * @return
+     */
+    @Transactional(readOnly = true)
+    List<SysUsers> findByIsValidatedEquals(String isValidated);
 }

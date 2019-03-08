@@ -2,6 +2,7 @@ package com.forteach.education.authority.repository;
 
 
 import com.forteach.education.authority.domain.UserRole;
+import com.forteach.education.authority.domain.UserRoleFundPrimarykey;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @version: V1.0
  * @date: 2018/10/31 10:00
  */
-public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
+public interface UserRoleRepository extends JpaRepository<UserRole, UserRoleFundPrimarykey> {
 
     /**
      * 删除权限角色

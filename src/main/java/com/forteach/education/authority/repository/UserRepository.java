@@ -4,7 +4,6 @@ import com.forteach.education.authority.domain.SysUsers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -22,10 +21,6 @@ public interface UserRepository extends JpaRepository<SysUsers, String> {
      * findByIsValidatedEqualsOrderByCreateTimeDesc
      * @return
      */
-//    @Query(value = "SELECT * FROM sys_users WHERE is_validated = ?1",
-//            countQuery = "SELECT COUNT(*) FROM sys_users where is_validated = ?1",
-//            nativeQuery = true)
-
     @Transactional(readOnly = true)
     Page<SysUsers> findByIsValidatedEqualsOrderByCreateTimeDesc(String isValidated, Pageable pageable);
 

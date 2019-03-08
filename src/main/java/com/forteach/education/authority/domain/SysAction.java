@@ -30,13 +30,13 @@ public class SysAction extends Entitys implements Serializable {
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
-    @Column(name = "sys_act_id", columnDefinition = "int(11) COMMENT '动作编号'")
+    @Column(name = "sys_act_id", columnDefinition = "VARCHAR(32) COMMENT '动作编号'")
     private String sysActId;
 
-    @Column(name = "sys_act_name", columnDefinition = "varchar(40) COMMENT '动作名称'")
+    @Column(name = "sys_act_name", columnDefinition = "VARCHAR(40) COMMENT '动作名称'")
     private String sysActName;
 
-    @Column(name = "is_validated", columnDefinition = "char(1) COMMENT '生效标记'")
+    @Column(name = "is_validated", columnDefinition = "CHAR(1) COMMENT '生效标记'")
     private String isValidated;
 
 

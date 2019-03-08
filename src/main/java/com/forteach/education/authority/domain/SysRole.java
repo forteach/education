@@ -34,20 +34,20 @@ public class SysRole extends Entitys implements Serializable {
 
     @Id
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(name = "role_id", columnDefinition = "varchar(255) COMMENT '角色编号'")
+    @Column(name = "role_id", columnDefinition = "VARCHAR(255) COMMENT '角色编号'")
     private String roleId;
 
     @NotNull(message = "请输入角色名称")
     @ApiModelProperty(value = "角色名称", notes = "角色名称", name = "roleName", example = "系统管理员", required = true)
-    @Column(name = "role_name", columnDefinition = "varchar(40) COMMENT '角色名称'")
+    @Column(name = "role_name", columnDefinition = "VARCHAR(40) COMMENT '角色名称'")
     private String roleName;
 
     @NotNull(message = "生效标识出错")
     @ApiModelProperty(value = "生效标识", notes = "生效标识 0生效 1失效", name = "isValidated", example = "0", required = true)
-    @Column(name = "is_validated", columnDefinition = "char(1) COMMENT '生效标识 0生效 1失效'")
+    @Column(name = "is_validated", columnDefinition = "CHAR(1) COMMENT '生效标识 0生效 1失效'")
     private String isValidated;
 
-    @Column(name = "remark", columnDefinition = "varchar(255) COMMENT '备注 角色说明'")
+    @Column(name = "remark", columnDefinition = "VARCHAR(255) COMMENT '备注 角色说明'")
     private String remark;
 
 }
