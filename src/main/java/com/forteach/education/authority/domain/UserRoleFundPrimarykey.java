@@ -1,7 +1,6 @@
 package com.forteach.education.authority.domain;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

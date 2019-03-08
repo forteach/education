@@ -1,6 +1,5 @@
 package com.forteach.education.authority.repository;
 
-import com.forteach.education.authority.domain.ActionColumn;
 import com.forteach.education.authority.domain.SysAction;
 import org.springframework.data.jpa.repository.JpaRepository;
 
