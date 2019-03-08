@@ -20,7 +20,8 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "classroom_question", indexes = {@Index(columnList = "teacher_id"), @Index(columnList = "course_id")})
+@Table(name = "classroom_question", indexes = {@Index(columnList = "teacher_id", name = "teacher_id_index"),
+        @Index(columnList = "course_id", name = "course_id_index")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "classroom_question", comment = "课堂问题")
 @ApiModel(value = "课堂问题")

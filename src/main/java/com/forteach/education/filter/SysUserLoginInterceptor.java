@@ -75,9 +75,9 @@ public class SysUserLoginInterceptor implements HandlerInterceptor {
                 }
                 if (!stringRedisTemplate.hasKey(USER_TOKEN_PREFIX.concat(openId))) {
                     if (log.isErrorEnabled()){
-                        log.error("用户不存在，请重新登录");
+                        log.error("token 已经过期，请重新登录");
                     }
-                    throw new TokenExpiredException("用户不存在，请重新登录");
+                    throw new TokenExpiredException("token 已经过期，请重新登录");
                 }
                 // 验证 token
                 try {
@@ -86,7 +86,7 @@ public class SysUserLoginInterceptor implements HandlerInterceptor {
                     if (log.isErrorEnabled()){
                         log.error("token 非法无效 401");
                     }
-                    throw new TokenExpiredException("401");
+                    throw new TokenExpiredException("token 无效非法请求 401");
                 }
                 return true;
             }

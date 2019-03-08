@@ -20,7 +20,8 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "k_node", indexes = {@Index(columnList = "k_node_id"), @Index(columnList = "course_id")})
+@Table(name = "k_node", indexes = {@Index(columnList = "k_node_id", name = "k_node_id_index"),
+        @Index(columnList = "course_id", name = "course_id_index")})
 @org.hibernate.annotations.Table(appliesTo = "k_node", comment = "知识点表")
 //@ApiModel(value = "知识点表数据")
 public class KNode extends Entitys implements Serializable {

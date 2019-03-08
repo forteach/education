@@ -22,7 +22,8 @@ import java.io.Serializable;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "group_member", indexes = {@Index(columnList = "group_id"), @Index(columnList = "member_id")})
+@Table(name = "group_member", indexes = {@Index(columnList = "group_id", name = "group_id_index"),
+        @Index(columnList = "member_id", name = "member_id_index")})
 @IdClass(GroupMemberFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "group_member", comment = "小组成员")
 @ApiModel(value = "小组成员")

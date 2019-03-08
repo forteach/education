@@ -19,7 +19,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "paper_txt", indexes = {@Index(columnList = "paper_id")})
+@Table(name = "paper_txt", indexes = {@Index(columnList = "paper_id", name = "paper_id_index")})
 @IdClass(PaperTxtFundPrimarykey.class)
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "paper_txt", comment = "试卷内容")

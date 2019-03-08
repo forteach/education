@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "important_courseware", indexes = {@Index(columnList = "chapter_id")})
+@Table(name = "important_courseware", indexes = {@Index(columnList = "chapter_id", name = "chapter_id_index"), @Index(name = "id_index", columnList = "id")})
 @EqualsAndHashCode(callSuper = true)
 public class ImportantCourseware extends AbsFile implements Serializable {
 

@@ -26,7 +26,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "课程科目轮播图")
-@Table(name = "course_images", indexes = {@Index(columnList = "image_id"), @Index(columnList = "course_id")})
+@Table(name = "course_images", indexes = {@Index(columnList = "image_id", name = "image_id_index"), @Index(columnList = "course_id", name = "course_id_index")})
 @org.hibernate.annotations.Table(appliesTo = "course_images", comment = "课程轮播图")
 public class CourseImages extends Entitys implements Serializable {
 

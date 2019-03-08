@@ -1,7 +1,9 @@
 package com.forteach.education.authority.service;
 
+import com.forteach.education.authority.web.req.RegisterUserReq;
+import com.forteach.education.authority.web.req.UpdatePassWordReq;
+import com.forteach.education.authority.web.req.UserLoginReq;
 import com.forteach.education.common.keyword.WebResult;
-import com.forteach.education.authority.domain.SysUsers;
 
 /**
  * @Auther: zhangyy
@@ -11,10 +13,39 @@ import com.forteach.education.authority.domain.SysUsers;
  * @Description:
  */
 public interface UserService {
-//    SysUsers findUserById(String userId);
 
-    WebResult login(SysUsers sysUsers);
+    /**
+     * 教师端用户登录
+     * @param userLoginReq
+     * @return
+     */
+    WebResult login(UserLoginReq userLoginReq);
 
+    /**
+     * 教师端用户注册
+     * @param registerUserReq
+     * @return
+     */
+    WebResult registerUser(RegisterUserReq registerUserReq);
 
-    WebResult registerUser(SysUsers user);
+    /**
+     * 重置用户密码
+     * @param teacherCode
+     * @return
+     */
+    WebResult resetPassWord(String teacherCode);
+
+    /**
+     * 添加教师用户信息
+     * @param teacherCode
+     * @return
+     */
+    WebResult addSysTeacher(String teacherCode);
+
+    /**
+     * 修改密码
+     * @param updatePassWordReq
+     * @return
+     */
+    WebResult updatePassWord(UpdatePassWordReq updatePassWordReq);
 }

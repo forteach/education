@@ -17,6 +17,7 @@ import javax.persistence.*;
 
 @Data
 @MappedSuperclass
+@EqualsAndHashCode(callSuper = true)
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbsDatum extends Entitys {
 

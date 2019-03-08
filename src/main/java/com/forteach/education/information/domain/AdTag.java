@@ -20,7 +20,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "ad_tag")
+@Table(name = "ad_tag", indexes = {@Index(name = "tag_id_index", columnList = "tag_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "ad_tag", comment = "广告标签")
 @ApiModel(value = "广告标签")

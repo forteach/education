@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(name = "photos", indexes = {@Index(columnList = "chapter_id"), @Index(columnList = "arlits_id")})
+@Table(name = "photos", indexes = {@Index(columnList = "chapter_id", name = "chapter_id_index"), @Index(columnList = "arlits_id", name = "arlits_id_index")})
 @org.hibernate.annotations.Table(appliesTo = "photos", comment = "图片")
 @ApiModel(value = "图集图片")
 @EqualsAndHashCode(callSuper = true)

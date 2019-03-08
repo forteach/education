@@ -18,8 +18,8 @@ import java.io.Serializable;
 @Entity
 @Builder
 @Table(name = "course_data", indexes = {
-        @Index(columnList = "data_id"),
-        @Index(columnList = "chapter_id")
+        @Index(columnList = "data_id", name = "data_id_index"),
+        @Index(columnList = "chapter_id", name = "chapter_id_index")
 })
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "course_data", comment = "章节资料")

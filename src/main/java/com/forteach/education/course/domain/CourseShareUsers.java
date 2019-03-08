@@ -20,7 +20,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "course_share_users", indexes = {@Index(columnList = "share_id"), @Index(columnList = "user_id")})
+@Table(name = "course_share_users", indexes = {@Index(columnList = "share_id", name = "share_id_index"),
+        @Index(columnList = "user_id", name = "user_id_index")})
 @EqualsAndHashCode(callSuper = true)
 @IdClass(CourseShareUsersPk.class)
 @ApiModel(value = "课程内容协作访问成员")

@@ -4,6 +4,8 @@ import com.forteach.education.common.domain.Entitys;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,8 +24,11 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicInsert
+@DynamicUpdate
 @GenericGenerator(name = "system-uuid", strategy = "uuid")
-@Table(name = "teacher", indexes = {@Index(columnList = "teacher_id"), @Index(columnList = "specialty_id")})
+@Table(name = "teacher", indexes = {@Index(columnList = "teacher_id", name = "teacher_id_index"),
+        @Index(columnList = "specialty_id", name = "specialty_id_index")})
 @org.hibernate.annotations.Table(appliesTo = "teacher", comment = "老师")
 @ApiModel(value = "教师信息")
 public class Teacher extends Entitys implements Serializable {

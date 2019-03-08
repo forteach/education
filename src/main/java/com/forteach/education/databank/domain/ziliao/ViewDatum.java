@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "view_datum", indexes = {@Index(columnList = "chapter_id")})
+@Table(name = "view_datum", indexes = {@Index(columnList = "chapter_id", name = "chapter_id_index")})
 @org.hibernate.annotations.Table(appliesTo = "view_datum", comment = "视频资料库")
 @ApiModel(value = "视频资料信息")
 public class ViewDatum extends AbsDatum implements Serializable {

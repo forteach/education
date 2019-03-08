@@ -18,7 +18,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "course", indexes = {@Index(columnList = "course_id")})
+@Table(name = "course", indexes = {@Index(columnList = "course_id", name = "course_id_index")})
 @EqualsAndHashCode(callSuper = true)
 public class Course extends Entitys implements Serializable {
 

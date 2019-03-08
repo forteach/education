@@ -21,7 +21,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "sys_role")
+@Table(name = "sys_role", indexes = {@Index(name = "role_id_index", columnList = "role_id")})
 @ApiModel(value = "角色对象")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 @org.hibernate.annotations.Table(appliesTo = "sys_role", comment = "系统角色")

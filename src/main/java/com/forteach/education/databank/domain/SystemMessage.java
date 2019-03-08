@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "system_message", indexes = {@Index(columnList = "system_id")})
+@Table(name = "system_message", indexes = {@Index(columnList = "system_id", name = "system_id_index")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "system_message", comment = "系统公告通知  通知方式：1通知所有人，0不采用")
 public class SystemMessage extends Entitys implements Serializable {

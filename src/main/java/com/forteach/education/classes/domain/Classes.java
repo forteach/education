@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "classes", indexes = {@Index(columnList = "class_id")})
+@Table(name = "classes", indexes = {@Index(columnList = "class_id", name = "class_id_index")})
 @org.hibernate.annotations.Table(appliesTo = "classes", comment = "班级")
 @ApiModel(value = "班级")
 @AllArgsConstructor

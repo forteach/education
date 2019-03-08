@@ -2,6 +2,7 @@ package com.forteach.education.course.domain.ziliao;
 
 import com.forteach.education.common.domain.Entitys;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.MappedSuperclass;
  * 重要课件信息父类
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbsFile extends Entitys {

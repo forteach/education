@@ -20,7 +20,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "ad_tag_map", indexes = {@Index(columnList = "ad_id"), @Index(columnList = "tag_id")})
+@Table(name = "ad_tag_map", indexes = {@Index(columnList = "ad_id", name = "ad_id_index"), @Index(columnList = "tag_id", name = "tag_id_index")})
 @EqualsAndHashCode(callSuper = true)
 @IdClass(AdTagMapFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "ad_tag_map", comment = "广告标签对应表")

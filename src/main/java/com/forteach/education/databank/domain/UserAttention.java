@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Entity
 @Builder
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "user_attention", indexes = {@Index(columnList = "att_id"), @Index(columnList = "article_id")})
+@Table(name = "user_attention", indexes = {@Index(columnList = "att_id", name = "att_id_index"), @Index(columnList = "article_id", name = "article_id_index")})
 @org.hibernate.annotations.Table(appliesTo = "user_attention", comment = "用户关注的文章")
 @ApiModel(value = "用户关注的文章")
 public class UserAttention extends Entitys implements Serializable {

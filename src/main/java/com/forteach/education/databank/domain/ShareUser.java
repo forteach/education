@@ -24,7 +24,7 @@ import java.io.Serializable;
  */
 @Entity
 @Data
-@Table(name = "share_user", indexes = {@Index(columnList = "share_id"), @Index(columnList = "user_id")})
+@Table(name = "share_user", indexes = {@Index(columnList = "share_id", name = "share_id_index"), @Index(columnList = "user_id", name = "user_id_index")})
 @EqualsAndHashCode(callSuper = true)
 @IdClass(ShareUserFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "share_user", comment = "分享用户")

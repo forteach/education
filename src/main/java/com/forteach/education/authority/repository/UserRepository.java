@@ -1,10 +1,11 @@
 package com.forteach.education.authority.repository;
 
-import com.forteach.education.authority.domain.ActionColumn;
 import com.forteach.education.authority.domain.SysUsers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Description:　用户
@@ -16,12 +17,31 @@ public interface UserRepository extends JpaRepository<SysUsers, String> {
 
     /**
      * 找到生效的用户列表
-     *
      * @param isValidated
      * @param pageable
+     * findByIsValidatedEqualsOrderByCreateTimeDesc
      * @return
      */
-    Page<SysUsers> findByIsValidatedEquals(String isValidated, Pageable pageable);
+//    @Query(value = "SELECT * FROM sys_users WHERE is_validated = ?1",
+//            countQuery = "SELECT COUNT(*) FROM sys_users where is_validated = ?1",
+//            nativeQuery = true)
 
+    @Transactional(readOnly = true)
+    Page<SysUsers> findByIsValidatedEqualsOrderByCreateTimeDesc(String isValidated, Pageable pageable);
+
+    /**
+     * 根据用户查询用户信息
+     * @param userName
+     * @return
+     */
+    @Transactional(readOnly = true)
     SysUsers findByUserName(String userName);
+
+    /**
+     * 根据教师id 查询教师信息
+     * @param teacherId
+     * @return
+     */
+    @Transactional(readOnly = true)
+    SysUsers findByTeacherId(String teacherId);
 }

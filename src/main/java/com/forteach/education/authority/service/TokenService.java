@@ -1,6 +1,7 @@
 package com.forteach.education.authority.service;
 
 import com.auth0.jwt.JWTVerifier;
+import com.forteach.education.authority.domain.SysUsers;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,10 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 public interface TokenService {
     /**
      * 用微信openId生成一个一天有效期的token
-     * @param openId
+     * @param userId
      * @return
      */
-    String createToken(String openId);
+    String createToken(String userId);
 
     /**
      * 获取JWT验证
@@ -32,4 +33,18 @@ public interface TokenService {
      * @return
      */
     String getUserId(HttpServletRequest request);
+
+    /**
+     * 查询对应学生id信息
+     * @param request
+     * @return
+     */
+    String getStudentId(HttpServletRequest request);
+
+    /**
+     * 保存token 到redis
+     * @param token
+     * @param users
+     */
+    void saveRedis(String token, SysUsers users);
 }

@@ -17,7 +17,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "sys_action")
+@Table(name = "sys_action", indexes = {@Index(name = "sys_act_id_index", columnList = "sys_act_id")})
 @org.hibernate.annotations.Table(appliesTo = "sys_action", comment = "系统活动或动作")
 public class SysAction extends Entitys implements Serializable {
 

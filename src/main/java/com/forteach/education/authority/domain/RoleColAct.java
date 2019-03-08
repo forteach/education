@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "role_col_act", indexes = {@Index(columnList = "sys_act_id"), @Index(columnList = "role_id")})
+@Table(name = "role_col_act", indexes = {@Index(columnList = "sys_act_id", name = "sys_act_id_index"), @Index(columnList = "role_id", name = "role_id_index")})
 @IdClass(RoleColActFundPrimarykey.class)
 @org.hibernate.annotations.Table(appliesTo = "role_col_act", comment = "权限和动作")
 public class RoleColAct extends Entitys implements Serializable {
