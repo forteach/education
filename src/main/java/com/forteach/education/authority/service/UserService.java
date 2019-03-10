@@ -48,4 +48,10 @@ public interface UserService {
      * @return
      */
     WebResult updatePassWord(UpdatePassWordReq updatePassWordReq);
+
+    /**
+     * 修改教师状态使失效
+     * @param teacherCodeStr
+     */
+    void updateState(String teacherCodeStr);
 }

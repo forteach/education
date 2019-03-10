@@ -15,10 +15,7 @@ import com.forteach.education.common.web.vo.SortVo;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -51,7 +48,8 @@ public class AuthController {
     @ApiOperation("用户登录")
     @PostMapping("/login")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "string", paramType = "from"),
+//            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "string", paramType = "from"),
+            @ApiImplicitParam(name = "teacherCode", value = "教师代码", required = true, dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "passWord", value = "密码", required = true, dataType = "string", paramType = "from")
     })
     public WebResult login(@Valid @RequestBody UserLoginReq userLoginReq){
@@ -100,6 +98,18 @@ public class AuthController {
         updatePassWordReq.setTeacherCode(tokenService.getUserId(request));
         return userService.updatePassWord(updatePassWordReq);
     }
+
+    @UserLoginToken
+    @ApiOperation("修改教师用户状态")
+    @GetMapping("/updateState")
+    @ApiImplicitParam(name = "teacherCode", value = "教师代码", required = true, dataType = "string", paramType = "from")
+    public WebResult updateState(@RequestBody String teacherCode){
+        MyAssert.blank(teacherCode, DefineCode.ERR0010, "教师代码不为空");
+        String teacherCodeStr = JSONObject.parseObject(teacherCode).getString("teacherCode");
+        userService.updateState(teacherCodeStr);
+        return WebResult.okResult();
+    }
+
     /**
      * 用户列表
      *

@@ -19,8 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
+
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
 /**
  * @Auther: zhangyy
@@ -60,15 +62,18 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public WebResult login(UserLoginReq userLoginReq) {
-        SysUsers user = userRepository.findByUserName(userLoginReq.getUserName());
+        SysUsers user = userRepository.findByTeacherId(userLoginReq.getTeacherCode());
         if (user == null) {
             return WebResult.failException("用户不存在");
-        } else if (!user.getPassWord().equals(Md5Util.macMD5(userLoginReq.getPassWord()))) {
+        } else if (TAKE_EFFECT_CLOSE.equals(user.getIsValidated())){
+            return WebResult.failException("您的账号已经失效,请联系管理员");
+        }
+        else if (!user.getPassWord().equals(Md5Util.macMD5(userLoginReq.getPassWord()))) {
             return WebResult.failException("密码错误");
         }
         String token = tokenService.createToken(user.getId());
         tokenService.saveRedis(token, user);
-        Map<String, Object> map = new HashMap<String, Object>(2);
+        HashMap<String, String> map = new HashMap<>(2);
         map.put("token", token);
         map.put("userId", user.getId());
         //保存token到redis
@@ -143,5 +148,19 @@ public class UserServiceImpl implements UserService {
         users.setPassWord(Md5Util.macMD5(updatePassWordReq.getNewPassWord()));
         userRepository.save(users);
         return WebResult.okResult("修改成功");
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateState(String teacherCode) {
+        SysUsers users = userRepository.findByTeacherId(teacherCode);
+        if (users != null){
+            if (TAKE_EFFECT_CLOSE.equals(users.isValidated)){
+                users.setIsValidated(TAKE_EFFECT_OPEN);
+            }else {
+                users.setIsValidated(TAKE_EFFECT_CLOSE);
+            }
+            userRepository.save(users);
+        }
     }
 }
