@@ -1,17 +1,18 @@
 package com.forteach.education.course.repository.ziliao;
 
-import com.forteach.education.course.domain.ziliao.CourseData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @NoRepositoryBean
 public interface IFileRepoitory<T, ID> extends JpaRepository<T, ID> {
 
+    @Transactional(readOnly = true)
     Page<T> findByIsValidated(String isValidated, Pageable pageable);
 
     /**
@@ -21,6 +22,7 @@ public interface IFileRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param chapterId
      * @return
      */
+    @Transactional(readOnly = true)
     public List<T> findByChapterIdAndIsValidated(String chapterId, String isValidated);
 
     /**
@@ -30,6 +32,7 @@ public interface IFileRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param chapterId
      * @return
      */
+    @Transactional(readOnly = true)
     public Page<T> findByChapterIdAndIsValidated(String chapterId, String isValidated, Pageable pageable);
 
 
@@ -40,6 +43,7 @@ public interface IFileRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param chapterId
      * @return
      */
+    @Transactional(readOnly = true)
     public Page<T> findByChapterIdAndDatumTypeAndIsValidated(String chapterId, String datumType, String isValidated, Pageable pageable);
 
     /**
@@ -49,6 +53,7 @@ public interface IFileRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param chapterId
      * @return
      */
+    @Transactional(readOnly = true)
     public List<T> findByChapterIdAndDatumTypeAndIsValidated(String chapterId, String datumType, String isValidated);
 
     /**
@@ -59,6 +64,7 @@ public interface IFileRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param pageable
      * @return
      */
+    @Transactional(readOnly = true)
     public Page<T> findByChapterIdAndIsValidatedOrderByCreateTimeAsc(String chapterId, String isValidated, Pageable pageable);
 
 
@@ -71,6 +77,7 @@ public interface IFileRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param pageable
      * @return
      */
+    @Transactional(readOnly = true)
     public Page<T> findByChapterIdAndDatumTypeAndIsValidatedOrderByCreateTimeAsc(String chapterId, String datumType, String isValidated, Pageable pageable);
 
     /**
@@ -82,6 +89,7 @@ public interface IFileRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param pageable
      * @return
      */
+    @Transactional(readOnly = true)
     public Page<T> findByChapterIdAndDatumTypeAndKNodeIdAndIsValidatedOrderByCreateTimeAsc(String chapterId, String datumType, String kNodeId, String isValidated, Pageable pageable);
 
 
@@ -92,6 +100,7 @@ public interface IFileRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param pageable
      * @return
      */
+    @Transactional(readOnly = true)
     public Page<T> findAll(Specification<T> specification, Pageable pageable);
 
 

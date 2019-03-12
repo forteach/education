@@ -42,7 +42,6 @@ public class SysRole extends Entitys implements Serializable {
     @Column(name = "role_name", columnDefinition = "VARCHAR(40) COMMENT '角色名称'")
     private String roleName;
 
-    @NotNull(message = "生效标识出错")
     @ApiModelProperty(value = "生效标识", notes = "生效标识 0生效 1失效", name = "isValidated", example = "0", required = true)
     @Column(name = "is_validated", columnDefinition = "CHAR(1) COMMENT '生效标识 0生效 1失效'")
     private String isValidated;

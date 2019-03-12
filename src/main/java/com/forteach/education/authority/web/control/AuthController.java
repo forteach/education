@@ -5,7 +5,6 @@ import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.authority.service.RoleService;
 import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.authority.service.UserService;
-import com.forteach.education.authority.web.req.RegisterUserReq;
 import com.forteach.education.authority.web.req.UpdatePassWordReq;
 import com.forteach.education.authority.web.req.UserLoginReq;
 import com.forteach.education.common.keyword.DefineCode;
@@ -53,6 +52,8 @@ public class AuthController {
             @ApiImplicitParam(name = "passWord", value = "密码", required = true, dataType = "string", paramType = "from")
     })
     public WebResult login(@Valid @RequestBody UserLoginReq userLoginReq){
+        MyAssert.blank(userLoginReq.getTeacherCode(), DefineCode.ERR0010, "教师代码不为空");
+        MyAssert.blank(userLoginReq.getPassWord(), DefineCode.ERR0010, "密码不为空");
         return userService.login(userLoginReq);
     }
 

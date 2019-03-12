@@ -24,6 +24,6 @@ public class CastVo {
     /**
      * 用户ID集合
      */
-    @ApiModelProperty(value = "用户ID集合", notes = "用户ID集合", name = "userIds", example = "1,2,3,4")
+    @ApiModelProperty(value = "用户ID集合", notes = "用户ID集合", name = "userIds", example = "[1,2,3,4]")
     private List<String> userIds;
 }

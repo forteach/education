@@ -24,6 +24,7 @@ public interface SysRoleRepository extends JpaRepository<SysRole, Long> {
      * @param isValidated
      * @return
      */
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     SysRole findSysRoleByRoleNameAndIsValidated(String roleName, String isValidated);
 
     /**
@@ -32,6 +33,7 @@ public interface SysRoleRepository extends JpaRepository<SysRole, Long> {
      * @param isValidated
      * @return
      */
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     List<SysRole> findByIsValidatedEquals(String isValidated);
 
     /**
@@ -40,6 +42,7 @@ public interface SysRoleRepository extends JpaRepository<SysRole, Long> {
      * @param id
      * @return
      */
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     SysRole findByRoleId(String id);
 
     /**

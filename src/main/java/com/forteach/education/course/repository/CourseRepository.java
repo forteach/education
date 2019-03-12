@@ -5,6 +5,7 @@ import com.forteach.education.course.dto.ICourseListDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Auther: zhangyy
@@ -22,6 +23,7 @@ public interface CourseRepository extends JpaRepository<Course, String> {
      * @param pageable
      * @return
      */
+    @Transactional(readOnly = true)
     Page<ICourseListDto> findByIsValidated(String isValidated, Pageable pageable);
 
     /**
@@ -32,5 +34,6 @@ public interface CourseRepository extends JpaRepository<Course, String> {
      * @param pageable
      * @return
      */
+    @Transactional(readOnly = true)
     Page<ICourseListDto> findByCreateUserAndIsValidated(String cUser, String isValidated, Pageable pageable);
 }

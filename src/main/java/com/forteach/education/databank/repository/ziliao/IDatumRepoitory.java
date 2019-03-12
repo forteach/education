@@ -5,12 +5,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @NoRepositoryBean
 public interface IDatumRepoitory<T, ID> extends JpaRepository<T, ID> {
 
+    @Transactional(readOnly = true)
     Page<T> findByIsValidated(String isValidated, Pageable pageable);
 
     /**
@@ -20,6 +22,7 @@ public interface IDatumRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param chapterId
      * @return
      */
+    @Transactional(readOnly = true)
     public List<T> findByChapterIdAndIsValidated(String chapterId, String isValidated);
 
     /**
@@ -29,6 +32,7 @@ public interface IDatumRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param chapterId
      * @return
      */
+    @Transactional(readOnly = true)
     public Page<T> findByChapterIdAndIsValidated(String chapterId, String isValidated, Pageable pageable);
 
 
@@ -39,6 +43,7 @@ public interface IDatumRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param chapterId
      * @return
      */
+    @Transactional(readOnly = true)
     public Page<T> findByChapterIdAndDatumTypeAndIsValidated(String chapterId, String datumType, String isValidated, Pageable pageable);
 
     /**
@@ -48,6 +53,7 @@ public interface IDatumRepoitory<T, ID> extends JpaRepository<T, ID> {
      * @param pageable
      * @return
      */
+    @Transactional(readOnly = true)
     public Page<T> findAll(Specification<T> specification, Pageable pageable);
 
 }

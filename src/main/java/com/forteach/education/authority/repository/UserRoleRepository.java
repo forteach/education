@@ -35,6 +35,12 @@ public interface UserRoleRepository extends JpaRepository<UserRole, UserRoleFund
     @Transactional(rollbackOn = Exception.class)
     void deleteByUserIdIn(List<String> userIds);
 
+    /**
+     * 获得用户对应的角色
+     * @param userId
+     * @return
+     */
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     UserRole findByUserIdIs(String userId);
 
 }

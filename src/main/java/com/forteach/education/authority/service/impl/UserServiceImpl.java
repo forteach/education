@@ -10,6 +10,8 @@ import com.forteach.education.authority.web.req.UpdatePassWordReq;
 import com.forteach.education.authority.web.req.UserLoginReq;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.classes.repository.TeacherRepository;
+import com.forteach.education.common.keyword.DefineCode;
+import com.forteach.education.common.keyword.MyAssert;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.util.Md5Util;
 import lombok.extern.slf4j.Slf4j;
@@ -161,6 +163,9 @@ public class UserServiceImpl implements UserService {
                 users.setIsValidated(TAKE_EFFECT_CLOSE);
             }
             userRepository.save(users);
+            //移除redis 中的token 信息
+            tokenService.removeToken(users.getId());
         }
+        MyAssert.isNull(users, DefineCode.ERR0014, "未找到要修改的用户");
     }
 }

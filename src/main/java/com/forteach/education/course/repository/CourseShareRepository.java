@@ -1,14 +1,9 @@
 package com.forteach.education.course.repository;
 
 import com.forteach.education.course.domain.CourseShare;
-import com.forteach.education.course.dto.ICourseShareTeacherDto;
-import com.forteach.education.course.dto.ICourseShareTeacherDto1;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -20,8 +15,10 @@ import java.util.List;
  */
 public interface CourseShareRepository extends JpaRepository<CourseShare, String> {
 
+    @Transactional(readOnly = true)
     public List<CourseShare> findByCourseId(String courseId);
 
+    @Transactional(readOnly = true)
     public CourseShare findByCourseIdAndShareArea(String courseId, String shareArea);
 
 }

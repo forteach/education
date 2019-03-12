@@ -2,7 +2,6 @@ package com.forteach.education.authority.service;
 
 import com.auth0.jwt.JWTVerifier;
 import com.forteach.education.authority.domain.SysUsers;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -47,4 +46,10 @@ public interface TokenService {
      * @param users
      */
     void saveRedis(String token, SysUsers users);
+
+    /**
+     * 移除 redis 保存的 token 数据信息
+     * @param userId
+     */
+    void removeToken(String userId);
 }

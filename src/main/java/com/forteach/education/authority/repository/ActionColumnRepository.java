@@ -5,6 +5,8 @@ import com.forteach.education.web.vo.ColumnOperationVo;
 import com.forteach.education.web.vo.OperationInfoVo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 /**
@@ -13,13 +15,14 @@ import java.util.List;
  * @version: V1.0
  * @date: 2018/10/31 10:02
  */
-public interface ActionColumnRepository extends JpaRepository<ActionColumn, Long> {
+public interface ActionColumnRepository extends JpaRepository<ActionColumn, String> {
 
 
     /**
      * 查询栏目编号和父栏目编号不为空的栏目
      * @return
      */
+    @Transactional(readOnly = true)
     List<ActionColumn> findByColIdIsNotNullAndColParentIdIsNull();
 
     /**
@@ -27,6 +30,7 @@ public interface ActionColumnRepository extends JpaRepository<ActionColumn, Long
      * @param isValidated
      * @return
      */
+    @Transactional(readOnly = true)
     List<ActionColumn> findByIsValidatedEquals(String isValidated);
 
     /**
@@ -34,6 +38,7 @@ public interface ActionColumnRepository extends JpaRepository<ActionColumn, Long
      * @param colId
      * @return
      */
+    @Transactional(readOnly = true)
     @Query(value = "SELECT " +
             "sys_act_id as actId," +
             "sys_act_name as actName," +
@@ -48,6 +53,7 @@ public interface ActionColumnRepository extends JpaRepository<ActionColumn, Long
      * @param list
      * @return
      */
+    @Transactional(readOnly = true)
     List<ActionColumn> findByColIdIn(List<String> list);
 
     /**
@@ -55,6 +61,7 @@ public interface ActionColumnRepository extends JpaRepository<ActionColumn, Long
      * @param roleId
      * @return
      */
+    @Transactional(readOnly = true)
     @Query(value = "SELECT " +
             "col_parent_id as colParentId," +
             "col_parent_name as colParentName," +
@@ -67,6 +74,15 @@ public interface ActionColumnRepository extends JpaRepository<ActionColumn, Long
             "AND " +
             "col_parent_id IS NOT NULL", nativeQuery = true)
     List<OperationInfoVo> findColumnOperationInfo(String roleId);
+
+    /**
+     * 查询是否存在相同列名栏目信息
+     * @param isValidated
+     * @param colName
+     * @return
+     */
+    @Transactional(readOnly = true)
+    ActionColumn findByIsValidatedEqualsAndColName(String isValidated, String colName);
 
 
 }

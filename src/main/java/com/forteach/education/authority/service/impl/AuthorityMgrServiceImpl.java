@@ -201,7 +201,6 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
      */
     @Override
     public List<ActionColumn> findTreeAll() {
-
         return actionColumnRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN);
     }
 
@@ -291,7 +290,7 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
             tempMap.put("meta", metaMap);
             List<Map> childList = new ArrayList<>();
             for (ActionColumn child : childrenList) {
-                if (child.getColParentId().equals(topColumn.getColId())) {
+                if (child.getColParentId() != null && child.getColParentId().equals(topColumn.getColId())) {
                     Map<String, Object> childMap = new HashMap<>(10);
                     Map<String, Object> childMeta = new HashMap<>(10);
                     childMeta.put("title", child.getColName());
@@ -306,9 +305,5 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
             listMap.add(tempMap);
         }
         return listMap;
-    }
-
-    public void saveActionColumn(){
-
     }
 }

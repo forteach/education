@@ -3,18 +3,15 @@ package com.forteach.education.authority.web.control;
 import com.forteach.education.authority.domain.SysRole;
 import com.forteach.education.authority.service.AuthorityMgrService;
 import com.forteach.education.authority.service.RoleService;
+import com.forteach.education.common.keyword.DefineCode;
+import com.forteach.education.common.keyword.MyAssert;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.web.control.BaseController;
 import com.forteach.education.web.vo.AuthorityVo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -42,7 +39,7 @@ public class RoleController extends BaseController {
      *
      * @return
      */
-    @PostMapping(value = "/list")
+    @GetMapping(value = "/list")
     @ApiOperation(value = "获得权限角色列表", notes = "获取所有的权限角色列表")
     public WebResult list() {
         return WebResult.okResult(roleService.findRoleInfo());
@@ -68,7 +65,9 @@ public class RoleController extends BaseController {
      */
     @PostMapping(value = "/remove")
     @ApiOperation(value = "删除角色", notes = "通过角色id删除角色")
+    @ApiImplicitParam(name = "roleId", value = "角色id", dataType = "string", required = true, paramType = "from")
     public WebResult removeRole(@Valid @RequestBody @ApiParam(value = "通过角色id删除角色", required = true) AuthorityVo authorityVo) {
+        MyAssert.blank(authorityVo.getRoleId(), DefineCode.ERR0010, "角色id不为空");
         roleService.deleteRole(authorityVo.getRoleId());
         return WebResult.okResult();
     }
@@ -81,7 +80,9 @@ public class RoleController extends BaseController {
      */
     @PostMapping(value = "/col")
     @ApiOperation(value = "获取当前角色的栏目", notes = "通过角色id 获取当前角色的栏目")
+    @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "string", paramType = "query")
     public WebResult roleCol(@Valid @RequestBody @ApiParam(value = "通过角色id获得栏目", required = true) AuthorityVo authorityVo) {
+        MyAssert.blank(authorityVo.getRoleId(), DefineCode.ERR0010, "角色id不为空");
         return WebResult.okResult(authorityMgrService.findColumnByRoleId(authorityVo.getRoleId()));
     }
 
@@ -93,7 +94,9 @@ public class RoleController extends BaseController {
      */
     @PostMapping(value = "/colIds")
     @ApiOperation(value = "获取对应角色的栏目ID集合", notes = "通过角色id 获取对应角色的栏目ID集合")
+    @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "string", paramType = "query")
     public WebResult roleColIds(@Valid @RequestBody @ApiParam(value = "通过角色id获得栏目id集合", required = true) AuthorityVo authorityVo) {
+        MyAssert.blank(authorityVo.getRoleId(), DefineCode.ERR0010, "角色id不为空");
         return WebResult.okResult(authorityMgrService.findColumnIdsByRoleId(authorityVo.getRoleId()));
     }
 
@@ -102,7 +105,7 @@ public class RoleController extends BaseController {
      *
      * @return
      */
-    @PostMapping(value = "/treeMenu")
+    @GetMapping(value = "/treeMenu")
     @ApiOperation(value = "获取整个栏目树菜单", notes = "获取整个栏目树菜单")
     public WebResult colTreeMenu() {
         return WebResult.okResult(authorityMgrService.treeMenu());
@@ -116,7 +119,9 @@ public class RoleController extends BaseController {
      */
     @PostMapping(value = "/leafColOpera")
     @ApiOperation(value = "根据叶节点获得栏目操作", notes = "通过 colId 栏目id 获得栏目操作")
+    @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "string", paramType = "query")
     public WebResult colOperation(@Valid @RequestBody @ApiParam(value = "通过 colId 栏目id 获得栏目操作", required = true) AuthorityVo authorityVo) {
+        MyAssert.blank(authorityVo.getRoleId(), DefineCode.ERR0010, "角色id不为空");
         return WebResult.okResult(authorityMgrService.findColumnOperationByLeafNode(authorityVo.getColId()));
     }
 
@@ -128,7 +133,9 @@ public class RoleController extends BaseController {
      */
     @PostMapping(value = "/col/operaList")
     @ApiOperation(value = "根据用户获得栏目操作列表", notes = "通过 userId 用户id 获得栏目操作列表")
-    public WebResult columnOperationList(@Valid @RequestBody @ApiParam(value = "通过 userId 用户id 获得栏目操作列表", required = true) AuthorityVo authorityVo) {
+    @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "string", paramType = "query")
+    public WebResult columnOperationList(@Valid @ApiParam(value = "通过 userId 用户id 获得栏目操作列表", required = true) @RequestBody AuthorityVo authorityVo) {
+        MyAssert.blank(authorityVo.getUserId(), DefineCode.ERR0010, "用户id不为空");
         return WebResult.okResult(authorityMgrService.findColumnOperationListByUserId(authorityVo.getUserId()));
     }
 
@@ -140,7 +147,9 @@ public class RoleController extends BaseController {
      */
     @PostMapping(value = "/col/operaAct")
     @ApiOperation(value = "根据角色获得栏目列表级栏目操作", notes = "通过 roleId 权限id 获得栏目列表级栏目操作")
+    @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "string", paramType = "query")
     public WebResult columnOperationAction(@Valid @RequestBody @ApiParam(value = "通过 roleId 权限id 获得栏目列表级栏目操作", required = true) AuthorityVo authorityVo) {
+        MyAssert.blank(authorityVo.getRoleId(), DefineCode.ERR0010, "角色id不为空");
         return WebResult.okResult(authorityMgrService.findColumnOperationByRoleId(authorityVo.getRoleId()));
     }
 
@@ -152,7 +161,13 @@ public class RoleController extends BaseController {
      */
     @PostMapping(value = "/actIds")
     @ApiOperation(value = "获取角色栏目对应的动作", notes = "通过 roleId  colid 权限id，栏目id 获取角色栏目对应的动作")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "colId", value = "栏目id", required = true, dataType = "string", paramType = "query")
+    })
     public WebResult findRoleColAct(@Valid @RequestBody @ApiParam(value = " 通过 roleId  colid 权限id，栏目id 获取角色栏目对应的动作", required = true) AuthorityVo authorityVo) {
+        MyAssert.blank(authorityVo.getRoleId(), DefineCode.ERR0010, "角色id不为空");
+        MyAssert.blank(authorityVo.getColId(), DefineCode.ERR0010, "栏目id不为空");
         return WebResult.okResult(authorityMgrService.findRoleColActIds(authorityVo.getRoleId(), authorityVo.getColId()));
     }
 

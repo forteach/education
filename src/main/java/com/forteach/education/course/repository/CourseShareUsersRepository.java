@@ -16,10 +16,11 @@ import java.util.List;
  */
 public interface CourseShareUsersRepository extends JpaRepository<CourseShareUsers, String> {
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional(rollbackOn = Exception.class)
     public int deleteByShareId(String shareId);
 
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public List<CourseShareUsers> findByShareId(String shareId);
 
 

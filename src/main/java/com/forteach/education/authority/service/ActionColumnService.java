@@ -1,5 +1,8 @@
 package com.forteach.education.authority.service;
 
+import com.forteach.education.authority.domain.ActionColumn;
+import com.forteach.education.authority.web.req.ActionColumnReq;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -8,5 +11,10 @@ package com.forteach.education.authority.service;
  * @Description: 系统栏目
  */
 public interface ActionColumnService {
-//    void save();
+    /**
+     * 　编辑或保存菜单栏目
+     * @param actionColumnReq
+     * @return
+     */
+    ActionColumn editSaveActionColumn(ActionColumnReq actionColumnReq);
 }

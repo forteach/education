@@ -1,12 +1,12 @@
 package com.forteach.education.authority.web.control;
 
 import com.forteach.education.authority.domain.SysUsers;
+import com.forteach.education.common.keyword.DefineCode;
+import com.forteach.education.common.keyword.MyAssert;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.service.UserMgrService;
 import com.forteach.education.web.vo.CastVo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
@@ -43,7 +42,16 @@ public class SysUserManagerController {
      */
     @PostMapping(value = "/cast")
     @ApiOperation(value = "分配角色", notes = "分配角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "string", paramType = "from"),
+            @ApiImplicitParam(name = "userIds", value = "用户集合", required = true, dataType = "string", paramType = "from", example = "[\"1\",\"2\",\"3\"]")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 0, message = "OK")
+    })
     public WebResult cast(@Valid @RequestBody @ApiParam(value = "分配角色", required = true) CastVo castVo) {
+        MyAssert.blank(castVo.getRoleId(), DefineCode.ERR0010, "角色id不为空");
+        MyAssert.egt(0, castVo.getUserIds().size(), DefineCode.ERR0010, "用户集合id不为空");
         userMgrService.updateUserRole(castVo.getRoleId(), castVo.getUserIds());
         return WebResult.okResult();
     }

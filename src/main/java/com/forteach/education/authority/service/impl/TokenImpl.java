@@ -96,4 +96,10 @@ public class TokenImpl implements TokenService {
         //设置有效期7天
         stringRedisTemplate.expire(key, TOKEN_VALIDITY_TIME, TimeUnit.SECONDS);
     }
+
+    @Override
+    public void removeToken(String userId) {
+        String key = USER_TOKEN_PREFIX.concat(userId);
+        stringRedisTemplate.delete(key);
+    }
 }

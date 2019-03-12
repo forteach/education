@@ -18,17 +18,17 @@ import java.util.List;
  */
 public interface ViewDatumRepository extends IDatumRepoitory<ViewDatum, String> {
     //修改资料领域
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE ViewDatum p SET p.datumArea = :datumArea where p.fileId = :fileId")
     public void updateDatumArea(String fileId, String datumArea);
 
     //修改教师分享
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE ViewDatum p SET p.teachShare = :teachShare where p.fileId = :fileId")
     public void updateTeachShare(String fileId, String teachShare);
 
     //修改学生可见
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE ViewDatum p SET p.stuShare = :stuShare where p.fileId = :fileId")
     public void updateStuShare(String fileId, String stuShare);
 }

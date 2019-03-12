@@ -2,6 +2,7 @@ package com.forteach.education.course.repository.ziliao;
 
 import com.forteach.education.course.domain.ziliao.ImportantCourseware;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public interface ImpCoursewareRepoitory extends JpaRepository<ImportantCoursewar
      * @param isValidated
      * @return
      */
+    @Transactional(readOnly = true)
     public List<ImportantCourseware> findByChapterIdAndDatumTypeAndImportantTypeAndIsValidated(String chapterId, String datumType, String importantType, String isValidated);
 
 

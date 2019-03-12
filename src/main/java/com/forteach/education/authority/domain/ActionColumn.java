@@ -66,7 +66,7 @@ public class ActionColumn extends Entitys implements Serializable {
     @Column(name = "col_img_url", columnDefinition = "varchar(255) COMMENT '链接图标'")
     private String colImgUrl;
 
-    @ApiModelProperty(name = "isOrder", value = "栏目顺序", dataType = "string")
+    @ApiModelProperty(name = "isOrder", value = "栏目顺序", dataType = "int")
     @Column(name = "is_order", columnDefinition = "int(11) COMMENT '栏目顺序'")
     private Integer isOrder;
 

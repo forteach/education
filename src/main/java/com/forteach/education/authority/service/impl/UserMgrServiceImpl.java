@@ -51,8 +51,6 @@ public class UserMgrServiceImpl implements UserMgrService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public SysUsers edit(SysUsers user) {
-//        user.setuTime(new Date());
-//        user.setcTime(new Date());
         return userRepository.save(user);
     }
 

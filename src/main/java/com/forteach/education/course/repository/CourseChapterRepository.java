@@ -31,6 +31,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param courseId 　科目ID
      * @return 章节目录基本信息
      */
+    @Transactional(readOnly = true)
     @Query("select chapterId as chapterId, chapterName as chapterName, chapterParentId as chapterParentId, publish as publish, sort as sort, chapterLevel as chapterLevel " +
             "from CourseChapter where  courseId = ?1 order by chapterLevel asc, sort asc")
     List<ICourseChapterDto> findByCourseId(String courseId);
@@ -42,6 +43,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param chapterParentId
      * @return 所属的章节信息按照从顺序排列
      */
+    @Transactional(readOnly = true)
     @Query("select chapterId as chapterId, chapterName as chapterName, chapterParentId as chapterParentId, publish as publish, sort as sort, chapterLevel as chapterLevel from CourseChapter" +
             " where isValidated = :isValidated and chapterParentId = :chapterParentId order by sort asc")
     List<ICourseChapterDto> findByChapterParentId(@Param("isValidated") String isValidated, @Param("chapterParentId") String chapterParentId);
@@ -54,6 +56,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param chapterId
      * @return
      */
+    @Transactional(readOnly = true)
     List<CourseChapter> findByIsValidatedEqualsAndCourseIdAndChapterId(String isValidated, String courseId, String chapterId);
 
     /**
@@ -63,6 +66,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param courseId    　科目ID
      * @return　目录章节基本信息
      */
+    @Transactional(readOnly = true)
     @Query("select chapterId as chapterId, chapterName as chapterName, chapterParentId as chapterParentId, publish as publish, sort as sort, chapterLevel as chapterLevel " +
             "from CourseChapter where isValidated = :isValidated and  courseId = :courseId  ORDER BY  sort asc")
     List<ICourseChapterDto> findCourseId(@Param("isValidated") String isValidated, @Param("courseId") String courseId);
@@ -75,8 +79,10 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
      * @param chapterParentId
      * @return
      */
+    @Transactional(readOnly = true)
     int countByIsValidatedEqualsAndCourseIdAndChapterParentId(String isValidated, String courseId, String chapterParentId);
 
+    @Transactional(readOnly = true)
     List<CourseChapter> findByCourseIdAndAndChapterParentId(String courseId, String chapterParentId);
 
 //    @Modifying

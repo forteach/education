@@ -16,10 +16,27 @@ import java.util.List;
  */
 public interface RoleColActRepository extends JpaRepository<RoleColAct, Long> {
 
+    /**
+     * 根据角色ID 获取栏目编号
+     * @param roleId
+     * @return
+     */
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     List<RoleColAct> findByRoleIdEquals(String roleId);
 
+    /**
+     * 获取角色栏目对应的动作
+     * @param colId
+     * @param roleId
+     * @return
+     */
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     List<RoleColAct> findByColIdAndRoleId(String colId, String roleId);
 
+    /**
+     * 删除该角色的所有子栏目
+     * @param roleId
+     */
     @Modifying
     @Transactional(rollbackOn = Exception.class)
     void deleteByRoleIdIs(String roleId);

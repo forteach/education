@@ -2,6 +2,7 @@ package com.forteach.education.course.repository;
 
 import com.forteach.education.course.domain.CourseImages;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,5 +21,6 @@ public interface CourseImagesRepository extends JpaRepository<CourseImages, Stri
      * @param courseId
      * @return
      */
+    @Transactional(readOnly = true)
     List<CourseImages> findByIsValidatedEqualsAndCourseIdOrderByIndexNumAsc(String isValidated, String courseId);
 }
