@@ -3,7 +3,9 @@ package com.forteach.education.course.service.imp;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.classes.web.req.RTeacher;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.Dic;
+import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseImages;
 import com.forteach.education.course.domain.CourseShare;
@@ -12,12 +14,9 @@ import com.forteach.education.course.repository.CourseImagesRepository;
 import com.forteach.education.course.repository.CourseRepository;
 import com.forteach.education.course.service.CourseService;
 import com.forteach.education.course.service.CourseShareService;
-import com.forteach.education.util.SortUtil;
 import com.forteach.education.web.req.CourseImagesReq;
 import com.forteach.education.web.vo.DataDatumVo;
-import com.forteach.education.common.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,6 +71,7 @@ public class CourseServiceImpl implements CourseService {
         //2、如果是集体备课，保存集体备课基本信息
         String shareId = "";
         if (LESSON_PREPARATION_TYPE_GROUP.equals(course.getLessonPreparationType())) {
+            MyAssert.isTrue(teachers.size()==0, DefineCode.ERR0010,"集体备课，必须选择备课教师");
             shareId = courseShareService.save(course, teachers);
         }
 

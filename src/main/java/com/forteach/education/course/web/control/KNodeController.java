@@ -1,7 +1,7 @@
 package com.forteach.education.course.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.forteach.education.common.keyword.MyAssert;
+import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.course.domain.KNode;
 import com.forteach.education.course.service.KNodeService;

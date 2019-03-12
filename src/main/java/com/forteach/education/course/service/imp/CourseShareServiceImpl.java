@@ -2,6 +2,8 @@ package com.forteach.education.course.service.imp;
 
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.classes.web.req.RTeacher;
+import com.forteach.education.common.keyword.DefineCode;
+import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseShare;
 import com.forteach.education.course.domain.CourseShareUsers;
@@ -56,8 +58,8 @@ public class CourseShareServiceImpl implements CourseShareService {
                 .build();
         courseShare.setCreateTime(course.getCreateTime());
         UpdateUtil.copyNullProperties(course, courseShare);
-        courseShareRepository.save(courseShare);
-
+        CourseShare newCourseShare=courseShareRepository.save(courseShare);
+        MyAssert.blank(newCourseShare.getShareId(), DefineCode.ERR0009,"集体课程信息存储错误");
 
         //2、保存参与分享的教师信息
         List<CourseShareUsers> list = new ArrayList<>();
@@ -70,10 +72,12 @@ public class CourseShareServiceImpl implements CourseShareService {
             UpdateUtil.copyNullProperties(courseShare, cs);
             list.add(cs);
         });
-        courseShareUsersRepository.saveAll(list);
+        List<CourseShareUsers> newlist =courseShareUsersRepository.saveAll(list);
+
+        MyAssert.isTrue(newlist.size()==0, DefineCode.ERR0009,"集体课程教师信息存储错误");
 
         //3、集体备课返回课程分享编号
-        return courseShare.getShareId();
+        return newCourseShare.getShareId();
     }
 
     /**

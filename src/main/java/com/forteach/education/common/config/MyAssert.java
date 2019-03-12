@@ -1,4 +1,4 @@
-package com.forteach.education.common.keyword;
+package com.forteach.education.common.config;
 
 import java.util.Collection;
 

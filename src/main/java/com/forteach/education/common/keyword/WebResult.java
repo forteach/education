@@ -52,7 +52,7 @@ public class WebResult implements Serializable {
      **/
     public static WebResult okResult(Object data) {
         WebResult wr = okResult(getOkCode(), data);
-        log.info("*********{}", JSON.toJSONString(wr));
+        log.info("response**:{}", JSON.toJSONString(wr));
         return wr;
     }
 

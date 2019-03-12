@@ -25,14 +25,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class CourseChapterReq implements Serializable {
 
-    @NotNull(message = "科目编号不为空")
     @ApiModelProperty(name = "科目编号", value = "courseId", dataType = "string", required = true)
     private String courseId;
 
     @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string", hidden = true)
     private String chapterId;
 
-    @NotBlank(message = "章节名称不为空")
+
     @ApiModelProperty(value = "章节名称", name = "chapter_name", dataType = "string", required = true)
     private String chapterName;
 
