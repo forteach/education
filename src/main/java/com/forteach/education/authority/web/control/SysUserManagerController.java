@@ -1,8 +1,8 @@
 package com.forteach.education.authority.web.control;
 
 import com.forteach.education.authority.domain.SysUsers;
+import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
-import com.forteach.education.common.keyword.MyAssert;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.service.UserMgrService;
 import com.forteach.education.web.vo.CastVo;

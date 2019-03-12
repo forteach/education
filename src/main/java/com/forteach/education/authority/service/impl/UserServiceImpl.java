@@ -1,6 +1,9 @@
 package com.forteach.education.authority.service.impl;
 
+import com.forteach.education.authority.domain.SysRole;
 import com.forteach.education.authority.domain.SysUsers;
+import com.forteach.education.authority.domain.UserRole;
+import com.forteach.education.authority.repository.SysRoleRepository;
 import com.forteach.education.authority.repository.UserRepository;
 import com.forteach.education.authority.repository.UserRoleRepository;
 import com.forteach.education.authority.service.TokenService;
@@ -10,8 +13,8 @@ import com.forteach.education.authority.web.req.UpdatePassWordReq;
 import com.forteach.education.authority.web.req.UserLoginReq;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.classes.repository.TeacherRepository;
+import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
-import com.forteach.education.common.keyword.MyAssert;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.util.Md5Util;
 import lombok.extern.slf4j.Slf4j;
@@ -61,6 +64,9 @@ public class UserServiceImpl implements UserService {
     @Resource
     private TeacherRepository teacherRepository;
 
+    @Resource
+    private SysRoleRepository sysRoleRepository;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public WebResult login(UserLoginReq userLoginReq) {
@@ -74,11 +80,11 @@ public class UserServiceImpl implements UserService {
             return WebResult.failException("密码错误");
         }
         String token = tokenService.createToken(user.getId());
+        //保存token到redis
         tokenService.saveRedis(token, user);
         HashMap<String, String> map = new HashMap<>(2);
         map.put("token", token);
         map.put("userId", user.getId());
-        //保存token到redis
         return WebResult.okResult(map);
     }
 
@@ -100,7 +106,8 @@ public class UserServiceImpl implements UserService {
         user.setUserName(registerUserReq.getUserName());
         SysUsers sysUsers = userRepository.save(user);
         //分配角色
-//        userRoleRepository.save(UserRole.builder().userId(sysUsers.getId()).roleId("").build());
+        SysRole sysRole = sysRoleRepository.findSysRoleByRoleNameAndIsValidated("teacher", TAKE_EFFECT_OPEN);
+        userRoleRepository.save(UserRole.builder().userId(sysUsers.getId()).roleId(sysRole.getRoleId()).build());
         return WebResult.okResult();
     }
 

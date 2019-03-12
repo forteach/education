@@ -92,6 +92,7 @@ public class TokenImpl implements TokenService {
         map.put("token", token);
         map.put("userId", users.getId());
         map.put("userName", users.getUserName());
+        map.put("role", users.getRole());
         stringRedisTemplate.opsForHash().putAll(key, map);
         //设置有效期7天
         stringRedisTemplate.expire(key, TOKEN_VALIDITY_TIME, TimeUnit.SECONDS);
