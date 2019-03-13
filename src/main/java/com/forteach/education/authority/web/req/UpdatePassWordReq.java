@@ -13,17 +13,15 @@ import java.io.Serializable;
  * @version: 1.0
  * @description:
  */
-@ApiModel(value = "修改密码需要model数据")
+@ApiModel(value = "修改密码需要model数据", description = "修改教师的密码对象属性")
 @Data
 public class UpdatePassWordReq implements Serializable {
 
     private String teacherCode;
 
-    @NotBlank(message = "旧密码不为空")
     @ApiModelProperty(name = "oldPassWord", value = "旧密码", required = true, dataType = "string")
     private String oldPassWord;
 
-    @NotBlank(message = "新密码不为空")
     @ApiModelProperty(name = "newPassWord", value = "新密码", required = true, dataType = "string")
     private String newPassWord;
 }

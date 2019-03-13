@@ -1,5 +1,6 @@
 package com.forteach.education.authority.web.req;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.io.Serializable;
@@ -12,27 +13,28 @@ import java.io.Serializable;
  * @description:
  */
 @Data
+@ApiModel(value = "系统栏目对像", description = "注册修改栏目对象属性")
 public class ActionColumnReq implements Serializable {
 
     @ApiModelProperty(name = "colId", value = "栏目编号", dataType = "string")
     private String colId;
 
-    @ApiModelProperty(name = "colName", value = "栏目名称", dataType = "string")
+    @ApiModelProperty(name = "colName", required = true, value = "栏目名称", dataType = "string")
     private String colName;
 
-    @ApiModelProperty(name = "colNameModel", value = "栏目跳转", dataType = "string")
+    @ApiModelProperty(name = "colNameModel", required = true, value = "栏目跳转", dataType = "string")
     private String colNameModel;
 
-    @ApiModelProperty(name = "colParentId", value = "父栏目编号", dataType = "string")
+    @ApiModelProperty(name = "colParentId", value = "父栏目编号", dataType = "string", notes = "没有父栏目不用传数据")
     private String colParentId;
 
-    @ApiModelProperty(name = "colParentName", value = "父栏目名称", dataType = "string")
+    @ApiModelProperty(name = "colParentName", value = "父栏目名称", dataType = "string", notes = "没有父栏目不用传数据")
     private String colParentName;
 
-    @ApiModelProperty(name = "colUrl", value = "链接地址", dataType = "string")
+    @ApiModelProperty(name = "colUrl", value = "链接地址", required = true, dataType = "string")
     private String colUrl;
 
-    @ApiModelProperty(name = "colImgUrl", value = "链接图标", dataType = "string")
+    @ApiModelProperty(name = "colImgUrl", value = "链接图标", required = true, dataType = "string")
     private String colImgUrl;
 
     @ApiModelProperty(name = "isOrder", value = "栏目顺序", dataType = "int")

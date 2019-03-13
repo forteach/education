@@ -12,10 +12,16 @@ import java.util.List;
  */
 public interface UserMgrService {
     /**
+     * 分配角色
      * @param roleId
      * @param userIds
      */
     void updateUserRole(String roleId, List<String> userIds);
 
+    /**
+     * 编辑/保存用户
+     * @param user
+     * @return
+     */
     SysUsers edit(SysUsers user);
 }

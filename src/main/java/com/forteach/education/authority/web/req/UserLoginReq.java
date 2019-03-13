@@ -21,11 +21,10 @@ public class UserLoginReq implements Serializable {
 //    @NotBlank(message = "用户名不为空")
 //    @ApiModelProperty(name = "userName", value = "用户名", dataType = "string", required = true)
 //    private String userName;
-    @NotBlank(message = "教师代码不为空")
+
     @ApiModelProperty(name = "teacherCode", value = "教师代码", dataType = "string", required = true)
     private String teacherCode;
 
-    @NotBlank(message = "密码不为空")
     @ApiModelProperty(name = "passWord", value = "用户密码", dataType = "string", required = true)
     private String passWord;
 }

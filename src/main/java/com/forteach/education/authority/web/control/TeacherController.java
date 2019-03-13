@@ -40,7 +40,6 @@ public class TeacherController {
      * @return
      */
     @PostMapping("/save")
-//    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "保存教师信息", notes = "保存信息不为空")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "specialtyId", value = "专业ID", required = true, dataType = "string", paramType = "from"),
@@ -51,7 +50,6 @@ public class TeacherController {
         return WebResult.okResult(teacherService.save(teacher));
     }
 
-    //    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "教师ID 查询教师信息")
     @PostMapping("/getTeacherById")
     @ApiImplicitParam(name = "teacherId", value = "教师主键ID", required = true, dataType = "string", paramType = "from")
@@ -65,7 +63,6 @@ public class TeacherController {
      * @param teacher
      * @return
      */
-//    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "修改教师信息")
     @PostMapping("/edit")
     @ApiImplicitParams({
@@ -119,7 +116,6 @@ public class TeacherController {
      * @param sortVo
      * @return
      */
-//    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @PostMapping("/findAll")
     @ApiImplicitParams({
@@ -156,7 +152,6 @@ public class TeacherController {
      * @param specialtyId
      * @return
      */
-//    @JsonView(View.SummaryExtend.class)
     @ApiOperation(value = "查询教师列表", notes = "根据专业ID号查询对应的教师信息")
     @PostMapping("/findTeachersBySpecialtyId")
     @ApiImplicitParam(name = "specialtyId", value = "专业主键ID", required = true, dataType = "string", paramType = "from")

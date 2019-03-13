@@ -15,18 +15,15 @@ import java.io.Serializable;
  * @description:
  */
 @Data
-@ApiModel(value = "用户注册所需数据")
+@ApiModel(value = "用户注册所需数据", description = "注册添加教师信息对象")
 public class RegisterUserReq implements Serializable {
 
-    @NotBlank(message = "用户名不为空")
     @ApiModelProperty(value = "用户名", name = "userName", required = true, dataType = "string")
     private String userName;
 
-    @NotBlank(message = "密码不为空")
     @ApiModelProperty(value = "密码", name = "passWord", required = true, dataType = "string")
     private String passWord;
 
-    @NotBlank(message = "教师代码不为空")
     @ApiModelProperty(value = "teacherCode", name = "教师代码", required = true, dataType = "string")
     private String teacherCode;
 }

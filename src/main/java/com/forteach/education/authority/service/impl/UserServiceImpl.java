@@ -82,9 +82,11 @@ public class UserServiceImpl implements UserService {
         String token = tokenService.createToken(user.getId());
         //保存token到redis
         tokenService.saveRedis(token, user);
-        HashMap<String, String> map = new HashMap<>(2);
+        UserRole userRole = userRoleRepository.findByUserIdIs(user.getId());
+        HashMap<String, String> map = new HashMap<>(4);
         map.put("token", token);
         map.put("userId", user.getId());
+        map.put("roleId", userRole.getRoleId());
         return WebResult.okResult(map);
     }
 
@@ -140,6 +142,8 @@ public class UserServiceImpl implements UserService {
         user.setTeacherId(teacherCode);
         user.setUserName(teacher.get().getTeacherName());
         userRepository.save(user);
+        SysRole sysRole = sysRoleRepository.findSysRoleByRoleNameAndIsValidated("teacher", TAKE_EFFECT_OPEN);
+        userRoleRepository.save(UserRole.builder().userId(user.getId()).roleId(sysRole.getRoleId()).build());
         return WebResult.okResult("添加成功");
     }
 
@@ -156,6 +160,8 @@ public class UserServiceImpl implements UserService {
         }
         users.setPassWord(Md5Util.macMD5(updatePassWordReq.getNewPassWord()));
         userRepository.save(users);
+        SysRole sysRole = sysRoleRepository.findSysRoleByRoleNameAndIsValidated("teacher", TAKE_EFFECT_OPEN);
+        userRoleRepository.save(UserRole.builder().userId(users.getId()).roleId(sysRole.getRoleId()).build());
         return WebResult.okResult("修改成功");
     }
 

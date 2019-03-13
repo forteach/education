@@ -4,11 +4,8 @@ import com.forteach.education.authority.domain.ActionColumn;
 import com.forteach.education.authority.repository.ActionColumnRepository;
 import com.forteach.education.authority.service.ActionColumnService;
 import com.forteach.education.authority.web.req.ActionColumnReq;
-import com.forteach.education.common.keyword.Dic;
-import com.forteach.education.common.keyword.MyAssert;
 import com.forteach.education.util.UpdateUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,6 @@
 package com.forteach.education.authority.web.control;
 
+import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.authority.domain.SysUsers;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
@@ -46,10 +47,9 @@ public class SysUserManagerController {
             @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "userIds", value = "用户集合", required = true, dataType = "string", paramType = "from", example = "[\"1\",\"2\",\"3\"]")
     })
-    @ApiResponses({
-            @ApiResponse(code = 0, message = "OK")
-    })
-    public WebResult cast(@Valid @RequestBody @ApiParam(value = "分配角色", required = true) CastVo castVo) {
+    @ApiResponse(code = 0, message = "OK")
+    @UserLoginToken
+    public WebResult cast(@RequestBody @ApiParam(value = "分配角色", required = true) CastVo castVo) {
         MyAssert.blank(castVo.getRoleId(), DefineCode.ERR0010, "角色id不为空");
         MyAssert.egt(0, castVo.getUserIds().size(), DefineCode.ERR0010, "用户集合id不为空");
         userMgrService.updateUserRole(castVo.getRoleId(), castVo.getUserIds());
@@ -61,6 +61,7 @@ public class SysUserManagerController {
      * @Param: user
      * @return:
      */
+    @UserLoginToken
     @PostMapping(value = "/edit")
     @ApiOperation(value = "编辑用户", notes = "编辑/保存用户")
     public WebResult edit(@Valid @RequestBody @ApiParam(value = "编辑/保存用户", required = true) SysUsers user) {
