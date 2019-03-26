@@ -1,15 +1,16 @@
 package com.forteach.education.common.keyword;
 
-import cn.hutool.core.util.CharsetUtil;
 import com.alibaba.fastjson.JSON;
 import com.forteach.education.util.PropertiesUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.ObjectError;
 import reactor.core.publisher.Mono;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -106,6 +107,9 @@ public class WebResult implements Serializable {
         return failResult(getFailCode(), String.valueOf(code), data);
     }
 
+    public static WebResult failResult(int code, List<ObjectError> allError){
+        return getWebResult(code, "9000", allError);
+    }
     /**
      * 失败操作 操作码默认为9999  只有提示码 和 数据
      **/

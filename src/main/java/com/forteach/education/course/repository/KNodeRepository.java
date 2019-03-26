@@ -15,11 +15,22 @@ import java.util.List;
  */
 public interface KNodeRepository extends JpaRepository<KNode, String> {
 
-    //根据章节编号查找知识点
+    /**
+     * 根据章节编号查找知识点
+     * @param chapterId
+     * @param kNodeType
+     * @param isVal
+     * @return
+     */
     @Transactional(readOnly = true)
     List<KNode> findByChapterIdAndKNodeTypeIsGreaterThanAndIsValidated(String chapterId, int kNodeType, String isVal);
 
-    //根据课程编号查找知识点
+    /**
+     * 根据课程编号查找知识点
+     * @param courseId
+     * @param isVal
+     * @return
+     */
     @Transactional(readOnly = true)
     List<KNode> findByCourseIdAndIsValidated(String courseId, String isVal);
 

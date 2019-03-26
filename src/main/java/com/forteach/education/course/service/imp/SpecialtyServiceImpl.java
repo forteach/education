@@ -1,18 +1,18 @@
 package com.forteach.education.course.service.imp;
 
+import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.course.domain.Specialty;
 import com.forteach.education.course.repository.SpecialtyRepository;
 import com.forteach.education.course.service.SpecialtyService;
-import com.forteach.education.util.SortUtil;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.util.UpdateUtil;
-import com.forteach.education.common.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import javax.annotation.Resource;
+import java.util.Optional;
 
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
@@ -28,7 +28,7 @@ import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 @Service
 public class SpecialtyServiceImpl implements SpecialtyService {
 
-    @Autowired
+    @Resource
     private SpecialtyRepository specialtyRepository;
 
     @Override
@@ -43,14 +43,18 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Specialty edit(Specialty specialty) {
-        Specialty source = specialtyRepository.findById(specialty.getSpecialtyId()).get();
-        UpdateUtil.copyNullProperties(source, specialty);
-        return specialtyRepository.save(specialty);
+        Optional<Specialty> optionalSpecialty = specialtyRepository.findById(specialty.getSpecialtyId());
+        if (optionalSpecialty.isPresent()){
+            UpdateUtil.copyNullProperties(optionalSpecialty.get(), specialty);
+            return specialtyRepository.save(specialty);
+        }
+        return null;
     }
 
     @Override
     public Specialty getSpecialtyById(String specialtyId) {
-        return specialtyRepository.findById(specialtyId).get();
+        return specialtyRepository.findById(specialtyId)
+                .orElse(new Specialty());
     }
 
     @Override
@@ -68,9 +72,11 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteIsValidById(String specialtyId) {
-        Specialty specialty = specialtyRepository.findById(specialtyId).get();
-        specialty.setIsValidated(TAKE_EFFECT_CLOSE);
-        specialtyRepository.save(specialty);
+        specialtyRepository.findById(specialtyId)
+                .ifPresent(specialty -> {
+                    specialty.setIsValidated(TAKE_EFFECT_CLOSE);
+                    specialtyRepository.save(specialty);
+                });
     }
 
     /**

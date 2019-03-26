@@ -37,7 +37,7 @@ public interface RoleColActRepository extends JpaRepository<RoleColAct, Long> {
      * 删除该角色的所有子栏目
      * @param roleId
      */
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional(rollbackOn = Exception.class)
     void deleteByRoleIdIs(String roleId);
 

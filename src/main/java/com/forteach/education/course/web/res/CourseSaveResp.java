@@ -19,9 +19,9 @@ import java.io.Serializable;
 @ApiModel(value = "课程添加成功")
 public class CourseSaveResp implements Serializable {
 
-    @ApiModelProperty(value = "CourseId")
+    @ApiModelProperty(value = "课程id", name = "courseId", dataType = "string")
     private String courseId;
 
-    @ApiModelProperty(value = "shareId")
+    @ApiModelProperty(value = "分享id", name = "shareId", dataType = "string")
     private String shareId;
 }

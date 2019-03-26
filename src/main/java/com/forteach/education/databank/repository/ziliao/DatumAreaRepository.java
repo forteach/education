@@ -18,23 +18,50 @@ import java.util.List;
  */
 public interface DatumAreaRepository extends JpaRepository<DatumArea, String> {
 
-    //文件编号、单个资料领域
+    /**
+     * 文件编号、单个资料领域
+     * @param fileId
+     * @param datumArea
+     * @return
+     */
     @Transactional(readOnly = true)
     public DatumArea findByFileIdAndDatumArea(String fileId, String datumArea);
 
-    //文件编号、单个资料领域
+    /**
+     * 文件编号、单个资料领域
+     * @param fileId
+     * @return
+     */
     @Transactional(readOnly = true)
     public List<DatumArea> findByFileId(String fileId);
 
-    //章节，资料领域范围
+    /**
+     * 章节，资料领域范围
+     * @param chapterId
+     * @param datumAreas
+     * @param pageable
+     * @return
+     */
     @Transactional(readOnly = true)
     public Page<DatumArea> findByChapterIdAndDatumAreaIn(String chapterId, List<String> datumAreas, Pageable pageable);
 
-    //章节、知识点、资料领域
+    /**
+     * 章节、知识点、资料领域
+     * @param chapterId
+     * @param kNodeId
+     * @param datumAreas
+     * @param pageable
+     * @return
+     */
     @Transactional(readOnly = true)
     public Page<DatumArea> findByChapterIdAndKNodeIdAndDatumAreaIn(String chapterId, String kNodeId, List<String> datumAreas, Pageable pageable);
 
-    //根据文件编号和资料领域删除信息
+    /**
+     * 根据文件编号和资料领域删除信息
+     * @param fileId
+     * @param datumArea
+     * @return
+     */
     @Transactional(rollbackFor = Exception.class)
     @Modifying(clearAutomatically = true)
     public int deleteByFileIdAndDatumArea(String fileId, String datumArea);

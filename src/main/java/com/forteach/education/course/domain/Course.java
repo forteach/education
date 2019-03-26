@@ -2,14 +2,14 @@ package com.forteach.education.course.domain;
 
 
 import com.forteach.education.common.domain.Entitys;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -45,7 +45,9 @@ public class Course extends Entitys implements Serializable {
     @Column(name = "share_type", columnDefinition = "INT DEFAULT 1 COMMENT '分享类型：１.私有 2.协作 ３.公开'")
     private String shareType;
 
-    //TODO授课类型是多选
+    /**
+     * TODO 授课类型是多选
+     */
     @Column(name = "teaching_type", columnDefinition = "VARCHAR(32) COMMENT '1、录播课程 2、直播课程 3、线下课堂'")
     private String teachingType;
 

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 
 /**
@@ -20,16 +20,14 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChapteDataResp {
+public class ChapteDataResp implements Serializable {
 
-    @NotNull(message = "科目编号不为空")
     @ApiModelProperty(name = "courseId", value = "科目编号", dataType = "string", required = true)
     private String courseId;
 
     @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string")
     private String chapterId;
 
-    @NotNull(message = "资料类型不为空")
     @ApiModelProperty(name = "datumType", dataType = "string", value = "资料类型", example = "1", notes = "资料类型 1文档　2图册　3视频　4音频　5链接", required = true)
     private String datumType;
 

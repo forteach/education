@@ -23,20 +23,30 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CoursewareServiceImp implements CoursewareService {
 
-    //课程重要课件
+    /**
+     * 课程重要课件
+     */
     @Resource
     private ImpCoursewareRepoitory impCoursewareRepoitory;
 
-    //图集信息
+    /**
+     * 图集信息
+     */
     @Resource
     private CourseArlitsRepository courseArlitsRepository;
 
-    //图集图片操作
+    /**
+     * 图集图片操作
+     */
     @Resource
     private PhotosRepository photoDatumRepository;
 
 
-    //保存除图集以外，重要课件文件
+    /**
+     * 保存除图集以外，重要课件文件
+     * @param obj
+     * @return
+     */
     @Override
     public ImpCoursewareAll saveFile(ImpCoursewareAll obj) {
 
@@ -56,7 +66,11 @@ public class CoursewareServiceImp implements CoursewareService {
         return getImpCourseware(obj.getChapterId(), obj.getImportantType(), obj.getDatumType());
     }
 
-    //保存图集
+    /**
+     * 保存图集
+     * @param obj
+     * @return
+     */
     @Override
     public List<CoursewareAll> saveCourseAtlit(ImpCoursewareAll obj) {
 
@@ -104,7 +118,11 @@ public class CoursewareServiceImp implements CoursewareService {
         return null;
     }
 
-    //获得图集列表
+    /**
+     * 获得图集列表
+     * @param chapterId
+     * @return
+     */
     @Override
     public List<CoursewareAll> getCourseArlitsList(String chapterId) {
 

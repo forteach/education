@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -24,7 +23,6 @@ import java.io.Serializable;
 @ApiModel(value = "修改课程章节的对象")
 public class CourseChapterEditReq implements Serializable {
 
-    @NotNull(message = "章节编号不为空")
     @ApiModelProperty(value = "章节编号", name = "chapterId", dataType = "string", required = true)
     private String chapterId;
 

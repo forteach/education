@@ -7,8 +7,10 @@ import java.util.List;
 
 public interface CoursewareService {
 
-    /*
-    保存除图集以外，主要课件文件信息
+    /**
+     * 保存除图集以外，主要课件文件信息
+     * @param obj
+     * @return
      */
     public ImpCoursewareAll saveFile(ImpCoursewareAll obj);
 
@@ -24,7 +26,17 @@ public interface CoursewareService {
      */
     public ImpCoursewareAll getImpCourseware(String chapterId, String importantType, String datumType);
 
+    /**
+     * 获得图集列表
+     * @param chapterId
+     * @return
+     */
     public List<CoursewareAll> getCourseArlitsList(String chapterId);
 
+    /**
+     * 获取图册列表
+     * @param arlitId
+     * @return
+     */
     public List<CoursewareAll> getPhotoList(String arlitId);
 }

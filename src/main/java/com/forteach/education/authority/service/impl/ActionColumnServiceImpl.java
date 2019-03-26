@@ -8,6 +8,7 @@ import com.forteach.education.util.UpdateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -32,6 +33,7 @@ public class ActionColumnServiceImpl implements ActionColumnService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ActionColumn editSaveActionColumn(ActionColumnReq actionColumnReq){
         Optional<ActionColumn> actionColumnOptional = actionColumnRepository.findById(actionColumnReq.getColId() != null ? actionColumnReq.getColId() : "");
         ActionColumn actionColumn;

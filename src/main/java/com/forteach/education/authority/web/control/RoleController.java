@@ -15,9 +15,7 @@ import com.forteach.education.web.vo.AuthorityVo;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.lang.UsesSunMisc;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -211,13 +209,17 @@ public class RoleController extends BaseController {
     @PostMapping(value = "/saveRoleColAct")
     @ApiOperation(value = "保存对应角色栏目的动作", notes = "传入角色与权限list json 进行操作")
     public WebResult saveRoleColAct(@RequestBody @ApiParam(value = " json 串", required = true) String params) {
+        MyAssert.blank(params, DefineCode.ERR0010, "参数不为空");
         authorityMgrService.saveRoleColAct(params);
         return WebResult.okResult();
     }
 
     @UserLoginToken
     @PostMapping("/saveEdit")
-    @ApiOperation("修改保存栏目信息")
+    @ApiOperation(value = "修改保存栏目信息", notes = "保存栏目时栏目编号(colId)不为空，修改栏目信息传 空字符串 ")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "colId", value = "栏目编号", dataType = "string", example = "121213dwe", paramType = "from")
+    })
     public WebResult saveEdit(@RequestBody ActionColumnReq actionColumnReq){
         return WebResult.okResult(actionColumnService.editSaveActionColumn(actionColumnReq));
     }

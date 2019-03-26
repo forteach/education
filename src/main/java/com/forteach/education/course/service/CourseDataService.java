@@ -2,10 +2,7 @@ package com.forteach.education.course.service;
 
 import com.forteach.education.course.domain.ziliao.CourseData;
 import com.forteach.education.course.web.vo.RCourseData;
-import com.forteach.education.databank.web.req.ChapteDataReq;
 import com.forteach.education.databank.web.res.DatumResp;
-import com.forteach.education.web.req.CourseDataDatumReq;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -19,16 +16,53 @@ import java.util.List;
  */
 public interface CourseDataService {
 
+    /**
+     * 保存课程挂在文件
+     * @param chapterId
+     * @param files
+     * @return
+     */
     public int save(String chapterId, List<RCourseData> files);
 
+    /**
+     * 单个资料领域修改
+     * @param courseId
+     * @param chapterId
+     * @param kNodeId
+     * @param fileId
+     * @param datumType
+     * @param datumArea
+     * @param teachShare
+     * @param stuShare
+     * @return
+     */
     public String updateAreaAndShare(String courseId, String chapterId, String kNodeId, String fileId, String datumType, String datumArea, String teachShare, String stuShare);
 
-    //课程资料详细列表
+    /**
+     * 课程资料详细列表
+     * @param chapterId
+     * @param datumType
+     * @param pageable
+     * @return
+     */
     public List<DatumResp> findDatumList(String chapterId, String datumType, Pageable pageable);
 
-    //课程资料详细列表
+    /**
+     * 课程资料详细列表
+     * @param chapterId
+     * @param pageable
+     * @return
+     */
     public List<DatumResp> findDatumList(String chapterId, Pageable pageable);
 
+    /**
+     * 获得按资料领域、课程章节、知识点、资料列表
+     * @param chapterId
+     * @param kNodeId
+     * @param datumType
+     * @param pageable
+     * @return
+     */
     public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumType, Pageable pageable);
 
     public void delete(CourseData chapteData);

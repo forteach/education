@@ -24,10 +24,14 @@ public class CourseDatumArea extends Entitys implements Serializable {
     @ApiModelProperty(value = "资料领域主键", hidden = true)
     private CourseDatumAreaPk courseDatumAreaPk;
 
-    //资料表的主键编号
+    /**
+     * 资料表的主键编号
+     */
     public String fileId;
 
-    //资料领域：3预习参考 4课堂参考 5授课案例、6复习参考'
+    /**
+     * 资料领域：3预习参考 4课堂参考 5授课案例、6复习参考'
+     */
     private String datumArea;
 
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '课程编号'")

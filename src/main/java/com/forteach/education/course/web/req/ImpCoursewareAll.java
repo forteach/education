@@ -1,10 +1,13 @@
 package com.forteach.education.course.web.req;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -19,23 +22,42 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImpCoursewareAll {
+@ApiModel(value = "课程科目操作 对应数据模型")
+public class ImpCoursewareAll implements Serializable {
 
+    /**
+     * 章节编号
+     */
+    @ApiModelProperty(name = "chapterId", value = "章节编号", dataType = "string")
     private String chapterId;
 
-    //资料领域：1教案 2课件
+    /**
+     * 资料领域：1教案 2课件
+     */
+    @ApiModelProperty(name = "importantType", dataType = "string", value = "资料领域：1教案 2课件")
     private String importantType;
 
-    //文件数量
+    /**
+     * 文件数量
+     */
+    @ApiModelProperty(name = "datumType", value = "文件数量", dataType = "string")
     private int fileCount;
 
-    //1文件 3、视频
+    /**
+     * 1文件 3、视频
+     */
+    @ApiModelProperty(name = "datumType", value = "课件类型 1文件 3、视频", dataType = "string")
     private String datumType;
 
-    //图集名称
+    /**
+     * 图集名称
+     */
+    @ApiModelProperty(name = "photoDatumName", value = "图集名称", dataType = "string")
     private String photoDatumName;
 
-    //课件或教案文件列表
+    /**
+     * 课件或教案文件列表
+     */
     private List<CoursewareAll> files;
 
     private String createUser;

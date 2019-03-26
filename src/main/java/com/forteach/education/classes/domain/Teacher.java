@@ -9,7 +9,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -45,15 +44,11 @@ public class Teacher extends Entitys implements Serializable {
     @Column(name = "specialty_id", columnDefinition = "VARCHAR(32) COMMENT '专业号'")
     private String specialtyId;
 
-    @NotNull(message = "教师名称不能为空")
     @ApiModelProperty(value = "教师名称", name = "teacherName", notes = "教师名称", example = "张三", required = true)
     @Column(name = "teacher_name", columnDefinition = "VARCHAR(40) COMMENT '教师名称'")
     private String teacherName;
 
-    @NotNull(message = "教师编号不能为空")
     @ApiModelProperty(value = "教师编号", name = "teacherCode", example = "S1234", required = true)
     @Column(name = "teacher_code", columnDefinition = "VARCHAR(32) COMMENT '教师编号'")
     private String teacherCode;
-
-
 }

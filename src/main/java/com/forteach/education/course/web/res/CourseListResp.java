@@ -2,8 +2,9 @@ package com.forteach.education.course.web.res;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @Auther: zhangyy
@@ -14,9 +15,9 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value = "课程添加成功")
-public class CourseListResp {
+public class CourseListResp implements Serializable {
 
-    @ApiModelProperty(value = "CourseId")
+    @ApiModelProperty(value = "courseId")
     private String courseId;
 
     @ApiModelProperty(value = "courseName")

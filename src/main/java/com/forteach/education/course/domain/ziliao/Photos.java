@@ -24,7 +24,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Photos extends AbsFile implements Serializable {
 
-    //图集编号
+    /**
+     * 图集编号
+     */
     @Column(name = "arlits_id", columnDefinition = "VARCHAR(32) COMMENT '图集编号'")
     private String arlitsId;
 

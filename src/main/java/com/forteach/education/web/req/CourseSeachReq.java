@@ -19,5 +19,4 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 public class CourseSeachReq extends SortVo implements Serializable {
     private String worlds;
-//    private
 }

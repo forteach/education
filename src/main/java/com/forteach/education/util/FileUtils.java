@@ -50,7 +50,6 @@ public class FileUtils {
         if (index == -1) {
             return null;
         }
-        String result = filename.substring(index + 1);
-        return result;
+        return filename.substring(index + 1);
     }
 }

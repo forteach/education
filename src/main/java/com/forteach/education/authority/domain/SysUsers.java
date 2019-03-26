@@ -25,14 +25,14 @@ import java.io.Serializable;
 @DynamicUpdate
 @DynamicInsert
 @Table(name = "sys_users", indexes = {@Index(name = "id_index", columnList = "id")})
-@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 @org.hibernate.annotations.Table(appliesTo = "sys_users", comment = "系统用户")
 public class SysUsers extends Entitys implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
     @Column(columnDefinition = "varchar(32) COMMENT '主键 uuid'")
     private String id;
 

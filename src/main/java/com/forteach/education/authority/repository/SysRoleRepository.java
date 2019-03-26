@@ -50,7 +50,7 @@ public interface SysRoleRepository extends JpaRepository<SysRole, Long> {
      *
      * @param id
      */
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional(rollbackOn = Exception.class)
     void deleteByRoleId(String id);
 }

@@ -1,15 +1,9 @@
 package com.forteach.education.course.repository.ziliao;
 
 import com.forteach.education.course.domain.ziliao.CourseData;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -19,17 +13,29 @@ import java.util.List;
  * @Description: 章节资料
  */
 public interface CourseDataRepository extends IFileRepoitory<CourseData, String> {
-    //修改资料领域
+    /**
+     * 修改资料领域
+     * @param dataId
+     * @param datumArea
+     */
     @Modifying(clearAutomatically = true)
     @Query("UPDATE CourseData p SET p.datumArea = :datumArea where p.dataId = :dataId")
     public void updateDatumArea(String dataId, String datumArea);
 
-    //修改教师分享
+    /**
+     * 修改教师分享
+     * @param dataId
+     * @param teachShare
+     */
     @Modifying(clearAutomatically = true)
     @Query("UPDATE CourseData p SET p.teachShare = :teachShare where p.dataId = :dataId")
     public void updateTeachShare(String dataId, String teachShare);
 
-    //修改学生可见
+    /**
+     * 修改学生可见
+     * @param dataId
+     * @param stuShare
+     */
     @Modifying(clearAutomatically = true)
     @Query("UPDATE CourseData p SET p.stuShare = :stuShare where p.dataId = :dataId")
     public void updateStuShare(String dataId, String stuShare);

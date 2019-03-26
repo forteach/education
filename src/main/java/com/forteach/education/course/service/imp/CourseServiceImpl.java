@@ -22,10 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.forteach.education.common.keyword.Dic.*;
 
@@ -40,15 +37,21 @@ import static com.forteach.education.common.keyword.Dic.*;
 @Slf4j
 public class CourseServiceImpl implements CourseService {
 
-    //课程基本信息
+    /**
+     * 课程基本信息
+     */
     @Resource
     private CourseRepository courseRepository;
 
-    //课程轮播图
+    /**
+     * 课程轮播图
+     */
     @Resource
     private CourseImagesRepository courseImagesRepository;
 
-    //集体备课课程共享资源
+    /**
+     * 集体备课课程共享资源
+     */
     @Resource
     private CourseShareService courseShareService;
 
@@ -126,7 +129,8 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public Course getById(String id) {
-        return courseRepository.findById(id).get();
+        return courseRepository.findById(id)
+                .orElse(new Course());
     }
 
     /**
@@ -137,20 +141,18 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public Map<String, Object> getCourseById(String courseId) {
-
-        Course course = courseRepository.findById(courseId).get();
-        String shareId = "";
-        //课程为集体备课
-        if (course.getLessonPreparationType().equals(LESSON_PREPARATION_TYPE_GROUP)) {
-            CourseShare cs = courseShareService.findByCourseIdAll(course.getCourseId());
-            shareId = cs.getShareId();
-        }
-
-        Map result = new HashMap();
-        result.put("course", course);
-        result.put("shareId", shareId);
+        Map<String, Object> result = new HashMap<>(2);
+        courseRepository.findById(courseId).ifPresent(course -> {
+            String shareId = "";
+            //课程为集体备课
+            if (course.getLessonPreparationType().equals(LESSON_PREPARATION_TYPE_GROUP)) {
+                CourseShare cs = courseShareService.findByCourseIdAll(course.getCourseId());
+                shareId = cs.getShareId();
+            }
+            result.put("course", course);
+            result.put("shareId", shareId);
+        });
         return result;
-
     }
 
 

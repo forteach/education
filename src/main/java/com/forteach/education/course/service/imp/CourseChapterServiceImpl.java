@@ -47,8 +47,10 @@ public class CourseChapterServiceImpl implements CourseChapterService {
 
         } else {
             //获得当前层级+1
-            CourseChapter c = courseChapterRepository.findById(courseChapter.getChapterParentId()).get();
-            courseChapter.setChapterLevel(String.valueOf(Integer.parseInt(c.getChapterLevel()) + 1));
+            courseChapterRepository.findById(courseChapter.getChapterParentId())
+                    .ifPresent(c -> {
+                        courseChapter.setChapterLevel(String.valueOf(Integer.parseInt(1 + c.getChapterLevel())));
+                    });
         }
         //2、查询当前科目章节有多少条数据
         int count = courseChapterRepository.countByIsValidatedEqualsAndCourseIdAndChapterParentId(TAKE_EFFECT_OPEN, courseChapter.getCourseId(), courseChapter.getChapterParentId());
@@ -67,27 +69,30 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Transactional(rollbackForClassName = "Exception")
     public CourseChapterSaveResp edit(CourseChapterEditReq courseChapterEditReq) {
         //1、获得当前数据库对象
-        CourseChapter source = courseChapterRepository.findById(courseChapterEditReq.getChapterId()).get();
-        CourseChapter courseChapter = CourseChapter.builder().build();
-        BeanUtils.copyProperties(courseChapterEditReq, courseChapter);
-        UpdateUtil.copyNullProperties(source, courseChapter);
-        //2、设置创建时间
-        courseChapter.setCreateTime(source.getCreateTime());
-        courseChapterRepository.save(courseChapter);
-
-        //3、创建输出对象
         CourseChapterSaveResp resp = new CourseChapterSaveResp();
-        UpdateUtil.copyNullProperties(courseChapter, resp);
+        courseChapterRepository.findById(courseChapterEditReq.getChapterId())
+                .ifPresent(source -> {
+                    CourseChapter courseChapter = CourseChapter.builder().build();
+                    BeanUtils.copyProperties(courseChapterEditReq, courseChapter);
+                    UpdateUtil.copyNullProperties(source, courseChapter);
+                    //2、设置创建时间
+                    courseChapter.setCreateTime(source.getCreateTime());
+                    courseChapterRepository.save(courseChapter);
+
+                    //3、创建输出对象
+                    UpdateUtil.copyNullProperties(courseChapter, resp);
+                });
         return resp;
     }
 
     @Override
     public CourseChapterSaveResp getCourseChapterById(String chapterId) {
-        CourseChapter courseChapter = courseChapterRepository.findById(chapterId).get();
-
-        //创建输出对象
         CourseChapterSaveResp resp = new CourseChapterSaveResp();
-        UpdateUtil.copyNullProperties(courseChapter, resp);
+        courseChapterRepository.findById(chapterId)
+                .ifPresent(courseChapter -> {
+                    //创建输出对象
+                    UpdateUtil.copyNullProperties(courseChapter, resp);
+                });
         return resp;
     }
 

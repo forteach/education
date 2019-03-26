@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "保存图册信息对象", description = "保存图片对像")
-public class PhotoSortVo {
+public class PhotoSortVo implements Serializable {
 
     @NotNull(message = "分类名称不为空")
     @ApiModelProperty(value = "分类名称", name = "sortImgName", dataType = "string", required = true)

@@ -179,6 +179,6 @@ public class UserServiceImpl implements UserService {
             //移除redis 中的token 信息
             tokenService.removeToken(users.getId());
         }
-        MyAssert.isNull(users, DefineCode.ERR0014, "未找到要修改的用户");
+        MyAssert.isNull(users, DefineCode.OK, "未找到要修改的用户");
     }
 }

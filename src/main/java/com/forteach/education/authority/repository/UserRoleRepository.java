@@ -22,7 +22,7 @@ public interface UserRoleRepository extends JpaRepository<UserRole, UserRoleFund
      *
      * @param roleId
      */
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional(rollbackOn = Exception.class)
     void deleteByRoleId(String roleId);
 
@@ -31,7 +31,7 @@ public interface UserRoleRepository extends JpaRepository<UserRole, UserRoleFund
      *
      * @param userIds
      */
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional(rollbackOn = Exception.class)
     void deleteByUserIdIn(List<String> userIds);
 

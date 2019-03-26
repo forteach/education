@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
@@ -26,7 +25,6 @@ import java.io.Serializable;
 @ApiModel(value = "课程所有列表")
 public class ChapteDataListReq implements Serializable {
 
-    @NotNull(message = "科目编号不为空")
     @ApiModelProperty(name = "courseId", value = "科目编号", dataType = "string", required = true)
     private String courseId;
 

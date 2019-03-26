@@ -14,11 +14,9 @@ import com.forteach.education.util.UpdateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.forteach.education.common.keyword.Dic.COURSE_SHARE_AREA_ALL;
 import static com.forteach.education.common.keyword.Dic.LESSON_PREPARATION_TYPE_GROUP;
 
@@ -54,7 +52,8 @@ public class CourseShareServiceImpl implements CourseShareService {
 
         //1、保存课程分享范围（ALL全部分享 PART部分分享）
         CourseShare courseShare = CourseShare.builder()
-                .shareArea(COURSE_SHARE_AREA_ALL)//分享整套课程
+                //分享整套课程
+                .shareArea(COURSE_SHARE_AREA_ALL)
                 .build();
         courseShare.setCreateTime(course.getCreateTime());
         UpdateUtil.copyNullProperties(course, courseShare);
@@ -65,7 +64,8 @@ public class CourseShareServiceImpl implements CourseShareService {
         List<CourseShareUsers> list = new ArrayList<>();
         teacherList.forEach(teacher -> {
             CourseShareUsers cs = CourseShareUsers.builder()
-                    .userId(teacher.getTeacherId())  //用户编号
+                    //用户编号
+                    .userId(teacher.getTeacherId())
                     .userName(teacher.getTeacherName())
                     .build();
             cs.setCreateTime(courseShare.getCreateTime());
@@ -86,7 +86,6 @@ public class CourseShareServiceImpl implements CourseShareService {
      * @param teacherList 集体备课教师列表
      * @return ShareId 新生成课程分享编号
      */
-//    @Transactional(rollbackOn = Exception.class)
     @Transactional(rollbackForClassName = "Exception")
     @Override
     public String update(String lessonPreType, String shareId, Course course, List<RTeacher> teacherList) {
@@ -102,11 +101,9 @@ public class CourseShareServiceImpl implements CourseShareService {
                 courseShareRepository.deleteById(shareId);
 
             }
-
             //保存新的集体备课教师和课程共享信息
             return save(course, teacherList);
         }
-
         //2、不是集体备课共享编号返回空
         return "";
     }

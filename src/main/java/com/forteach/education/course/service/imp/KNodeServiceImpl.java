@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
@@ -44,13 +44,14 @@ public class KNodeServiceImpl implements KNodeService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public KNodeAll edit(KNode kNode) {
-        KNode source = kNodeRepository.findById(kNode.getKNodeId()).get();
-        UpdateUtil.copyNullProperties(source, kNode);
-        kNodeRepository.save(kNode);
-
-        //创建输出对象
+        Optional<KNode> optionalKNode = kNodeRepository.findById(kNode.getKNodeId());
         KNodeAll resp = new KNodeAll();
-        UpdateUtil.copyNullProperties(kNode, resp);
+        optionalKNode.ifPresent(source -> {
+            UpdateUtil.copyNullProperties(source, kNode);
+            kNodeRepository.save(kNode);
+            //创建输出对象
+            UpdateUtil.copyNullProperties(kNode, resp);
+        });
         return resp;
     }
 
@@ -88,26 +89,29 @@ public class KNodeServiceImpl implements KNodeService {
 
     @Override
     public KNodeAll findById(String kNodeId) {
-        KNode kNode = kNodeRepository.findById(kNodeId).get();
-
         //创建输出对象
         KNodeAll resp = new KNodeAll();
-        UpdateUtil.copyNullProperties(kNode, resp);
+        kNodeRepository.findById(kNodeId)
+                .ifPresent(kNode -> {
+                    UpdateUtil.copyNullProperties(kNode, resp);
+                });
         return resp;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class, timeout = 5)
+    @Transactional(rollbackFor = Exception.class)
     public void deleteById(String kNodeId) {
         kNodeRepository.deleteById(kNodeId);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class, timeout = 5)
+    @Transactional(rollbackFor = Exception.class)
     public void deleteIsValidById(String kNodeId) {
-        KNode kNode = kNodeRepository.findById(kNodeId).get();
-        kNode.setIsValidated(TAKE_EFFECT_CLOSE);
-        kNodeRepository.save(kNode);
+        kNodeRepository.findById(kNodeId)
+                .ifPresent(kNode -> {
+                    kNode.setIsValidated(TAKE_EFFECT_CLOSE);
+                    kNodeRepository.save(kNode);
+                });
     }
 
 //    /**

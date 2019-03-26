@@ -1,14 +1,10 @@
 package com.forteach.education.course.service;
 
 
-import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.classes.web.req.RTeacher;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseShare;
 import com.forteach.education.course.domain.CourseShareUsers;
-import com.forteach.education.course.dto.ICourseShareTeacherDto;
-import com.forteach.education.course.dto.ICourseShareTeacherDto1;
-import com.forteach.education.course.web.res.CourseSaveResp;
 
 import java.util.List;
 
@@ -32,6 +28,10 @@ public interface CourseShareService {
 
     public String update(String lessonPreType, String shareId, Course course, List<RTeacher> teacherList);
 
-    //根据课程编号查询所有领域信息
+    /**
+     * 根据课程编号查询所有领域信息
+     * @param courseId
+     * @return
+     */
     public CourseShare findByCourseIdAll(String courseId);
 }

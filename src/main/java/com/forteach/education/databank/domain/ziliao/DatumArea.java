@@ -26,10 +26,14 @@ public class DatumArea extends Entitys implements Serializable {
     @EmbeddedId
     private DatumAreaPk datumAreaPk;
 
-    //课程资料编号
+    /**
+     * 课程资料编号
+     */
     public String fileId;
 
-    //资料领域：1教案 2课件 3预习参考 4课堂参考 5授课案例、6复习参考'
+    /**
+     * 资料领域：1教案 2课件 3预习参考 4课堂参考 5授课案例、6复习参考'
+     */
     private String datumArea;
 
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '课程编号'")

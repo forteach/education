@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -23,7 +22,9 @@ import java.util.List;
 @AllArgsConstructor
 public class ChapteDataReq {
 
-    //资料编号
+    /**
+     * 资料编号
+     */
     private String fileId;
 
     @ApiModelProperty(name = "courseId", value = "科目编号", dataType = "string", required = true)
@@ -53,5 +54,6 @@ public class ChapteDataReq {
     @ApiModelProperty(value = "files", name = "文件列表信息", dataType = "list", required = true)
     private List<DataDatumVo> files;
 
+    @ApiModelProperty(value = "创建人", name = "createUser", dataType = "string")
     private String createUser;
 }

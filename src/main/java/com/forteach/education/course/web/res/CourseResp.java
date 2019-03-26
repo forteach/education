@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -13,12 +15,12 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value = "课程添加成功")
-public class CourseResp {
+public class CourseResp implements Serializable {
 
-    @ApiModelProperty(value = "CourseId")
+    @ApiModelProperty(value = "课程id", name = "courseId", dataType = "string")
     private String courseId;
 
-    @ApiModelProperty(value = "courseName")
+    @ApiModelProperty(value = "课程名字", name = "courseName", dataType = "string")
     private String courseName;
 
     @ApiModelProperty(value = "courseNumber")

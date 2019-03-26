@@ -71,8 +71,8 @@ public class CourseControlTest {
                 .createUser("000")
                 .build();
         log.info("------*{}", JSON.toJSONString(req));
-        WebResult r = courseController.save(req);
-        log.info("*********{}", JSON.toJSONString(r));
+//        WebResult r = courseController.save(req);
+//        log.info("*********{}", JSON.toJSONString(r));
     }
 
     @Test
@@ -132,8 +132,8 @@ public class CourseControlTest {
         req.setChapterName("第一章");
         req.setCreateUser("000");
         log.info("------*{}", JSON.toJSONString(req));
-        WebResult r = courseChapterController.save(req);
-        log.info("*********{}", JSON.toJSONString(r));
+//        WebResult r = courseChapterController.save(req);
+//        log.info("*********{}", JSON.toJSONString(r));
     }
 
 }

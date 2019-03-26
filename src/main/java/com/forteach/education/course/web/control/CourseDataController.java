@@ -1,9 +1,12 @@
 package com.forteach.education.course.web.control;
 
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.course.service.CourseDataService;
+import com.forteach.education.course.web.control.verify.CourseDataVer;
 import com.forteach.education.course.web.req.CoursewareAll;
 import com.forteach.education.databank.web.req.ChapteDataListReq;
 import com.forteach.education.databank.web.req.ChapteDataReq;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -36,6 +38,8 @@ import java.util.List;
 public class CourseDataController {
 
     @Resource
+    private CourseDataVer courseDataVer;
+    @Resource
     private CourseDataService courseDataService;
 
     @ApiOperation(value = "保存挂接课程资料信息", notes = "保存挂接课程资料信息")
@@ -44,7 +48,9 @@ public class CourseDataController {
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataTypeClass = String.class, required = true),
             @ApiImplicitParam(name = "files", value = "多个文件列表", dataTypeClass = List.class)
     })
-    public WebResult save(@Valid @ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody CourseDataDatumReq req) {
+    public WebResult save(@ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody CourseDataDatumReq req) {
+        MyAssert.blank(req.getChapterId(), DefineCode.ERR0010, "章节编号不为空");
+        MyAssert.elt(0, req.getFiles().size(), DefineCode.ERR0010, "章节编号不为空");
         int resp = courseDataService.save(req.getChapterId(), req.getFiles());
         return WebResult.okResult(String.valueOf(resp));
 
@@ -63,7 +69,8 @@ public class CourseDataController {
             @ApiImplicitParam(name = "teachShare", value = "教师共享", dataType = "string", required = true, paramType = "from", example = "0不共享 1共享"),
             @ApiImplicitParam(name = "stuShare", value = "学生共享", dataType = "string", required = true, paramType = "from", example = "0不共享 1共享"),
     })
-    public WebResult updateAreaAndShare(@Valid @ApiParam(value = "保存资料信息", name = "chapteData") @RequestBody ChapteDataReq chapteDataReq) {
+    public WebResult updateAreaAndShare(@ApiParam(value = "保存资料信息", name = "chapteData") @RequestBody ChapteDataReq chapteDataReq) {
+        courseDataVer.updateAreaAndShare(chapteDataReq);
         //1、初始化参数
         String courseId = chapteDataReq.getCourseId();
         String chapterId = chapteDataReq.getChapterId();
@@ -84,12 +91,14 @@ public class CourseDataController {
             @ApiImplicitParam(name = "photoDatumName", value = "图集名称", dataTypeClass = String.class),
             @ApiImplicitParam(name = "files", value = "图集文件url", dataTypeClass = CoursewareAll.class)
     })
-    public WebResult findDatumList(@Valid @ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody ChapteDataListReq req) {
+    public WebResult findDatumList(@ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody ChapteDataListReq req) {
+        MyAssert.blank(req.getChapterId(), DefineCode.ERR0010, "章节编号不为空");
         SortVo sortVo = req.getSortVo();
+        MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
+        MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
         PageRequest pageReq = PageRequest.of(sortVo.getPage(), sortVo.getSize());
         //课程挂载列表
         List<DatumResp> list = null;
-
         //课程资料文件按类型划分挂载的课件数据
         if (StrUtil.isBlank(req.getDatumType())) {
             //查看所有的挂载课件信息
@@ -98,7 +107,6 @@ public class CourseDataController {
             //按文件（音频、视频，文件）类型查看课程挂载的课件数据
             list = courseDataService.findDatumList(req.getChapterId(), req.getDatumType(), pageReq);
         }
-
         return WebResult.okResult(list);
     }
 

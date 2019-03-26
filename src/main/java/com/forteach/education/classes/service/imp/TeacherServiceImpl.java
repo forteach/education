@@ -115,9 +115,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteIsValidById(String teacherId) {
-        Teacher teacher = teacherRepository.findById(teacherId).get();
-        teacher.setIsValidated(TAKE_EFFECT_CLOSE);
-        teacherRepository.save(teacher);
+        teacherRepository.findById(teacherId)
+                .ifPresent(t -> {
+                    t.setIsValidated(TAKE_EFFECT_CLOSE);
+                    teacherRepository.save(t);
+                });
     }
 
     /**

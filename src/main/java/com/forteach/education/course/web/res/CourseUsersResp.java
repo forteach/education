@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
+import java.io.Serializable;
 
 
 /**
@@ -17,7 +18,7 @@ import javax.persistence.Column;
  */
 @Data
 @ApiModel(value = "课程协作教师")
-public class CourseUsersResp {
+public class CourseUsersResp implements Serializable {
 
     @ApiModelProperty(value = "协作内容成员主键", hidden = true)
     private CourseShareUsersPk shareUsersPk;

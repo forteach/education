@@ -1,19 +1,9 @@
 package com.forteach.education.common.request;
 
 
-import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.forteach.education.filter.View;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 /**
@@ -51,54 +41,4 @@ public abstract class BaseReq implements Serializable {
         return JSON.toJSONString(this);
     }
 
-//
-//
-//    public String getIsValidated() {
-//        return isValidated;
-//    }
-//
-//    public String getuTime() {
-//        return uTime;
-//    }
-//
-//    public String getcTime() {
-//        return cTime;
-//    }
-//
-//    public String getcUser() {
-//        return cUser;
-//    }
-//
-//    public String getuUser() {
-//        return uUser;
-//    }
-//
-//    public void setIsValidated(String isValidated) {
-//        this.isValidated = isValidated;
-//    }
-//
-//    public void setuTime(String uTime) {
-//        if(uTime==null){
-//            this.uTime = DateUtil.now();
-//        }else {
-//            this.uTime=uTime;
-//        }
-//
-//    }
-//
-//    public void setcTime(String cTime) {
-//        if(cTime==null){
-//            this.cTime = DateUtil.now();
-//        }else {
-//            this.cTime=cTime;
-//        }
-//    }
-//
-//    public void setcUser(String cUser) {
-//        this.cUser = cUser;
-//    }
-//
-//    public void setuUser(String uUser) {
-//        this.uUser = uUser;
-//    }
 }

@@ -84,8 +84,6 @@ public class CourseDataServiceImpl implements CourseDataService {
 
             });
             courseDatumAreaRepository.saveAll(list);
-            log.info("-------{}", list.size());
-
         });
 
         return fileDatumList.size();

@@ -16,10 +16,20 @@ import java.util.List;
  */
 public interface CourseShareUsersRepository extends JpaRepository<CourseShareUsers, String> {
 
+    /**
+     * 删除分型用户
+     * @param shareId
+     * @return
+     */
     @Modifying(clearAutomatically = true)
     @Transactional(rollbackOn = Exception.class)
     public int deleteByShareId(String shareId);
 
+    /**
+     * 查询分享的协作成员信息
+     * @param shareId
+     * @return
+     */
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public List<CourseShareUsers> findByShareId(String shareId);
 

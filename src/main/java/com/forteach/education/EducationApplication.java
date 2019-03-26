@@ -2,6 +2,7 @@ package com.forteach.education;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
  * @date: 2018/10/29 13:52
  */
 @EnableJpaAuditing
+@EnableCaching
 @SpringBootApplication
 public class EducationApplication {
 

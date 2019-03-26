@@ -17,8 +17,22 @@ import java.util.List;
  */
 public interface PhotosRepository extends JpaRepository<Photos, String> {
 
+    /**
+     * 获取图册信息
+     * @param arlitsId
+     * @param isValidated
+     * @return
+     */
     @Transactional(readOnly = true)
     public List<Photos> findByArlitsIdAndIsValidated(String arlitsId, String isValidated);
 
+    /**
+     * 分页获取图册信息
+     * @param arlitsId
+     * @param isValidated
+     * @param pageable
+     * @return
+     */
+    @Transactional(readOnly = true)
     public Page<Photos> findByArlitsIdAndIsValidated(String arlitsId, String isValidated, Pageable pageable);
 }

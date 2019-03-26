@@ -1,8 +1,6 @@
 package com.forteach.education.service.impl;
 
 
-import com.forteach.education.course.domain.CourseShareUsers;
-import com.forteach.education.course.dto.ICourseShareTeacherDto;
 import com.forteach.education.course.service.CourseShareService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -11,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -36,11 +33,4 @@ public class CourseShareServiceImplTest {
 //        });
     }
 
-//    @Test
-//    public void findByCourseId() {
-//        List<ICourseShareTeacherDto1> list = courseShareService.findByCourseId("ff808181677d238701677d26fdae0002");
-//        list.forEach(dto ->{
-//            log.info("courseShareDto2----- : {}", dto.getCourseId());
-//        });
-//    }
 }

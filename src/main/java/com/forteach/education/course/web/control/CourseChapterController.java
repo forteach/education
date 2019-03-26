@@ -1,13 +1,16 @@
 package com.forteach.education.course.web.control;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.forteach.education.authority.annotation.UserLoginToken;
+import com.forteach.education.authority.service.TokenService;
+import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.course.domain.CourseChapter;
-import com.forteach.education.course.web.req.CourseChapterReq;
 import com.forteach.education.course.service.CourseChapterService;
-import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.course.web.req.CourseChapterEditReq;
+import com.forteach.education.course.web.req.CourseChapterReq;
+import com.forteach.education.util.UpdateUtil;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -16,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Auther: zhangyy
@@ -35,7 +36,10 @@ public class CourseChapterController {
 
     @Resource
     private CourseChapterService courseChapterService;
+    @Resource
+    private TokenService tokenService;
 
+    @UserLoginToken
     @PostMapping("/save")
     @ApiOperation(value = "保存科目章节", notes = "保存科目章节信息")
     @ApiImplicitParams({
@@ -46,15 +50,12 @@ public class CourseChapterController {
             @ApiImplicitParam(name = "chapterType", value = "目录类型", dataType = "int", required = true, paramType = "from"),
             @ApiImplicitParam(name = "publish", value = "是否发布　Y(是) N(否)", dataType = "string", paramType = "from")
     })
-    public WebResult save(@Valid @ApiParam(name = "courseChapter", value = "科目章节对象", required = true) @RequestBody CourseChapterReq req) {
+    public WebResult save(@ApiParam(name = "courseChapter", value = "科目章节对象", required = true) @RequestBody CourseChapterReq req, HttpServletRequest request) {
+        req.setCreateUser(tokenService.getUserId(request));
         CourseChapter cs = new CourseChapter();
         UpdateUtil.copyNullProperties(req, cs);
         cs.setCreateUser(req.getCreateUser());
-        log.info("------*{}", JSON.toJSONString(cs));
-
-        WebResult r = WebResult.okResult(courseChapterService.save(cs));
-        log.info("*********{}", JSON.toJSONString(r));
-        return r;
+        return WebResult.okResult(courseChapterService.save(cs));
     }
 
     @ApiOperation(value = "修改科目章节", notes = "修改科目章节信息")
@@ -68,7 +69,8 @@ public class CourseChapterController {
             @ApiImplicitParam(name = "chapterType", value = "目录类型", dataType = "int", paramType = "from"),
             @ApiImplicitParam(name = "publish", value = "是否发布　Y(是) N(否)", dataType = "string", paramType = "from")
     })
-    public WebResult edit(@Valid @ApiParam(name = "courseChapter", value = "修改科目章节信息", required = true) @RequestBody CourseChapterEditReq courseChapterEditReq) {
+    public WebResult edit(@ApiParam(name = "courseChapter", value = "修改科目章节信息", required = true) @RequestBody CourseChapterEditReq courseChapterEditReq) {
+        MyAssert.blank(courseChapterEditReq.getChapterId(), DefineCode.ERR0010, "章节编号不为空");
         return WebResult.okResult(courseChapterService.edit(courseChapterEditReq));
     }
 
@@ -77,18 +79,21 @@ public class CourseChapterController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "chapterId", value = "科目id", required = true, dataType = "string")
     })
-    public WebResult getCourseChapterById(@Valid @NotEmpty(message = "科目ID不为空") @ApiParam(value = "根据科目ID 查询对应上层科目信息", name = "chapterId", required = true) @RequestBody String chapterId) {
+    public WebResult getCourseChapterById(@ApiParam(value = "根据科目ID 查询对应上层科目信息", name = "chapterId", required = true) @RequestBody String chapterId) {
+        MyAssert.blank(chapterId, DefineCode.ERR0010, "科目id不为空");
         return WebResult.okResult(courseChapterService.getCourseChapterById(JSONObject.parseObject(chapterId).getString("chapterId")));
     }
 
 
-//************************************************************************************************************************
+//************************************************************************************************************************//
+
     @PostMapping("/deleteById")
     @ApiOperation(notes = "根据ID删除对应的科目章节信息(物理删除)", value = "删除科目章节信息(物理删除)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "chapterId", value = "科目id", required = true, dataType = "string")
     })
-    public WebResult deleteById(@Valid @NotBlank(message = "章节不为空") @ApiParam(name = "chapterId", value = "根据章节ID删除对应的信息(物理删除)", required = true) @RequestBody String chapterId) {
+    public WebResult deleteById(@ApiParam(name = "chapterId", value = "根据章节ID删除对应的信息(物理删除)", required = true) @RequestBody String chapterId) {
+        MyAssert.blank(chapterId, DefineCode.ERR0010, "科目id不为空");
         courseChapterService.deleteById(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId")));
         return WebResult.okResult();
     }
@@ -98,7 +103,8 @@ public class CourseChapterController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "chapterId", value = "科目id", required = true, dataType = "string")
     })
-    public WebResult deleteIsValidById(@Valid @NotBlank(message = "章节ID不为空") @ApiParam(name = "chapterId", value = "根据章节ID删除对应的信息(逻辑删除)", required = true) @RequestBody String chapterId) {
+    public WebResult deleteIsValidById(@ApiParam(name = "chapterId", value = "根据章节ID删除对应的信息(逻辑删除)", required = true) @RequestBody String chapterId) {
+        MyAssert.blank(chapterId, DefineCode.ERR0010, "章节ID不为空");
         courseChapterService.deleteIsValidById(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId")));
         return WebResult.okResult();
     }
@@ -114,7 +120,8 @@ public class CourseChapterController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "章节id", required = true, dataType = "string")
     })
-    public WebResult findByCourseId(@Valid @NotEmpty(message = "科目ID不为空") @ApiParam(name = "courseId", value = "根据章节ID 查询对应上层科目信息", required = true) @RequestBody String courseId) {
+    public WebResult findByCourseId(@ApiParam(name = "courseId", value = "根据章节ID 查询对应上层科目信息", required = true) @RequestBody String courseId) {
+        MyAssert.blank(courseId, DefineCode.ERR0010, "科目id不为空");
         return WebResult.okResult(courseChapterService.findByCourseId(JSONObject.parseObject(courseId).getString("courseId")));
     }
 

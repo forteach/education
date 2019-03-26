@@ -44,6 +44,4 @@ public class Specialty extends Entitys implements Serializable {
     @ApiModelProperty(value = "专业名称", name = "specialtyName", required = true, dataType = "string")
     @Column(name = "specialty_name", columnDefinition = "varchar(255) COMMENT '专业名称'")
     private String specialtyName;
-
-
 }

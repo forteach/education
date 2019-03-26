@@ -2,6 +2,7 @@ package com.forteach.education.course.web.control;
 
 import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.course.domain.KNode;
 import com.forteach.education.course.service.KNodeService;
@@ -9,10 +10,12 @@ import com.forteach.education.course.web.req.KNodeAll;
 import com.forteach.education.util.UpdateUtil;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 
 /**
  * @Auther: zhangyy
@@ -37,7 +40,9 @@ public class KNodeController {
             @ApiImplicitParam(name = "courseId", value = "科目课程ID", example = "科目课程ID", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "chapterId", value = "章节ID", dataType = "string", paramType = "from"),
     })
-    public WebResult save(@Valid @ApiParam(name = "kNode", value = "知识点对象") @RequestBody KNodeAll req) {
+    public WebResult save(@ApiParam(name = "kNode", value = "知识点对象") @RequestBody KNodeAll req) {
+        MyAssert.blank(req.getNodeName(), DefineCode.ERR0010, "知识点名称不为空");
+        MyAssert.blank(req.getCourseId(), DefineCode.ERR0010, "课程id不为空");
         KNode kn = new KNode();
         UpdateUtil.copyNullProperties(req, kn);
         kn.setCreateUser(req.getCreateUser());
@@ -49,7 +54,8 @@ public class KNodeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "chapterId", value = "章节ID", example = "", dataType = "string", required = true, readOnly = true)
     })
-    public WebResult findByChapter(@Valid @ApiParam(name = "chapterId", value = "章节ID", required = true, readOnly = true) @RequestBody String chapterId) {
+    public WebResult findByChapter(@ApiParam(name = "chapterId", value = "章节ID", required = true, readOnly = true) @RequestBody String chapterId) {
+        MyAssert.blank(chapterId, DefineCode.ERR0010, "章节ID不为空");
         return WebResult.okResult(kNodeService.findByChapterId(String.valueOf(JSONObject.parseObject(chapterId).getString("chapterId"))));
     }
 
@@ -58,7 +64,8 @@ public class KNodeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "课程ID", example = "", dataType = "string", required = true, readOnly = true)
     })
-    public WebResult findByCourse(@Valid @ApiParam(name = "courseId", value = "章节ID", required = true, readOnly = true) @RequestBody String courseId) {
+    public WebResult findByCourse(@ApiParam(name = "courseId", value = "课程ID", required = true, readOnly = true) @RequestBody String courseId) {
+        MyAssert.blank(courseId, DefineCode.ERR0010, "课程ID不为空");
         return WebResult.okResult(kNodeService.findByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
     }
 
@@ -67,7 +74,8 @@ public class KNodeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "kNodeId", value = "知识点ID", example = "ff8081816782652001678265779b0000", dataType = "string", required = true)
     })
-    public WebResult deleteByKNodeId(@Valid @ApiParam(name = "kNodeId", value = "知识点ID", required = true) @RequestBody String kNodeId) {
+    public WebResult deleteByKNodeId(@ApiParam(name = "kNodeId", value = "知识点ID", required = true) @RequestBody String kNodeId) {
+        MyAssert.blank(kNodeId, DefineCode.ERR0010, "知识点ID不为空");
         kNodeService.deleteById(String.valueOf(JSONObject.parseObject(kNodeId).getString("kNodeId")));
         return WebResult.okResult();
     }
@@ -77,14 +85,9 @@ public class KNodeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "kNodeId", value = "知识点ID", example = "ff8081816782652001678265779b0000", dataType = "string", required = true)
     })
-    public WebResult deleteIsValidById(@Valid @ApiParam(name = "kNodeId", value = "知识点ID", required = true) @RequestBody String kNodeId) {
+    public WebResult deleteIsValidById(@ApiParam(name = "kNodeId", value = "知识点ID", required = true) @RequestBody String kNodeId) {
+        MyAssert.blank(kNodeId, DefineCode.ERR0010, "知识点ID不为空");
         kNodeService.deleteIsValidById(String.valueOf(JSONObject.parseObject(kNodeId).getString("kNodeId")));
-        return WebResult.okResult();
-    }
-
-    @PostMapping("/test")
-    public WebResult test() {
-        MyAssert.isFalse(false, 10001, "测试");
         return WebResult.okResult();
     }
 }

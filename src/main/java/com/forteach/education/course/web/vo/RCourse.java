@@ -5,10 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -34,7 +30,9 @@ public class RCourse implements Serializable {
     @ApiModelProperty(name = "courseNumber", value = "科目编号", dataType = "string", example = "S123456", required = true)
     private String courseNumber;
 
-    //授课类型是多选
+    /**
+     * 授课类型是多选
+     */
     @ApiModelProperty(value = "授课类型", name = "teachingType", dataType = "int", notes = "1、录播课程 2、直播课程 3、线下课堂", example = "1,2,3,", required = true)
     private String teachingType;
 
