@@ -80,7 +80,7 @@ public class ConverPPTFileToImageUtil {
     @SuppressWarnings("resource")
     public static Map<String, Object> converPPTXtoImage(String orignalPPTFileName, String targetImageFileDir,
                                                         String imageFormatNameString) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<String, Object>(16);
         boolean converReturnResult = true;//是否全部转成功
         List<String> imgNamesList = new ArrayList<String>();//PPT转成图片后所有名称集合
         FileInputStream orignalPPTFileInputStream = null;
@@ -211,7 +211,7 @@ public class ConverPPTFileToImageUtil {
     @SuppressWarnings("resource")
     public static Map<String, Object> converPPTtoImage(String orignalPPTFileName, String targetImageFileDir,
                                                        String imageFormatNameString) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<String, Object>(16);
         boolean converReturnResult = true;//是否全部转成功
         List<String> imgNamesList = new ArrayList<String>();//PPT转成图片后所有名称集合
         FileInputStream orignalPPTFileInputStream = null;

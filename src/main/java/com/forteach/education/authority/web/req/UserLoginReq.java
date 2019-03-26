@@ -18,10 +18,6 @@ import java.io.Serializable;
 @ApiModel(value = "用户登录", description = "教师端登录用户数据")
 public class UserLoginReq implements Serializable {
 
-//    @NotBlank(message = "用户名不为空")
-//    @ApiModelProperty(name = "userName", value = "用户名", dataType = "string", required = true)
-//    private String userName;
-
     @ApiModelProperty(name = "teacherCode", value = "教师代码", dataType = "string", required = true)
     private String teacherCode;
 

@@ -1,4 +1,4 @@
-package com.forteach.education.course.service.imp;
+package com.forteach.education.course.service.impl;
 
 import com.forteach.education.course.domain.KNode;
 import com.forteach.education.course.repository.KNodeRepository;

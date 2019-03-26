@@ -1,4 +1,4 @@
-package com.forteach.education.course.service.imp;
+package com.forteach.education.course.service.impl;
 
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.course.domain.Specialty;

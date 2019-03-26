@@ -2,7 +2,7 @@ package com.forteach.education.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.forteach.education.course.domain.KNode;
-import com.forteach.education.course.service.imp.KNodeServiceImpl;
+import com.forteach.education.course.service.impl.KNodeServiceImpl;
 import com.forteach.education.course.web.req.KNodeAll;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

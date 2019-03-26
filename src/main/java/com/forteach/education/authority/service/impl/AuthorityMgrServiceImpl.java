@@ -101,12 +101,12 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
         HashSet<String> set = new HashSet<>(columnIdList);
         columnIdList.clear();
         columnIdList.addAll(set);
-        Map<String, Object> resultMap = new HashMap<>();
+        Map<String, Object> resultMap = new HashMap<>(2);
         resultMap.put("colIds", columnIdList);
         List<Map<String, Object>> colInfoList = findColumnOperationByRoleId(roleId);
         List<Map<String, Object>> list = new ArrayList<>();
         colInfoList.forEach(m -> {
-            Map<String, Object> map = new HashMap<>();
+            Map<String, Object> map = new HashMap<>(4);
             map.put("roleId", roleId);
             map.put("colId", m.get("colId"));
             map.put("actIds", m.get("actIds"));

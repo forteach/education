@@ -1,4 +1,4 @@
-package com.forteach.education.classes.service.imp;
+package com.forteach.education.classes.service.impl;
 
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.classes.repository.TeacherRepository;

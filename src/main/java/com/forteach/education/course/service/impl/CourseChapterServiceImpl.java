@@ -1,4 +1,4 @@
-package com.forteach.education.course.service.imp;
+package com.forteach.education.course.service.impl;
 
 import com.forteach.education.course.domain.CourseChapter;
 import com.forteach.education.course.dto.ICourseChapterDto;
@@ -124,8 +124,8 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      * @param ChapterParentId
      * @return
      */
-    private Set<String> findLists(String courseId, String ChapterParentId) {
-        List<CourseChapter> lists = courseChapterRepository.findByCourseIdAndAndChapterParentId(courseId, ChapterParentId);
+    private Set<String> findLists(String courseId, String chapterParentId) {
+        List<CourseChapter> lists = courseChapterRepository.findByCourseIdAndAndChapterParentId(courseId, chapterParentId);
         Set<String> stringSet = lists.stream().filter(courseChapter -> !COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId()))
                 .map(CourseChapter::getChapterId)
                 .collect(Collectors.toSet());

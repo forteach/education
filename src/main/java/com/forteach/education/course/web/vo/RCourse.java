@@ -38,7 +38,7 @@ public class RCourse implements Serializable {
 
 
     @ApiModelProperty(value = "备课类型", name = "lessonPreparationType", notes = "1、单人备课２、集体备课", required = true)
-    private String LessonPreparationType;
+    private String lessonPreparationType;
 
 
     @ApiModelProperty(value = "封面图片路径", name = "topPicSrc", notes = "保存的是封面图片路径", example = "http://wx2.sinaimg.cn/large/006nLajtly1fk65lrevkqj30dw0dwadz.jpg")

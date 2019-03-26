@@ -1,4 +1,4 @@
-package com.forteach.education.course.service.imp;
+package com.forteach.education.course.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;

@@ -1,4 +1,4 @@
-package com.forteach.education.course.service.imp;
+package com.forteach.education.course.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import com.forteach.education.common.keyword.Dic;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class CoursewareServiceImp implements CoursewareService {
+public class CoursewareServiceImpl implements CoursewareService {
 
     /**
      * 课程重要课件

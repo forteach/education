@@ -32,7 +32,14 @@ public interface ChapteDataService {
      */
     public String updateAreaAndShare(String courseId, String chapterId, String kNodeId, String fileId, String datumType, String datumArea, String teachShare, String stuShare);
 
-    //课程资料详细列表
+    /**
+     * 课程资料详细列表
+     * @param chapterId
+     * @param kNodeId
+     * @param datumType
+     * @param pageable
+     * @return
+     */
     public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumType, Pageable pageable);
 
     public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumArea, String datumType, Pageable pageable);

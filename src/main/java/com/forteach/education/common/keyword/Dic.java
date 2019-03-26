@@ -7,7 +7,9 @@ package com.forteach.education.common.keyword;
  * @date: 2018/10/30 15:07
  */
 public class Dic {
-    //isValidated 的默认值
+    /**
+     * isValidated 的默认值
+     */
     public static final String TAKE_EFFECT_OPEN = "0";
 
     public static final String TAKE_EFFECT_CLOSE = "1";

@@ -196,11 +196,10 @@ public class PoiUtils {
 
     /**
      * excel to html
-     *
+     * todo 待完成
      * @param path
      * @param file
      */
-    // todo 待完成
     public static void testExcel(String path, String file) {
         HSSFWorkbook excelBook = null;
         ExcelToHtmlConverter excelToHtmlConverter = null;
@@ -447,9 +446,9 @@ public class PoiUtils {
             graphics.fill(new Rectangle2D.Float(0, 0, pgsize.width, pgsize.height));
             pptPageXSLFSLiseList.get(i).draw(graphics);
             //设置图片存放位置
-            String Imgname = getImageSavePath(filepath) + (i + 1) + ".jpg";
+            String imgname = getImageSavePath(filepath) + (i + 1) + ".jpg";
             try {
-                out = new FileOutputStream(Imgname);
+                out = new FileOutputStream(imgname);
                 ImageIO.write(img, "jpg", out);
             } catch (IOException e) {
                 log.error("ppt07文件转html出错：", e);
