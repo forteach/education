@@ -1,7 +1,7 @@
 .gradle
 /.gradle/
 /build/
-/gradle/
+/gradle/**
 !gradle/wrapper/gradle-wrapper.jar
 !webResult.properties
 
@@ -51,4 +51,6 @@ gen/
 src/main/java/com/forteach/education/assertions/
 src/main/resources/static/
 /logs/
-*zip
+*.zip
+/web/
+/META-INF/
