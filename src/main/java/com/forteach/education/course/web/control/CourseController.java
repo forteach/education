@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -69,7 +68,9 @@ public class CourseController {
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
     })
     public WebResult save(@ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody CourseSaveReq req, HttpServletRequest request) {
-        MyAssert.elt(0, req.getTeachers().size(), DefineCode.ERR0010, "教师信息列表不为空");
+        if ("2".equals(req.getCourse().getLessonPreparationType())) {
+            MyAssert.elt(0, req.getTeachers().size(), DefineCode.ERR0010, "教师信息列表不为空");
+        }
         //验证请求信息
         CourseVer.saveValide(req);
         //设置service数据
@@ -95,7 +96,9 @@ public class CourseController {
     })
     public WebResult edit(@ApiParam(name = "courseReq", value = "科目课程对象", required = true) @RequestBody CourseSaveReq courseReq) {
         MyAssert.blank(courseReq.getOldShareId(), DefineCode.ERR0010, "修改前课程的备课共享编号不为空");
-        MyAssert.elt(0, courseReq.getTeachers().size(), DefineCode.ERR0010, "教师信息列表不为空");
+        if ("2".equals(courseReq.getCourse().getLessonPreparationType())) {
+            MyAssert.elt(0, courseReq.getTeachers().size(), DefineCode.ERR0010, "教师信息列表不为空");
+        }
         RCourse rcourse = courseReq.getCourse();
         Course course = new Course();
         UpdateUtil.copyNullProperties(rcourse, course);
@@ -230,30 +233,6 @@ public class CourseController {
         courseService.deleteById(String.valueOf(JSONObject.parseObject(courseId).get("courseId")));
         return WebResult.okResult();
     }
-
-
-//    @ApiOperation(value = "保存课程宣传片", notes = "保存课程的宣传片视频信息")
-//    @PostMapping("/saveViewDatum")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "viewId", value = "视频编号", required = true, dataType = "string", paramType = "query"),
-//            @ApiImplicitParam(name = "courseId", value = "科目课程ID", dataType = "string", paramType = "query"),
-//            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "query"),
-//            @ApiImplicitParam(name = "viewName", value = "视频名称", dataType = "string", paramType = "query"),
-//            @ApiImplicitParam(name = "viewType", value = "视频类型", dataType = "string", paramType = "query"),
-//            @ApiImplicitParam(name = "viewUrl", value = "视频URL", dataType = "string", paramType = "query")
-//    })
-//    public WebResult saveViewDatum(@Valid @NotNull(message = "视频信息不为空") @ApiParam() @RequestBody ViewDatum viewDatum) {
-//        return null;//WebResult.okResult(viewDatumService.save(viewDatum));
-//    }
-//
-//    @ApiOperation(value = "根据课程ID查询宣传片信息", notes = "根据课程ID查询宣传片信息")
-//    @PostMapping("/findViewDatumByCourseId")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "courseId", value = "科目ID", dataType = "string", required = true)
-//    })
-//    public WebResult findViewDatumByCourseId(@Valid @NotBlank(message = "科目课程ID不为空") @ApiParam(name = "courseId", value = "根据课程 ID 查询文件信息", required = true) @RequestBody String courseId) {
-//        return null;//WebResult.okResult(viewDatumService.findViewDatumByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
-//    }
 
     /**
      * 保存课程轮播图信息

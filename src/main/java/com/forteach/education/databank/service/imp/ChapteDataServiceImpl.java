@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -27,7 +28,6 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 import static java.util.stream.Collectors.toList;
@@ -123,10 +123,11 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         }
 
         //3、根据资料ID，获得领域信息，组装成都好分割的字符串
-        List<String> list = datumAreaRepository.findByFileId(fileId).stream().map(item -> {
-            return item.getDatumArea();
-        }).collect(Collectors.toList());
-        String newArea = String.join(",", list);
+//        List<String> list = datumAreaRepository.findByFileId(fileId).stream().map(item -> {
+//            return item.getDatumArea();
+//        }).collect(Collectors.toList());
+//        String newArea = String.join(",", list);
+        String newArea = datumArea;
 
         //4、修改文件资料表的资料领域字段
         switch (datumType) {

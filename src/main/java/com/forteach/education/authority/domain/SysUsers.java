@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
@@ -31,8 +30,6 @@ public class SysUsers extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @GeneratedValue(generator = "system-uuid")
     @Column(columnDefinition = "varchar(32) COMMENT '主键 uuid'")
     private String id;
 

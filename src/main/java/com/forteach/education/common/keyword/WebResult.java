@@ -53,7 +53,9 @@ public class WebResult implements Serializable {
      **/
     public static WebResult okResult(Object data) {
         WebResult wr = okResult(getOkCode(), data);
-        log.info("response**:{}", JSON.toJSONString(wr));
+        if (log.isDebugEnabled()){
+            log.debug("response**:{}", JSON.toJSONString(wr));
+        }
         return wr;
     }
 
@@ -104,6 +106,10 @@ public class WebResult implements Serializable {
      * 失败操作 操作码默认为9999  只有提示码 和 数据
      **/
     public static WebResult failResult(int code, Object data) {
+        WebResult wr = okResult(getOkCode(), data);
+        if (log.isErrorEnabled()){
+            log.error("response error failResult msg : [{}]", JSON.toJSONString(wr));
+        }
         return failResult(getFailCode(), String.valueOf(code), data);
     }
 

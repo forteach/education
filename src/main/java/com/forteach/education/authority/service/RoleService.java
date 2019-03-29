@@ -5,7 +5,6 @@ import com.forteach.education.authority.domain.SysUsers;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Description:
@@ -54,11 +53,4 @@ public interface RoleService {
      */
     SysRole findById(String roleId);
 
-    /**
-     * 判断角色名称是否存在
-     *
-     * @param roleName
-     * @return
-     */
-    boolean existsName(String roleName);
 }

@@ -44,7 +44,7 @@ public class RoleServiceTest {
     public void existsName() {
 
         log.info("---------------------------------------------");
-        log.debug("{}", roleService.existsName("系统管理员"));
+//        log.debug("{}", roleService.existsName("系统管理员"));
         log.info("---------------------------------------------");
 
     }

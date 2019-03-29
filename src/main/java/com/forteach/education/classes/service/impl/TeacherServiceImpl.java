@@ -9,14 +9,15 @@ import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.resp.TeacherInfoResp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
@@ -56,6 +57,7 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CachePut(value = "teacher", key = "#teacher.teacherCode", unless = "#result eq null")
     public Teacher edit(Teacher teacher) {
         Teacher source = teacherRepository.findById(teacher.getTeacherId()).get();
         UpdateUtil.copyNullProperties(source, teacher);
@@ -69,6 +71,7 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "teacher", key = "#teacherId", allEntries = true)
     public void deleteById(String teacherId) {
         teacherRepository.deleteById(teacherId);
     }
@@ -80,6 +83,7 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "teacher", key = "#teacherId", allEntries = true)
     public void delete(Teacher teacher) {
         teacherRepository.delete(teacher);
     }
@@ -91,6 +95,7 @@ public class TeacherServiceImpl implements TeacherService {
      * @return
      */
     @Override
+    @Cacheable(value = "teachers", key = "#root.targetClass", unless = "#result eq null")
     public Page<Teacher> findAll(SortVo sortVo) {
         Page<Teacher> page = teacherRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize()));
         return page;
@@ -103,6 +108,7 @@ public class TeacherServiceImpl implements TeacherService {
      * @return
      */
     @Override
+    @Cacheable(value = "teacher", key = "#teacherId", unless = "#result eq null")
     public Teacher getTeacherById(String teacherId) {
         return teacherRepository.findById(teacherId).get();
     }
@@ -114,6 +120,7 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "teacher", key = "#teacherId", allEntries = true)
     public void deleteIsValidById(String teacherId) {
         teacherRepository.findById(teacherId)
                 .ifPresent(t -> {
@@ -134,6 +141,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    @Cacheable(value = "teachers", key = "#root.targetClass", unless = "#result eq null")
     public List<TeacherInfoResp> findAllTeacherInfo() {
         List<TeacherInfoResp> list = new ArrayList<>();
         teacherRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN)

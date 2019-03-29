@@ -41,10 +41,10 @@ public class CourseData extends Entitys implements Serializable {
     @Column(name = "datum_url", columnDefinition = "VARCHAR(255) COMMENT '资料URL'")
     private String datumUrl;
 
-    @Column(name = "datum_area", columnDefinition = "VARCHAR(20) COMMENT '资料领域：3预习参考 4课堂参考 5授课案例、6复习参考'")
+    @Column(name = "datum_area", columnDefinition = "VARCHAR(32) COMMENT '资料领域：3预习参考 4课堂参考 5授课案例、6复习参考'")
     private String datumArea;
 
-    @Column(name = "datum_type", columnDefinition = "VARCHAR(3) COMMENT '资料类型 1文档　3视频　4音频　5链接'")
+    @Column(name = "datum_type", columnDefinition = "VARCHAR(32) COMMENT '资料类型 1文档　3视频　4音频　5链接'")
     private String datumType;
 
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '课程科目ID'")

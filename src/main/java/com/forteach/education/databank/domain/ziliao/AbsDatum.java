@@ -40,13 +40,13 @@ public abstract class AbsDatum extends Entitys {
     @Column(name = "file_url", columnDefinition = "VARCHAR(255) COMMENT '文件URL'")
     public String fileUrl;
 
-    @Column(name = "datum_type", columnDefinition = "VARCHAR(3) COMMENT '资料类型 1文档　2图册　3视频　4音频　5链接'")
+    @Column(name = "datum_type", columnDefinition = "VARCHAR(32) COMMENT '资料类型 1文档　2图册　3视频　4音频　5链接'")
     private String datumType;
 
     @Column(name = "k_node_id", columnDefinition = "VARCHAR(32) COMMENT '所属单知识点'")
     private String kNodeId;
 
-    @Column(name = "datum_area", columnDefinition = "VARCHAR(20) COMMENT '资料领域：1教案 2课件1 3预习参考 4课堂参考 5授课案例、6复习参考'")
+    @Column(name = "datum_area", columnDefinition = "VARCHAR(32) COMMENT '资料领域：1教案 2课件1 3预习参考 4课堂参考 5授课案例、6复习参考'")
     private String datumArea;
 
     @Column(name = "teach_share", columnDefinition = "CHAR(1) COMMENT '教师共享 0不共享 1共享'")

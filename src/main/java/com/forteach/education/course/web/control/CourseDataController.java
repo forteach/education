@@ -81,7 +81,7 @@ public class CourseDataController {
         String teachShare = chapteDataReq.getTeachShare();
         String stuShare = chapteDataReq.getStuShare();
         // 2、设置返回结果
-        return WebResult.okResult(courseDataService.updateAreaAndShare(courseId, chapterId, kNodeId, fileId, datumArea, datumType, teachShare, stuShare));
+        return WebResult.okResult(courseDataService.updateAreaAndShare(courseId, chapterId, kNodeId, fileId, datumType, datumArea, teachShare, stuShare));
     }
 
     @ApiOperation(value = "获得挂接课件资料列表", notes = "获得挂接课件资料列表")

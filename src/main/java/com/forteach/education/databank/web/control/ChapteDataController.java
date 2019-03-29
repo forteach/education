@@ -94,7 +94,7 @@ public class ChapteDataController {
         String teachShare = chapteDataReq.getTeachShare();
         String stuShare = chapteDataReq.getStuShare();
         // 2、设置返回结果
-        return WebResult.okResult(chapteDataService.updateAreaAndShare(courseId, chapterId, kNodeId, fileId, datumArea, datumType, teachShare, stuShare));
+        return WebResult.okResult(chapteDataService.updateAreaAndShare(courseId, chapterId, kNodeId, fileId, datumType, datumArea, teachShare, stuShare));
     }
 
     @ApiOperation(value = "资料信息列表", notes = "{\"chapterId\":\"2c9180c067ee2be40167eeb29a7f0004\",\"courseId\":\"2c91808d678e620701679bfccf570000\",\"datumArea\":\"1\",\"sortVo\":{\"isValidated\":\"0\",\"page\":0,\"size\":15,\"sort\":1}}")

@@ -27,13 +27,14 @@ import static com.forteach.education.common.keyword.Dic.*;
  */
 @Slf4j
 @Service(value = "TokenService")
-public class TokenImpl implements TokenService {
+public class TokenServiceImpl implements TokenService {
 
     @Value("${token.salt}")
     private String salt;
 
     @Resource
     private HashOperations<String, String, String> hashOperations;
+
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 

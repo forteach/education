@@ -5,18 +5,18 @@ import com.forteach.education.authority.domain.SysUsers;
 import com.forteach.education.authority.repository.SysRoleRepository;
 import com.forteach.education.authority.repository.UserRepository;
 import com.forteach.education.authority.repository.UserRoleRepository;
-import com.forteach.education.exception.RoleException;
 import com.forteach.education.authority.service.RoleService;
+import com.forteach.education.exception.RoleException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
-import java.util.*;
-
+import java.util.List;
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
 /**
@@ -44,6 +44,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @Cacheable(value = "sysRoles", key = "#root.targetClass", unless = "#result eq null")
     public List<SysRole> findRoleInfo() {
         return sysRoleRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN);
     }
@@ -54,6 +55,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @Cacheable(value = "allUsersPage", key = "#root.targetClass", unless = "#result eq null")
     public Page<SysUsers> findUsersInfo(int page, int size) {
         Page<SysUsers> userList = userRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(TAKE_EFFECT_OPEN, PageRequest.of(page, size));
         userList.forEach(m -> {
@@ -70,26 +72,11 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "sysRoles", allEntries = true, beforeInvocation = true)
     public void deleteRole(String roleId) {
 
         userRoleRepository.deleteByRoleId(roleId);
         sysRoleRepository.deleteByRoleId(roleId);
-    }
-
-    /**
-     * 编辑角色(存在则更新,不存在则保存)
-     *
-     * @param role
-     * @return
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public SysRole edit(SysRole role) {
-        SysRole sysRole = sysRoleRepository.findByRoleId(role.getRoleId());
-        if (sysRole == null) {
-            editCheck(role);
-        }
-        return sysRoleRepository.save(role);
     }
 
     /**
@@ -99,6 +86,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @Cacheable(value = "sysRole", key = "#roleId", unless = "#result eq null")
     public SysRole findById(String roleId) {
         return sysRoleRepository.findByRoleId(roleId);
     }
@@ -109,8 +97,7 @@ public class RoleServiceImpl implements RoleService {
      * @param roleName
      * @return
      */
-    @Override
-    public boolean existsName(String roleName) {
+    private boolean existsName(String roleName) {
         return sysRoleRepository.findSysRoleByRoleNameAndIsValidated(roleName, TAKE_EFFECT_OPEN) != null;
     }
 
@@ -118,6 +105,23 @@ public class RoleServiceImpl implements RoleService {
         if (existsName(role.getRoleName())) {
             throw new RoleException("已有相同角色名");
         }
+    }
+
+    /**
+     * 编辑角色(存在则更新,不存在则保存)
+     *
+     * @param role
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    @CachePut(value = "sysRoles", key = "#root.targetClass", unless = "#result eq null ")
+    public SysRole edit(SysRole role) {
+        SysRole sysRole = sysRoleRepository.findByRoleId(role.getRoleId());
+        if (sysRole == null) {
+            editCheck(role);
+        }
+        return sysRoleRepository.save(role);
     }
 
 }

@@ -11,6 +11,7 @@ import com.forteach.education.authority.service.AuthorityMgrService;
 import com.forteach.education.web.vo.ColumnOperationVo;
 import com.forteach.education.web.vo.OperationInfoVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -43,6 +44,7 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
      * @return
      */
     @Override
+    @Cacheable(value = "treeMenu", key = "#root.targetClass", unless = "#result eq null")
     public List treeMenu() {
         return getInfoColChild(findTreeAll());
     }
@@ -54,6 +56,7 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
      * @return
      */
     @Override
+    @Cacheable(value = "columnNode", key = "#colId", unless = "#result eq null")
     public List<ColumnOperationVo> findColumnOperationByLeafNode(String colId) {
         return actionColumnRepository.findColumnOperation(colId);
     }
@@ -65,6 +68,7 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
      * @return
      */
     @Override
+    @Cacheable(value = "columnRole", key = "#roleId", unless = "#result eq null")
     public List findColumnByRoleId(String roleId) {
 
         //根据角色ID 获取栏目编号
@@ -124,6 +128,7 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
      * @return
      */
     @Override
+    @Cacheable(value = "columnOperationRole", key = "#roleId", unless = "#result eq null")
     public List<Map<String, Object>> findColumnOperationByRoleId(String roleId) {
 
         //获取该角色的所有子栏目信息
@@ -161,6 +166,7 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
      * @return
      */
     @Override
+    @Cacheable(value = "sysUserColumn", key = "#userId", unless = "#result eq null")
     public List findColumnOperationListByUserId(String userId) {
 
         //获得用户对应的角色
@@ -210,6 +216,7 @@ public class AuthorityMgrServiceImpl implements AuthorityMgrService {
      * @return
      */
     @Override
+    @Cacheable(value = "roleAct", key = "#roleId.concat(#colId)", unless = "#result eq null")
     public List<String> findRoleColActIds(String roleId, String colId) {
         List<RoleColAct> roleColActList = roleColActRepository.findByColIdAndRoleId(colId, roleId);
         List<String> actIds = new ArrayList<>();
