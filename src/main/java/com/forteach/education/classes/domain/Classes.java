@@ -37,6 +37,11 @@ public class Classes extends Entitys implements Serializable {
     private String classId;
 
     @ApiModelProperty(value = "班级名称", name = "className", dataType = "string", required = true)
-    @Column(name = "class_name", columnDefinition = "VARCHAR(60) COMMENT '班级名称'")
+    @Column(name = "class_name", columnDefinition = "VARCHAR(60) COMMENT '班级名称'", nullable = false)
     private String className;
+
+    @ApiModelProperty(value = "年级", name = "grade", dataType = "int")
+    @Column(name = "grade", columnDefinition = "INT(11) COMMENT '年级'")
+    private Long grade;
+
 }

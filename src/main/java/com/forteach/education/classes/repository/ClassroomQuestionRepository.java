@@ -1,4 +1,4 @@
-package com.forteach.education.databank.repository;
+package com.forteach.education.classes.repository;
 
 import com.forteach.education.databank.domain.ClassroomQuestion;
 import org.springframework.data.jpa.repository.JpaRepository;
