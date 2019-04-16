@@ -78,10 +78,16 @@ public class SysUsers extends Entitys implements Serializable {
     @Column(name = "teacher_id", columnDefinition = "varchar(32) comment '教师id'")
     private String teacherId;
 
+    /**
+     * 角色id
+     */
     @Transient
     @JsonIgnore
     private String role;
 
+    /**
+     * 记住我
+     */
     @Transient
     @JsonIgnore
     private Integer rememberMe;

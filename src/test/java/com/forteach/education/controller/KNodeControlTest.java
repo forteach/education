@@ -1,4 +1,4 @@
-package com.forteach.education.Controller;
+package com.forteach.education.controller;
 
 
 import com.alibaba.fastjson.JSON;
