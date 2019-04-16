@@ -83,6 +83,7 @@ public class UserServiceImpl implements UserService {
         return WebResult.okResult(LoginResp.builder()
                 .userId(user.getId())
                 .token(token)
+                .userName(user.getUserName())
                 .teacherId(user.getTeacherId())
                 .roleId(userRole != null ? userRole.getRoleId() : null)
                 .build());

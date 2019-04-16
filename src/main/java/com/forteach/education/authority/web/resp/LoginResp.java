@@ -27,6 +27,9 @@ public class LoginResp implements Serializable {
     @ApiModelProperty(name = "teacherId", value = "教师id", dataType = "string")
     private String teacherId;
 
+    @ApiModelProperty(name = "userName", value = "用户名", dataType = "string")
+    private String userName;
+
     @ApiModelProperty(name = "token", value = "用户请求token", dataType = "string")
     private String token;
 
