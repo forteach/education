@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     /**
      * 初始化的用户密码
      */
-    @Value("${initialization.password}")
+    @Value("${initialization.password:123456}")
     private String initPassWord;
 
     @Resource

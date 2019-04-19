@@ -36,7 +36,7 @@ public class RedisConfig {
     @Value("${spring.redis.password}")
     private String passWord;
 
-    @Value("${redis.cache.life.time}")
+    @Value("${redis.cache.life.time:60}")
     private long lifeTime;
     /**
      * 当使用redisTemplate 时，对value的序列化使用GenericJackson2JsonRedisSerializer()
