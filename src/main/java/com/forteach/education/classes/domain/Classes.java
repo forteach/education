@@ -33,10 +33,10 @@ public class Classes extends Entitys implements Serializable {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @Column(name = "class_id", columnDefinition = "VARCHAR(32) COMMENT '班级编号'")
-    @ApiModelProperty(value = "班级编号", name = "classId", dataType = "string")
+    @ApiModelProperty(value = "班级编号", name = "class_id", dataType = "string")
     private String classId;
 
-    @ApiModelProperty(value = "班级名称", name = "className", dataType = "string", required = true)
+    @ApiModelProperty(value = "班级名称", name = "class_name", dataType = "string", required = true)
     @Column(name = "class_name", columnDefinition = "VARCHAR(60) COMMENT '班级名称'", nullable = false)
     private String className;
 

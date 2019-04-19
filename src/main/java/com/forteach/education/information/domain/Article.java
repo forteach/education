@@ -1,17 +1,13 @@
 package com.forteach.education.information.domain;
 
 import com.forteach.education.common.domain.Entitys;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+
 
 /**
  * @Auther: zhangyy
@@ -22,40 +18,83 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "article", indexes = {@Index(columnList = "article_id", name = "article_id_index"), @Index(columnList = "sort_article_id", name = "sort_article_id_index")})
+@Table(name = "article")
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "article", comment = "文章")
-@ApiModel(value = "文章")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Article extends Entitys implements Serializable {
 
+    /**
+     * 序列化
+     */
+    private static final long serialVersionUID = 1L;
+
+    /** 文章类型. */
+    public static String STATUS_TEXT = "txt";
+
+    /** 链接类型. */
+    public static String STATUS_LINK = "link";
+
+    /** 图片类型. */
+    public static String STATUS_IMAGE = "img";
+
+    /** 文章编号.**/
     @Id
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @GeneratedValue(generator = "system-uuid")
-    @Column(name = "article_id", columnDefinition = "varchar(32) COMMENT '文章编号'")
-    @ApiModelProperty(name = "articleId", value = "文章编号", dataType = "string")
+    @Column(length = 40, nullable = false, name = "article_id")
     private String articleId;
 
-    @ApiModelProperty(name = "sortArticleId", value = "分类编号", dataType = "string", required = true)
-    @Column(name = "sort_article_id", columnDefinition = "VARCHAR(32) COMMENT '分类编号'")
-    private String sortArticleId;
+    /** 课程编号.**/
+    @Column(length = 40, nullable = false, name = "course_Id")
+    private String courseId;
 
-    @ApiModelProperty(name = "articleName", value = "文章名称", dataType = "string", required = true)
-    @Column(name = "article_name", columnDefinition = "varchar(128) COMMENT'文章名称'")
-    private String articleName;
+    /** 发布人编号.**/
+    @Column(length = 40, nullable = false, name = "user_id")
+    private String userId;
 
-    @ApiModelProperty(name = "articleTime", value = "发布时间", dataType = "date")
-    @Column(name = "article_time", columnDefinition = "datetime COMMENT '发布时间'")
-    private Date articleTime;
+    /** 班级编号.**/
+    @Column(length = 40, nullable = false, name = "class_id")
+    private String classId;
 
-    @ApiModelProperty(name = "articleType", value = "文章模式", dataType = "boolean")
-    @Column(name = "article_type", columnDefinition = "bit(1) COMMENT '文章模式'")
-    private Boolean articleType;
+    /** 文章题目.**/
+    @Column(length = 150)
+    private String title;
 
-    @ApiModelProperty(name = "titleImage", value = "标题图片", dataType = "string")
-    @Column(name = "title_image", columnDefinition = "VARCHAR(255) COMMENT '标题图片'")
-    private String titleImage;
+    // 图片连接.**/
+    @Column(length = 255, name = "img_url")
+    private String imgUrl;
 
+    // 图片连接.**/
+    @Column(length = 255, name = "link_url")
+    private String linkUrl;
+
+    //@Transient
+    /** 是否置顶.**/
+    @Column(name = "is_top")
+    private String isTop;
+
+    /** 文章描述.**/
+    @Column(length = 255)
+    private String description;
+
+    /** 文章内容.**/
+    @Column(name = "article_conten", columnDefinition = "text(65535) COMMENT '文章内容'")
+    private String articleConten;
+
+    /** 点击量.**/
+    @Column(name = "click_count")
+    private int clickCount;
+
+    /** 收藏数量 **/
+    @Column(name = "collect_count")
+    private int collectCount;
+
+    /** 点赞数量 **/
+    @Column(name = "click_good")
+    private int clickGood;
+
+    /** 资讯分类. **/
+    @Column(length = 10,name = "article_type")
+    private String articleType;
 
 }

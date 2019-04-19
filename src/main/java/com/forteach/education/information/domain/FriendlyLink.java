@@ -23,7 +23,6 @@ import java.io.Serializable;
 @Table(name = "friendly_link", indexes = {@Index(name = "link_id_index", columnList = "link_id")})
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "friendly_link", comment = "友情链接资讯")
-@ApiModel(value = "友情链接资讯")
 @AllArgsConstructor
 @NoArgsConstructor
 public class FriendlyLink extends Entitys implements Serializable {
@@ -31,7 +30,6 @@ public class FriendlyLink extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     @Column(name = "link_id", columnDefinition = "varchar(32) COMMENT '连接id'")
     @ApiModelProperty(value = "链接id", name = "linkId", dataType = "string")
