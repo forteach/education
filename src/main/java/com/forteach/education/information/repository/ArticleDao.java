@@ -52,6 +52,4 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
 	@Query("update  Article  set clickCount=clickCount+1 where articleId =?1")
 	public int addClickCount(String articleId);
 
-
-
 }

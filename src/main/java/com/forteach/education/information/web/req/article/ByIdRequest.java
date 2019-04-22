@@ -5,14 +5,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+
+/**
+ * 资讯详情查询
+ * 
+ * @author zjw
+ *
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FindArticleByKeyWordsPostNameRequest implements Serializable {
-private String userId;
-private String keywords;
-private String catName;
-private int  pageNo;
+public class ByIdRequest implements Serializable {
 
-
+	/** 主键编号. **/
+	private String id;
 }

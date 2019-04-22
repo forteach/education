@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Entity
-@IdClass(MyArticlePK.class)
 @Table(name = "my_article")
 @org.hibernate.annotations.Table(appliesTo = "article", comment = "我的文章")
 @AllArgsConstructor
@@ -29,12 +28,14 @@ public class MyArticle extends Entitys implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(length = 40, name = "user_id", nullable = false)
-	private String userId;//用户id
-	
-	@Id
+	@Column(length = 40, name = "id", nullable = false)
+	private String id;
+
 	@Column(length = 40, name = "article_id", nullable = false)
 	private String articleId;//文章id
+
+	@Column(length = 40, name = "user_id", nullable = false)
+	private String userId;//用户id
 
 	/**
 	 * 我的文章标签类型 0：我发布的 1：我收藏的

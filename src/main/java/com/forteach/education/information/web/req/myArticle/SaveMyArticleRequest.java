@@ -16,12 +16,14 @@ import java.io.Serializable;
 public class SaveMyArticleRequest implements Serializable {
 	
 	private String articleId;
-	
-	private String userId;
-	
-	private String postUserId;//发布者编号
 
-	private String flag;
+	/** 发布者. */
+	private String userId;
+
+	/**
+	 * 我的文章标签类型 0：我发布的 1：我收藏的
+	 */
+	private String tagType;//发布者编号
 
 
 }

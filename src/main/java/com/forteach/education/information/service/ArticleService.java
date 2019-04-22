@@ -13,7 +13,6 @@ import com.forteach.education.information.web.req.article.SaveArticleRequest;
 import com.forteach.education.information.web.res.article.ArticleResponse;
 import com.forteach.education.util.RegexUtils;
 import com.forteach.education.util.UpdateUtil;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,15 +84,8 @@ public class ArticleService {
      * @param pageable
      * @return
      */
-    public List<ArticleResponse> findByCourseId(String courseId, Pageable pageable) {
-        return articleDao.findByCourseIdOrderByCreateTimeDesc(courseId, pageable).getContent()
-                .stream()
-                .map(item -> {
-                    ArticleResponse ar = new ArticleResponse();
-                    UpdateUtil.copyNullProperties(item, ar);
-                    return ar;
-                })
-                .collect(toList());
+    public List<IArticle> findByCourseId(String courseId, Pageable pageable) {
+        return articleDao.findByCourseIdOrderByCreateTimeDesc(courseId, pageable).getContent();
     }
 
     /**

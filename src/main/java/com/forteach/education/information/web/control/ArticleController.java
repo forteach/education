@@ -3,15 +3,23 @@ package com.forteach.education.information.web.control;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.information.domain.Article;
 import com.forteach.education.information.service.ArticleService;
-import com.forteach.education.information.web.req.article.SaveArticleRequest;
+import com.forteach.education.information.web.req.article.*;
+import com.forteach.education.information.web.res.article.ArticleResponse;
 import com.forteach.education.information.web.valid.ArticleValide;
+import com.forteach.education.util.UpdateUtil;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping(path = "/article", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -25,7 +33,8 @@ public class ArticleController  {
 	 * 保存资讯、资讯所属模块信息
 	 */
 
-	public Article save(SaveArticleRequest request) {
+	@PostMapping("/save")
+	public WebResult save(SaveArticleRequest request) {
 
 		Article article = null;
 		// 验证资讯信息
@@ -34,28 +43,83 @@ public class ArticleController  {
 		// 根据资讯编号未设置,判断为修改操作
 		if (StrUtil.isNotBlank(request.getArticleId())) {
 			// 根据资讯ID获得数据库详情
-			article = findById(request.getArticleId());
+			article = articleService.findById(request.getArticleId());
 		}
 
 		// 设置资讯数据
 		article = articleService.setDoMain(request);
 
 		// 调用save方法
-		return articleService.save(article);
+		return WebResult.okResult(article);
 
 	}
 
-	public Article findById(String articleId) {
-		Article article = articleService.findById(articleId);
-		return article;
+	/**
+	 * 获得资讯详情
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("/findId")
+	public WebResult findById(ByIdRequest req) {
+		Article article = articleService.findById(req.getId());
+		return WebResult.okResult(article);
 	}
 
-
-	public String deleteArticleById(String articleId) {
-		int result = articleService.deleteArticleById(articleId);
+	/**
+	 *逻辑删除资讯内容
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("/delId")
+	public WebResult deleteArticleById(ByIdRequest req) {
+		int result = articleService.deleteArticleById(req.getId());
 		MyAssert.eq(result, 0, DefineCode.ERR0013, "删除文章失败");
-		return String.valueOf(result);
+		return WebResult.okResult(result);
 	}
 
+	/**
+	 * 根据课程Id获得资讯内容
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("/findCourseId")
+	public WebResult findByCourseId(FindIdListRequest req){
+		SortVo sortVo = req.getSortVo();
+		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
+		return WebResult.okResult(articleService.findByCourseId(req.getId(),page)
+				.stream()
+				.map(item -> {
+					ArticleResponse ar = new ArticleResponse();
+					UpdateUtil.copyNullProperties(item, ar);
+					return ar;
+				})
+				.collect(toList()));
+	}
 
+	/**
+	 * 所有资讯倒序分页获取
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("/findAllDesc")
+	public WebResult findAllDesc(FindAllRequest req){
+		SortVo sortVo = req.getSortVo();
+		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
+		return WebResult.okResult(articleService.findAllDesc(page)
+				.stream()
+				.map(item -> {
+					ArticleResponse ar = new ArticleResponse();
+					UpdateUtil.copyNullProperties(item, ar);
+					return ar;
+				})
+				.collect(toList()));
+	}
+
+	/**
+	 * 点赞数量增加
+	 */
+	@PostMapping("/addClickGood")
+	public WebResult addClickGood(addClickGoodRequest req){
+		return WebResult.okResult(articleService.addClickGood(req.getArticleId()));
+	}
 }
