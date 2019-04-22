@@ -2,7 +2,6 @@ package com.forteach.education.information.service;
 
 import cn.hutool.core.util.IdUtil;
 import com.forteach.education.information.domain.MyArticle;
-import com.forteach.education.information.dto.IArticle;
 import com.forteach.education.information.repository.MyArticleDao;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,8 @@ public class MyArticleService {
 	private MyArticleDao myArticleDao;
 
 
-	public List<IArticle> findByUserIdtagType(String userId, String tagType) {
-		List<IArticle> list = myArticleDao.findByUserIdAndTagType(userId, tagType);
+	public List<MyArticle> findByUserIdtagType(String userId, String tagType) {
+		List<MyArticle> list = myArticleDao.findByUserIdAndTagType(userId, tagType);
 		return list;
 	}
 
@@ -46,16 +45,6 @@ public class MyArticleService {
 	public MyArticle save(MyArticle myArticle) {
 
 		return myArticleDao.save(myArticle);
-	}
-
-	@Transactional
-	public String deleteByUserArticleId(String articleId, String userId) {
-		int num = myArticleDao.deleteByUserAndArticleId(userId, articleId);
-		String flag = "N";
-		if (num > 0) {
-			flag = "Y";
-		}
-		return flag;
 	}
 
 }

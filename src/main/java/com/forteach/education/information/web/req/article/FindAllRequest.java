@@ -25,6 +25,12 @@ import java.io.Serializable;
 @ApiModel(value = "资讯所有列表")
 public class FindAllRequest implements Serializable {
 
+    @ApiModelProperty(value = "课程Id", name = "courseId")
+    private String courseId;
+
+    @ApiModelProperty(value = "学生Id", name = "studentId")
+    private String studentId;
+
     @ApiModelProperty(value = "分页排序字段", name = "sortVo")
     private SortVo sortVo = new SortVo();
 

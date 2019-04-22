@@ -1,6 +1,5 @@
 package com.forteach.education.controller;
 
-
 import com.alibaba.fastjson.JSON;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
@@ -20,7 +19,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * @Auther: zhangyy

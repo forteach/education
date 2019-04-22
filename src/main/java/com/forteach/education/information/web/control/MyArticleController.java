@@ -49,8 +49,5 @@ public class MyArticleController {
 		return WebResult.okResult(myArticleService.deleteMyArticleById(id));
 	}
 
-	@PostMapping("/deleteArticleIdUserId")
-	public WebResult deleteByUserArticleId(String articleId, String userId) {
- 		return WebResult.okResult(myArticleService.deleteByUserArticleId(articleId,userId));
-	}
+
 }

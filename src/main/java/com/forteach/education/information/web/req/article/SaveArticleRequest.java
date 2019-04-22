@@ -44,7 +44,7 @@ public class SaveArticleRequest implements Serializable {
 	// 图片连接.**/
 	private String imgUrl;
 
-	// 图片连接.**/
+	// 文章连接.**/
 	private String linkUrl;
 
 	/** 文章描述.**/

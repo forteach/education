@@ -1,14 +1,11 @@
 package com.forteach.education.information.domain;
 
 import com.forteach.education.common.domain.Entitys;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -20,7 +17,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "friendly_link", indexes = {@Index(name = "link_id_index", columnList = "link_id")})
+@Table(name = "friendly_link")
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "friendly_link", comment = "友情链接资讯")
 @AllArgsConstructor

@@ -16,7 +16,17 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
 	/**
 	 * 分页查看资讯信息
 	 */
+	public Page<IArticle> findByUserIdOrderByCreateTimeDesc(String userId, Pageable pageable);
+
+	/**
+	 * 分页查看资讯信息
+	 */
 	public Page<IArticle> findByCourseIdOrderByCreateTimeDesc(String courseId, Pageable pageable);
+
+	/**
+	 * 分页查看资讯信息
+	 */
+	public Page<IArticle> findByUserIdAndCourseIdOrderByCreateTimeDesc(String userId,String courseId, Pageable pageable);
 
 	public Page<IArticle> findAllByOrderByCreateTimeDesc(Pageable pageable);
 

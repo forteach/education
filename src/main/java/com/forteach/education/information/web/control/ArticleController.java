@@ -33,7 +33,7 @@ public class ArticleController  {
 	 * 保存资讯、资讯所属模块信息
 	 */
 
-	@PostMapping("/save")
+	@PostMapping("/saveOrUpdate")
 	public WebResult save(SaveArticleRequest request) {
 
 		Article article = null;
@@ -49,8 +49,13 @@ public class ArticleController  {
 		// 设置资讯数据
 		article = articleService.setDoMain(request);
 
+		articleService.save(article);
+
+		ArticleResponse res=new ArticleResponse();
+
+		UpdateUtil.copyNullProperties(article, res);
 		// 调用save方法
-		return WebResult.okResult(article);
+		return WebResult.okResult(res);
 
 	}
 
@@ -77,24 +82,24 @@ public class ArticleController  {
 		return WebResult.okResult(result);
 	}
 
-	/**
-	 * 根据课程Id获得资讯内容
-	 * @param req
-	 * @return
-	 */
-	@PostMapping("/findCourseId")
-	public WebResult findByCourseId(FindIdListRequest req){
-		SortVo sortVo = req.getSortVo();
-		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
-		return WebResult.okResult(articleService.findByCourseId(req.getId(),page)
-				.stream()
-				.map(item -> {
-					ArticleResponse ar = new ArticleResponse();
-					UpdateUtil.copyNullProperties(item, ar);
-					return ar;
-				})
-				.collect(toList()));
-	}
+//	/**
+//	 * 根据课程Id获得资讯内容
+//	 * @param req
+//	 * @return
+//	 */
+//	@PostMapping("/findCourseId")
+//	public WebResult findByCourseId(FindIdListRequest req){
+//		SortVo sortVo = req.getSortVo();
+//		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
+//		return WebResult.okResult(articleService.findByCourseId(req.getId(),page)
+//				.stream()
+//				.map(item -> {
+//					ArticleResponse ar = new ArticleResponse();
+//					UpdateUtil.copyNullProperties(item, ar);
+//					return ar;
+//				})
+//				.collect(toList()));
+//	}
 
 	/**
 	 * 所有资讯倒序分页获取
@@ -105,14 +110,51 @@ public class ArticleController  {
 	public WebResult findAllDesc(FindAllRequest req){
 		SortVo sortVo = req.getSortVo();
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
-		return WebResult.okResult(articleService.findAllDesc(page)
-				.stream()
-				.map(item -> {
-					ArticleResponse ar = new ArticleResponse();
-					UpdateUtil.copyNullProperties(item, ar);
-					return ar;
-				})
-				.collect(toList()));
+		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
+			return WebResult.okResult(articleService.findAllDesc(page)
+					.stream()
+					.map(item -> {
+						ArticleResponse ar = new ArticleResponse();
+						UpdateUtil.copyNullProperties(item, ar);
+						return ar;
+					})
+					.collect(toList()));
+		}
+
+		if(StrUtil.isNotBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
+			return WebResult.okResult(articleService.findByCourseId(req.getCourseId(),page)
+					.stream()
+					.map(item -> {
+						ArticleResponse ar = new ArticleResponse();
+						UpdateUtil.copyNullProperties(item, ar);
+						return ar;
+					})
+					.collect(toList()));
+		}
+
+		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isNotBlank(req.getStudentId())){
+			return WebResult.okResult(articleService.findByStudentId(req.getStudentId(),page)
+					.stream()
+					.map(item -> {
+						ArticleResponse ar = new ArticleResponse();
+						UpdateUtil.copyNullProperties(item, ar);
+						return ar;
+					})
+					.collect(toList()));
+		}
+
+		if(StrUtil.isNotBlank(req.getCourseId())&&StrUtil.isNotBlank(req.getStudentId())){
+			return WebResult.okResult(articleService.findByUserIdAndCourseIdByCreateTimeDesc(req.getStudentId(),req.getCourseId(),page)
+					.stream()
+					.map(item -> {
+						ArticleResponse ar = new ArticleResponse();
+						UpdateUtil.copyNullProperties(item, ar);
+						return ar;
+					})
+					.collect(toList()));
+		}
+
+		return null;
 	}
 
 	/**

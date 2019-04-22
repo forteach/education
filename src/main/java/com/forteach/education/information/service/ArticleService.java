@@ -57,12 +57,14 @@ public class ArticleService {
         // 是否获取已存在的用户信息
         if (StrUtil.isNotBlank(artId)) {
             art = findById(artId);
-        }
-        // 新建用户
-        if (art == null) {
+            String createTime=art.getCreateTime();
+            UpdateUtil.copyProperties(request, art);
+            art.setCreateTime(createTime);
+        }else {
             art = new Article();
             UpdateUtil.copyNullProperties(request, art);
             art.setArticleId(IdUtil.fastSimpleUUID());
+            art.setCreateUser(request.getUserId());
         }
         return art;
     }
@@ -85,6 +87,8 @@ public class ArticleService {
      * @return
      */
     public List<IArticle> findByCourseId(String courseId, Pageable pageable) {
+
+        //TODO 增加筛选已收藏的学生
         return articleDao.findByCourseIdOrderByCreateTimeDesc(courseId, pageable).getContent();
     }
 
@@ -94,15 +98,30 @@ public class ArticleService {
      * @param pageable
      * @return
      */
-    public List<ArticleResponse> findAllDesc(Pageable pageable) {
-        return articleDao.findAllByOrderByCreateTimeDesc(pageable).getContent()
-                .stream()
-                .map(item -> {
-                    ArticleResponse ar = new ArticleResponse();
-                    UpdateUtil.copyNullProperties(item, ar);
-                    return ar;
-                })
-                .collect(toList());
+    public List<IArticle> findAllDesc(Pageable pageable) {
+        return articleDao.findAllByOrderByCreateTimeDesc(pageable).getContent();
+    }
+
+    /**
+     * 根据学生ID，获得资讯
+     *
+     * @param studentId  发布资讯的学生
+     * @param pageable
+     * @return
+     */
+    public List<IArticle> findByStudentId(String studentId, Pageable pageable) {
+        return articleDao.findByUserIdOrderByCreateTimeDesc(studentId, pageable).getContent();
+    }
+
+    /**
+     *
+     * @param studentId   学生Id
+     * @param courseId    课程Id
+     * @param pageable
+     * @return
+     */
+    public List<IArticle> findByUserIdAndCourseIdByCreateTimeDesc(String studentId,String courseId, Pageable pageable) {
+        return articleDao.findByUserIdAndCourseIdOrderByCreateTimeDesc(studentId,courseId, pageable).getContent();
     }
 
     /**

@@ -28,6 +28,16 @@ public class UpdateUtil {
     }
 
     /**
+     * 将目标源中不为空的字段过滤，将数据库中查出的数据源复制到提交的目标源中
+     *
+     * @param source 用id从数据库中查出来的数据源
+     * @param target 提交的实体，目标源
+     */
+    public static void copyProperties(Object source, Object target) {
+        BeanUtils.copyProperties(source, target);
+    }
+
+    /**
      * @param target 目标源数据
      * @return 将目标源中不为空的字段取出
      */

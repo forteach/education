@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "art_comment")
-@org.hibernate.annotations.Table(appliesTo = "friendly_link", comment = "文章评论")
+@org.hibernate.annotations.Table(appliesTo = "art_comment", comment = "文章评论")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment extends Entitys implements Serializable {

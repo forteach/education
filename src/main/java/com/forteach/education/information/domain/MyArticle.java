@@ -5,9 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
-
 import com.forteach.education.common.domain.Entitys;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "my_article")
-@org.hibernate.annotations.Table(appliesTo = "article", comment = "我的文章")
+@org.hibernate.annotations.Table(appliesTo = "my_article", comment = "我的文章")
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyArticle extends Entitys implements Serializable {

@@ -17,46 +17,34 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ArticleResponse implements Serializable {
 
-	/**
-	 * 序列化
-	 */
-	private static final long serialVersionUID = 1L;
-
-	// 编号
+	/** 文章编号.**/
 	private String articleId;
 
-	//发布者编号
+	/** 课程编号.**/
+	private String courseId;
+
+	/** 发布人编号.**/
 	private String userId;
 
-	// 文章题目
+	/** 班级编号.**/
+	private String classId;
+
+	/** 文章题目.**/
 	private String title;
 
-	// 文章作者
-	private String author;
-	
-	private String modId;
-
-	private String keyWord;
-
-	/** 文章类型. **/
-	private String articType;
-
-	// 文章添加时间
-	private String addTime;
-
-	// 图片连接
+	// 图片连接.**/
 	private String imgUrl;
 
-	// 点击量
-	private int clickCount;
+	// 文章连接.**/
+	private String linkUrl;
 
-	// 是否生效
-	private String isValidated;
-	
-	//是否显示
-	private String isShow;
-
+	/** 文章描述.**/
 	private String description;
 
+	/** 文章内容.**/
+	private String articleConten;
+
+	/** 资讯分类. **/
+	private String articleType;
 
 }
