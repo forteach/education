@@ -2,12 +2,11 @@ package com.forteach.education.service.impl;
 
 
 import com.forteach.education.classes.web.req.RTeacher;
-import com.forteach.education.course.domain.Course;
-import com.forteach.education.course.domain.CourseImages;
+import com.forteach.education.images.course.domain.CourseImages;
 import com.forteach.education.course.service.CourseService;
 import com.forteach.education.course.web.req.CourseSaveReq;
 import com.forteach.education.course.web.vo.RCourse;
-import com.forteach.education.web.req.CourseImagesReq;
+import com.forteach.education.course.web.req.CourseImagesReq;
 import com.forteach.education.web.vo.DataDatumVo;
 import com.forteach.education.common.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;

@@ -76,4 +76,8 @@ public class ClassesServiceImpl implements ClassesService {
             return null;
         }
     }
+
+    public Classes findById(String id){
+        return classesRepository.findById(id).get();
+    }
 }

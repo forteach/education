@@ -1,10 +1,13 @@
 package com.forteach.education.information.web.req.article;
 
 
+import com.forteach.education.web.vo.DataDatumVo;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 创建资讯
@@ -55,5 +58,8 @@ public class SaveArticleRequest implements Serializable {
 
 	/** 资讯分类. **/
 	private String articleType;
+
+	@ApiModelProperty(value = "图片信息", name = "images", required = true)
+	private List<DataDatumVo> images;
 
 }

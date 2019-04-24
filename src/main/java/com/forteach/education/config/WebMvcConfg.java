@@ -1,4 +1,4 @@
-package com.forteach.education.common.config;
+package com.forteach.education.config;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;

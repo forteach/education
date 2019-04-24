@@ -8,7 +8,9 @@ import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.information.domain.Article;
 import com.forteach.education.information.service.ArticleService;
 import com.forteach.education.information.web.req.article.*;
+import com.forteach.education.information.web.res.article.ArticleListResponse;
 import com.forteach.education.information.web.res.article.ArticleResponse;
+import com.forteach.education.information.web.res.article.ArticleStuListResponse;
 import com.forteach.education.information.web.valid.ArticleValide;
 import com.forteach.education.util.UpdateUtil;
 import io.swagger.annotations.Api;
@@ -49,7 +51,7 @@ public class ArticleController  {
 		// 设置资讯数据
 		article = articleService.setDoMain(request);
 
-		articleService.save(article);
+		articleService.save(article,request.getImages());
 
 		ArticleResponse res=new ArticleResponse();
 
@@ -66,6 +68,7 @@ public class ArticleController  {
 	 */
 	@PostMapping("/findId")
 	public WebResult findById(ByIdRequest req) {
+		MyAssert.isNull(req.getId(), DefineCode.ERR0010,"编号不能为空");
 		Article article = articleService.findById(req.getId());
 		return WebResult.okResult(article);
 	}
@@ -77,29 +80,11 @@ public class ArticleController  {
 	 */
 	@PostMapping("/delId")
 	public WebResult deleteArticleById(ByIdRequest req) {
+		MyAssert.isNull(req.getId(), DefineCode.ERR0010,"编号不能为空");
 		int result = articleService.deleteArticleById(req.getId());
 		MyAssert.eq(result, 0, DefineCode.ERR0013, "删除文章失败");
 		return WebResult.okResult(result);
 	}
-
-//	/**
-//	 * 根据课程Id获得资讯内容
-//	 * @param req
-//	 * @return
-//	 */
-//	@PostMapping("/findCourseId")
-//	public WebResult findByCourseId(FindIdListRequest req){
-//		SortVo sortVo = req.getSortVo();
-//		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
-//		return WebResult.okResult(articleService.findByCourseId(req.getId(),page)
-//				.stream()
-//				.map(item -> {
-//					ArticleResponse ar = new ArticleResponse();
-//					UpdateUtil.copyNullProperties(item, ar);
-//					return ar;
-//				})
-//				.collect(toList()));
-//	}
 
 	/**
 	 * 所有资讯倒序分页获取
@@ -114,7 +99,7 @@ public class ArticleController  {
 			return WebResult.okResult(articleService.findAllDesc(page)
 					.stream()
 					.map(item -> {
-						ArticleResponse ar = new ArticleResponse();
+						ArticleListResponse ar = new ArticleListResponse();
 						UpdateUtil.copyNullProperties(item, ar);
 						return ar;
 					})
@@ -125,7 +110,7 @@ public class ArticleController  {
 			return WebResult.okResult(articleService.findByCourseId(req.getCourseId(),page)
 					.stream()
 					.map(item -> {
-						ArticleResponse ar = new ArticleResponse();
+						ArticleListResponse ar = new ArticleListResponse();
 						UpdateUtil.copyNullProperties(item, ar);
 						return ar;
 					})
@@ -136,7 +121,7 @@ public class ArticleController  {
 			return WebResult.okResult(articleService.findByStudentId(req.getStudentId(),page)
 					.stream()
 					.map(item -> {
-						ArticleResponse ar = new ArticleResponse();
+						ArticleStuListResponse ar = new ArticleStuListResponse();
 						UpdateUtil.copyNullProperties(item, ar);
 						return ar;
 					})
@@ -147,7 +132,7 @@ public class ArticleController  {
 			return WebResult.okResult(articleService.findByUserIdAndCourseIdByCreateTimeDesc(req.getStudentId(),req.getCourseId(),page)
 					.stream()
 					.map(item -> {
-						ArticleResponse ar = new ArticleResponse();
+						ArticleListResponse ar = new ArticleListResponse();
 						UpdateUtil.copyNullProperties(item, ar);
 						return ar;
 					})
@@ -156,6 +141,72 @@ public class ArticleController  {
 
 		return null;
 	}
+
+	/**
+	 * 学生端所有资讯倒序分页获取
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("/findStuAllDesc")
+	public WebResult findStuAllDesc(FindAllRequest req){
+		SortVo sortVo = req.getSortVo();
+		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
+		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
+			return WebResult.okResult(articleService.findAllDesc(page)
+					.stream()
+					.map(item -> {
+						ArticleStuListResponse ar = new ArticleStuListResponse();
+						UpdateUtil.copyNullProperties(item, ar);
+						//设置是否收藏、发布、点赞
+						articleService.setStuTagType(ar,item.getArticleId(),req.getUserId());
+						return ar;
+					})
+					.collect(toList()));
+		}
+
+		if(StrUtil.isNotBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
+			return WebResult.okResult(articleService.findByCourseId(req.getCourseId(),page)
+					.stream()
+					.map(item -> {
+						ArticleStuListResponse ar = new ArticleStuListResponse();
+						UpdateUtil.copyNullProperties(item, ar);
+						//设置是否收藏、发布、点赞
+						articleService.setStuTagType(ar,item.getArticleId(),req.getStudentId());
+						return ar;
+					})
+					.collect(toList()));
+		}
+
+		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isNotBlank(req.getStudentId())){
+			return WebResult.okResult(articleService.findByStudentId(req.getStudentId(),page)
+					.stream()
+					.map(item -> {
+						ArticleStuListResponse ar = new ArticleStuListResponse();
+						UpdateUtil.copyNullProperties(item, ar);
+						//设置是否收藏、发布、点赞
+						articleService.setStuTagType(ar,item.getArticleId(),req.getStudentId());
+						return ar;
+					})
+					.collect(toList()));
+		}
+
+		if(StrUtil.isNotBlank(req.getCourseId())&&StrUtil.isNotBlank(req.getStudentId())){
+			return WebResult.okResult(articleService.findByUserIdAndCourseIdByCreateTimeDesc(req.getStudentId(),req.getCourseId(),page)
+					.stream()
+					.map(item -> {
+						ArticleStuListResponse ar = new ArticleStuListResponse();
+						UpdateUtil.copyNullProperties(item, ar);
+						//设置是否收藏、发布、点赞
+						articleService.setStuTagType(ar,item.getArticleId(),req.getStudentId());
+						return ar;
+					})
+					.collect(toList()));
+		}
+
+		return null;
+	}
+
+
 
 	/**
 	 * 点赞数量增加

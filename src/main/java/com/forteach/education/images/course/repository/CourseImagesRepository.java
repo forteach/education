@@ -1,6 +1,6 @@
-package com.forteach.education.course.repository;
+package com.forteach.education.images.course.repository;
 
-import com.forteach.education.course.domain.CourseImages;
+import com.forteach.education.images.course.domain.CourseImages;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

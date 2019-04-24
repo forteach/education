@@ -26,7 +26,7 @@ public class MyArticleController {
 		String userId = request.getUserId();
 		String tagType=request.getTagType();//发布者编号
 		//判断参数
-		MyAssert.isNull(articleId, DefineCode.ERR0010,"文章编号不能为空");
+		MyAssert.isNull(articleId, DefineCode.ERR0010,"编号不能为空");
 		MyAssert.isNull(userId,DefineCode.ERR0010,"用户编号不能为空");
 
 		MyArticle  myArticle=myArticleService.setMyArticle(articleId, userId, tagType);
@@ -34,7 +34,7 @@ public class MyArticleController {
 	}
 
 	@PostMapping("/findUserIdtagType")
-	public WebResult findByUserIdtagType(String userId, String tagType) {
+	public WebResult findByUserIdtagType(String userId, int tagType) {
  		return WebResult.okResult(myArticleService.findByUserIdtagType(userId,tagType));
 	}
 
@@ -45,9 +45,20 @@ public class MyArticleController {
 	 */
 	@PostMapping("/delId")
 	public WebResult deleteId(String id) {
-		 
 		return WebResult.okResult(myArticleService.deleteMyArticleById(id));
 	}
 
+	/**
+	 * 根据Id删除资讯
+	 * @param id
+	 * @return
+	 */
+	@PostMapping("/delMyArticleId")
+	public WebResult deleteMyArticle(String id) {
+		String articleId="";
+		String userId="";
+		int tagType=0;
+		return WebResult.okResult(myArticleService.deleteMyArticle(articleId,userId,tagType));
+	}
 
 }

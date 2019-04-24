@@ -20,7 +20,7 @@ import com.forteach.education.course.web.res.CourseSaveResp;
 import com.forteach.education.course.web.res.CourseUsersResp;
 import com.forteach.education.course.web.vo.RCourse;
 import com.forteach.education.util.UpdateUtil;
-import com.forteach.education.web.req.CourseImagesReq;
+import com.forteach.education.course.web.req.CourseImagesReq;
 import com.forteach.education.web.vo.DataDatumVo;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;

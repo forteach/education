@@ -7,12 +7,16 @@ import com.forteach.education.information.web.control.ArticleController;
 import com.forteach.education.information.web.req.article.ByIdRequest;
 import com.forteach.education.information.web.req.article.FindAllRequest;
 import com.forteach.education.information.web.req.article.SaveArticleRequest;
+import com.forteach.education.web.vo.DataDatumVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -25,15 +29,29 @@ public class ArtcileControlTest {
     @Test
     public void save() {
         SaveArticleRequest req = new SaveArticleRequest();
-        req.setArticleId("29512c44cb704629a9de547528ead313");
+//        req.setArticleId("29512c44cb704629a9de547528ead313");
         req.setCourseId("2c9180846827407401682b57f4a60000");
-        req.setUserId("02");
+        req.setUserId("130133199203182776");
         req.setTitle("第一节心得");
-        req.setClassId("classId");
-        req.setImgUrl("标题图片URL");
+        req.setClassId("01");
+//        req.setImgUrl("标题图片URL");
         req.setDescription("文章描述");
-        req.setArticleConten("文章内容");
+        req.setArticleConten("文章内容111");
         req.setArticleType("xd");
+
+        DataDatumVo dv = new DataDatumVo();
+        dv.setFileName("资料图片文件1");
+        dv.setFileUrl("http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.jpg");
+
+        DataDatumVo dv1 = new DataDatumVo();
+        dv1.setFileName("资料图片文件2");
+        dv1.setFileUrl("http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.jpg");
+
+
+        List<DataDatumVo> list = new ArrayList<DataDatumVo>();
+        list.add(dv);
+        list.add(dv1);
+        req.setImages(list);
 
         log.info("request-----{}", JSON.toJSONString(req));
         WebResult r = articleController.save(req);
@@ -43,7 +61,7 @@ public class ArtcileControlTest {
     @Test
     public void byId() {
         ByIdRequest req = new ByIdRequest();
-        req.setId("29512c44cb704629a9de547528ead313");
+        req.setId("43f6cc2ab62a44cd8f76cde19de0a4d8");
 
         log.info("request-----{}", JSON.toJSONString(req));
         WebResult r = articleController.findById(req);
@@ -54,13 +72,27 @@ public class ArtcileControlTest {
     public void findAllDesc() {
 
         FindAllRequest req = new FindAllRequest();
-        req.setStudentId("02");
-        req.setCourseId("2c9180846827407401682b57f4a60000");
+       // req.setStudentId("130133199203182776");
+       // req.setCourseId("2c9180846827407401682b57f4a60000");
         SortVo sv = new SortVo();
         req.setSortVo(sv);
 
         log.info("request-----{}", JSON.toJSONString(req));
         WebResult r = articleController.findAllDesc(req);
+        log.info("*********{}", JSON.toJSONString(r));
+    }
+
+    @Test
+    public void findStuAllDesc() {
+
+        FindAllRequest req = new FindAllRequest();
+         req.setUserId("130133199203182776");
+        // req.setCourseId("2c9180846827407401682b57f4a60000");
+        SortVo sv = new SortVo();
+        req.setSortVo(sv);
+
+        log.info("request-----{}", JSON.toJSONString(req));
+        WebResult r = articleController.findStuAllDesc(req);
         log.info("*********{}", JSON.toJSONString(r));
     }
 }

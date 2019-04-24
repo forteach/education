@@ -1,25 +1,32 @@
 package com.forteach.education.information.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.classes.domain.Classes;
+import com.forteach.education.classes.service.ClassesService;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
+import com.forteach.education.images.course.service.ArtIcleImagesService;
 import com.forteach.education.information.domain.Article;
 import com.forteach.education.information.dto.IArticle;
 import com.forteach.education.information.repository.ArticleDao;
 import com.forteach.education.information.web.req.article.SaveArticleRequest;
-import com.forteach.education.information.web.res.article.ArticleResponse;
+import com.forteach.education.information.web.res.article.ArticleStuListResponse;
 import com.forteach.education.util.RegexUtils;
 import com.forteach.education.util.UpdateUtil;
+import com.forteach.education.web.vo.DataDatumVo;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import static java.util.stream.Collectors.toList;
+import javax.annotation.Resource;
 
 @Service
 public class ArticleService {
@@ -28,19 +35,69 @@ public class ArticleService {
     @Value("${com.yunfeng.pageSize:6}")
     private String articleHomePageSize;
 
+    /**
+     * 学生信息前缀
+     */
+    public static final String STUDENT_ADO = "studentsData$";
 
     @Autowired
     private ArticleDao articleDao;
 
+    @Autowired
+    private ArtIcleImagesService artIcleImagesService;
+
+    @Autowired
+    private ClassesService classesService;
+
+    @Autowired
+    private MyArticleService myArticleService;
+
+    @Resource
+    private HashOperations<String, String, String> hashOperations;
+
     @Transactional
-    public Article save(Article article) {
+    public Article save(Article article,List<DataDatumVo> dataList) {
+
+        //保存资讯内容图片列表信息
+        if(dataList!=null&&dataList.size()>0){
+            //设置列表头图片
+            article.setImgUrl(dataList.get(0).getFileUrl());
+            boolean saveImg=artIcleImagesService.saveImages(article.getArticleId(),dataList);
+            MyAssert.isFalse(saveImg, DefineCode.ERR0013,"保存资料图片失败");
+        }
 
         // 保存资讯信息
         Article art = articleDao.save(article);
         // 返回对象为空，保存失败
-        MyAssert.isNull(art, DefineCode.ERR0013);
+        MyAssert.isNull(art, DefineCode.ERR0013,"保存资料内容失败");
 
         return art;
+    }
+
+    /**
+     * 根据用户id 从redis 取出名字信息
+     *
+     * @param id
+     * @return
+     */
+    private String findStudentsName(final String id) {
+
+        String key=STUDENT_ADO.concat(id);
+//        Map<String, String> map = new HashMap();
+//        map.put("name","test");
+//        map.put("portrait","123");
+//        hashOperations.putAll(key+"1",map);
+        return hashOperations.get(key, "name");
+    }
+
+    /**
+     * 从redis 取出头像信息
+     *
+     * @param id
+     * @return
+     */
+    private String findStudentsPortrait(final String id) {
+        return hashOperations.get(STUDENT_ADO.concat(id), "portrait");
     }
 
     /**
@@ -60,11 +117,24 @@ public class ArticleService {
             String createTime=art.getCreateTime();
             UpdateUtil.copyProperties(request, art);
             art.setCreateTime(createTime);
+
+            //获得班级信息
+            Classes cla=classesService.findById(request.getClassId());
+            MyAssert.isNull(cla, DefineCode.ERR0013,"班级信息不存在");
+            //设置班级名称
+            art.setClassName(cla.getClassName());
+
+            //学生名称
+            art.setUserName(findStudentsName(request.getUserId()));
+            //学生头像
+            art.setUserTortrait(findStudentsPortrait(request.getUserId()));
+
         }else {
             art = new Article();
             UpdateUtil.copyNullProperties(request, art);
             art.setArticleId(IdUtil.fastSimpleUUID());
             art.setCreateUser(request.getUserId());
+            art.setIsNice("false");
         }
         return art;
     }
@@ -100,6 +170,22 @@ public class ArticleService {
      */
     public List<IArticle> findAllDesc(Pageable pageable) {
         return articleDao.findAllByOrderByCreateTimeDesc(pageable).getContent();
+    }
+
+    /**
+     * 设置学生列表是否收藏、发布、点赞
+     * @param ar
+     * @param articleId
+     * @param userId
+     */
+    public void setStuTagType(ArticleStuListResponse ar,String articleId,String userId){
+
+        //设置是否点赞
+        ar.setIsClickGood(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,myArticleService.GOOD)));
+        //设置是否收藏
+        ar.setIsCollect(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,myArticleService.SHOUCANG)));
+        //设置是否发布
+        ar.setIsMy(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,myArticleService.FABU)));
     }
 
     /**

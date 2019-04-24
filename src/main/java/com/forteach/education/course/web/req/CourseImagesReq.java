@@ -1,4 +1,4 @@
-package com.forteach.education.web.req;
+package com.forteach.education.course.web.req;
 
 import com.forteach.education.web.vo.DataDatumVo;
 import io.swagger.annotations.ApiModelProperty;

@@ -20,19 +20,22 @@ public interface ClassesService {
      * 查询所有有效的班级信息按照时间倒叙排列
      * @return　班级信息列表
      */
-    List<Classes> findAll();
+    public List<Classes> findAll();
 
     /**
      * 分页查询班级信息倒叙排列
      * @param sortVo
      * @return　分页的班级信息
      */
-    Page<Classes> pageAll(SortVo sortVo);
+    public Page<Classes> pageAll(SortVo sortVo);
 
     /**
      * 修改班级信息
      * @param classesVo
      * @return　修改后的班级信息
      */
-    Classes editClass(ClassesVo classesVo);
+    public Classes editClass(ClassesVo classesVo);
+
+    public Classes findById(String id);
+
 }

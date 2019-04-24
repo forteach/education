@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyArticle extends Entitys implements Serializable {
-	
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +35,7 @@ public class MyArticle extends Entitys implements Serializable {
 	private String userId;//用户id
 
 	/**
-	 * 我的文章标签类型 0：我发布的 1：我收藏的
+	 * 我的文章标签类型 0：我发布的 1：我收藏的 2:点赞
 	 */
 	@Column(name = "tag_type", nullable = false)
 	private int tagType;//文章id

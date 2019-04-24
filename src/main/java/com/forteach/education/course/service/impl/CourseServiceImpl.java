@@ -7,23 +7,20 @@ import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.course.domain.Course;
-import com.forteach.education.course.domain.CourseImages;
+import com.forteach.education.images.course.domain.CourseImages;
 import com.forteach.education.course.domain.CourseShare;
 import com.forteach.education.course.dto.ICourseListDto;
-import com.forteach.education.course.repository.CourseImagesRepository;
 import com.forteach.education.course.repository.CourseRepository;
 import com.forteach.education.course.service.CourseService;
 import com.forteach.education.course.service.CourseShareService;
-import com.forteach.education.web.req.CourseImagesReq;
-import com.forteach.education.web.vo.DataDatumVo;
+import com.forteach.education.images.course.service.CourseImagesService;
+import com.forteach.education.course.web.req.CourseImagesReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 import java.util.*;
-
 import static com.forteach.education.common.keyword.Dic.*;
 
 /**
@@ -47,7 +44,7 @@ public class CourseServiceImpl implements CourseService {
      * 课程轮播图
      */
     @Resource
-    private CourseImagesRepository courseImagesRepository;
+    private CourseImagesService courseImagesService;
 
     /**
      * 集体备课课程共享资源
@@ -167,18 +164,19 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional(rollbackForClassName = "Exception")
     public void saveCourseImages(CourseImagesReq courseImagesReq) {
-        List<CourseImages> list = new ArrayList<>();
-        List<DataDatumVo> dataDatumVos = courseImagesReq.getImages();
-        for (int i = 0; i < dataDatumVos.size(); i++) {
-            DataDatumVo dataDatumVo = dataDatumVos.get(i);
-            list.add(CourseImages.builder()
-                    .courseId(courseImagesReq.getCourseId())
-                    .indexNum(i + 1)
-                    .imageName(dataDatumVo.getFileName())
-                    .imageUrl(dataDatumVo.getFileUrl())
-                    .build());
-        }
-        courseImagesRepository.saveAll(list);
+        courseImagesService.saveCourseImages(courseImagesReq.getCourseId(),courseImagesReq.getImages());
+//        List<CourseImages> list = new ArrayList<>();
+//        List<DataDatumVo> dataDatumVos = courseImagesReq.getImages();
+//        for (int i = 0; i < dataDatumVos.size(); i++) {
+//            DataDatumVo dataDatumVo = dataDatumVos.get(i);
+//            list.add(CourseImages.builder()
+//                    .courseId(courseImagesReq.getCourseId())
+//                    .indexNum(i + 1)
+//                    .imageName(dataDatumVo.getFileName())
+//                    .imageUrl(dataDatumVo.getFileUrl())
+//                    .build());
+//        }
+//        courseImagesRepository.saveAll(list);
     }
 
 
@@ -202,7 +200,7 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public List<CourseImages> findImagesByCourseId(String courseId) {
-        return courseImagesRepository.findByIsValidatedEqualsAndCourseIdOrderByIndexNumAsc(TAKE_EFFECT_OPEN, courseId);
+        return courseImagesService.findImagesByCourseId(courseId);
     }
 
 
