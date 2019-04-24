@@ -8,6 +8,7 @@ import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.information.domain.Article;
 import com.forteach.education.information.service.ArticleService;
 import com.forteach.education.information.web.req.article.*;
+import com.forteach.education.information.web.req.myArticle.DeleteMyArticleRequest;
 import com.forteach.education.information.web.res.article.ArticleListResponse;
 import com.forteach.education.information.web.res.article.ArticleResponse;
 import com.forteach.education.information.web.res.article.ArticleStuListResponse;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -211,8 +213,37 @@ public class ArticleController  {
 	/**
 	 * 点赞数量增加
 	 */
-	@PostMapping("/addClickGood")
-	public WebResult addClickGood(addClickGoodRequest req){
-		return WebResult.okResult(articleService.addClickGood(req.getArticleId()));
+	@PostMapping("/addGood")
+	public WebResult addClickGood(@RequestBody AddClickGoodRequest req){
+		return WebResult.okResult(String.valueOf(articleService.addClickGood(req.getArticleId(),req.getUserId())));
+	}
+
+	/**
+	 * 收藏数量增加
+	 */
+	@PostMapping("/addCollect")
+	public WebResult addCollect(@RequestBody AddClickGoodRequest req){
+		return WebResult.okResult(String.valueOf(articleService.addCollectCount(req.getArticleId(),req.getUserId())));
+	}
+
+//	/**
+//	 * 删除点赞记录
+//	 * @param req
+//	 * @return
+//	 */
+//	@PostMapping("/delGood")
+//	public WebResult delGood(@RequestBody DeleteMyArticleRequest req) {
+//		return WebResult.okResult(articleService.delGood(req.getArticleId(),req.getUserId()));
+//	}
+
+	/**
+	 * 删除收藏记录
+	 * @param req
+	 * @return
+	 */
+
+	@PostMapping("/delCollect")
+	public WebResult deleteCollect(@RequestBody DeleteMyArticleRequest req) {
+		return WebResult.okResult(articleService.delCollect(req.getArticleId(), req.getUserId()));
 	}
 }

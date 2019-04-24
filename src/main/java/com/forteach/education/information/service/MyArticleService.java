@@ -79,7 +79,7 @@ public class MyArticleService {
 
 	@Transactional
 	public String deleteMyArticle(String articleId,String userId,int tagType) {
-		 myArticleDao.deleteByUserIdAndArticleIdAndTagType(articleId,userId,tagType);
+		 myArticleDao.deleteByUserIdAndArticleIdAndTagType(userId,articleId,tagType);
 		return "Y";
 	}
 

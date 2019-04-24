@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.information.web.control.ArticleController;
+import com.forteach.education.information.web.req.article.AddClickGoodRequest;
 import com.forteach.education.information.web.req.article.ByIdRequest;
 import com.forteach.education.information.web.req.article.FindAllRequest;
 import com.forteach.education.information.web.req.article.SaveArticleRequest;
-import com.forteach.education.information.web.req.article.addClickGoodRequest;
 import com.forteach.education.information.web.req.myArticle.DeleteMyArticleRequest;
 import com.forteach.education.web.vo.DataDatumVo;
 import lombok.extern.slf4j.Slf4j;
@@ -101,7 +101,7 @@ public class ArtcileControlTest {
     @Test
     public void addClickGood() {
 
-        addClickGoodRequest req = new addClickGoodRequest();
+        AddClickGoodRequest req = new AddClickGoodRequest();
         req.setArticleId("8044b4c211fc483dbed232a389c54d52");
         req.setUserId("1301331992031827761");
 
@@ -111,14 +111,14 @@ public class ArtcileControlTest {
     }
 
     @Test
-    public void delGood() {
+    public void deleteCollect() {
 
         DeleteMyArticleRequest req = new DeleteMyArticleRequest();
-        req.setArticleId("01");
-        req.setUserId("01");
+        req.setArticleId("8044b4c211fc483dbed232a389c54d52");
+        req.setUserId("1301331992031827761");
 
         log.info("request-----{}", JSON.toJSONString(req));
-        WebResult r = articleController.delGood(req);
+        WebResult r = articleController.deleteCollect(req);
         log.info("*********{}", JSON.toJSONString(r));
     }
 }
