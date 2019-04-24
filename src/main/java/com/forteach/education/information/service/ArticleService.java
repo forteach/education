@@ -234,9 +234,14 @@ public class ArticleService {
      */
     @Transactional
     public int addClickGood(String articleId,String userId) {
-        //记录点赞日志记录
-        MyArticle myArticle= myArticleService.setMyArticle("",userId,articleId,myArticleService.GOOD);
-        myArticleService.save(myArticle);
+
+        boolean result=myArticleService.exixtsMyArticle(articleId,userId,myArticleService.GOOD);
+        if(!result){
+            //记录点赞日志记录
+            MyArticle myArticle= myArticleService.setMyArticle("",userId,articleId,myArticleService.GOOD);
+            myArticleService.save(myArticle);
+        }
+
         //资讯点赞次数+1
         articleDao.addClickGood(articleId);
 
@@ -256,9 +261,13 @@ public class ArticleService {
      */
     @Transactional
     public int addCollectCount(String articleId,String userId) {
-        //记录收藏日志记录
-        MyArticle myArticle= myArticleService.setMyArticle("",userId,articleId,myArticleService.SHOUCANG);
-        myArticleService.save(myArticle);
+        boolean result=myArticleService.exixtsMyArticle(articleId,userId,myArticleService.SHOUCANG);
+        if(!result){
+            //记录收藏日志记录
+            MyArticle myArticle= myArticleService.setMyArticle("",userId,articleId,myArticleService.SHOUCANG);
+            myArticleService.save(myArticle);
+        }
+
         //资讯点赞次数+1
         articleDao.addCollectCount(articleId);
         String key="SHOUCANG".concat(articleId);
