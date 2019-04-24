@@ -8,7 +8,6 @@ import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.information.domain.Article;
 import com.forteach.education.information.service.ArticleService;
 import com.forteach.education.information.web.req.article.*;
-import com.forteach.education.information.web.req.myArticle.DeleteMyArticleRequest;
 import com.forteach.education.information.web.res.article.ArticleListResponse;
 import com.forteach.education.information.web.res.article.ArticleResponse;
 import com.forteach.education.information.web.res.article.ArticleStuListResponse;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,7 +36,7 @@ public class ArticleController  {
 	 */
 
 	@PostMapping("/saveOrUpdate")
-	public WebResult save(@RequestBody SaveArticleRequest request) {
+	public WebResult save(SaveArticleRequest request) {
 
 		Article article = null;
 		// 验证资讯信息
@@ -69,7 +67,7 @@ public class ArticleController  {
 	 * @return
 	 */
 	@PostMapping("/findId")
-	public WebResult findById(@RequestBody ByIdRequest req) {
+	public WebResult findById(ByIdRequest req) {
 		MyAssert.isNull(req.getId(), DefineCode.ERR0010,"编号不能为空");
 		Article article = articleService.findById(req.getId());
 		return WebResult.okResult(article);
@@ -81,7 +79,7 @@ public class ArticleController  {
 	 * @return
 	 */
 	@PostMapping("/delId")
-	public WebResult deleteArticleById(@RequestBody ByIdRequest req) {
+	public WebResult deleteArticleById(ByIdRequest req) {
 		MyAssert.isNull(req.getId(), DefineCode.ERR0010,"编号不能为空");
 		int result = articleService.deleteArticleById(req.getId());
 		MyAssert.eq(result, 0, DefineCode.ERR0013, "删除文章失败");
@@ -94,7 +92,7 @@ public class ArticleController  {
 	 * @return
 	 */
 	@PostMapping("/findAllDesc")
-	public WebResult findAllDesc(@RequestBody FindAllRequest req){
+	public WebResult findAllDesc(FindAllRequest req){
 		SortVo sortVo = req.getSortVo();
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
 		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
@@ -150,7 +148,7 @@ public class ArticleController  {
 	 * @return
 	 */
 	@PostMapping("/findStuAllDesc")
-	public WebResult findStuAllDesc(@RequestBody FindAllRequest req){
+	public WebResult findStuAllDesc(FindAllRequest req){
 		SortVo sortVo = req.getSortVo();
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
 		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
@@ -208,39 +206,13 @@ public class ArticleController  {
 		return null;
 	}
 
+
+
 	/**
 	 * 点赞数量增加
 	 */
-	@PostMapping("/addGood")
-	public WebResult addClickGood(@RequestBody addClickGoodRequest req){
-		return WebResult.okResult(String.valueOf(articleService.addClickGood(req.getArticleId(),req.getUserId())));
-	}
-
-	/**
-	 * 收藏数量增加
-	 */
-	@PostMapping("/addCollect")
-	public WebResult addCollect(@RequestBody addClickGoodRequest req){
-		return WebResult.okResult(String.valueOf(articleService.addCollectCount(req.getArticleId(),req.getUserId())));
-	}
-
-//	/**
-//	 * 删除点赞记录
-//	 * @param req
-//	 * @return
-//	 */
-//	@PostMapping("/delGood")
-//	public WebResult delGood(@RequestBody DeleteMyArticleRequest req) {
-//		return WebResult.okResult(articleService.delGood(req.getArticleId(),req.getUserId()));
-//	}
-
-	/**
-	 * 删除收藏记录
-	 * @param req
-	 * @return
-	 */
-	@PostMapping("/delCollect")
-	public WebResult deleteMyArticle(@RequestBody DeleteMyArticleRequest req) {
-		return WebResult.okResult(articleService.delCollect(req.getArticleId(),req.getUserId()));
+	@PostMapping("/addClickGood")
+	public WebResult addClickGood(addClickGoodRequest req){
+		return WebResult.okResult(articleService.addClickGood(req.getArticleId()));
 	}
 }
