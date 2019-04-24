@@ -56,11 +56,11 @@ public class Article extends Entitys implements Serializable {
     private String userId;
 
     /** 发布人名称.**/
-    @Column(length = 40, nullable = false, name = "user_name")
+    @Column(length = 40,  name = "user_name")
     private String userName;
 
     /** 发布人头像.**/
-    @Column(length = 255, nullable = false, name = "user_tortrait")
+    @Column(length = 255,  name = "user_tortrait")
     private String userTortrait;
 
     /** 班级编号.**/
@@ -68,7 +68,7 @@ public class Article extends Entitys implements Serializable {
     private String classId;
 
     /** 班级名称.**/
-    @Column(length = 40, nullable = false, name = "class_name")
+    @Column(length = 40,  name = "class_name")
     private String className;
 
     /** 文章题目.**/

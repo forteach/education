@@ -1,17 +1,18 @@
 package com.forteach.education.information.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import java.util.List;
+import java.util.Optional;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.classes.domain.Classes;
 import com.forteach.education.classes.service.ClassesService;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
+import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.images.course.service.ArtIcleImagesService;
 import com.forteach.education.information.domain.Article;
+import com.forteach.education.information.domain.MyArticle;
 import com.forteach.education.information.dto.IArticle;
 import com.forteach.education.information.repository.ArticleDao;
 import com.forteach.education.information.web.req.article.SaveArticleRequest;
@@ -21,6 +22,7 @@ import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.vo.DataDatumVo;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,6 +57,9 @@ public class ArticleService {
     @Resource
     private HashOperations<String, String, String> hashOperations;
 
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+
     @Transactional
     public Article save(Article article,List<DataDatumVo> dataList) {
 
@@ -83,10 +88,6 @@ public class ArticleService {
     private String findStudentsName(final String id) {
 
         String key=STUDENT_ADO.concat(id);
-//        Map<String, String> map = new HashMap();
-//        map.put("name","test");
-//        map.put("portrait","123");
-//        hashOperations.putAll(key+"1",map);
         return hashOperations.get(key, "name");
     }
 
@@ -118,6 +119,19 @@ public class ArticleService {
             UpdateUtil.copyProperties(request, art);
             art.setCreateTime(createTime);
 
+        }else {
+            art = new Article();
+            UpdateUtil.copyNullProperties(request, art);
+            art.setArticleId(IdUtil.fastSimpleUUID());
+            art.setCreateUser(request.getUserId());
+            art.setIsNice("false");
+
+            //初始化点击量数据
+            String sckey="SHOUCANG".concat(art.getArticleId());
+            String gdkey="GOOD".concat(art.getArticleId());
+            stringRedisTemplate.opsForValue().set(sckey,"0");
+            stringRedisTemplate.opsForValue().set(gdkey,"0");
+
             //获得班级信息
             Classes cla=classesService.findById(request.getClassId());
             MyAssert.isNull(cla, DefineCode.ERR0013,"班级信息不存在");
@@ -129,13 +143,13 @@ public class ArticleService {
             //学生头像
             art.setUserTortrait(findStudentsPortrait(request.getUserId()));
 
-        }else {
-            art = new Article();
-            UpdateUtil.copyNullProperties(request, art);
-            art.setArticleId(IdUtil.fastSimpleUUID());
-            art.setCreateUser(request.getUserId());
-            art.setIsNice("false");
+
+            //记录我的发布信息
+            MyArticle myArticle= myArticleService.setMyArticle("",art.getUserId(),art.getArticleId(),myArticleService.FABU);
+            myArticleService.save(myArticle);
         }
+
+
         return art;
     }
 
@@ -146,7 +160,9 @@ public class ArticleService {
      * @return
      */
     public Article findById(String id) {
-        return articleDao.findById(id).get();
+        Optional<Article> obj=articleDao.findById(id);
+        MyAssert.isNull(obj,DefineCode.ERR0013,"该信息不存在");
+        return obj.get();
     }
 
     /**
@@ -211,24 +227,61 @@ public class ArticleService {
     }
 
     /**
-     * 收藏
-     *
-     * @param id
-     * @return
-     */
-    public int addCollectCount(String id) {
-        return articleDao.addCollectCount(id);
-    }
-
-    /**
      * 点赞
      *
      * @param articleId
      * @return
      */
-    public int addClickGood(String articleId) {
-        return articleDao.addCollectCount(articleId);
+    @Transactional
+    public int addClickGood(String articleId,String userId) {
+        //记录点赞日志记录
+        MyArticle myArticle= myArticleService.setMyArticle("",userId,articleId,myArticleService.GOOD);
+        myArticleService.save(myArticle);
+        //资讯点赞次数+1
+        articleDao.addClickGood(articleId);
+
+        String key="GOOD".concat(articleId);
+        //if(stringRedisTemplate.hasKey(key)){
+        String count=stringRedisTemplate.opsForValue().get(key);
+        int newcount=Integer.valueOf(count).intValue()+1;
+        stringRedisTemplate.opsForValue().set(key,String.valueOf(newcount));
+        return newcount;
     }
+
+    /**
+     * 收藏
+     *
+     * @param articleId
+     * @return
+     */
+    @Transactional
+    public int addCollectCount(String articleId,String userId) {
+        //记录收藏日志记录
+        MyArticle myArticle= myArticleService.setMyArticle("",userId,articleId,myArticleService.SHOUCANG);
+        myArticleService.save(myArticle);
+        //资讯点赞次数+1
+        articleDao.addCollectCount(articleId);
+        String key="SHOUCANG".concat(articleId);
+        //if(stringRedisTemplate.hasKey(key)){
+            String count=stringRedisTemplate.opsForValue().get(key);
+            int newcount=Integer.valueOf(count).intValue()+1;
+            stringRedisTemplate.opsForValue().set(key,String.valueOf(newcount));
+            return newcount;
+       // }
+
+    }
+
+    @Transactional
+    public String delCollect(String articleId,String userId) {
+        return  myArticleService.deleteMyArticle(articleId,userId,myArticleService.SHOUCANG);
+    }
+
+    @Transactional
+    public String delGood(String articleId,String userId) {
+        return myArticleService.deleteMyArticle(articleId,userId,myArticleService.GOOD);
+    }
+
+
 
     @Transactional
     public int delMoreByArticleIds(List<String> articleIds) {

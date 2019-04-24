@@ -1,6 +1,7 @@
 package com.forteach.education.information.service;
 
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.forteach.education.information.domain.MyArticle;
 import com.forteach.education.information.repository.MyArticleDao;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -21,17 +23,30 @@ public class MyArticleService {
 	@Autowired
 	private MyArticleDao myArticleDao;
 
-	public MyArticle setMyArticle(String id,String userId,String articleId) {
-		MyArticle myArticle = myArticleDao.findById(id).get();
-		if (myArticle == null) {
+	/**
+	 *
+	 * @param id
+	 * @param userId
+	 * @param articleId
+	 * @param tagType  本人发布 点赞  收藏
+	 * @return
+	 */
+	public MyArticle setMyArticle(String id,String userId,String articleId,int tagType) {
+		MyArticle myArticle=null;
+
+		if (StrUtil.isBlank(id)) {
 			// 创建资讯DOMAIN对象
 			myArticle = new MyArticle();
 			myArticle.setId(IdUtil.fastSimpleUUID());
+		}else{
+			Optional<MyArticle> resulst = myArticleDao.findById(id);
+			myArticle=resulst.get();
 		}
 		// 获得页面设置的资讯值
 
 		myArticle.setUserId(userId);
 		myArticle.setArticleId(articleId);
+		myArticle.setTagType(tagType);
 		return myArticle;
 	}
 
