@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class addClickGoodRequest implements Serializable {
+public class AddClickGoodRequest implements Serializable {
 	/** 资讯编号. **/
 	private String articleId;
 	/** 点赞操作人 **/

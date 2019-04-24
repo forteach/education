@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +37,7 @@ public class ArticleController  {
 	 */
 
 	@PostMapping("/saveOrUpdate")
-	public WebResult save(SaveArticleRequest request) {
+	public WebResult save(@RequestBody SaveArticleRequest request) {
 
 		Article article = null;
 		// 验证资讯信息
@@ -67,7 +68,7 @@ public class ArticleController  {
 	 * @return
 	 */
 	@PostMapping("/findId")
-	public WebResult findById(ByIdRequest req) {
+	public WebResult findById(@RequestBody ByIdRequest req) {
 		MyAssert.isNull(req.getId(), DefineCode.ERR0010,"编号不能为空");
 		Article article = articleService.findById(req.getId());
 		return WebResult.okResult(article);
@@ -79,7 +80,7 @@ public class ArticleController  {
 	 * @return
 	 */
 	@PostMapping("/delId")
-	public WebResult deleteArticleById(ByIdRequest req) {
+	public WebResult deleteArticleById(@RequestBody ByIdRequest req) {
 		MyAssert.isNull(req.getId(), DefineCode.ERR0010,"编号不能为空");
 		int result = articleService.deleteArticleById(req.getId());
 		MyAssert.eq(result, 0, DefineCode.ERR0013, "删除文章失败");
@@ -92,7 +93,7 @@ public class ArticleController  {
 	 * @return
 	 */
 	@PostMapping("/findAllDesc")
-	public WebResult findAllDesc(FindAllRequest req){
+	public WebResult findAllDesc(@RequestBody FindAllRequest req){
 		SortVo sortVo = req.getSortVo();
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
 		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
@@ -148,7 +149,7 @@ public class ArticleController  {
 	 * @return
 	 */
 	@PostMapping("/findStuAllDesc")
-	public WebResult findStuAllDesc(FindAllRequest req){
+	public WebResult findStuAllDesc(@RequestBody FindAllRequest req){
 		SortVo sortVo = req.getSortVo();
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
 		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
@@ -212,7 +213,7 @@ public class ArticleController  {
 	 * 点赞数量增加
 	 */
 	@PostMapping("/addClickGood")
-	public WebResult addClickGood(addClickGoodRequest req){
+	public WebResult addClickGood(@RequestBody AddClickGoodRequest req){
 		return WebResult.okResult(articleService.addClickGood(req.getArticleId()));
 	}
 }
