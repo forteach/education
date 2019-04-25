@@ -95,7 +95,7 @@ public class ArticleController  {
 					.stream()
 					.map(item -> {
 						ArticleListResponse ar = new ArticleListResponse();
-						UpdateUtil.copyNullProperties(item, ar);
+						UpdateUtil.copyProperties(item, ar);
 						return ar;
 					})
 					.collect(toList()));
@@ -106,7 +106,7 @@ public class ArticleController  {
 					.stream()
 					.map(item -> {
 						ArticleListResponse ar = new ArticleListResponse();
-						UpdateUtil.copyNullProperties(item, ar);
+						UpdateUtil.copyProperties(item, ar);
 						return ar;
 					})
 					.collect(toList()));
@@ -117,7 +117,7 @@ public class ArticleController  {
 					.stream()
 					.map(item -> {
 						ArticleStuListResponse ar = new ArticleStuListResponse();
-						UpdateUtil.copyNullProperties(item, ar);
+						UpdateUtil.copyProperties(item, ar);
 						return ar;
 					})
 					.collect(toList()));
@@ -128,7 +128,7 @@ public class ArticleController  {
 					.stream()
 					.map(item -> {
 						ArticleListResponse ar = new ArticleListResponse();
-						UpdateUtil.copyNullProperties(item, ar);
+						UpdateUtil.copyProperties(item, ar);
 						return ar;
 					})
 					.collect(toList()));
@@ -151,7 +151,7 @@ public class ArticleController  {
 					.stream()
 					.map(item -> {
 						ArticleStuListResponse ar = new ArticleStuListResponse();
-						UpdateUtil.copyNullProperties(item, ar);
+						UpdateUtil.copyProperties(item, ar);
 						//设置是否收藏、发布、点赞
 						articleService.setStuTagType(ar,item.getArticleId(),req.getUserId());
 						return ar;
@@ -164,7 +164,7 @@ public class ArticleController  {
 					.stream()
 					.map(item -> {
 						ArticleStuListResponse ar = new ArticleStuListResponse();
-						UpdateUtil.copyNullProperties(item, ar);
+						UpdateUtil.copyProperties(item, ar);
 						//设置是否收藏、发布、点赞
 						articleService.setStuTagType(ar,item.getArticleId(),req.getStudentId());
 						return ar;
@@ -177,7 +177,7 @@ public class ArticleController  {
 					.stream()
 					.map(item -> {
 						ArticleStuListResponse ar = new ArticleStuListResponse();
-						UpdateUtil.copyNullProperties(item, ar);
+						UpdateUtil.copyProperties(item, ar);
 						//设置是否收藏、发布、点赞
 						articleService.setStuTagType(ar,item.getArticleId(),req.getStudentId());
 						return ar;
@@ -190,7 +190,7 @@ public class ArticleController  {
 					.stream()
 					.map(item -> {
 						ArticleStuListResponse ar = new ArticleStuListResponse();
-						UpdateUtil.copyNullProperties(item, ar);
+						UpdateUtil.copyProperties(item, ar);
 						//设置是否收藏、发布、点赞
 						articleService.setStuTagType(ar,item.getArticleId(),req.getStudentId());
 						return ar;
