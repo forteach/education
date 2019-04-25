@@ -105,6 +105,10 @@ public class CourseServiceImpl implements CourseService {
                 .getContent();
     }
 
+    @Override
+    public Course findByCourseId(String courseId){
+        return courseRepository.findByCourseId(courseId);
+    }
 
     /**
      * 分页查询我的课程科目
@@ -151,6 +155,8 @@ public class CourseServiceImpl implements CourseService {
         });
         return result;
     }
+
+
 
 
     @Override

@@ -8,8 +8,13 @@ public interface IArticle {
     /** 课程编号.**/
     public String getCourseId();
 
+    public String getCourseName();
+
     /** 文章题目.**/
     public String getTitle();
+
+    /** 文章简介.**/
+    public String getDescription();
 
     // 图片连接.**/
     public String getImgUrl();
@@ -38,8 +43,8 @@ public interface IArticle {
 
     public String getClassName();
 
-    /** 判断是否置顶.**/
-    public String getIsTop();
+    /** 判断是否精华.**/
+    public String getIsNice();
 
     /** 创建时间.**/
     public String getCreateTime();

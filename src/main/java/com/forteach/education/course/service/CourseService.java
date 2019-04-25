@@ -29,6 +29,8 @@ public interface CourseService {
 
     public void delete(Course course);
 
+    public Course findByCourseId(String courseId);
+
     public List<ICourseListDto> findAll(PageRequest page);
 
     public Map<String, Object> getCourseById(String courseId);

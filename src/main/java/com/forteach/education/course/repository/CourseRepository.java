@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface CourseRepository extends JpaRepository<Course, String> {
 
+    public Course findByCourseId(String courseId);
+
     /**
      * 分页查询所有有效课程
      *

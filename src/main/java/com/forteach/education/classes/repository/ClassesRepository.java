@@ -17,6 +17,8 @@ import java.util.List;
  */
 public interface ClassesRepository extends JpaRepository<Classes, String> {
 
+    public Classes findByClassId(String classId);
+
     /**
      * 查询所用班级信息倒叙排列
      * @param isValidated

@@ -49,6 +49,10 @@ public class Article extends Entitys implements Serializable {
     @Column(length = 40, nullable = false, name = "course_Id")
     private String courseId;
 
+    /** 课程编号.**/
+    @Column(length = 40,  name = "course_name")
+    private String courseName;
+
     /** 发布人编号.**/
     @Column(length = 40, nullable = false, name = "user_id")
     private String userId;

@@ -8,6 +8,8 @@ import com.forteach.education.classes.domain.Classes;
 import com.forteach.education.classes.service.ClassesService;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
+import com.forteach.education.course.domain.Course;
+import com.forteach.education.course.service.CourseService;
 import com.forteach.education.images.course.service.ArtIcleImagesService;
 import com.forteach.education.information.domain.Article;
 import com.forteach.education.information.domain.MyArticle;
@@ -50,6 +52,9 @@ public class ArticleService {
 
     @Autowired
     private MyArticleService myArticleService;
+
+    @Autowired
+    private CourseService courseService;
 
     @Resource
     private HashOperations<String, String, String> hashOperations;
@@ -137,11 +142,15 @@ public class ArticleService {
             //设置班级名称
             art.setClassName(cla.getClassName());
 
+            //获得课程名称
+            Course course=courseService.findByCourseId(request.getCourseId());
+            MyAssert.isNull(course, DefineCode.ERR0013,"课程信息不存在");
+            art.setCourseName(course.getCourseName());
+
             //学生名称
             art.setUserName(findStudentsName(request.getUserId()));
             //学生头像
             art.setUserTortrait(findStudentsPortrait(request.getUserId()));
-
 
             //记录我的发布信息
             MyArticle myArticle= myArticleService.setMyArticle("",art.getUserId(),art.getArticleId(),myArticleService.FABU);

@@ -23,6 +23,8 @@ public class ArticleStuListResponse implements Serializable {
 	/** 课程编号.**/
 	private String courseId;
 
+	private String courseName;
+
 	/** 文章题目.**/
 	private String title;
 
@@ -74,5 +76,7 @@ public class ArticleStuListResponse implements Serializable {
 
 	/** 班级名称.**/
 	private String className;
+
+	public String createTime;
 
 }

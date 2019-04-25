@@ -32,10 +32,10 @@ public class ArtcileControlTest {
     public void save() {
         SaveArticleRequest req = new SaveArticleRequest();
 //        req.setArticleId("29512c44cb704629a9de547528ead313");
-        req.setCourseId("2c9180846827407401682b57f4a60000");
-        req.setUserId("1301331992031827761");
+        req.setCourseId("071dac174343493cbd1b7ed3740a2ece");
+        req.setUserId("130133199203182776");
         req.setTitle("第一节心得");
-        req.setClassId("01");
+        req.setClassId("000016");
 //        req.setImgUrl("标题图片URL");
         req.setDescription("文章描述");
         req.setArticleConten("文章内容111");

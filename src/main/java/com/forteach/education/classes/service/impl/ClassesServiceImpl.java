@@ -77,7 +77,8 @@ public class ClassesServiceImpl implements ClassesService {
         }
     }
 
+    @Override
     public Classes findById(String id){
-        return classesRepository.findById(id).get();
+        return classesRepository.findByClassId(id);
     }
 }
