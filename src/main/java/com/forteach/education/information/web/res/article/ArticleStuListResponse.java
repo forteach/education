@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleStuListResponse implements Serializable {
+public class ArticleStuListResponse implements IArtTag,Serializable {
 
 	/** 文章编号.**/
 	private String articleId;

@@ -2,15 +2,9 @@ package com.forteach.education.information.service;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.forteach.education.common.config.MyAssert;
-import com.forteach.education.common.keyword.DefineCode;
-import com.forteach.education.information.domain.MyArticle;
 import com.forteach.education.information.domain.Notice;
-import com.forteach.education.information.repository.MyArticleDao;
 import com.forteach.education.information.repository.NoticeDao;
-import com.forteach.education.util.UpdateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

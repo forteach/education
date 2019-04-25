@@ -15,7 +15,7 @@ import com.forteach.education.information.domain.MyArticle;
 import com.forteach.education.information.dto.IArticle;
 import com.forteach.education.information.repository.ArticleDao;
 import com.forteach.education.information.web.req.article.SaveArticleRequest;
-import com.forteach.education.information.web.res.article.ArticleStuListResponse;
+import com.forteach.education.information.web.res.article.IArtTag;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.vo.DataDatumVo;
 import org.springframework.data.domain.Pageable;
@@ -31,19 +31,19 @@ import javax.annotation.Resource;
 public class ArticleService {
 
     //资讯信息在首页只显示6条数据
-    @Value("${com.yunfeng.pageSize:6}")
+    @Value("${com.pageSize:6}")
     private String articleHomePageSize;
 
-    /**
-     * 学生信息前缀
-     */
-    public static final String STUDENT_ADO = "studentsData$";
-
-    public static final String SHOUCANG="ShouCang";
-
-    public static final String GOOD="Good";
-
-    public static final String ARTCOMMENTREPLY="ArtCommentReply";
+//    /**
+//     * 学生信息前缀
+//     */
+//    public static final String STUDENT_ADO = "studentsData$";
+//
+//    public static final String SHOUCANG="ShouCang";
+//
+//    public static final String GOOD="Good";
+//
+//    public static final String ARTCOMMENTREPLY="ArtCommentReply";
 
 
     @Autowired
@@ -93,7 +93,7 @@ public class ArticleService {
      * @return
      */
     private String findStudentsName(final String id) {
-        String key=STUDENT_ADO.concat(id);
+        String key=ArticleKey.STUDENT_ADO.concat(id);
         return hashOperations.get(key, "name");
     }
 
@@ -104,7 +104,7 @@ public class ArticleService {
      * @return
      */
     private String findStudentsPortrait(final String id) {
-        return hashOperations.get(STUDENT_ADO.concat(id), "portrait");
+        return hashOperations.get(ArticleKey.STUDENT_ADO.concat(id), "portrait");
     }
 
     /**
@@ -134,9 +134,9 @@ public class ArticleService {
             art.setIsNice("false");
 
             //初始化点收藏、点赞、回复数量数据
-            String sckey=SHOUCANG.concat(art.getArticleId());
-            String gdkey=GOOD.concat(art.getArticleId());
-            String replykey=ARTCOMMENTREPLY.concat(art.getArticleId());
+            String sckey=ArticleKey.SHOUCANG.concat(art.getArticleId());
+            String gdkey=ArticleKey.GOOD.concat(art.getArticleId());
+            String replykey=ArticleKey.ARTCOMMENTREPLY.concat(art.getArticleId());
             stringRedisTemplate.opsForValue().set(sckey,"0");
             stringRedisTemplate.opsForValue().set(gdkey,"0");
             stringRedisTemplate.opsForValue().set(replykey,"0");
@@ -206,7 +206,7 @@ public class ArticleService {
      * @param articleId
      * @param userId
      */
-    public void setStuTagType(ArticleStuListResponse ar,String articleId,String userId){
+    public void setStuTagType(IArtTag ar, String articleId, String userId){
 
         //设置是否点赞
         ar.setIsClickGood(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,myArticleService.GOOD)));
@@ -257,7 +257,7 @@ public class ArticleService {
         //资讯点赞次数+1
         articleDao.addClickGood(articleId);
 
-        String key=GOOD.concat(articleId);
+        String key=ArticleKey.GOOD.concat(articleId);
 
         String count=stringRedisTemplate.opsForValue().get(key);
         int newcount=Integer.valueOf(count).intValue()+1;
@@ -282,7 +282,7 @@ public class ArticleService {
 
         //资讯点赞次数+1
         articleDao.addCollectCount(articleId);
-        String key=SHOUCANG.concat(articleId);
+        String key=ArticleKey.SHOUCANG.concat(articleId);
         //if(stringRedisTemplate.hasKey(key)){
             String count=stringRedisTemplate.opsForValue().get(key);
             int newcount=Integer.valueOf(count).intValue()+1;

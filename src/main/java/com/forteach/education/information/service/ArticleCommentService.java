@@ -6,7 +6,6 @@ import cn.hutool.core.util.StrUtil;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.information.domain.ArticleComment;
-import com.forteach.education.information.dto.IArticle;
 import com.forteach.education.information.repository.ArticleCommentDao;
 import com.forteach.education.information.web.req.artComment.SaveArtCommentRequest;
 import com.forteach.education.util.UpdateUtil;
@@ -26,7 +25,7 @@ import java.util.Optional;
 public class ArticleCommentService {
 
     //资讯信息在首页只显示6条数据
-    @Value("${com.yunfeng.pageSize:6}")
+    @Value("${com.pageSize:6}")
     private String articleHomePageSize;
 
     /**
@@ -71,11 +70,11 @@ public class ArticleCommentService {
 
 
             //初始化点击量数据
-            String artcommentkey="ARTCOMMENTGOOD".concat(artcomment.getCommentId());
+            String artcommentkey=ArticleKey.ARTCOMMENTGOOD.concat(artcomment.getCommentId());
             stringRedisTemplate.opsForValue().set(artcommentkey,"0");
 
             //增加资讯回复数量
-            String replykey="ARTCOMMENTREPLY".concat(request.getArticleId());
+            String replykey=ArticleKey.ARTCOMMENTREPLY.concat(request.getArticleId());
             String count=stringRedisTemplate.opsForValue().get(replykey);
             int newcount=Integer.valueOf(count).intValue()+1;
             stringRedisTemplate.opsForValue().set(replykey,String.valueOf(newcount));
@@ -138,7 +137,7 @@ public class ArticleCommentService {
         //资讯点赞次数+1
         articleCommentDao.addGoodCount(commentId);
 
-        String key="ARTCOMMENTGOOD".concat(commentId);
+        String key=ArticleKey.ARTCOMMENTGOOD.concat(commentId);
 
         String count=stringRedisTemplate.opsForValue().get(key);
         int newcount=Integer.valueOf(count).intValue()+1;

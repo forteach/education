@@ -50,7 +50,7 @@ public class ArticleController  {
 
 		ArticleResponse res=new ArticleResponse();
 
-		UpdateUtil.copyNullProperties(article, res);
+		UpdateUtil.copyProperties(article, res);
 		// 调用save方法
 		return WebResult.okResult(res);
 
@@ -65,6 +65,10 @@ public class ArticleController  {
 	public WebResult findById(@RequestBody ByIdRequest req) {
 		MyAssert.isNull(req.getId(), DefineCode.ERR0010,"编号不能为空");
 		Article article = articleService.findById(req.getId());
+		ArticleResponse res=new ArticleResponse();
+		UpdateUtil.copyProperties(article, res);
+		//设置是否收藏、发布、点赞
+		articleService.setStuTagType(res,article.getArticleId(),article.getUserId());
 		return WebResult.okResult(article);
 	}
 
