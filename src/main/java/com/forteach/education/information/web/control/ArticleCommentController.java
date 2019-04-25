@@ -36,7 +36,7 @@ public class ArticleCommentController {
 	 */
 
 	@PostMapping("/saveOrUpdate")
-	public WebResult save(SaveArtCommentRequest request) {
+	public WebResult save(@RequestBody SaveArtCommentRequest request) {
 
 		MyAssert.isNull(request.getArticleId(), DefineCode.ERR0010,"资料编号不能为空");
 		MyAssert.isNull(request.getUserId(), DefineCode.ERR0010,"评论人编号不能为空");
@@ -58,7 +58,7 @@ public class ArticleCommentController {
 	 * @return
 	 */
 	@PostMapping("/findArticleId")
-	public WebResult findArticleComment(FindArticleIdRequest req){
+	public WebResult findArticleComment(@RequestBody FindArticleIdRequest req){
 		String artId=req.getArticleId();
 		MyAssert.isNull(artId, DefineCode.ERR0010,"资料编号不能为空");
 		SortVo sortVo = req.getSortVo();

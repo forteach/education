@@ -2,13 +2,10 @@ package com.forteach.education.information.web.control;
 
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
-import com.forteach.education.information.service.MyArticleService;
 import com.forteach.education.information.service.NoticeService;
-import com.forteach.education.information.web.req.myArticle.DeleteMyArticleRequest;
 import com.forteach.education.information.web.req.notice.ByIdNoticeRequest;
 import com.forteach.education.information.web.req.notice.FindIsValListRequest;
 import com.forteach.education.information.web.req.notice.SaveNoticeRequest;
-import com.forteach.education.information.web.res.article.ArticleStuListResponse;
 import com.forteach.education.information.web.res.notice.ListNoticeResponse;
 import com.forteach.education.util.UpdateUtil;
 import io.swagger.annotations.Api;
@@ -33,23 +30,24 @@ public class NoticeController {
 	private NoticeService noticeService;
 
 	@PostMapping("/save")
-	public WebResult saveMyArticle(SaveNoticeRequest request) {
+	public WebResult saveMyArticle(@RequestBody SaveNoticeRequest request) {
 		return WebResult.okResult(noticeService.save(request.getNoticeId(),request.getContent(),request.getArea()));
 	}
 
 	@PostMapping("/findById")
-	public WebResult findByUserIdtagType(ByIdNoticeRequest request) {
+	public WebResult findByUserIdtagType(@RequestBody ByIdNoticeRequest request) {
  		return WebResult.okResult(noticeService.findById(request.getNoticeId()));
 	}
 
 	/**
 	 * 根据Id删除公告
-	 * @param id
+	 * @param request
 	 * @return
 	 */
 	@PostMapping("/delNotice")
-	public WebResult deleteId(String id) {
-		return WebResult.okResult(noticeService.deleteByNoticeId(id));
+	public WebResult deleteId(@RequestBody ByIdNoticeRequest request) {
+
+		return WebResult.okResult(noticeService.deleteByNoticeId(request.getNoticeId()));
 	}
 
 

@@ -31,40 +31,40 @@ public class MyArticleController {
 //		MyArticle  myArticle=myArticleService.setMyArticle("",userId,articleId, tagType);
 //		return WebResult.okResult(myArticleService.save(myArticle));
 //	}
-
-	@PostMapping("/findUserIdtagType")
-	public WebResult findByUserIdtagType(String userId, int tagType) {
- 		return WebResult.okResult(myArticleService.findByUserIdtagType(userId,tagType));
-	}
-
-	/**
-	 * 根据Id删除资讯
-	 * @param id
-	 * @return
-	 */
-	@PostMapping("/delId")
-	public WebResult deleteId(String id) {
-		return WebResult.okResult(myArticleService.deleteMyArticleById(id));
-	}
-
-	/**
-	 * 删除点赞记录
-	 * @param req
-	 * @return
-	 */
-	@PostMapping("/delGood")
-	public WebResult delGood(@RequestBody DeleteMyArticleRequest req) {
-		return WebResult.okResult(myArticleService.deleteMyArticle(req.getArticleId(),req.getUserId(),myArticleService.GOOD));
-	}
-
-	/**
-	 * 删除收藏记录
-	 * @param req
-	 * @return
-	 */
-	@PostMapping("/delCollect")
-	public WebResult deleteMyArticle(@RequestBody DeleteMyArticleRequest req) {
-		return WebResult.okResult(myArticleService.deleteMyArticle(req.getArticleId(),req.getUserId(),myArticleService.SHOUCANG));
-	}
+//
+//	@PostMapping("/findUserIdtagType")
+//	public WebResult findByUserIdtagType(@RequestBody String userId, int tagType) {
+// 		return WebResult.okResult(myArticleService.findByUserIdtagType(userId,tagType));
+//	}
+//
+//	/**
+//	 * 根据Id删除资讯
+//	 * @param id
+//	 * @return
+//	 */
+//	@PostMapping("/delId")
+//	public WebResult deleteId(String id) {
+//		return WebResult.okResult(myArticleService.deleteMyArticleById(id));
+//	}
+//
+//	/**
+//	 * 删除点赞记录
+//	 * @param req
+//	 * @return
+//	 */
+//	@PostMapping("/delGood")
+//	public WebResult delGood(@RequestBody DeleteMyArticleRequest req) {
+//		return WebResult.okResult(myArticleService.deleteMyArticle(req.getArticleId(),req.getUserId(),myArticleService.GOOD));
+//	}
+//
+//	/**
+//	 * 删除收藏记录
+//	 * @param req
+//	 * @return
+//	 */
+//	@PostMapping("/delCollect")
+//	public WebResult deleteMyArticle(@RequestBody DeleteMyArticleRequest req) {
+//		return WebResult.okResult(myArticleService.deleteMyArticle(req.getArticleId(),req.getUserId(),myArticleService.SHOUCANG));
+//	}
 
 }
