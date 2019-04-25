@@ -13,4 +13,8 @@ public class ArticleKey {
     public static final String ARTCOMMENTREPLY="ArtCommentReply";
 
     public static final String ARTCOMMENTGOOD="ArtCommentGood";
+
+    public static final  int FABUVALUE=0;
+    public static final  int SHOUCANGVALUE=1;
+    public static final  int GOODVALUE=2;
 }

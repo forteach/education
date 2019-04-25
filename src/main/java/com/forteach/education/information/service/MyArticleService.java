@@ -17,10 +17,6 @@ import java.util.List;
 public class MyArticleService {
 
 	//MyArticle TagType 本人发布、收藏、点赞
-	public final  int FABU=0;
-	public final  int SHOUCANG=1;
-	public final  int GOOD=2;
-
 	@Autowired
 	private MyArticleDao myArticleDao;
 

@@ -158,7 +158,7 @@ public class ArticleService {
             art.setUserTortrait(findStudentsPortrait(request.getUserId()));
 
             //记录我的发布信息
-            MyArticle myArticle= myArticleService.setMyArticle("",art.getUserId(),art.getArticleId(),myArticleService.FABU);
+            MyArticle myArticle= myArticleService.setMyArticle("",art.getUserId(),art.getArticleId(),ArticleKey.FABUVALUE);
             myArticleService.save(myArticle);
         }
 
@@ -209,11 +209,11 @@ public class ArticleService {
     public void setStuTagType(IArtTag ar, String articleId, String userId){
 
         //设置是否点赞
-        ar.setIsClickGood(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,myArticleService.GOOD)));
+        ar.setIsClickGood(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,ArticleKey.GOODVALUE)));
         //设置是否收藏
-        ar.setIsCollect(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,myArticleService.SHOUCANG)));
+        ar.setIsCollect(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,ArticleKey.SHOUCANGVALUE)));
         //设置是否发布
-        ar.setIsMy(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,myArticleService.FABU)));
+        ar.setIsMy(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,ArticleKey.FABUVALUE)));
     }
 
     /**
@@ -273,10 +273,10 @@ public class ArticleService {
      */
     @Transactional
     public int addCollectCount(String articleId,String userId) {
-        boolean result=myArticleService.exixtsMyArticle(articleId,userId,myArticleService.SHOUCANG);
+        boolean result=myArticleService.exixtsMyArticle(articleId,userId,ArticleKey.SHOUCANGVALUE);
         if(!result){
             //记录收藏日志记录
-            MyArticle myArticle= myArticleService.setMyArticle("",userId,articleId,myArticleService.SHOUCANG);
+            MyArticle myArticle= myArticleService.setMyArticle("",userId,articleId,ArticleKey.SHOUCANGVALUE);
             myArticleService.save(myArticle);
         }
 
@@ -300,12 +300,12 @@ public class ArticleService {
 
     @Transactional
     public String delCollect(String articleId,String userId) {
-        return  myArticleService.deleteMyArticle(articleId,userId,myArticleService.SHOUCANG);
+        return  myArticleService.deleteMyArticle(articleId,userId,ArticleKey.SHOUCANGVALUE);
     }
 
     @Transactional
     public String delGood(String articleId,String userId) {
-        return myArticleService.deleteMyArticle(articleId,userId,myArticleService.GOOD);
+        return myArticleService.deleteMyArticle(articleId,userId,ArticleKey.GOODVALUE);
     }
 
     @Transactional
