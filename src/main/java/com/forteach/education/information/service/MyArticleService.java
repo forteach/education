@@ -2,6 +2,8 @@ package com.forteach.education.information.service;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.information.domain.MyArticle;
 import com.forteach.education.information.repository.MyArticleDao;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,9 +18,9 @@ import java.util.Optional;
 public class MyArticleService {
 
 	//MyArticle TagType 本人发布、收藏、点赞
-	public final static int FABU=0;
-	public final static int SHOUCANG=1;
-	public final static int GOOD=2;
+	public final  int FABU=0;
+	public final  int SHOUCANG=1;
+	public final  int GOOD=2;
 
 	@Autowired
 	private MyArticleDao myArticleDao;
@@ -37,10 +39,10 @@ public class MyArticleService {
 		if (StrUtil.isBlank(id)) {
 			// 创建资讯DOMAIN对象
 			myArticle = new MyArticle();
-			myArticle.setId(IdUtil.fastSimpleUUID());
+			myArticle.setPKid(IdUtil.fastSimpleUUID());
 		}else{
-			Optional<MyArticle> resulst = myArticleDao.findById(id);
-			myArticle=resulst.get();
+            myArticle = myArticleDao.findByPKid(id);
+            MyAssert.isNull(myArticle, DefineCode.ERR0013,"该信息不存在");
 		}
 		// 获得页面设置的资讯值
 

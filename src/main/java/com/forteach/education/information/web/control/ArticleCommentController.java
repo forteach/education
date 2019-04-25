@@ -1,5 +1,7 @@
 package com.forteach.education.information.web.control;
 
+import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.information.domain.ArticleComment;
@@ -36,6 +38,11 @@ public class ArticleCommentController {
 	@PostMapping("/saveOrUpdate")
 	public WebResult save(SaveArtCommentRequest request) {
 
+		MyAssert.isNull(request.getArticleId(), DefineCode.ERR0010,"资料编号不能为空");
+		MyAssert.isNull(request.getUserId(), DefineCode.ERR0010,"评论人编号不能为空");
+		MyAssert.isNull(request.getContent(), DefineCode.ERR0010,"评论内容不能为空");
+		MyAssert.isNull(request.getUserType(), DefineCode.ERR0010,"评论人类型不能为空");
+
 		ArticleComment artcomment=articleCommentService.save(request);
 
 		SaveArtCommentResponse res=new SaveArtCommentResponse();
@@ -53,6 +60,7 @@ public class ArticleCommentController {
 	@PostMapping("/findArticleId")
 	public WebResult findArticleComment(FindArticleIdRequest req){
 		String artId=req.getArticleId();
+		MyAssert.isNull(artId, DefineCode.ERR0010,"资料编号不能为空");
 		SortVo sortVo = req.getSortVo();
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
 			return WebResult.okResult(articleCommentService.findByArticleId(artId,page)
@@ -71,6 +79,7 @@ public class ArticleCommentController {
 	 */
 	@PostMapping("/addGood")
 	public WebResult addClickGood(@RequestBody AddCommentGoodRequest req){
+		MyAssert.isNull(req.getCommentId(), DefineCode.ERR0010,"评论编号不能为空");
 		return WebResult.okResult(String.valueOf(articleCommentService.addClickGood(req.getCommentId())));
 	}
 
@@ -79,6 +88,9 @@ public class ArticleCommentController {
 	 */
 	@PostMapping("/saveReply")
 	public WebResult saveReply(@RequestBody SaveReplyRequest req){
+		MyAssert.isNull(req.getReply(), DefineCode.ERR0010,"评论回复内容不能为空");
+		MyAssert.isNull(req.getCommentId(), DefineCode.ERR0010,"评论编号不能为空");
+		MyAssert.isNull(req.getReplyUserName(), DefineCode.ERR0010,"评论回复人不能为空");
 		return WebResult.okResult(String.valueOf(articleCommentService.saveReply(req.getReply(),req.getCommentId(),req.getReplyUserName())));
 	}
 

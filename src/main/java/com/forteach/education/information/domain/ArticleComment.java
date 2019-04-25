@@ -41,6 +41,10 @@ public class ArticleComment extends Entitys implements Serializable {
 	@Column(length = 40,  name = "user_name")
 	private String userName;
 
+	/** 评论文章用户类型（T：教师  S：学生）.**/
+	@Column( length = 2,name = "user_type")
+	private String userType;
+
 	/** 评论文章用户头像.**/
 	@Column(length = 255,  name = "user_tortrait")
 	private String userTortrait;

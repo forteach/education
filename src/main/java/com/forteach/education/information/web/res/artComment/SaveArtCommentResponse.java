@@ -34,4 +34,7 @@ public class SaveArtCommentResponse {
 	/** 评论的内容. **/
 	private String content;
 
+	//评论人员类型 S 学生  T 教师
+	private String userType;
+
 }

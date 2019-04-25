@@ -43,12 +43,6 @@ public class ArticleController  {
 		// 验证资讯信息
 		ArticleValide.saveValide(request);
 
-//		// 根据资讯编号未设置,判断为修改操作
-//		if (StrUtil.isNotBlank(request.getArticleId())) {
-//			// 根据资讯ID获得数据库详情
-//			article = articleService.findById(request.getArticleId());
-//		}
-
 		// 设置资讯数据
 		Article article = articleService.setDoMain(request);
 
@@ -222,6 +216,8 @@ public class ArticleController  {
 	 */
 	@PostMapping("/addCollect")
 	public WebResult addCollect(@RequestBody AddClickGoodRequest req){
+		MyAssert.isNull(req.getArticleId(), DefineCode.ERR0010,"资料编号不能为空");
+		MyAssert.isNull(req.getUserId(), DefineCode.ERR0010,"用户编号不能为空");
 		return WebResult.okResult(String.valueOf(articleService.addCollectCount(req.getArticleId(),req.getUserId())));
 	}
 
@@ -243,6 +239,8 @@ public class ArticleController  {
 
 	@PostMapping("/delCollect")
 	public WebResult deleteCollect(@RequestBody DeleteMyArticleRequest req) {
+		MyAssert.isNull(req.getArticleId(), DefineCode.ERR0010,"资料编号不能为空");
+		MyAssert.isNull(req.getUserId(), DefineCode.ERR0010,"用户编号不能为空");
 		return WebResult.okResult(articleService.delCollect(req.getArticleId(), req.getUserId()));
 	}
 }

@@ -167,8 +167,6 @@ public class ArticleCommentService {
      * @return
      */
     public List<ArticleComment> findByArticleId(String articleId, Pageable pageable) {
-
-
         return articleCommentDao.findByArticleIdOrderByCreateTimeDesc(articleId, pageable).getContent();
     }
 }

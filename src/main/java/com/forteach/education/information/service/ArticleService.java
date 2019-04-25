@@ -1,7 +1,6 @@
 package com.forteach.education.information.service;
 
 import java.util.List;
-import java.util.Optional;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.classes.domain.Classes;
@@ -17,7 +16,6 @@ import com.forteach.education.information.dto.IArticle;
 import com.forteach.education.information.repository.ArticleDao;
 import com.forteach.education.information.web.req.article.SaveArticleRequest;
 import com.forteach.education.information.web.res.article.ArticleStuListResponse;
-import com.forteach.education.util.RegexUtils;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.vo.DataDatumVo;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +38,13 @@ public class ArticleService {
      * 学生信息前缀
      */
     public static final String STUDENT_ADO = "studentsData$";
+
+    public static final String SHOUCANG="ShouCang";
+
+    public static final String GOOD="Good";
+
+    public static final String ARTCOMMENTREPLY="ArtCommentReply";
+
 
     @Autowired
     private ArticleDao articleDao;
@@ -67,6 +72,7 @@ public class ArticleService {
 
         //保存资讯内容图片列表信息
         if(dataList!=null&&dataList.size()>0){
+            MyAssert.isNull(dataList.get(0), DefineCode.ERR0013,"保存资料的图片信息不能为空");
             //设置列表头图片
             article.setImgUrl(dataList.get(0).getFileUrl());
             boolean saveImg=artIcleImagesService.saveImages(article.getArticleId(),dataList);
@@ -77,7 +83,6 @@ public class ArticleService {
         Article art = articleDao.save(article);
         // 返回对象为空，保存失败
         MyAssert.isNull(art, DefineCode.ERR0013,"保存资料内容失败");
-
         return art;
     }
 
@@ -88,7 +93,6 @@ public class ArticleService {
      * @return
      */
     private String findStudentsName(final String id) {
-
         String key=STUDENT_ADO.concat(id);
         return hashOperations.get(key, "name");
     }
@@ -117,6 +121,7 @@ public class ArticleService {
         // 是否获取已存在的用户信息
         if (StrUtil.isNotBlank(artId)) {
             art = findById(artId);
+            MyAssert.isNull(art, DefineCode.ERR0010,"资料信息不存在");
             String createTime=art.getCreateTime();
             UpdateUtil.copyProperties(request, art);
             art.setCreateTime(createTime);
@@ -129,9 +134,9 @@ public class ArticleService {
             art.setIsNice("false");
 
             //初始化点收藏、点赞、回复数量数据
-            String sckey="SHOUCANG".concat(art.getArticleId());
-            String gdkey="GOOD".concat(art.getArticleId());
-            String replykey="ARTCOMMENTREPLY".concat(art.getArticleId());
+            String sckey=SHOUCANG.concat(art.getArticleId());
+            String gdkey=GOOD.concat(art.getArticleId());
+            String replykey=ARTCOMMENTREPLY.concat(art.getArticleId());
             stringRedisTemplate.opsForValue().set(sckey,"0");
             stringRedisTemplate.opsForValue().set(gdkey,"0");
             stringRedisTemplate.opsForValue().set(replykey,"0");
@@ -242,18 +247,18 @@ public class ArticleService {
     @Transactional
     public int addClickGood(String articleId,String userId) {
 
-        boolean result=myArticleService.exixtsMyArticle(articleId,userId,myArticleService.GOOD);
-        if(!result){
-            //记录点赞日志记录
-            MyArticle myArticle= myArticleService.setMyArticle("",userId,articleId,myArticleService.GOOD);
-            myArticleService.save(myArticle);
-        }
+//        boolean result=myArticleService.exixtsMyArticle(articleId,userId,myArticleService.GOOD);
+//        if(!result){
+//            //记录点赞日志记录
+//            MyArticle myArticle= myArticleService.setMyArticle("",userId,articleId,myArticleService.GOOD);
+//            myArticleService.save(myArticle);
+//        }
+//
+//        //资讯点赞次数+1
+//        articleDao.addClickGood(articleId);
 
-        //资讯点赞次数+1
-        articleDao.addClickGood(articleId);
+        String key=GOOD.concat(articleId);
 
-        String key="GOOD".concat(articleId);
-        //if(stringRedisTemplate.hasKey(key)){
         String count=stringRedisTemplate.opsForValue().get(key);
         int newcount=Integer.valueOf(count).intValue()+1;
         stringRedisTemplate.opsForValue().set(key,String.valueOf(newcount));
@@ -277,7 +282,7 @@ public class ArticleService {
 
         //资讯点赞次数+1
         articleDao.addCollectCount(articleId);
-        String key="SHOUCANG".concat(articleId);
+        String key=SHOUCANG.concat(articleId);
         //if(stringRedisTemplate.hasKey(key)){
             String count=stringRedisTemplate.opsForValue().get(key);
             int newcount=Integer.valueOf(count).intValue()+1;
