@@ -66,7 +66,7 @@ public class ArticleCommentController {
 			return WebResult.okResult(articleCommentService.findByArticleId(artId,page)
 					.stream()
 					.map(item -> {
-						ArticleListResponse ar = new ArticleListResponse();
+						SaveArtCommentResponse ar = new SaveArtCommentResponse();
 						UpdateUtil.copyNullProperties(item, ar);
 						return ar;
 					})
