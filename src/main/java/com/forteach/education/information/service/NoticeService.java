@@ -52,4 +52,10 @@ public class NoticeService {
 		return noticeDao.findByIsValidatedOrderByCreateTimeDesc(isVal,pageable).getContent();
 	}
 
+	@Transactional
+	public String deleteByNoticeId(String noticeId){
+		 noticeDao.deleteByNoticeId(noticeId);
+		 return "Y";
+	}
+
 }

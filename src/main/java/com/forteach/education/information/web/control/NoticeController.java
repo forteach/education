@@ -1,73 +1,75 @@
 package com.forteach.education.information.web.control;
 
-
 import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.information.service.MyArticleService;
+import com.forteach.education.information.service.NoticeService;
 import com.forteach.education.information.web.req.myArticle.DeleteMyArticleRequest;
+import com.forteach.education.information.web.req.notice.ByIdNoticeRequest;
+import com.forteach.education.information.web.req.notice.FindIsValListRequest;
+import com.forteach.education.information.web.req.notice.SaveNoticeRequest;
+import com.forteach.education.information.web.res.article.ArticleStuListResponse;
+import com.forteach.education.information.web.res.notice.ListNoticeResponse;
+import com.forteach.education.util.UpdateUtil;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * 简单公告
  */
 @RestController
 @RequestMapping(path = "/notice", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "我的资讯资料", tags = {"我的资讯资料（收藏、发布）"})
+@Api(value = "简单公告", tags = {"公告类型（公开、课程）"})
 public class NoticeController {
 	@Autowired
-	private MyArticleService myArticleService;
+	private NoticeService noticeService;
 
-//	@PostMapping("/save")
-//	public WebResult saveMyArticle(SaveMyArticleRequest request) {
-//		String articleId = request.getArticleId();
-//		String userId = request.getUserId();
-//		String tagType=request.getTagType();//发布者编号
-//		//判断参数
-//		MyAssert.isNull(articleId, DefineCode.ERR0010,"编号不能为空");
-//		MyAssert.isNull(userId,DefineCode.ERR0010,"用户编号不能为空");
-//
-//		MyArticle  myArticle=myArticleService.setMyArticle("",userId,articleId, tagType);
-//		return WebResult.okResult(myArticleService.save(myArticle));
-//	}
+	@PostMapping("/save")
+	public WebResult saveMyArticle(SaveNoticeRequest request) {
+		return WebResult.okResult(noticeService.save(request.getNoticeId(),request.getContent(),request.getArea()));
+	}
 
-	@PostMapping("/findUserIdtagType")
-	public WebResult findByUserIdtagType(String userId, int tagType) {
- 		return WebResult.okResult(myArticleService.findByUserIdtagType(userId,tagType));
+	@PostMapping("/findById")
+	public WebResult findByUserIdtagType(ByIdNoticeRequest request) {
+ 		return WebResult.okResult(noticeService.findById(request.getNoticeId()));
 	}
 
 	/**
-	 * 根据Id删除资讯
+	 * 根据Id删除公告
 	 * @param id
 	 * @return
 	 */
-	@PostMapping("/delId")
+	@PostMapping("/delNotice")
 	public WebResult deleteId(String id) {
-		return WebResult.okResult(myArticleService.deleteMyArticleById(id));
+		return WebResult.okResult(noticeService.deleteByNoticeId(id));
 	}
 
-	/**
-	 * 删除点赞记录
-	 * @param req
-	 * @return
-	 */
-	@PostMapping("/delGood")
-	public WebResult delGood(@RequestBody DeleteMyArticleRequest req) {
-		return WebResult.okResult(myArticleService.deleteMyArticle(req.getArticleId(),req.getUserId(),myArticleService.GOOD));
-	}
 
 	/**
-	 * 删除收藏记录
-	 * @param req
+	 * 获得分页倒序列表记录
+	 * @param request
 	 * @return
 	 */
 	@PostMapping("/delCollect")
-	public WebResult deleteMyArticle(@RequestBody DeleteMyArticleRequest req) {
-		return WebResult.okResult(myArticleService.deleteMyArticle(req.getArticleId(),req.getUserId(),myArticleService.SHOUCANG));
+	public WebResult deleteMyArticle(@RequestBody FindIsValListRequest request) {
+		SortVo sortVo = request.getSortVo();
+		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
+		return WebResult.okResult(noticeService.findByIsValidatedDesc(request.getIsVal(),page)
+				.stream()
+				.map(item -> {
+					ListNoticeResponse ar = new ListNoticeResponse();
+					UpdateUtil.copyNullProperties(item, ar);
+					return ar;
+				})
+				.collect(toList()));
 	}
 
 }
