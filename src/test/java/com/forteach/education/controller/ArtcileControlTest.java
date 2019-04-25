@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.information.web.control.ArticleController;
-import com.forteach.education.information.web.req.article.AddClickGoodRequest;
-import com.forteach.education.information.web.req.article.ByIdRequest;
-import com.forteach.education.information.web.req.article.FindAllRequest;
-import com.forteach.education.information.web.req.article.SaveArticleRequest;
+import com.forteach.education.information.web.req.article.*;
 import com.forteach.education.information.web.req.myArticle.DeleteMyArticleRequest;
 import com.forteach.education.web.vo.DataDatumVo;
 import lombok.extern.slf4j.Slf4j;
@@ -107,6 +104,18 @@ public class ArtcileControlTest {
 
         log.info("request-----{}", JSON.toJSONString(req));
         WebResult r = articleController.addClickGood(req);
+        log.info("*********{}", JSON.toJSONString(r));
+    }
+
+    @Test
+    public void addNice() {
+
+        AddNiceRequest req = new AddNiceRequest();
+        req.setArticleId("6bb9f828b87d4660b4d4b5947a17c96a");
+        req.setValue("true");
+
+        log.info("request-----{}", JSON.toJSONString(req));
+        WebResult r = articleController.addNice(req);
         log.info("*********{}", JSON.toJSONString(r));
     }
 

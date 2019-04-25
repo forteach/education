@@ -293,6 +293,12 @@ public class ArticleService {
     }
 
     @Transactional
+    public String  addNice(String articleId,String value){
+        articleDao.addNice(articleId,value);
+        return value;
+    }
+
+    @Transactional
     public String delCollect(String articleId,String userId) {
         return  myArticleService.deleteMyArticle(articleId,userId,myArticleService.SHOUCANG);
     }

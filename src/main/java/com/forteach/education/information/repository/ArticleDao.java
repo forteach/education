@@ -40,6 +40,17 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
 	@Query("update  Article  set isValidated='1' where articleId =?1")
 	public int deleteArticleById(String articleId);
 
+
+	/**
+	 * 精华
+	 * @param articleIds
+	 * @return
+	 */
+	@Modifying
+	@Query("update  Article  set isNice=?2 where articleId =?1")
+	public void addNice(String articleIds,String value);
+
+
 	/**
 	 * 收藏数量
 	 * @return

@@ -225,6 +225,16 @@ public class ArticleController  {
 		return WebResult.okResult(String.valueOf(articleService.addCollectCount(req.getArticleId(),req.getUserId())));
 	}
 
+	/**
+	 * 收藏数量增加
+	 */
+		@PostMapping("/addNice")
+	public WebResult addNice(@RequestBody AddNiceRequest req){
+		MyAssert.isNull(req.getArticleId(), DefineCode.ERR0010,"资料编号不能为空");
+		MyAssert.isNull(req.getValue(), DefineCode.ERR0010,"精华值不能为空");
+		return WebResult.okResult(String.valueOf(articleService.addNice(req.getArticleId(),req.getValue())));
+	}
+
 //	/**
 //	 * 删除点赞记录
 //	 * @param req
