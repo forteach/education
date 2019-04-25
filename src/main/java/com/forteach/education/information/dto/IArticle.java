@@ -29,8 +29,14 @@ public interface IArticle {
     /** 发布人编号.**/
     public String getUserId();
 
+    public String getUserName();
+
+    public String getUserTortrait();
+
     /** 班级编号.**/
     public String getClassId();
+
+    public String getClassName();
 
     /** 判断是否置顶.**/
     public String getIsTop();
