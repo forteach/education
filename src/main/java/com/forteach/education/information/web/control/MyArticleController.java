@@ -1,12 +1,9 @@
 package com.forteach.education.information.web.control;
 
-import com.forteach.education.common.config.MyAssert;
-import com.forteach.education.common.keyword.DefineCode;
+
 import com.forteach.education.common.keyword.WebResult;
-import com.forteach.education.information.domain.MyArticle;
 import com.forteach.education.information.service.MyArticleService;
 import com.forteach.education.information.web.req.myArticle.DeleteMyArticleRequest;
-import com.forteach.education.information.web.req.myArticle.SaveMyArticleRequest;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

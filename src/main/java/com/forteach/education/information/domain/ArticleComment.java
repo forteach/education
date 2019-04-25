@@ -16,11 +16,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Entity
-@Table(name = "art_comment")
-@org.hibernate.annotations.Table(appliesTo = "art_comment", comment = "文章评论")
+@Table(name = "article_comment")
+@org.hibernate.annotations.Table(appliesTo = "article_comment", comment = "文章评论")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment extends Entitys implements Serializable {
+public class ArticleComment extends Entitys implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,6 +36,14 @@ public class Comment extends Entitys implements Serializable {
 	/** 评论文章用户编号. **/
 	@Column(length = 32, nullable = false, name = "user_id")
 	private String userId;
+
+	/** 评论文章用户名称.**/
+	@Column(length = 40,  name = "user_name")
+	private String userName;
+
+	/** 评论文章用户头像.**/
+	@Column(length = 255,  name = "user_tortrait")
+	private String userTortrait;
 
 	/** 评论的内容. **/
 	@Column(length = 500, name = "content", nullable = false)
@@ -53,9 +61,9 @@ public class Comment extends Entitys implements Serializable {
 	@Column(length = 15, name = "ip_address")
 	private String ipAddress;
 
-	/** 评论审批状态. （0通过 、1 未通过） **/
-	@Column(name = "ap_status")
-	private int SpStatus;
+//	/** 评论审批状态. （0通过 、1 未通过） **/
+//	@Column(name = "ap_status")
+//	private int spStatus;
 	
  	/**评论点赞数量 **/
 	@Column(name="good_count")
@@ -65,12 +73,12 @@ public class Comment extends Entitys implements Serializable {
 	@Column(name="repost_count")
 	private int repostCount;
 	
-	/**评论楼层**/
-	@Column(name="floor")
-	private int floor;
+//	/**评论楼层**/
+//	@Column(name="floor")
+//	private int floor;
 	
 	/**回复人别名**/
-	@Column(length=32, name="re_alias")
-	private String reAlias;
+	@Column(length=32, name="reply_userNam")
+	private String replyUserName;
 
 }

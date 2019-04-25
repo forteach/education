@@ -40,18 +40,17 @@ public class ArticleController  {
 	@PostMapping("/saveOrUpdate")
 	public WebResult save(SaveArticleRequest request) {
 
-		Article article = null;
 		// 验证资讯信息
 		ArticleValide.saveValide(request);
 
-		// 根据资讯编号未设置,判断为修改操作
-		if (StrUtil.isNotBlank(request.getArticleId())) {
-			// 根据资讯ID获得数据库详情
-			article = articleService.findById(request.getArticleId());
-		}
+//		// 根据资讯编号未设置,判断为修改操作
+//		if (StrUtil.isNotBlank(request.getArticleId())) {
+//			// 根据资讯ID获得数据库详情
+//			article = articleService.findById(request.getArticleId());
+//		}
 
 		// 设置资讯数据
-		article = articleService.setDoMain(request);
+		Article article = articleService.setDoMain(request);
 
 		articleService.save(article,request.getImages());
 

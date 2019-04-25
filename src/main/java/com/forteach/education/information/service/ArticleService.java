@@ -1,6 +1,5 @@
 package com.forteach.education.information.service;
 
-
 import java.util.List;
 import java.util.Optional;
 import cn.hutool.core.util.IdUtil;
@@ -9,7 +8,6 @@ import com.forteach.education.classes.domain.Classes;
 import com.forteach.education.classes.service.ClassesService;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
-import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.images.course.service.ArtIcleImagesService;
 import com.forteach.education.information.domain.Article;
 import com.forteach.education.information.domain.MyArticle;
@@ -27,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 
 @Service
@@ -126,11 +123,13 @@ public class ArticleService {
             art.setCreateUser(request.getUserId());
             art.setIsNice("false");
 
-            //初始化点击量数据
+            //初始化点收藏、点赞、回复数量数据
             String sckey="SHOUCANG".concat(art.getArticleId());
             String gdkey="GOOD".concat(art.getArticleId());
+            String replykey="ARTCOMMENTREPLY".concat(art.getArticleId());
             stringRedisTemplate.opsForValue().set(sckey,"0");
             stringRedisTemplate.opsForValue().set(gdkey,"0");
+            stringRedisTemplate.opsForValue().set(replykey,"0");
 
             //获得班级信息
             Classes cla=classesService.findById(request.getClassId());
@@ -148,7 +147,6 @@ public class ArticleService {
             MyArticle myArticle= myArticleService.setMyArticle("",art.getUserId(),art.getArticleId(),myArticleService.FABU);
             myArticleService.save(myArticle);
         }
-
 
         return art;
     }
@@ -290,8 +288,6 @@ public class ArticleService {
         return myArticleService.deleteMyArticle(articleId,userId,myArticleService.GOOD);
     }
 
-
-
     @Transactional
     public int delMoreByArticleIds(List<String> articleIds) {
         return articleDao.delMoreByArticleIds(articleIds);
@@ -302,17 +298,17 @@ public class ArticleService {
         return articleDao.deleteArticleById(articleId);
     }
 
-
-    private String replaceImgWidth(String content) {
-        // 宽、高过滤的正则表达式
-        String reg1 = "<img (.*?)height=\"(.*?)\\\"";
-        String reg2 = "<img (.*?)width=\"(.*?)\\\"";
-
-        content = RegexUtils.replaceAll(content, reg1, "<img $1height=\"100%\\\"").toString();
-        content = RegexUtils.replaceAll(content, reg2, "<img $1width=\"100%\\\"").toString();
-
-        return content;
-    }
+//
+//    private String replaceImgWidth(String content) {
+//        // 宽、高过滤的正则表达式
+//        String reg1 = "<img (.*?)height=\"(.*?)\\\"";
+//        String reg2 = "<img (.*?)width=\"(.*?)\\\"";
+//
+//        content = RegexUtils.replaceAll(content, reg1, "<img $1height=\"100%\\\"").toString();
+//        content = RegexUtils.replaceAll(content, reg2, "<img $1width=\"100%\\\"").toString();
+//
+//        return content;
+//    }
 
 
 }

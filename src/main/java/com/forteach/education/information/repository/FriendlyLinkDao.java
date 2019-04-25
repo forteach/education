@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface FriendlyLinkDao extends JpaRepository<Article, String>, JpaSpecificationExecutor<FriendlyLink> {
+public interface FriendlyLinkDao extends JpaRepository<FriendlyLink, String>, JpaSpecificationExecutor<FriendlyLink> {
 
 
 }
