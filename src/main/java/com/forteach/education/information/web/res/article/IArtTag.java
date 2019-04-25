@@ -10,11 +10,11 @@ public interface IArtTag {
 
     public void setIsMy(String isMy);
 
-    public void getIsNice();
+    public String getIsNice();
 
-    public void getIsCollect();
+    public String getIsCollect();
 
-    public void getIsClickGood();
+    public String getIsClickGood();
 
-    public void getIsMy();
+    public String getIsMy();
 }

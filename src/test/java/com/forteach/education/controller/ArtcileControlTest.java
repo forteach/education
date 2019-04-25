@@ -63,7 +63,7 @@ public class ArtcileControlTest {
     @Test
     public void byId() {
         ByIdRequest req = new ByIdRequest();
-        req.setId("29512c44cb704629a9de547528ead313");
+        req.setId("f54d55f7a068459c820bf243b8300907");
 
         log.info("request-----{}", JSON.toJSONString(req));
         WebResult r = articleController.findById(req);

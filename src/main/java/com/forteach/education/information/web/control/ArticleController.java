@@ -69,7 +69,7 @@ public class ArticleController  {
 		UpdateUtil.copyProperties(article, res);
 		//设置是否收藏、发布、点赞
 		articleService.setStuTagType(res,article.getArticleId(),article.getUserId());
-		return WebResult.okResult(article);
+		return WebResult.okResult(res);
 	}
 
 	/**
