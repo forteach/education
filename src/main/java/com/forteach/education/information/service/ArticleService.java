@@ -158,9 +158,9 @@ public class ArticleService {
      * @return
      */
     public Article findById(String id) {
-        Optional<Article> obj=articleDao.findById(id);
+        Article obj=articleDao.findByArticleId(id);
         MyAssert.isNull(obj,DefineCode.ERR0013,"该信息不存在");
-        return obj.get();
+        return obj;
     }
 
     /**

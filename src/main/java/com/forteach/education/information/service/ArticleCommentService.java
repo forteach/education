@@ -121,9 +121,9 @@ public class ArticleCommentService {
      * @return
      */
     public ArticleComment findById(String id) {
-        Optional<ArticleComment> obj=articleCommentDao.findById(id);
+        ArticleComment obj=articleCommentDao.findByCommentId(id);
         MyAssert.isNull(obj,DefineCode.ERR0013,"该信息不存在");
-        return obj.get();
+        return obj;
     }
 
     /**

@@ -13,6 +13,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecificationExecutor<Article> {
 
+	public Article findByArticleId(String articleId);
+
 	/**
 	 * 分页查看资讯信息
 	 */

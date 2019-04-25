@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 
 public interface ArticleCommentDao extends JpaRepository<ArticleComment, String>, JpaSpecificationExecutor<ArticleComment> {
 
+    public ArticleComment findByCommentId(String CommentId);
 
     /**
      *评论回复
