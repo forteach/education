@@ -39,9 +39,9 @@ public class MyArticleService {
 		if (StrUtil.isBlank(id)) {
 			// 创建资讯DOMAIN对象
 			myArticle = new MyArticle();
-			myArticle.setPKid(IdUtil.fastSimpleUUID());
+			myArticle.setPkId(IdUtil.fastSimpleUUID());
 		}else{
-            myArticle = myArticleDao.findByPKid(id);
+            myArticle = myArticleDao.findByPkId(id);
             MyAssert.isNull(myArticle, DefineCode.ERR0013,"该信息不存在");
 		}
 		// 获得页面设置的资讯值

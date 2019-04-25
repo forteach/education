@@ -26,7 +26,7 @@ public class MyArticle extends Entitys implements Serializable {
 
 	@Id
 	@Column(length = 40, name = "pk_Id", nullable = false)
-	private String PKid;
+	private String pkId;
 
 	@Column(length = 40, name = "article_id", nullable = false)
 	private String articleId;//文章id

@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface MyArticleDao extends JpaRepository<MyArticle, String> {
 
-	public MyArticle findByPKid(String pkId);
+	public MyArticle findByPkId(String pkId);
 
 	public List<MyArticle> findByUserIdAndTagType(String userId, int tagType);
 
 	@Modifying
-	public void deleteById(String id);
+	public void deleteByPkId(String id);
 
 	@Modifying
 	public void deleteByUserIdAndArticleIdAndTagType(String articleId,String userId,int tagType);
