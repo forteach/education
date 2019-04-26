@@ -30,12 +30,12 @@ public class NoticeController {
 	private NoticeService noticeService;
 
 	@PostMapping("/save")
-	public WebResult saveMyArticle(@RequestBody SaveNoticeRequest request) {
+	public WebResult save(@RequestBody SaveNoticeRequest request) {
 		return WebResult.okResult(noticeService.save(request.getNoticeId(),request.getContent(),request.getArea()));
 	}
 
 	@PostMapping("/findById")
-	public WebResult findByUserIdtagType(@RequestBody ByIdNoticeRequest request) {
+	public WebResult findById(@RequestBody ByIdNoticeRequest request) {
  		return WebResult.okResult(noticeService.findById(request.getNoticeId()));
 	}
 
@@ -56,11 +56,11 @@ public class NoticeController {
 	 * @param request
 	 * @return
 	 */
-	@PostMapping("/delCollect")
-	public WebResult deleteMyArticle(@RequestBody FindIsValListRequest request) {
+	@PostMapping("/findAll")
+	public WebResult findAll(@RequestBody FindIsValListRequest request) {
 		SortVo sortVo = request.getSortVo();
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
-		return WebResult.okResult(noticeService.findByIsValidatedDesc(request.getIsVal(),page)
+		return WebResult.okResult(noticeService.findByIsValidatedDesc("0",page)
 				.stream()
 				.map(item -> {
 					ListNoticeResponse ar = new ListNoticeResponse();

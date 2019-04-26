@@ -25,13 +25,13 @@ public class NoticeService {
 	public Notice save(String noticeId,String content,String area) {
 
 		Notice nc=null;
-		if(StrUtil.isBlank(noticeId)){
+		if(StrUtil.isNotBlank(noticeId)){
 			nc=findById(noticeId);
 		}else{
 			nc=new Notice();
+			nc.setNoticeId(IdUtil.fastSimpleUUID());
 		}
 
-		nc.setNoticeId(IdUtil.fastSimpleUUID());
 		nc.setArea(area);
 		nc.setContent(content);
 		return noticeDao.save(nc);

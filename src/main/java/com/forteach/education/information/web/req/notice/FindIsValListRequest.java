@@ -24,9 +24,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ApiModel(value = "启用公告的倒序列表")
 public class FindIsValListRequest implements Serializable {
-
-    @ApiModelProperty(value = "是否可用", name = "isVal")
-    private String isVal;
+//
+//    @ApiModelProperty(value = "是否可用", name = "isVal")
+//    private String isVal;
 
     @ApiModelProperty(value = "分页排序字段", name = "sortVo")
     private SortVo sortVo = new SortVo();
