@@ -68,7 +68,6 @@ public class ArticleCommentService {
             artcomment.setCommentId(IdUtil.fastSimpleUUID());
             artcomment.setCreateUser(request.getUserId());
 
-
             //初始化点击量数据
             String artcommentkey=ArticleKey.ARTCOMMENTGOOD.concat(artcomment.getCommentId());
             stringRedisTemplate.opsForValue().set(artcommentkey,"0");
@@ -79,10 +78,15 @@ public class ArticleCommentService {
             int newcount=Integer.valueOf(count).intValue()+1;
             stringRedisTemplate.opsForValue().set(replykey,String.valueOf(newcount));
 
-            //学生名称
-            artcomment.setUserName(findStudentsName(request.getUserId()));
-            //学生头像
-            artcomment.setUserTortrait(findStudentsPortrait(request.getUserId()));
+            if(request.getUserType().equals("C")){
+                //学生名称
+                artcomment.setUserName(findStudentsName(request.getUserId()));
+                //学生头像
+                artcomment.setUserTortrait(findStudentsPortrait(request.getUserId()));
+            }else{
+                artcomment.setUserName("教师");
+                //TODO 添加教师头像路径？
+            }
 
         }
 
