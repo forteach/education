@@ -34,6 +34,8 @@ public class ArtCommentListResponse {
 	/** 评论的内容. **/
 	private String content;
 
+	private String createTime;
+
 	/** 回复的内容. **/
 	private String reContent;
 
