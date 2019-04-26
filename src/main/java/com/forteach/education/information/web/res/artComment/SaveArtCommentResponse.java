@@ -34,7 +34,19 @@ public class SaveArtCommentResponse {
 	/** 评论的内容. **/
 	private String content;
 
+	/** 回复的内容. **/
+	private String reContent;
+
+	/** 回复的时间. **/
+	private String reContenTime;
+
+	/**评论点赞数量 **/
+	private int goodCount;
+
 	//评论人员类型 S 学生  T 教师
 	private String userType;
+
+	/**评论点赞数量 **/
+	private String replyUserName;
 
 }
