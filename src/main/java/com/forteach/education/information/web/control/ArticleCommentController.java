@@ -10,6 +10,7 @@ import com.forteach.education.information.web.req.artComment.AddCommentGoodReque
 import com.forteach.education.information.web.req.artComment.FindArticleIdRequest;
 import com.forteach.education.information.web.req.artComment.SaveArtCommentRequest;
 import com.forteach.education.information.web.req.artComment.SaveReplyRequest;
+import com.forteach.education.information.web.res.artComment.ArtCommentListResponse;
 import com.forteach.education.information.web.res.artComment.SaveArtCommentResponse;
 import com.forteach.education.information.web.res.article.ArticleListResponse;
 import com.forteach.education.util.UpdateUtil;
@@ -66,7 +67,7 @@ public class ArticleCommentController {
 			return WebResult.okResult(articleCommentService.findByArticleId(artId,page)
 					.stream()
 					.map(item -> {
-						SaveArtCommentResponse ar = new SaveArtCommentResponse();
+						ArtCommentListResponse ar = new ArtCommentListResponse();
 						UpdateUtil.copyNullProperties(item, ar);
 						return ar;
 					})
