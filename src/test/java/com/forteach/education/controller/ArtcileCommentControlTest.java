@@ -50,7 +50,7 @@ public class ArtcileCommentControlTest {
     public void findArticleId() {
 
         FindArticleIdRequest req = new FindArticleIdRequest();
-        req.setArticleId("fc26d5f13e3746e9995d9c51f822f819");
+        req.setArticleId("9dd852dedb814442af6a4a4e49f0c1f4");
         SortVo sv = new SortVo();
         req.setSortVo(sv);
 
