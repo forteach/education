@@ -203,6 +203,13 @@ public class CourseController {
         return WebResult.okResult(courseService.myCourseList(classIdId));
     }
 
+    @UserLoginToken
+    @ApiOperation(value = "查询课程信息", notes = "查询同步的外部课程信息")
+    @GetMapping("/findCourseList")
+    public WebResult findCourseList(){
+        return WebResult.okResult(courseService.findCourseList());
+    }
+
 
     //******************************************************************************************************一下内容未修改
 

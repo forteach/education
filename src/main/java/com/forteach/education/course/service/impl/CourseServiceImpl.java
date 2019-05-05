@@ -7,8 +7,10 @@ import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.course.domain.Course;
+import com.forteach.education.course.domain.CourseEntity;
 import com.forteach.education.course.domain.CourseShare;
 import com.forteach.education.course.dto.ICourseListDto;
+import com.forteach.education.course.repository.CourseEntrityRepository;
 import com.forteach.education.course.repository.CourseRepository;
 import com.forteach.education.course.repository.TeacherClassCourseRepository;
 import com.forteach.education.course.service.CourseService;
@@ -60,6 +62,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Resource
     private TeacherClassCourseRepository teacherClassCourseRepository;
+
+    @Resource
+    private CourseEntrityRepository courseEntrityRepository;
 
     /**
      * 保存课程基本信息
@@ -244,4 +249,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
 
+    @Override
+    @Cacheable(value = "allCourseEntity", key = "#root.targetClass", unless = "#result eq null ")
+    public List<CourseEntity> findCourseList() {
+        return courseEntrityRepository.findByIsValidated(TAKE_EFFECT_OPEN);
+    }
 }
