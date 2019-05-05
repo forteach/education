@@ -1,5 +1,6 @@
 package com.forteach.education.information.web.control;
 
+import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
@@ -12,7 +13,6 @@ import com.forteach.education.information.web.req.artComment.SaveArtCommentReque
 import com.forteach.education.information.web.req.artComment.SaveReplyRequest;
 import com.forteach.education.information.web.res.artComment.ArtCommentListResponse;
 import com.forteach.education.information.web.res.artComment.SaveArtCommentResponse;
-import com.forteach.education.information.web.res.article.ArticleListResponse;
 import com.forteach.education.util.UpdateUtil;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import static java.util.stream.Collectors.toList;
 
 @RestController
@@ -87,6 +88,7 @@ public class ArticleCommentController {
 	/**
 	 * 点赞数量增加
 	 */
+	@UserLoginToken
 	@PostMapping("/saveReply")
 	public WebResult saveReply(@RequestBody SaveReplyRequest req){
 		MyAssert.isNull(req.getReply(), DefineCode.ERR0010,"评论回复内容不能为空");

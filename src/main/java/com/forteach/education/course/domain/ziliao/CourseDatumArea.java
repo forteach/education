@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Entity
@@ -18,7 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CourseDatumArea extends Entitys implements Serializable {
+public class CourseDatumArea extends Entitys {
 
     @EmbeddedId
     @ApiModelProperty(value = "资料领域主键", hidden = true)

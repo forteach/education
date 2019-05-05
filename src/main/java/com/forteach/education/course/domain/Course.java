@@ -7,10 +7,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 
 /**
  * @Description: 科目
@@ -22,13 +19,10 @@ import java.io.Serializable;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-
-
-
-
-
+@org.hibernate.annotations.Table(appliesTo = "course", comment = "科目")
+@Table(name = "course", indexes = {@Index(columnList = "course_id", name = "course_id_index")})
 @EqualsAndHashCode(callSuper = true)
-public class Course extends Entitys implements Serializable {
+public class Course extends Entitys {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,7 +45,7 @@ public class Course extends Entitys implements Serializable {
     @Column(name = "teaching_type", columnDefinition = "VARCHAR(32) COMMENT '1、录播课程 2、直播课程 3、线下课堂'")
     private String teachingType;
 
-    @Column(name = "lesson_preparation_type", columnDefinition = "INT COMMENT '备课类型　1、单人备课２、集体备课'")
+    @Column(name = "lesson_preparation_type", columnDefinition = "INT COMMENT '备课类型　1、单人备课 2、集体备课'")
     private String lessonPreparationType;
 
     @Column(name = "top_pic_src", columnDefinition = "VARCHAR(255) COMMENT'封面图片路径'")
@@ -59,5 +53,11 @@ public class Course extends Entitys implements Serializable {
 
     @Column(name = "course_describe", columnDefinition = "MEDIUMTEXT COMMENT'课程描述'")
     private String courseDescribe;
+
+    @Column(name = "average_score", columnDefinition = "VARCHAR(32) COMMENT '课程平均分数'")
+    private Integer averageScore;
+
+    @Column(name = "review_amount", columnDefinition = "INT COMMENT '评价数量'")
+    private Integer reviewAmount;
 
 }

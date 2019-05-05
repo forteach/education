@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * @Auther: zhangyy
@@ -26,7 +25,7 @@ import java.io.Serializable;
 @ApiModel(value = "章节资料库")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseData extends Entitys implements Serializable {
+public class CourseData extends Entitys {
 
     @Id
     @Column(name = "data_id", columnDefinition = "VARCHAR(32) COMMENT '资料编号'")

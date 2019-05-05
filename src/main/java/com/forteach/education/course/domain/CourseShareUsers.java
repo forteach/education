@@ -6,8 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
 /**
  * @Description: 课程内容协作访问成员
@@ -25,7 +23,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @IdClass(CourseShareUsersPk.class)
 @ApiModel(value = "课程内容协作访问成员")
-public class CourseShareUsers extends Entitys implements Serializable {
+public class CourseShareUsers extends Entitys {
 
     private static final long serialVersionUID = 1L;
 

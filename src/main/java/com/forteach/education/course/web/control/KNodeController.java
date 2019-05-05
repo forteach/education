@@ -1,6 +1,7 @@
 package com.forteach.education.course.web.control;
 
 import com.alibaba.fastjson.JSONObject;
+import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
@@ -32,6 +33,7 @@ public class KNodeController {
     @Resource
     private KNodeService kNodeService;
 
+    @UserLoginToken
     @ApiOperation(value = "保存知识点")
     @PostMapping("/save")
     @ApiImplicitParams({
@@ -80,6 +82,7 @@ public class KNodeController {
         return WebResult.okResult();
     }
 
+    @UserLoginToken
     @ApiOperation(value = "改知识点为无效状态")
     @PostMapping("/deleteIsValidById")
     @ApiImplicitParams({

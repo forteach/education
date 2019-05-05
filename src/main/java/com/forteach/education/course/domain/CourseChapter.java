@@ -1,15 +1,10 @@
 package com.forteach.education.course.domain;
 
 import com.forteach.education.common.domain.Entitys;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @Auther: zhangyy
@@ -27,7 +22,7 @@ import java.io.Serializable;
 @GenericGenerator(name = "system-uuid", strategy = "uuid")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseChapter extends Entitys implements Serializable {
+public class CourseChapter extends Entitys {
 
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
     private String courseId;

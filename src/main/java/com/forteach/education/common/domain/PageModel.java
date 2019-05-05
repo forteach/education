@@ -4,18 +4,28 @@ import java.util.List;
 
 public class PageModel<E> {
 
-	//结果集 
-    private List<E> list; 
-       
-    //查询记录数 
-    private int totalRecords; 
-       
-    //每页多少条数据 
-    private int pageSize; 
-       
-    //第几页 
-    private int pageNo; 
-    
+    /**
+     * 结果集
+     */
+    private List<E> list;
+
+    /**
+     * 查询记录数
+     */
+    private int totalRecords;
+
+    /**
+     * 每页多少条数据
+     */
+    private int pageSize;
+
+    /**
+     * 第几页
+     */
+    private int pageNo;
+    /**
+     * 总页数
+     */
     private int totalPages;
  
        

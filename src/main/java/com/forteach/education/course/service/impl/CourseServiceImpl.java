@@ -3,24 +3,30 @@ package com.forteach.education.course.service.impl;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.classes.web.req.RTeacher;
+import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.Dic;
-import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.course.domain.Course;
-import com.forteach.education.images.course.domain.CourseImages;
 import com.forteach.education.course.domain.CourseShare;
 import com.forteach.education.course.dto.ICourseListDto;
 import com.forteach.education.course.repository.CourseRepository;
+import com.forteach.education.course.repository.TeacherClassCourseRepository;
 import com.forteach.education.course.service.CourseService;
 import com.forteach.education.course.service.CourseShareService;
-import com.forteach.education.images.course.service.CourseImagesService;
 import com.forteach.education.course.web.req.CourseImagesReq;
+import com.forteach.education.course.web.res.CourseListResp;
+import com.forteach.education.images.course.domain.CourseImages;
+import com.forteach.education.images.course.service.CourseImagesService;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.*;
+
 import static com.forteach.education.common.keyword.Dic.*;
 
 /**
@@ -51,6 +57,9 @@ public class CourseServiceImpl implements CourseService {
      */
     @Resource
     private CourseShareService courseShareService;
+
+    @Resource
+    private TeacherClassCourseRepository teacherClassCourseRepository;
 
     /**
      * 保存课程基本信息
@@ -132,6 +141,31 @@ public class CourseServiceImpl implements CourseService {
     public Course getById(String id) {
         return courseRepository.findById(id)
                 .orElse(new Course());
+    }
+
+
+    /**
+     * 学生端查询我的课程信息
+     * @param classId
+     * @return
+     */
+    @Override
+    @Cacheable(value = "myCourseList", key = "#classId", sync = true)
+    public List<CourseListResp> myCourseList(String classId) {
+        List<CourseListResp> listRespList = Lists.newArrayList();
+        List<String> courseIds = teacherClassCourseRepository.findByClassId(classId);
+        courseRepository.findByIsValidatedEqualsAndCourseIdIn(TAKE_EFFECT_OPEN, courseIds)
+                .parallelStream()
+                .filter(Objects::nonNull)
+                .forEach(iCourseListDto -> {
+                    listRespList.add(CourseListResp.builder()
+                            .courseId(iCourseListDto.getCourseId())
+                            .courseName(iCourseListDto.getCourseName())
+                            .topPicSrc(iCourseListDto.getTopPicSrc())
+                            .courseDescribe(iCourseListDto.getCourseDescribe())
+                            .build());
+                });
+        return listRespList;
     }
 
     /**

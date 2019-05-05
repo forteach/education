@@ -41,6 +41,20 @@ public interface TokenService {
     String getStudentId(HttpServletRequest request);
 
     /**
+     * 查找老师id
+     * @param request
+     * @return
+     */
+    String getTeacherId(HttpServletRequest request);
+
+    /**
+     * 通过token 获取学生班级id信息
+     * @param request
+     * @return
+     */
+    String getClassId(HttpServletRequest request);
+
+    /**
      * 保存token 到redis
      * @param token
      * @param users

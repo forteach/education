@@ -1,6 +1,7 @@
 package com.forteach.education.databank.web.control;
 
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
@@ -43,6 +44,7 @@ public class ChapteDataController {
         this.chapterDataVerify = chapterDataVerify;
     }
 
+    @UserLoginToken
     @ApiOperation(value = "保存资料信息", notes = "{\"chapterId\":\"2c9180c067ee2be40167eeb29a7f0004\",\"courseId\":\"40288d5c67ed87b80167ed9569ed0000\",\"datumArea\":\"1\",\"datumType\":\"1\",\"files\":[{\"fileName\":\"工作汇报.docx\",\"fileUrl\":\"http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.docx\"}]}")
     @PostMapping("/save")
     @ApiImplicitParams({
@@ -69,6 +71,7 @@ public class ChapteDataController {
         return WebResult.okResult(chapteDataService.save(courseId, chapterId, datumArea, datumType, teachShare, stuShare, files));
     }
 
+    @UserLoginToken
     @ApiOperation(value = "保存资料信息", notes = "{\"chapterId\":\"2c9180c067ee2be40167eeb29a7f0004\",\"courseId\":\"40288d5c67ed87b80167ed9569ed0000\",\"datumArea\":\"1\",\"datumType\":\"1\",\"files\":[{\"fileName\":\"工作汇报.docx\",\"fileUrl\":\"http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.docx\"}]}")
     @PostMapping("/updateAreaAndShare")
     @ApiImplicitParams({
@@ -97,6 +100,7 @@ public class ChapteDataController {
         return WebResult.okResult(chapteDataService.updateAreaAndShare(courseId, chapterId, kNodeId, fileId, datumType, datumArea, teachShare, stuShare));
     }
 
+    @UserLoginToken
     @ApiOperation(value = "资料信息列表", notes = "{\"chapterId\":\"2c9180c067ee2be40167eeb29a7f0004\",\"courseId\":\"2c91808d678e620701679bfccf570000\",\"datumArea\":\"1\",\"sortVo\":{\"isValidated\":\"0\",\"page\":0,\"size\":15,\"sort\":1}}")
     @PostMapping("/findDatumList")
     @ApiImplicitParams({

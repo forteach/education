@@ -1,6 +1,7 @@
 package com.forteach.education.course.web.control;
 
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
@@ -42,6 +43,7 @@ public class CourseDataController {
     @Resource
     private CourseDataService courseDataService;
 
+    @UserLoginToken
     @ApiOperation(value = "保存挂接课程资料信息", notes = "保存挂接课程资料信息")
     @PostMapping("/save")
     @ApiImplicitParams({
@@ -56,6 +58,7 @@ public class CourseDataController {
 
     }
 
+    @UserLoginToken
     @ApiOperation(value = "保存资料信息", notes = "{\"chapterId\":\"2c9180c067ee2be40167eeb29a7f0004\",\"courseId\":\"40288d5c67ed87b80167ed9569ed0000\",\"datumArea\":\"1\",\"datumType\":\"1\",\"files\":[{\"fileName\":\"工作汇报.docx\",\"fileUrl\":\"http://118.24.120.43:8080/group1/M00/00/02/rBsADFwF5TuAKbfUAAKjQx3o88406.docx\"}]}")
     @PostMapping("/updateAreaAndShare")
     @ApiImplicitParams({
@@ -84,6 +87,7 @@ public class CourseDataController {
         return WebResult.okResult(courseDataService.updateAreaAndShare(courseId, chapterId, kNodeId, fileId, datumType, datumArea, teachShare, stuShare));
     }
 
+    @UserLoginToken
     @ApiOperation(value = "获得挂接课件资料列表", notes = "获得挂接课件资料列表")
     @PostMapping("/findDatumList")
     @ApiImplicitParams({

@@ -20,18 +20,18 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static com.forteach.education.information.service.ArticleKey.STUDENT_ADO;
+
 
 @Service
 public class ArticleCommentService {
 
-    //资讯信息在首页只显示6条数据
+    /**
+     * 资讯信息在首页只显示6条数据
+     */
     @Value("${com.pageSize:6}")
     private String articleHomePageSize;
 
-    /**
-     * 学生信息前缀
-     */
-    public static final String STUDENT_ADO = "studentsData$";
 
     @Autowired
     private ArticleCommentDao articleCommentDao;

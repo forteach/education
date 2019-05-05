@@ -3,8 +3,12 @@ package com.forteach.education.course.domain.ziliao;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 
-import javax.persistence.*;;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
+
+;
 
 
 /**
@@ -22,7 +26,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Photos extends AbsFile implements Serializable {
+public class Photos extends AbsFile {
 
     /**
      * 图集编号

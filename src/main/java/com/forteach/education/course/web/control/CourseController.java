@@ -26,10 +26,8 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -87,6 +85,7 @@ public class CourseController {
         return WebResult.okResult(courseSaveResp);
     }
 
+    @UserLoginToken
     @ApiOperation(value = "修改科目课程信息", notes = "修改科目信息")
     @PostMapping("/edit")
     @ApiImplicitParams({
@@ -115,6 +114,7 @@ public class CourseController {
     }
 
 
+    @UserLoginToken
     @PostMapping("/getCourse")
     @ApiOperation(value = "获取科目课程信息", notes = "根据科目课程ID查询科目信息")
     @ApiImplicitParams({
@@ -138,6 +138,7 @@ public class CourseController {
         return WebResult.okResult(reps);
     }
 
+    @UserLoginToken
     @ApiOperation(value = "分页查询", notes = "分页查询分页科目信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "sortVo", value = "分页参数息", dataTypeClass = CourseFindAllReq.class, example = "{\"sortVo\":{\"isValidated\":\"0\",\"page\":0,\"size\":15,\"sort\":1}}")
@@ -158,7 +159,7 @@ public class CourseController {
 
     @UserLoginToken
     @PostMapping("/findMyCourse")
-    @ApiOperation(value = "查询我的课程", notes = "分页查询我的课程信息")
+    @ApiOperation(value = "查询我的课程", notes = "教师端分页查询我的课程信息")
     @ApiImplicitParams({
 //            @ApiImplicitParam(name = "userId", value = "用户编号", required = true, dataType = "string", type = "string", example = "0001"),
             @ApiImplicitParam(name = "sortVo", value = "分页参数息", dataTypeClass = CourseFindAllReq.class, example = "{\"sortVo\":{\"isValidated\":\"0\",\"page\":0,\"size\":15,\"sort\":1}}", required = true, paramType = "query")
@@ -176,6 +177,7 @@ public class CourseController {
                 .collect(toList()));
     }
 
+    @UserLoginToken
     @PostMapping("/selectTeachersByShareId")
     @ApiOperation(value = "根据课程备课分享ID查询对应的协作老师信息")
     @ApiImplicitParams({
@@ -192,6 +194,16 @@ public class CourseController {
 
         return WebResult.okResult(list);
     }
+
+    @UserLoginToken
+    @ApiOperation(value = "学生查询我的课程信息", notes = "学生端查询我的课程信息")
+    @GetMapping(path = "/myCourseList")
+    public WebResult myCourseList(HttpServletRequest request){
+        String classIdId = tokenService.getClassId(request);
+        return WebResult.okResult(courseService.myCourseList(classIdId));
+    }
+
+
     //******************************************************************************************************一下内容未修改
 
     /**
@@ -200,6 +212,7 @@ public class CourseController {
      * @param courseId
      * @return
      */
+    @UserLoginToken
     @ApiOperation(value = "使其无效", notes = "删除科目信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
     @ApiImplicitParams({
@@ -211,6 +224,7 @@ public class CourseController {
         return WebResult.okResult();
     }
 
+    @UserLoginToken
     @ApiOperation(value = "删除科目信息", notes = "删除科目对象 (物理删除)")
     @PostMapping("/delete")
     @ApiImplicitParams({
@@ -223,6 +237,7 @@ public class CourseController {
         return WebResult.okResult();
     }
 
+    @UserLoginToken
     @ApiOperation(value = "删除文件信息", notes = "根据文件资源ID 删除科目信息")
     @PostMapping("/deleteById")
     @ApiImplicitParams({
@@ -239,6 +254,7 @@ public class CourseController {
      * @param courseImagesReq
      * @return
      */
+    @UserLoginToken
     @PostMapping("/saveCourseImages")
     @ApiOperation(value = "保存课程科目轮播图", notes = "保存科目的轮播图")
     @ApiImplicitParams({
@@ -257,6 +273,7 @@ public class CourseController {
      * @param courseId
      * @return
      */
+    @UserLoginToken
     @PostMapping("/findImagesByCourseId")
     @ApiOperation(value = "查询课程轮播图", notes = "根据课程科目ID查询对应的轮播图")
     @ApiImplicitParams({

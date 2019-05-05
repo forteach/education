@@ -1,5 +1,6 @@
 package com.forteach.education.authority.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import static com.forteach.education.common.keyword.Dic.*;
+import static com.forteach.education.information.service.ArticleKey.STUDENT_ADO;
 
 /**
  * @Auther: zhangyy
@@ -73,10 +75,6 @@ public class TokenServiceImpl implements TokenService {
         return JWT.decode(token).getAudience().get(0);
     }
 
-    private String getType(String token, int index){
-        return JWT.decode(token).getAudience().get(index);
-    }
-
     @Override
     public String getStudentId(HttpServletRequest request){
         String token = request.getHeader("token");
@@ -87,8 +85,26 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
+    public String getTeacherId(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        if (TOKEN_TEACHER.equals(getType(token, 1))){
+            return JWT.decode(token).getAudience().get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public String getClassId(HttpServletRequest request) {
+        String studentId = this.getStudentId(request);
+        if (StrUtil.isNotBlank(studentId)){
+            return hashOperations.get(this.getKey(studentId), "classId");
+        }
+        return null;
+    }
+
+    @Override
     public void saveRedis(String token, SysUsers users) {
-        String key = USER_TOKEN_PREFIX.concat(users.getId());
+        String key = this.getKey(users.getId());
         Map<String, String> map = new HashMap<>(4);
         map.put("token", token);
         map.put("userId", users.getId());
@@ -101,7 +117,14 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public void removeToken(String userId) {
-        String key = USER_TOKEN_PREFIX.concat(userId);
-        stringRedisTemplate.delete(key);
+        stringRedisTemplate.delete(this.getKey(userId));
+    }
+
+    private String getType(String token, int index){
+        return JWT.decode(token).getAudience().get(index);
+    }
+
+    private String getKey(String userId){
+        return STUDENT_ADO.concat(userId);
     }
 }

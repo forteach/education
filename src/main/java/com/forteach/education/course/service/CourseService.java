@@ -2,9 +2,10 @@ package com.forteach.education.course.service;
 
 import com.forteach.education.classes.web.req.RTeacher;
 import com.forteach.education.course.domain.Course;
-import com.forteach.education.images.course.domain.CourseImages;
 import com.forteach.education.course.dto.ICourseListDto;
 import com.forteach.education.course.web.req.CourseImagesReq;
+import com.forteach.education.course.web.res.CourseListResp;
+import com.forteach.education.images.course.domain.CourseImages;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
@@ -43,4 +44,5 @@ public interface CourseService {
 
     public Course getById(String id);
 
+    public List<CourseListResp> myCourseList(String classId);
 }

@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Data
 @Embeddable
-public class CourseDatumAreaPk implements Serializable {
+public class CourseDatumAreaPk  implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

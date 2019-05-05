@@ -7,7 +7,6 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * @Auther: zhangyy
@@ -26,7 +25,7 @@ import java.io.Serializable;
 @ApiModel(value = "分享范围")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseShare extends Entitys implements Serializable {
+public class CourseShare extends Entitys {
 
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")

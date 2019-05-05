@@ -45,4 +45,6 @@ public interface ICourseListDto {
      */
     public String getTopPicSrc();
 
+    public String getCourseDescribe();
+
 }

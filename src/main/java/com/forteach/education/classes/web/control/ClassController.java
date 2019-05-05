@@ -1,5 +1,6 @@
 package com.forteach.education.classes.web.control;
 
+import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.classes.domain.Classes;
 import com.forteach.education.classes.service.ClassesService;
 import com.forteach.education.classes.web.req.ClassesVo;
@@ -30,6 +31,7 @@ public class ClassController {
     }
 
     @GetMapping("/findAll")
+    @UserLoginToken
     @ApiOperation(value = "查询所有班级信息")
     public WebResult findAll(){
         return WebResult.okResult(classesService.findAll());
@@ -37,6 +39,7 @@ public class ClassController {
 
     @PostMapping("/editClass")
     @ApiOperation(value = "修改班级信息")
+    @UserLoginToken
     public WebResult editClass(@RequestBody ClassesVo classesVo){
         MyAssert.isNull(classesVo.getClassId(), DefineCode.ERR0010, "班级编号不为空");
         Classes classes = classesService.editClass(classesVo);
@@ -52,6 +55,7 @@ public class ClassController {
             @ApiImplicitParam(name = "page", value = "分页从0开始", required = true, dataType = "int", type = "int", example = "0"),
             @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10"),
     })
+    @UserLoginToken
     public WebResult pageFindAll(@RequestBody SortVo sortVo){
         MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
         MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");

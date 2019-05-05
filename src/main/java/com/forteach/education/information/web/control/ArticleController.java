@@ -1,6 +1,7 @@
 package com.forteach.education.information.web.control;
 
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
@@ -228,7 +229,7 @@ public class ArticleController  {
 	/**
 	 * 收藏数量增加
 	 */
-		@PostMapping("/addNice")
+	@PostMapping("/addNice")
 	public WebResult addNice(@RequestBody AddNiceRequest req){
 		MyAssert.isNull(req.getArticleId(), DefineCode.ERR0010,"资料编号不能为空");
 		MyAssert.isNull(req.getValue(), DefineCode.ERR0010,"精华值不能为空");
@@ -250,7 +251,7 @@ public class ArticleController  {
 	 * @param req
 	 * @return
 	 */
-
+	@UserLoginToken
 	@PostMapping("/delCollect")
 	public WebResult deleteCollect(@RequestBody DeleteMyArticleRequest req) {
 		MyAssert.isNull(req.getArticleId(), DefineCode.ERR0010,"资料编号不能为空");

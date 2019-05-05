@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * 重要课件资料（教案、课件）图集类型除外
@@ -16,7 +15,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "important_courseware", indexes = {@Index(columnList = "chapter_id", name = "chapter_id_index"), @Index(name = "id_index", columnList = "id")})
 @EqualsAndHashCode(callSuper = true)
-public class ImportantCourseware extends AbsFile implements Serializable {
+public class ImportantCourseware extends AbsFile {
 
     /**
      * 重要类型分类 1教案 2课件

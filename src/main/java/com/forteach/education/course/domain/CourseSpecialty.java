@@ -1,9 +1,12 @@
 package com.forteach.education.course.domain;
 
 
+import com.forteach.education.common.domain.Entitys;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -21,7 +24,9 @@ import javax.persistence.Table;
 @Builder
 @Table(name = "courseSpecialty")
 @IdClass(CourseSpecialtyPk.class)
-public class CourseSpecialty {
+@NoArgsConstructor
+@AllArgsConstructor
+public class CourseSpecialty extends Entitys {
 
     @EmbeddedId
     @ApiModelProperty(value = "课程专业主键", hidden = true)

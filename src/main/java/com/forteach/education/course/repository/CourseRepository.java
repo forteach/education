@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -38,4 +40,14 @@ public interface CourseRepository extends JpaRepository<Course, String> {
      */
     @Transactional(readOnly = true)
     Page<ICourseListDto> findByCreateUserAndIsValidated(String cUser, String isValidated, Pageable pageable);
+
+    /**
+     * 分页查询课程信息根据课程id查询课程列表
+     * @param isValidated 有效状态
+     * @param courseIds
+     * @return
+     */
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    List<ICourseListDto> findByIsValidatedEqualsAndCourseIdIn(String isValidated, List<String> courseIds);
+
 }

@@ -58,6 +58,7 @@ public class CourseChapterController {
         return WebResult.okResult(courseChapterService.save(cs));
     }
 
+    @UserLoginToken
     @ApiOperation(value = "修改科目章节", notes = "修改科目章节信息")
     @PostMapping("/edit")
     @ApiImplicitParams({
@@ -74,6 +75,7 @@ public class CourseChapterController {
         return WebResult.okResult(courseChapterService.edit(courseChapterEditReq));
     }
 
+    @UserLoginToken
     @ApiOperation(value = "查询科目章节信息", notes = "根据章节ID 查询对应的信息")
     @PostMapping("/getCourseChapterById")
     @ApiImplicitParams({
@@ -87,6 +89,7 @@ public class CourseChapterController {
 
 //************************************************************************************************************************//
 
+    @UserLoginToken
     @PostMapping("/deleteById")
     @ApiOperation(notes = "根据ID删除对应的科目章节信息(物理删除)", value = "删除科目章节信息(物理删除)")
     @ApiImplicitParams({
@@ -98,6 +101,7 @@ public class CourseChapterController {
         return WebResult.okResult();
     }
 
+    @UserLoginToken
     @PostMapping("/deleteIsValidById")
     @ApiOperation(notes = "根据ID删除对应的科目章节信息(逻辑删除)", value = "删除科目章节信息(逻辑删除)")
     @ApiImplicitParams({
@@ -115,6 +119,7 @@ public class CourseChapterController {
      * @param courseId
      * @return
      */
+    @UserLoginToken
     @PostMapping("/findByCourseId")
     @ApiOperation(value = "查找章节信息", notes = "客户端根据科目ID查询章节目录树")
     @ApiImplicitParams({

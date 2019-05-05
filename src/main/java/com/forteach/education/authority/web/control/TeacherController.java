@@ -48,6 +48,7 @@ public class TeacherController {
             @ApiImplicitParam(name = "teacherName", value = "教师名称", required = true, dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "teacherCode", value = "教师编号", required = true, dataType = "string", paramType = "from")
     })
+    @UserLoginToken
     public WebResult save(@ApiParam(value = "保存教师信息", name = "teacher", required = true) @RequestBody Teacher teacher) {
         MyAssert.blank(teacher.getSpecialtyId(), DefineCode.ERR0010, "专业ID不为空");
         MyAssert.blank(teacher.getTeacherName(), DefineCode.ERR0010, "教师名称");
@@ -57,6 +58,7 @@ public class TeacherController {
 
     @ApiOperation(value = "教师ID 查询教师信息")
     @PostMapping("/getTeacherById")
+    @UserLoginToken
     @ApiImplicitParam(name = "teacherId", value = "教师主键ID", required = true, dataType = "string", paramType = "from")
     public WebResult getTeacherById(@ApiParam(value = "教师ID", name = "teacherId", required = true) @RequestBody String teacherId) {
         MyAssert.blank(teacherId, DefineCode.ERR0010, "教师Id不为空");
@@ -78,6 +80,7 @@ public class TeacherController {
             @ApiImplicitParam(name = "teacherCode", value = "教师编号", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "isValidated", value = "是否有效", dataType = "string", paramType = "from")
     })
+    @UserLoginToken
     public WebResult edit(@Valid @ApiParam(value = "修改教师信息", name = "teacher", required = true) @RequestBody Teacher teacher) {
         MyAssert.blank(teacher.getTeacherId(), DefineCode.ERR0010, "教师Id不为空");
         return WebResult.okResult(teacherService.edit(teacher));
@@ -98,6 +101,7 @@ public class TeacherController {
             @ApiImplicitParam(name = "teacherCode", value = "教师编号", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "isValidated", value = "是否有效", dataType = "string", paramType = "from")
     })
+    @UserLoginToken
     public WebResult delete(@ApiParam(value = "修改教师信息", name = "teacher", required = true) @RequestBody Teacher teacher) {
         MyAssert.blank(teacher.getTeacherId(), DefineCode.ERR0010, "教师Id不为空");
         teacherService.delete(teacher);
@@ -110,6 +114,7 @@ public class TeacherController {
      * @param teacherId
      * @return
      */
+    @UserLoginToken
     @ApiOperation(value = "删除教师信息", notes = "根据教师　ID 删除教师信息(物理删除)")
     @PostMapping("/deleteById")
     @ApiImplicitParam(name = "teacherId", value = "教师主键ID", required = true, dataType = "string", paramType = "from")
@@ -125,6 +130,7 @@ public class TeacherController {
      * @param sortVo
      * @return
      */
+    @UserLoginToken
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @PostMapping("/findAll")
     @ApiImplicitParams({
@@ -149,6 +155,7 @@ public class TeacherController {
      *
      * @param teacherId
      */
+    @UserLoginToken
     @ApiOperation(value = "使其无效", notes = "根据教师　ID 删除教师信息(逻辑删除)")
     @PostMapping("/deleteIsValidById")
     @ApiImplicitParam(name = "teacherId", value = "教师主键ID", required = true, dataType = "string", paramType = "from")
@@ -164,6 +171,7 @@ public class TeacherController {
      * @param specialtyId
      * @return
      */
+    @UserLoginToken
     @ApiOperation(value = "查询教师列表", notes = "根据专业ID号查询对应的教师信息")
     @PostMapping("/findTeachersBySpecialtyId")
     @ApiImplicitParam(name = "specialtyId", value = "专业主键ID", required = true, dataType = "string", paramType = "from")
