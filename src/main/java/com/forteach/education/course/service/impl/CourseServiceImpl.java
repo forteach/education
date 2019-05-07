@@ -8,10 +8,12 @@ import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseEntity;
+import com.forteach.education.course.domain.CourseReviewDescribe;
 import com.forteach.education.course.domain.CourseShare;
 import com.forteach.education.course.dto.ICourseListDto;
 import com.forteach.education.course.repository.CourseEntrityRepository;
 import com.forteach.education.course.repository.CourseRepository;
+import com.forteach.education.course.repository.CourseReviewDescribeRepository;
 import com.forteach.education.course.repository.TeacherClassCourseRepository;
 import com.forteach.education.course.service.CourseService;
 import com.forteach.education.course.service.CourseShareService;
@@ -65,6 +67,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Resource
     private CourseEntrityRepository courseEntrityRepository;
+
+    @Resource
+    private CourseReviewDescribeRepository courseReviewDescribeRepository;
 
     /**
      * 保存课程基本信息
@@ -158,8 +163,7 @@ public class CourseServiceImpl implements CourseService {
     @Cacheable(value = "myCourseList", key = "#classId", sync = true)
     public List<CourseListResp> myCourseList(String classId) {
         List<CourseListResp> listRespList = Lists.newArrayList();
-        List<String> courseIds = teacherClassCourseRepository.findByClassId(classId);
-        courseRepository.findByIsValidatedEqualsAndCourseIdIn(TAKE_EFFECT_OPEN, courseIds)
+        courseRepository.findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(classId)
                 .parallelStream()
                 .filter(Objects::nonNull)
                 .forEach(iCourseListDto -> {
@@ -168,6 +172,8 @@ public class CourseServiceImpl implements CourseService {
                             .courseName(iCourseListDto.getCourseName())
                             .topPicSrc(iCourseListDto.getTopPicSrc())
                             .courseDescribe(iCourseListDto.getCourseDescribe())
+                            .joinChapterId(iCourseListDto.getChapterId())
+                            .joinChapterName(iCourseListDto.getChapterName())
                             .build());
                 });
         return listRespList;
@@ -210,18 +216,6 @@ public class CourseServiceImpl implements CourseService {
     @Transactional(rollbackForClassName = "Exception")
     public void saveCourseImages(CourseImagesReq courseImagesReq) {
         courseImagesService.saveCourseImages(courseImagesReq.getCourseId(),courseImagesReq.getImages());
-//        List<CourseImages> list = new ArrayList<>();
-//        List<DataDatumVo> dataDatumVos = courseImagesReq.getImages();
-//        for (int i = 0; i < dataDatumVos.size(); i++) {
-//            DataDatumVo dataDatumVo = dataDatumVos.get(i);
-//            list.add(CourseImages.builder()
-//                    .courseId(courseImagesReq.getCourseId())
-//                    .indexNum(i + 1)
-//                    .imageName(dataDatumVo.getFileName())
-//                    .imageUrl(dataDatumVo.getFileUrl())
-//                    .build());
-//        }
-//        courseImagesRepository.saveAll(list);
     }
 
 
@@ -249,9 +243,22 @@ public class CourseServiceImpl implements CourseService {
     }
 
 
+    /**
+     * 查询同步过来的课程信息
+     * @return
+     */
     @Override
     @Cacheable(value = "allCourseEntity", key = "#root.targetClass", unless = "#result eq null ")
     public List<CourseEntity> findCourseList() {
         return courseEntrityRepository.findByIsValidated(TAKE_EFFECT_OPEN);
+    }
+
+    @Override
+    public CourseReviewDescribe findCourseReview(String courseId) {
+        return courseReviewDescribeRepository.findByIsValidatedEqualsAndCourseIdOrderByCreateTimeDesc(TAKE_EFFECT_OPEN, courseId)
+                .parallelStream()
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(new CourseReviewDescribe());
     }
 }

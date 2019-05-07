@@ -45,6 +45,23 @@ public interface ICourseListDto {
      */
     public String getTopPicSrc();
 
+    /**
+     * 课程简介或描述
+     * @return
+     */
     public String getCourseDescribe();
+
+    /**
+     * 章节id
+     * @return
+     */
+    public String getChapterId();
+
+    /**
+     * 章节名字
+     * @return
+     */
+    public String getChapterName();
+
 
 }

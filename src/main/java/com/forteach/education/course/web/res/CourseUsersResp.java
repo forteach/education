@@ -1,6 +1,6 @@
 package com.forteach.education.course.web.res;
 
-import com.forteach.education.course.domain.CourseShareUsersPk;
+import com.forteach.education.course.domain.pk.CourseShareUsersPk;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

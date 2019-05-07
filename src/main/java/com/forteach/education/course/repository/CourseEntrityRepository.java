@@ -17,4 +17,7 @@ public interface CourseEntrityRepository extends JpaRepository<CourseEntity, Str
 
     @Transactional(readOnly = true)
     List<CourseEntity> findByIsValidated(String isValidated);
+
+    @Transactional(readOnly = true)
+    List<CourseEntity> findByIsValidatedEqualsAndCourseIdIn(String isValidated, List<String> courseId);
 }

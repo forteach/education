@@ -1,4 +1,4 @@
-package com.forteach.education.course.domain;
+package com.forteach.education.course.domain.pk;
 
 import lombok.Data;
 

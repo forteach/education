@@ -5,6 +5,7 @@ import com.forteach.education.course.dto.ICourseListDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -44,10 +45,19 @@ public interface CourseRepository extends JpaRepository<Course, String> {
     /**
      * 分页查询课程信息根据课程id查询课程列表
      * @param isValidated 有效状态
-     * @param courseIds
+     * @param classId
      * @return
      */
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    List<ICourseListDto> findByIsValidatedEqualsAndCourseIdIn(String isValidated, List<String> courseIds);
+    @Query(value = "SELECT  " +
+            "c.courseId AS courseId, c.courseName AS courseName, c.topPicSrc AS topPicSrc, " +
+            "c.courseDescribe AS courseDescribe, cjc.chapterId AS chapterId, cc.chapterName AS chapterName " +
+            "FROM Course AS c " +
+            "LEFT JOIN CourseJoinChapter AS cjc ON c.courseId = cjc.courseId " +
+            "LEFT JOIN CourseChapter AS cc ON c.courseId = cc.courseId " +
+            "WHERE c.isValidated = '0' AND c.courseId IN " +
+            " (SELECT courseId FROM TeacherClassCourse WHERE classId = ?1) " +
+            " ORDER BY c.createTime DESC")
+    List<ICourseListDto> findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(String classId);
 
 }

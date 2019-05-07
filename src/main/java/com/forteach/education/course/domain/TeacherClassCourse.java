@@ -1,6 +1,7 @@
 package com.forteach.education.course.domain;
 
 import com.forteach.education.common.domain.Entitys;
+import com.forteach.education.course.domain.pk.TeacherClassCoursePk;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -29,7 +30,7 @@ import javax.persistence.*;
         @Index(columnList = "class_id", name = "class_id_index"),
         @Index(columnList = "course_id", name = "course_id_index")})
 @org.hibernate.annotations.Table(appliesTo = "teacher_class_course", comment = "老师授课的班级和课程信息")
-public class TeacherAndClassAndCourse extends Entitys {
+public class TeacherClassCourse extends Entitys {
 
     @EmbeddedId
     @ApiModelProperty(value = "课程课堂班级对应主键", hidden = true)

@@ -2,13 +2,17 @@ package com.forteach.education.service.impl;
 
 
 import com.forteach.education.classes.web.req.RTeacher;
-import com.forteach.education.images.course.domain.CourseImages;
+import com.forteach.education.common.web.vo.SortVo;
+import com.forteach.education.course.domain.Course;
+import com.forteach.education.course.repository.CourseEntrityRepository;
+import com.forteach.education.course.repository.CourseRepository;
+import com.forteach.education.course.repository.TeacherClassCourseRepository;
 import com.forteach.education.course.service.CourseService;
+import com.forteach.education.course.web.req.CourseImagesReq;
 import com.forteach.education.course.web.req.CourseSaveReq;
 import com.forteach.education.course.web.vo.RCourse;
-import com.forteach.education.course.web.req.CourseImagesReq;
+import com.forteach.education.images.course.domain.CourseImages;
 import com.forteach.education.web.vo.DataDatumVo;
-import com.forteach.education.common.web.vo.SortVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,10 +20,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.forteach.education.common.keyword.Dic.LESSON_PREPARATION_TYPE_GROUP;
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
 /**
  * @Auther: zhangyy
@@ -35,6 +42,12 @@ public class CourseServiceImplTest {
 
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private CourseEntrityRepository courseEntrityRepository;
+    @Autowired
+    private CourseRepository courseRepository;
+    @Resource
+    private TeacherClassCourseRepository teacherClassCourseRepository;
 
     @Test
     public void save() {
@@ -101,8 +114,20 @@ public class CourseServiceImplTest {
 //        });
     }
 
-//    @Test
-//    public void saveCourse(){
-//        courseService
-//    }
+    @Test
+    public void saveCourse(){
+        List<String> courseIds = teacherClassCourseRepository.findByClassId("201720903413201");
+                courseEntrityRepository.findByIsValidatedEqualsAndCourseIdIn(TAKE_EFFECT_OPEN, courseIds)
+                        .parallelStream()
+                        .filter(Objects::nonNull)
+                        .forEach(courseEntity -> {
+                            Course course = new Course();
+                            course.setCourseId(courseEntity.getCourseId());
+                            course.setCourseName(courseEntity.getCourseName());
+                            course.setCourseDescribe(courseEntity.getCourseDescribe());
+                            course.setShareType("1");
+                            course.setTopPicSrc("http://s7.sinaimg.cn/middle/559d9d83g99ed0955e096&690");
+                            courseRepository.save(course);
+                        });
+    }
 }
