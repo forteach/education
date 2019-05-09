@@ -93,4 +93,10 @@ public class Dic {
      * 登录认证的教师类型
      */
     public final static String TOKEN_TEACHER ="teacher";
+
+    /**
+     * 学生信息前缀
+     */
+    public static final String STUDENT_ADO = "studentsData$";
+
 }

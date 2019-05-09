@@ -44,7 +44,6 @@ public interface CourseRepository extends JpaRepository<Course, String> {
 
     /**
      * 分页查询课程信息根据课程id查询课程列表
-     * @param isValidated 有效状态
      * @param classId
      * @return
      */

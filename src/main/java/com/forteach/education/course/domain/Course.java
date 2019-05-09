@@ -54,10 +54,10 @@ public class Course extends Entitys {
     @Column(name = "course_describe", columnDefinition = "MEDIUMTEXT COMMENT'课程描述'")
     private String courseDescribe;
 
-    @Column(name = "average_score", columnDefinition = "INT DEFAULT 0 COMMENT '课程平均分数'")
-    private Integer averageScore;
+    @Column(name = "average_score", columnDefinition = "VARCHAR(32) DEFAULT 0 COMMENT '课程平均分数'")
+    private String averageScore;
 
-    @Column(name = "review_amount", columnDefinition = "INT DEFAULT 0 COMMENT '评价数量'")
+    @Column(name = "review_amount", columnDefinition = "INT(11) DEFAULT 0 COMMENT '评价数量'")
     private Integer reviewAmount;
 
 }

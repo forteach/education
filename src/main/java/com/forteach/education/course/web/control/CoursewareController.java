@@ -60,7 +60,6 @@ public class CoursewareController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataTypeClass = String.class, required = true),
             @ApiImplicitParam(name = "photoDatumName", value = "图集名称", dataTypeClass = String.class),
-
             @ApiImplicitParam(name = "files", value = "图集文件url", dataTypeClass = CoursewareAll.class)
     })
     public WebResult saveCourseAtlit(@ApiParam(name = "courseReq", value = "科目课程对象") @RequestBody ImpCoursewareAll req) {
