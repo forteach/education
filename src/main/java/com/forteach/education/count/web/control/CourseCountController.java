@@ -1,5 +1,24 @@
 package com.forteach.education.count.web.control;
 
+import com.forteach.education.authority.service.TokenService;
+import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
+import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.count.service.CourseCountService;
+import com.forteach.education.count.web.req.CourseCountReq;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
@@ -7,5 +26,32 @@ package com.forteach.education.count.web.control;
  * @version: 1.0
  * @description:
  */
+@RestController
+@Api(value = "课程统计信息接口", tags = {"统计各个课程相关的信息接口"})
+@RequestMapping(path = "/courseCount", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class CourseCountController {
+
+    private final TokenService tokenService;
+
+    private final CourseCountService courseCountService;
+    @Autowired
+    public CourseCountController(TokenService tokenService, CourseCountService courseCountService) {
+        this.tokenService = tokenService;
+        this.courseCountService = courseCountService;
+    }
+
+    @ApiOperation(value = "查询课程章节对应的统计信息")
+    @PostMapping(path = "/findCourseCount")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "课程id", required = true, dataType = "string", paramType = "string")
+    })
+    public WebResult findCourseCount(@RequestBody CourseCountReq courseCountReq, HttpServletRequest httpServletRequest){
+        MyAssert.isNull(courseCountReq.getCourseId(), DefineCode.ERR0010, "科目编号不为空");
+        MyAssert.isNull(courseCountReq.getChapterId(), DefineCode.ERR0010, "章节编号不为空");
+        MyAssert.isNull(courseCountReq.getClassId(), DefineCode.ERR0010, "班级编号不为空");
+        courseCountReq.setTeacherId(tokenService.getTeacherId(httpServletRequest));
+        return WebResult.okResult(courseCountService.findCourseCount(courseCountReq));
+    }
+
+
 }

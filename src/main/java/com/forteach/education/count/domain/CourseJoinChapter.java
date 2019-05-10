@@ -1,7 +1,7 @@
-package com.forteach.education.course.domain;
+package com.forteach.education.count.domain;
 
 import com.forteach.education.common.domain.Entitys;
-import com.forteach.education.course.domain.pk.CourseJoinChapterPk;
+import com.forteach.education.count.domain.pk.CourseJoinChapterPk;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -40,6 +40,9 @@ public class CourseJoinChapter extends Entitys {
     private String chapterId;
 
     private String circleId;
+    
+    @Column(name = "class_id", columnDefinition = "VARCHAR(32) COMMENT '班级id'")
+    private String classId;
 
     @Column(name = "teacher_id", columnDefinition = "VARCHAR(32) COMMENT '创建课堂的教师id'")
     private String teacherId;

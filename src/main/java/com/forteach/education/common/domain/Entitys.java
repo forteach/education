@@ -6,8 +6,9 @@ import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.EntityListeners;
+import javax.persistence.MappedSuperclass;
 
 
 /**
@@ -20,7 +21,7 @@ import java.io.Serializable;
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Entitys implements Serializable {
+public abstract class Entitys{
 
     @Column(name = "is_validated", columnDefinition = "CHAR(1) DEFAULT 0 COMMENT '生效标识 0生效 1失效'", nullable = false)
     public String isValidated = "0";

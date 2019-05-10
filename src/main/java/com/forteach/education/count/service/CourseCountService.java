@@ -1,5 +1,8 @@
 package com.forteach.education.count.service;
 
+import com.forteach.education.count.dto.ICourseCount;
+import com.forteach.education.count.web.req.CourseCountReq;
+
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
@@ -8,4 +11,10 @@ package com.forteach.education.count.service;
  * @description:
  */
 public interface CourseCountService {
+
+    /**
+     * 查询课程统计信息
+     */
+    ICourseCount findCourseCount(CourseCountReq courseCountReq);
+
 }

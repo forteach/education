@@ -7,5 +7,45 @@ package com.forteach.education.count.dto;
  * @version: 1.0
  * @description:
  */
-public class ICourseCount {
+public interface ICourseCount {
+    /**
+     * 课程id
+     * @return
+     */
+    public String getCourseId();
+
+    /**
+     * 章节id
+     * @return
+     */
+    public String getChapterId();
+
+    /**
+     * 班级id
+     */
+    public Integer getClassId();
+
+    /**
+     * 练习人数
+     * @return
+     */
+    public Integer getDrillNumber();
+
+    /**
+     * 预习人数
+     * @return
+     */
+    public Integer getPrepareNumber();
+
+    /**
+     * 学生人数
+     * @return
+     */
+    public Integer getStudentsNumber();
+
+//    private String studentsNumber;
+
+//    public void setStudentsNumber();
+
+
 }

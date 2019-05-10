@@ -28,6 +28,7 @@ public class FindIdListRequest implements Serializable {
     @ApiModelProperty(value = "课程编号", name = "id")
     private String id;
 
+    @Builder.Default
     @ApiModelProperty(value = "分页排序字段", name = "sortVo")
     private SortVo sortVo = new SortVo();
 

@@ -4,10 +4,7 @@ package com.forteach.education.course.domain;
 import com.forteach.education.common.domain.Entitys;
 import com.forteach.education.course.domain.pk.CourseSpecialtyPk;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -27,6 +24,7 @@ import javax.persistence.Table;
 @IdClass(CourseSpecialtyPk.class)
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class CourseSpecialty extends Entitys {
 
     @EmbeddedId

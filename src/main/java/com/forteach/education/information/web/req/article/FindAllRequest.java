@@ -34,6 +34,7 @@ public class FindAllRequest implements Serializable {
     @ApiModelProperty(value = "本人的用户Id", name = "userId")
     private String userId;
 
+    @Builder.Default
     @ApiModelProperty(value = "分页排序字段", name = "sortVo")
     private SortVo sortVo = new SortVo();
 

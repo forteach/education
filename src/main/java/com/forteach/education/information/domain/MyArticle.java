@@ -1,21 +1,23 @@
 package com.forteach.education.information.domain;
 
-import java.io.Serializable;
+import com.forteach.education.common.domain.Entitys;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import com.forteach.education.common.domain.Entitys;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
 /**
  * 我收藏和发布的文章
  */
 @Data
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "my_article")
 @org.hibernate.annotations.Table(appliesTo = "my_article", comment = "我的文章")
 @AllArgsConstructor

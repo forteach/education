@@ -25,29 +25,29 @@ public interface CourseReviewDescribeRepository extends JpaRepository<CourseRevi
      * @return
      */
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    @Query(value = "select " +
+    @Query(value = "SELECT " +
             " c.courseId AS courseId, " +
             " c.averageScore AS averageScore, " +
             " c.reviewAmount AS reviewAmount, " +
-            " crd.studentId as studentId, " +
-            " s.userName as studentName, " +
-            " s.portrait as portrait, " +
-            " crd.reviewId as reviewId, " +
-            " crd.reviewDescribe as reviewDescribe, " +
-            " cs.classId as classId, " +
-            " cs.className as className, " +
-            " crd.score as score, " +
-            " crd.createTime as createTime, " +
-            " crd.replyTime as replyTime, " +
-            " crd.teacherId as teacherId, " +
-            " t.teacherName as teacherName " +
-            " from CourseReviewDescribe as crd  " +
-            " left JOIN Course  AS c ON c.courseId = crd.courseId " +
-            " left join Teacher AS t on crd.teacherId = t.teacherId " +
-            " left join StudentEntitys as s on crd.studentId = s.id " +
-            " left join Classes as cs on s.classId = cs.classId " +
-            " where crd.isValidated = '0' and c.isValidated = '0'  " +
-            " and crd.courseId = ?1 " +
+            " crd.studentId AS studentId, " +
+            " s.userName AS studentName, " +
+            " s.portrait AS portrait, " +
+            " crd.reviewId AS reviewId, " +
+            " crd.reviewDescribe AS reviewDescribe, " +
+            " cs.classId AS classId, " +
+            " cs.className AS className, " +
+            " crd.score AS score, " +
+            " crd.createTime AS createTime, " +
+            " crd.replyTime AS replyTime, " +
+            " crd.teacherId AS teacherId, " +
+            " t.teacherName AS teacherName " +
+            " FROM CourseReviewDescribe AS crd  " +
+            " LEFT JOIN Course  AS c ON c.courseId = crd.courseId " +
+            " LEFT JOIN Teacher AS t ON crd.teacherId = t.teacherId " +
+            " LEFT JOIN StudentEntitys AS s ON crd.studentId = s.id " +
+            " LEFT JOIN Classes AS cs ON s.classId = cs.classId " +
+            " WHERE crd.isValidated = '0' AND c.isValidated = '0'  " +
+            " AND crd.courseId = ?1 " +
             " ORDER BY crd.createTime ")
     List<ICourseReviewDto> findFirstByIsValidatedEqualsAndCourseIdOrderByCreateTimeDesc(String courseId);
 
@@ -66,26 +66,26 @@ public interface CourseReviewDescribeRepository extends JpaRepository<CourseRevi
      * @return
      */
     @Transactional(rollbackFor = Exception.class, readOnly = true)
-    @Query(value = "select " +
-            " crd.studentId as studentId, " +
-            " s.userName as studentName, " +
-            " s.portrait as portrait, " +
-            " crd.reviewId as reviewId, " +
-            " crd.reviewDescribe as reviewDescribe, " +
-            " cs.classId as classId, " +
-            " cs.className as className, " +
-            " crd.score as score, " +
-            " crd.createTime as createTime, " +
-            " crd.replyTime as replyTime, " +
-            " crd.teacherId as teacherId, " +
-            " t.teacherName as teacherName " +
-            " from CourseReviewDescribe as crd  " +
-            " left JOIN Course  AS c ON c.courseId = crd.courseId " +
-            " left join Teacher AS t on crd.teacherId = t.teacherId " +
-            " left join StudentEntitys as s on crd.studentId = s.id " +
-            " left join Classes as cs on s.classId = cs.classId " +
-            " where crd.isValidated = '0' and c.isValidated = '0'  " +
-            " and crd.courseId = ?1 " +
+    @Query(value = "SELECT " +
+            " crd.studentId AS studentId, " +
+            " s.userName AS studentName, " +
+            " s.portrait AS portrait, " +
+            " crd.reviewId AS reviewId, " +
+            " crd.reviewDescribe AS reviewDescribe, " +
+            " cs.classId AS classId, " +
+            " cs.className AS className, " +
+            " crd.score AS score, " +
+            " crd.createTime AS createTime, " +
+            " crd.replyTime AS replyTime, " +
+            " crd.teacherId AS teacherId, " +
+            " t.teacherName AS teacherName " +
+            " FROM CourseReviewDescribe AS crd  " +
+            " LEFT JOIN Course  AS c ON c.courseId = crd.courseId " +
+            " LEFT JOIN Teacher AS t ON crd.teacherId = t.teacherId " +
+            " LEFT JOIN StudentEntitys AS s ON crd.studentId = s.id " +
+            " LEFT JOIN Classes AS cs ON s.classId = cs.classId " +
+            " WHERE crd.isValidated = '0' AND c.isValidated = '0'  " +
+            " AND crd.courseId = ?1 " +
             " ORDER BY crd.createTime ")
     Page<ICourseReviewDto> findCourseReviewListByCourseIdOrderByCreateTime(String courseId, Pageable pageable);
 

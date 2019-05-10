@@ -41,6 +41,7 @@ public class ChapteDataListReq implements Serializable {
     @ApiModelProperty(name = "kNodeId", value = "知识点标签", dataType = "string", notes = "知识点 ‘,’ 进行分割")
     private String kNodeId;
 
+    @Builder.Default
     @ApiModelProperty(value = "分页排序字段", name = "sortVo")
     private SortVo sortVo = new SortVo();
 

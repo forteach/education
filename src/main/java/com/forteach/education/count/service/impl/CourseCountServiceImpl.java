@@ -1,5 +1,14 @@
 package com.forteach.education.count.service.impl;
 
+import com.forteach.education.count.dto.ICourseCount;
+import com.forteach.education.count.repository.CourseDrillCountRepository;
+import com.forteach.education.count.repository.CoursePrepareCountRepository;
+import com.forteach.education.count.repository.CourseTaskCountRepository;
+import com.forteach.education.count.service.CourseCountService;
+import com.forteach.education.count.web.req.CourseCountReq;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
@@ -7,5 +16,26 @@ package com.forteach.education.count.service.impl;
  * @version: 1.0
  * @description:
  */
-public class CourseCountServiceImpl {
+@Service
+public class CourseCountServiceImpl implements CourseCountService{
+
+    private final CoursePrepareCountRepository coursePrepareCountRepository;
+    private final CourseDrillCountRepository courseDrillCountRepository;
+    private final CourseTaskCountRepository courseTaskCountRepository;
+
+    @Autowired
+    public CourseCountServiceImpl(CoursePrepareCountRepository coursePrepareCountRepository,
+                                  CourseDrillCountRepository courseDrillCountRepository,
+                                  CourseTaskCountRepository courseTaskCountRepository) {
+        this.coursePrepareCountRepository = coursePrepareCountRepository;
+        this.courseDrillCountRepository = courseDrillCountRepository;
+        this.courseTaskCountRepository = courseTaskCountRepository;
+    }
+
+    @Override
+    public ICourseCount findCourseCount(CourseCountReq courseCountReq) {
+
+
+    }
+
 }

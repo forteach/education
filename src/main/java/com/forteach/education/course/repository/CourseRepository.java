@@ -40,7 +40,7 @@ public interface CourseRepository extends JpaRepository<Course, String> {
      * @return
      */
     @Transactional(readOnly = true)
-    Page<ICourseListDto> findByCreateUserAndIsValidated(String cUser, String isValidated, Pageable pageable);
+    Page<ICourseListDto> findByCreateUserAndIsValidatedOrderByCreateTimeDesc(String cUser, String isValidated, Pageable pageable);
 
     /**
      * 分页查询课程信息根据课程id查询课程列表
@@ -49,12 +49,12 @@ public interface CourseRepository extends JpaRepository<Course, String> {
      */
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     @Query(value = "SELECT  " +
-            "c.courseId AS courseId, c.courseName AS courseName, c.topPicSrc AS topPicSrc, " +
-            "c.courseDescribe AS courseDescribe, cjc.chapterId AS chapterId, cc.chapterName AS chapterName " +
-            "FROM Course AS c " +
-            "LEFT JOIN CourseJoinChapter AS cjc ON c.courseId = cjc.courseId " +
-            "LEFT JOIN CourseChapter AS cc ON c.courseId = cc.courseId " +
-            "WHERE c.isValidated = '0' AND c.courseId IN " +
+            " c.courseId AS courseId, c.courseName AS courseName, c.topPicSrc AS topPicSrc, " +
+            " c.courseDescribe AS courseDescribe, cjc.chapterId AS chapterId, cc.chapterName AS chapterName " +
+            " FROM Course AS c " +
+            " LEFT JOIN CourseJoinChapter AS cjc ON c.courseId = cjc.courseId " +
+            " LEFT JOIN CourseChapter AS cc ON c.courseId = cc.courseId " +
+            " WHERE c.isValidated = '0' AND cc.isValidated = '0' AND c.courseId IN " +
             " (SELECT courseId FROM TeacherClassCourse WHERE classId = ?1) " +
             " ORDER BY c.createTime DESC")
     List<ICourseListDto> findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(String classId);
