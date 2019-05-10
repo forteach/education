@@ -291,15 +291,4 @@ public class CourseController {
         return WebResult.okResult(courseService.findImagesByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
     }
 
-
-    /*--------------------　课程评论 -------------*/
-
-    @ApiOperation(value = "查询课程评论", notes = "学生端查询课程评论")
-    @GetMapping("/findCourseReview")
-    @ApiImplicitParam(name = "courseId", value = "课程id", dataType = "string", readOnly = true, required = true, paramType = "query")
-    public WebResult findCourseReview(@RequestBody String courseId){
-        MyAssert.isNull(courseId, DefineCode.ERR0010, "课程id 不为空");
-        courseService.findCourseReview(JSONObject.parseObject(courseId).getString("courseId"));
-        return WebResult.okResult();
-    }
 }

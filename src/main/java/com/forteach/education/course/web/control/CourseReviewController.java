@@ -7,7 +7,6 @@ import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.course.domain.CourseReviewDescribe;
-import com.forteach.education.course.repository.CourseReviewDescribeRepository;
 import com.forteach.education.course.service.CourseReviewService;
 import com.forteach.education.course.web.req.CourseReviewReq;
 import io.swagger.annotations.Api;
@@ -33,11 +32,9 @@ public class CourseReviewController {
 
     private final TokenService tokenService;
     private final CourseReviewService courseReviewService;
-    private final CourseReviewDescribeRepository courseReviewDescribeRepository;
-    private CourseReviewController(TokenService tokenService, CourseReviewService courseReviewService, CourseReviewDescribeRepository courseReviewDescribeRepository){
+    private CourseReviewController(TokenService tokenService, CourseReviewService courseReviewService){
         this.tokenService = tokenService;
         this.courseReviewService = courseReviewService;
-        this.courseReviewDescribeRepository = courseReviewDescribeRepository;
     }
 
     @UserLoginToken

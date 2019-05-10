@@ -30,4 +30,14 @@ public class CourseReviewResp implements Serializable {
 
     @ApiModelProperty(name = "courseReviewDescribe", value = "评论详情")
     CourseReviewDescResp courseReviewDescribe;
+
+    public CourseReviewResp(String courseId, String averageScore, Integer reviewAmount, CourseReviewDescResp courseReviewDescribe) {
+        this.courseId = courseId;
+        this.averageScore = averageScore;
+        this.reviewAmount = reviewAmount;
+        this.courseReviewDescribe = courseReviewDescribe;
+    }
+
+    public CourseReviewResp() {
+    }
 }

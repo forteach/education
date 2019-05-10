@@ -10,6 +10,20 @@ package com.forteach.education.course.dto;
 public interface ICourseReviewDto {
 
     /**
+     * 课程id
+     */
+    public String getCourseId();
+    /**
+     * 课程平均分
+     */
+    public String getAverageScore();
+
+    /**
+     * 评价人数
+     * @return
+     */
+    public Integer getReviewAmount();
+    /**
      * 学生id
      * @return
      */

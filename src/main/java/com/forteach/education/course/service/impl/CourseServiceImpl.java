@@ -8,7 +8,6 @@ import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseEntity;
-import com.forteach.education.course.domain.CourseReviewDescribe;
 import com.forteach.education.course.domain.CourseShare;
 import com.forteach.education.course.dto.ICourseListDto;
 import com.forteach.education.course.repository.CourseEntrityRepository;
@@ -253,12 +252,4 @@ public class CourseServiceImpl implements CourseService {
         return courseEntrityRepository.findByIsValidated(TAKE_EFFECT_OPEN);
     }
 
-    @Override
-    public CourseReviewDescribe findCourseReview(String courseId) {
-        return courseReviewDescribeRepository.findByIsValidatedEqualsAndCourseIdOrderByCreateTimeDesc(TAKE_EFFECT_OPEN, courseId)
-                .parallelStream()
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(new CourseReviewDescribe());
-    }
 }

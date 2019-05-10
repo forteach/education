@@ -3,7 +3,6 @@ package com.forteach.education.course.service;
 import com.forteach.education.classes.web.req.RTeacher;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseEntity;
-import com.forteach.education.course.domain.CourseReviewDescribe;
 import com.forteach.education.course.dto.ICourseListDto;
 import com.forteach.education.course.web.req.CourseImagesReq;
 import com.forteach.education.course.web.res.CourseListResp;
@@ -50,5 +49,4 @@ public interface CourseService {
 
     public List<CourseEntity> findCourseList();
 
-    public CourseReviewDescribe findCourseReview(String courseId);
 }
