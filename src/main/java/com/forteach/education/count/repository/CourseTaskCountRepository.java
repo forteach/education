@@ -2,6 +2,7 @@ package com.forteach.education.count.repository;
 
 import com.forteach.education.count.domain.CourseTaskCount;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author: zhangyy
@@ -20,6 +21,7 @@ public interface CourseTaskCountRepository extends JpaRepository<CourseTaskCount
      * @param classId
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     CourseTaskCount findByIsValidatedEqualsAndCourseIdAndChapterIdAndClassId(String isValidated, String courseId, String chapterId, String classId);
 
 }

@@ -9,6 +9,8 @@ import com.forteach.education.count.web.req.CourseCountReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
@@ -33,14 +35,12 @@ public class CourseCountServiceImpl implements CourseCountService{
     }
 
     @Override
-    public ICourseCount findCourseCount(CourseCountReq courseCountReq) {
-
-
-        return coursePrepareCountRepository.findCourseCount(courseCountReq.getCourseId(),
-                courseCountReq.getChapterId(), courseCountReq.getClassId());
-
-//        return null;
-
+    public List<ICourseCount> findCourseCount(CourseCountReq courseCountReq) {
+        return coursePrepareCountRepository.findCourseCount(
+                courseCountReq.getCourseId(),
+                courseCountReq.getChapterId(),
+                courseCountReq.getClassId(),
+                courseCountReq.getCircleId());
     }
 
 }

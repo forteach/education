@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
@@ -22,6 +24,7 @@ public interface CoursePrepareCountRepository extends JpaRepository<CoursePrepar
      * @param classId
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     CoursePrepareCount findByIsValidatedEqualsAndCourseIdAndChapterIdAndClassId(String isValidated, String courseId, String chapterId, String classId);
 
 
@@ -58,8 +61,9 @@ public interface CoursePrepareCountRepository extends JpaRepository<CoursePrepar
             " LEFT JOIN CourseTaskCount ctc ON cjc.courseId = ctc.courseId AND " +
             " ctc.chapterId = cjc.chapterId AND cpc.isValidated = '0' " +
             " WHERE cjc.isValidated = '0' AND " +
-            " cjc.courseId = ?1 AND cjc.chapterId = ?2 AND cjc.classId = ?3 ")
-    @Transactional(readOnly = true)
-    ICourseCount findCourseCount(String courseId, String chapterId, String classId);
+            " cjc.courseId = ?1 AND cjc.chapterId = ?2 AND cjc.classId = ?3 " +
+            " AND cjc.circleId = ?4 OR ?4 IS NULL OR ?4 = ''")
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    List<ICourseCount> findCourseCount(String courseId, String chapterId, String classId, String circleId);
 
 }

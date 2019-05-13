@@ -23,7 +23,7 @@ public interface ICourseCount {
     /**
      * 班级id
      */
-    public Integer getClassId();
+    public String getClassId();
 
     /**
      * 学生人数

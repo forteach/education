@@ -26,6 +26,9 @@ public class CourseCountReq implements Serializable {
     @ApiModelProperty(name = "classId", value = "班级id", dataType = "string", required = true)
     private String classId;
 
+    @ApiModelProperty(name = "circleId", value = "课程id", dataType = "string")
+    private String circleId;
+
     @ApiModelProperty(hidden = true)
     private String teacherId;
 

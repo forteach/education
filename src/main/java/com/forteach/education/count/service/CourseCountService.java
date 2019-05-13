@@ -3,6 +3,8 @@ package com.forteach.education.count.service;
 import com.forteach.education.count.dto.ICourseCount;
 import com.forteach.education.count.web.req.CourseCountReq;
 
+import java.util.List;
+
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
@@ -15,6 +17,6 @@ public interface CourseCountService {
     /**
      * 查询课程统计信息
      */
-    ICourseCount findCourseCount(CourseCountReq courseCountReq);
+    List<ICourseCount> findCourseCount(CourseCountReq courseCountReq);
 
 }

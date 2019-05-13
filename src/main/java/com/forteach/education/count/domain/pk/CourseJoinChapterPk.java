@@ -26,4 +26,7 @@ public class CourseJoinChapterPk implements Serializable {
     @Column(name = "circle_id", columnDefinition = "VARCHAR(32) COMMENT '课堂id'", insertable = false, updatable = false)
     private String circleId;
 
+    @Column(name = "class_id", columnDefinition = "VARCHAR(32) COMMENT '班级id'", insertable = false, updatable = false)
+    private String classId;
+
 }
