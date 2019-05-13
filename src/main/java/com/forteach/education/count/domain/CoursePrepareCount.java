@@ -35,4 +35,5 @@ public class CoursePrepareCount extends BaseCourseCount implements Serializable 
 
     @Column(name = "students", columnDefinition = "TEXT(10000) COMMENT '参与的人(预习,加入,回答)'")
     private String students;
+
 }

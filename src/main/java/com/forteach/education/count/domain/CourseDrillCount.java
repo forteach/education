@@ -28,7 +28,7 @@ import java.io.Serializable;
         @Index(name = "chapter_id_index", columnList = "chapter_id"),
         @Index(name = "class_id_index", columnList = "class_id")
 })
-@org.hibernate.annotations.Table(appliesTo = "course_home_work_count", comment = "课后作业统计记录表")
+@org.hibernate.annotations.Table(appliesTo = "course_drill_count", comment = "练习统计记录表")
 public class CourseDrillCount extends BaseCourseCount implements Serializable {
 
 

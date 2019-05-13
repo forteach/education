@@ -13,7 +13,7 @@ import javax.persistence.*;
  * @email: zhang10092009@hotmail.com
  * @date: 19-5-6 13:46
  * @version: 1.0
- * @description:
+ * @description:　学生加入课堂
  */
 @Data
 @Entity

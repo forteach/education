@@ -1,7 +1,10 @@
 package com.forteach.education.count.repository;
 
 import com.forteach.education.count.domain.CoursePrepareCount;
+import com.forteach.education.count.dto.ICourseCount;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author: zhangyy
@@ -22,8 +25,41 @@ public interface CoursePrepareCountRepository extends JpaRepository<CoursePrepar
     CoursePrepareCount findByIsValidatedEqualsAndCourseIdAndChapterIdAndClassId(String isValidated, String courseId, String chapterId, String classId);
 
 
-//    @Query(value = " SELECT * FROM CourseJoinChapter AS cjc LEFT JOIN CoursePrepareCount AS cpc ON cjc.courseId = cpc.courseId AND " +
-//            " cjc.chapterId = cpc.chapterId ")
-//    ICourseCount findCourseCount();
+    /**
+     * 查寻统计有效信息通过条件课程，章节，班级
+     * @param courseId
+     * @param chapterId
+     * @param classId
+     * @return
+     */
+    @Query(value = " SELECT " +
+            " cjc.courseId AS courseId, " +
+            " cjc.chapterId AS chapterId, " +
+            " cjc.classId AS classId, " +
+            " cpc.classStudentsNumber AS studentsNumber, " + //学生人数
+            " cjc.joinNumber AS joinNumber, " + //加入课堂人数
+            " cdc.studentsNumber AS drillNumber, " + //练习人数
+            " cpc.studentsNumber AS prepareNumber, " + // 预习人数
+            " chc.studentsNumber AS homeWorkNumber, " + // 作业人数
+            " cic.studentsNumber AS interactionNumber, " + // 作业人数
+            " crc.studentsNumber AS rewardsNumber, " + // 课堂奖励统计人数
+            " ctc.studentsNumber AS taskNumber " + // 作业人数
+            " FROM CourseJoinChapter AS cjc " +
+            " LEFT JOIN CoursePrepareCount AS cpc ON cjc.courseId = cpc.courseId AND " +
+            " cjc.chapterId = cpc.chapterId AND cpc.isValidated = '0' " +
+            " LEFT JOIN CourseDrillCount AS cdc ON cjc.courseId = cdc.courseId AND " +
+            " cjc.chapterId = cdc.chapterId AND cpc.isValidated = '0' " +
+            " LEFT JOIN CourseRewardsCount crc ON cjc.courseId = crc.courseId AND" +
+            " cjc.chapterId = crc.chapterId AND cpc.isValidated = '0' " +
+            " LEFT JOIN CourseInteractionCount cic ON cjc.courseId = cic.courseId AND " +
+            " cjc.chapterId = cic.chapterId AND cpc.isValidated = '0' " +
+            " LEFT JOIN CourseHomeWorkCount chc ON cjc.courseId = chc.courseId AND " +
+            " cjc.chapterId = chc.chapterId AND cpc.isValidated = '0' " +
+            " LEFT JOIN CourseTaskCount ctc ON cjc.courseId = ctc.courseId AND " +
+            " ctc.chapterId = cjc.chapterId AND cpc.isValidated = '0' " +
+            " WHERE cjc.isValidated = '0' AND " +
+            " cjc.courseId = ?1 AND cjc.chapterId = ?2 AND cjc.classId = ?3 ")
+    @Transactional(readOnly = true)
+    ICourseCount findCourseCount(String courseId, String chapterId, String classId);
 
 }

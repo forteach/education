@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @email: zhang10092009@hotmail.com
  * @date: 19-5-10 15:08
  * @version: 1.0
- * @description:
+ * @description: 查询统计信息
  */
 @Service
 public class CourseCountServiceImpl implements CourseCountService{
@@ -35,6 +35,11 @@ public class CourseCountServiceImpl implements CourseCountService{
     @Override
     public ICourseCount findCourseCount(CourseCountReq courseCountReq) {
 
+
+        return coursePrepareCountRepository.findCourseCount(courseCountReq.getCourseId(),
+                courseCountReq.getChapterId(), courseCountReq.getClassId());
+
+//        return null;
 
     }
 

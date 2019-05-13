@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @email: zhang10092009@hotmail.com
  * @date: 19-5-10 16:46
  * @version: 1.0
- * @description:
+ * @description:　学生奖励信息
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -30,4 +30,5 @@ import java.io.Serializable;
 })
 @org.hibernate.annotations.Table(appliesTo = "course_rewards_count", comment = "课堂奖级统计记录表")
 public class CourseRewardsCount extends BaseCourseCount implements Serializable {
+
 }

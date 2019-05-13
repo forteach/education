@@ -5,7 +5,7 @@ package com.forteach.education.count.dto;
  * @email: zhang10092009@hotmail.com
  * @date: 19-5-10 16:13
  * @version: 1.0
- * @description:
+ * @description: 查询统计信息
  */
 public interface ICourseCount {
     /**
@@ -26,6 +26,18 @@ public interface ICourseCount {
     public Integer getClassId();
 
     /**
+     * 学生人数
+     * @return
+     */
+    public Integer getStudentsNumber();
+
+    /**
+     * 加入的学生人数
+     * @return
+     */
+    public Integer getJoinNumber();
+
+    /**
      * 练习人数
      * @return
      */
@@ -37,15 +49,29 @@ public interface ICourseCount {
      */
     public Integer getPrepareNumber();
 
+
     /**
-     * 学生人数
+     * 家庭作业统计人数
      * @return
      */
-    public Integer getStudentsNumber();
+    public Integer getHomeWorkNumber();
 
-//    private String studentsNumber;
+    /**
+     * 交互统计人数
+     * @return
+     */
+    public Integer getInteractionNumber();
 
-//    public void setStudentsNumber();
+    /**
+     * 课堂奖励统计人数
+     * @return
+     */
+    public Integer getRewardsNumber();
 
+    /**
+     * 完成任务人数
+     * @return
+     */
+    public Integer getTaskNumber();
 
 }
