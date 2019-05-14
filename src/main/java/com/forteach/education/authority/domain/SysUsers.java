@@ -3,6 +3,7 @@ package com.forteach.education.authority.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.forteach.education.common.domain.Entitys;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,6 +24,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @DynamicUpdate
 @DynamicInsert
+@ApiModel(value = "管理员信息", description = "管理员信息")
 @Table(name = "sys_users", indexes = {@Index(name = "id_index", columnList = "id")})
 @org.hibernate.annotations.Table(appliesTo = "sys_users", comment = "系统用户")
 public class SysUsers extends Entitys implements Serializable {

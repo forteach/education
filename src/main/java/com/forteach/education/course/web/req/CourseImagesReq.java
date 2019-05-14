@@ -1,6 +1,7 @@
 package com.forteach.education.course.web.req;
 
 import com.forteach.education.web.vo.DataDatumVo;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(value = "课程图片信息对应数据对象")
 public class CourseImagesReq implements Serializable {
 
     @ApiModelProperty(value = "科目课程ID", name = "courseId", required = true, dataType = "string")

@@ -8,6 +8,7 @@ import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -22,8 +23,10 @@ import org.springframework.web.bind.annotation.*;
  * @description:
  */
 @RestController
+@Api(value = "班级操作接口", tags = {"对班级进行相关查询，和编辑"})
 @RequestMapping(path = "/class", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ClassController {
+
     private final ClassesService classesService;
 
     public ClassController(ClassesService classesService) {

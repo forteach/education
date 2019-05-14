@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * @description: 课程评论相关
  */
 @RestController
-@Api(value = "课程评论相关的接口")
+@Api(value = "课程评论相关的接口", tags = {"课程评论相关接口"})
 @RequestMapping(path = "/courseReview", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class CourseReviewController {
 

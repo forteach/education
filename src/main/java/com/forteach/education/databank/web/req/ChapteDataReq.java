@@ -1,6 +1,7 @@
 package com.forteach.education.databank.web.req;
 
 import com.forteach.education.web.vo.DataDatumVo;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(value = "章节资料信息对象数据")
 public class ChapteDataReq {
 
     /**

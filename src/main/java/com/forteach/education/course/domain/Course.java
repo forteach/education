@@ -2,6 +2,8 @@ package com.forteach.education.course.domain;
 
 
 import com.forteach.education.common.domain.Entitys;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
@@ -19,6 +21,7 @@ import javax.persistence.*;
 @Entity
 @DynamicUpdate
 @DynamicInsert
+@ApiModel(value = "课程信息")
 @org.hibernate.annotations.Table(appliesTo = "course", comment = "科目")
 @Table(name = "course", indexes = {@Index(columnList = "course_id", name = "course_id_index")})
 @EqualsAndHashCode(callSuper = true)
