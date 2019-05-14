@@ -121,7 +121,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      * 根据父节点查询子章节的ID信息
      *
      * @param courseId
-     * @param ChapterParentId
+     * @param chapterParentId
      * @return
      */
     private Set<String> findLists(String courseId, String chapterParentId) {

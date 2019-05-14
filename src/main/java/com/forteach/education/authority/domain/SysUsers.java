@@ -67,14 +67,15 @@ public class SysUsers extends Entitys implements Serializable {
     @Column(name = "sign", columnDefinition = "varchar(32) COMMENT '登陆签名'")
     private String sign;
 
-    @Column(name = "is_lock", columnDefinition = "char(1) COMMENT '锁定标记 （N/Y）'")
-    @ApiModelProperty(name = "isLock", value = "是否锁定", dataType = "string", notes = "锁定标记 （N/Y）")
+    @Column(name = "is_lock", columnDefinition = "char(1) COMMENT '锁定标记 (N/Y)'")
+    @ApiModelProperty(name = "isLock", value = "是否锁定", dataType = "string", notes = "锁定标记 (Y/N)")
     private String isLock;
 
     @Column(name = "equipment", columnDefinition = "varchar(40) COMMENT '登陆设备'")
     @ApiModelProperty(name = "equipment", value = "登陆设备", dataType = "string")
     private String equipment;
 
+    @ApiModelProperty(hidden = true)
     @Column(name = "teacher_id", columnDefinition = "varchar(32) comment '教师id'")
     private String teacherId;
 
@@ -83,6 +84,7 @@ public class SysUsers extends Entitys implements Serializable {
      */
     @Transient
     @JsonIgnore
+    @ApiModelProperty(hidden = true)
     private String role;
 
     /**
@@ -90,6 +92,7 @@ public class SysUsers extends Entitys implements Serializable {
      */
     @Transient
     @JsonIgnore
+    @ApiModelProperty(hidden = true)
     private Integer rememberMe;
 
 

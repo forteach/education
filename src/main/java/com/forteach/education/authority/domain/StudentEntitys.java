@@ -1,6 +1,7 @@
 package com.forteach.education.authority.domain;
 
 import com.forteach.education.common.domain.Entitys;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
@@ -17,6 +18,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
@@ -51,5 +53,10 @@ public class StudentEntitys extends Entitys {
         this.IDCardNo = IDCardNo;
         this.portrait = portrait;
         this.classId = classId;
+    }
+    public StudentEntitys(String id, String userName, String portrait) {
+        this.id = id;
+        this.userName = userName;
+        this.portrait = portrait;
     }
 }

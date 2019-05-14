@@ -1,6 +1,8 @@
 package com.forteach.education.information.web.req.myArticle;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +16,13 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(value = "取消收藏")
 public class DeleteMyArticleRequest implements Serializable {
-private String userId;
-private String articleId;
+
+    @ApiModelProperty(name = "userId", value = "用户id", required = true, dataType = "string")
+    private String userId;
+
+    @ApiModelProperty(name = "articleId", value = "资料编号", required = true, dataType = "string")
+    private String articleId;
 
 }

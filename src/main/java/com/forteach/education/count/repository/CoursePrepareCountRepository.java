@@ -30,10 +30,11 @@ public interface CoursePrepareCountRepository extends JpaRepository<CoursePrepar
 
     /**
      * 查寻统计有效信息通过条件课程，章节，班级
-     * @param courseId
-     * @param chapterId
-     * @param classId
-     * @return
+     * @param courseId 课程id
+     * @param chapterId 章节id
+     * @param classId 班级id
+     * @param circleId 课程id
+     * @return　List<ICourseCount> 查询课程信统计息数据
      */
     @Query(value = " SELECT " +
             " cjc.courseId AS courseId, " +

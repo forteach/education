@@ -1,5 +1,6 @@
 package com.forteach.education.count.web.control;
 
+import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
@@ -12,10 +13,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,4 +55,12 @@ public class CourseCountController {
         return WebResult.okResult(courseCountService.findCourseCount(courseCountReq));
     }
 
+
+    @ApiOperation(value = "查询加入课堂的学生信息")
+    @GetMapping("/findJoinCircleStudent")
+    @ApiImplicitParam(name = "circleId", value = "课堂id", required = true, dataType = "string", paramType = "query")
+    public WebResult findJoinCircleStudents(@RequestBody String circleId){
+        MyAssert.isNull(circleId, DefineCode.ERR0010, "课堂id不为空");
+        return WebResult.okResult(courseCountService.findJoinCircleStudent(JSONObject.parseObject(circleId).getString("circleId")));
+    }
 }
