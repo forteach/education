@@ -6,12 +6,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.EntityListeners;
+import javax.persistence.IdClass;
+import javax.persistence.MappedSuperclass;
 
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
- * @date: 19-5-10 10:19
+ * @date: 19-5-15 15:52
  * @version: 1.0
  * @description:
  */
@@ -20,7 +23,7 @@ import javax.persistence.*;
 @MappedSuperclass
 @IdClass(CourseCountPk.class)
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseCourseCount extends Entitys {
+public abstract class BaseCourseDescription extends Entitys {
 
     @EmbeddedId
     private CourseCountPk courseCountPk;
@@ -30,14 +33,5 @@ public abstract class BaseCourseCount extends Entitys {
     private String chapterId;
 
     private String classId;
-
-    @Column(name = "class_students_number", columnDefinition = "INT(11) DEFAULT 0 COMMENT '班级学生人数'")
-    private Integer classStudentsNumber;
-
-    @Column(name = "students_number", columnDefinition = "INT(11) DEFAULT 0 COMMENT '参与的学生数量'")
-    private Integer studentsNumber;
-
-    @Column(name = "teacher_id", columnDefinition = "VARCHAR(32) COMMENT '教师id'")
-    private String teacherId;
 
 }

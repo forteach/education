@@ -4,10 +4,7 @@ import com.forteach.education.authority.domain.StudentEntitys;
 import com.forteach.education.common.service.StudentService;
 import com.forteach.education.count.domain.CourseJoinChapter;
 import com.forteach.education.count.dto.ICourseCount;
-import com.forteach.education.count.repository.CourseDrillCountRepository;
-import com.forteach.education.count.repository.CourseJoinChapterRepository;
-import com.forteach.education.count.repository.CoursePrepareCountRepository;
-import com.forteach.education.count.repository.CourseTaskCountRepository;
+import com.forteach.education.count.repository.*;
 import com.forteach.education.count.service.CourseCountService;
 import com.forteach.education.count.web.req.CourseCountReq;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,32 +23,24 @@ import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 @Service
 public class CourseCountServiceImpl implements CourseCountService{
 
-    private final CoursePrepareCountRepository coursePrepareCountRepository;
-    private final CourseDrillCountRepository courseDrillCountRepository;
-    private final CourseTaskCountRepository courseTaskCountRepository;
-    private final CourseJoinChapterRepository courseJoinChapterRepository;
     private final StudentService studentService;
+    private final CourseChapterCountRepository courseChapterCountRepository;
 
     @Autowired
-    public CourseCountServiceImpl(CoursePrepareCountRepository coursePrepareCountRepository,
-                                  CourseDrillCountRepository courseDrillCountRepository,
-                                  CourseJoinChapterRepository courseJoinChapterRepository,
-                                  StudentService studentService,
-                                  CourseTaskCountRepository courseTaskCountRepository) {
-        this.coursePrepareCountRepository = coursePrepareCountRepository;
-        this.courseDrillCountRepository = courseDrillCountRepository;
-        this.courseTaskCountRepository = courseTaskCountRepository;
-        this.courseJoinChapterRepository = courseJoinChapterRepository;
+    public CourseCountServiceImpl(StudentService studentService,
+                                  CourseChapterCountRepository courseChapterCountRepository,) {
         this.studentService = studentService;
+        this.courseChapterCountRepository = courseChapterCountRepository;
     }
 
     @Override
     public List<ICourseCount> findCourseCount(CourseCountReq courseCountReq) {
-        return coursePrepareCountRepository.findCourseCount(
+        return courseChapterCountRepository.findCourseCount(
                 courseCountReq.getCourseId(),
                 courseCountReq.getChapterId(),
                 courseCountReq.getClassId(),
-                courseCountReq.getCircleId());
+                courseCountReq.getCircleId()
+        );
     }
 
     @Override

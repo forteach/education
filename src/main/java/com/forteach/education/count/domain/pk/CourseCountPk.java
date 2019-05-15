@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class CoursePrepareCountPk implements Serializable {
+public class CourseCountPk implements Serializable {
 
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '课程id'", insertable = false, updatable = false)
     private String courseId;

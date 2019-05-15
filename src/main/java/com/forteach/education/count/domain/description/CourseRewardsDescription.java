@@ -1,6 +1,6 @@
-package com.forteach.education.count.domain;
+package com.forteach.education.count.domain.description;
 
-import com.forteach.education.count.domain.base.BaseCourseCount;
+import com.forteach.education.count.domain.base.BaseCourseDescription;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
@@ -14,24 +14,24 @@ import java.io.Serializable;
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
- * @date: 19-5-10 14:03
+ * @date: 19-5-15 15:44
  * @version: 1.0
- * @description: 练习
+ * @description:　课堂奖励详情表
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@Table(name = "course_drill_count", indexes = {
+@Table(name = "course_rewards_description", indexes = {
         @Index(name = "course_id_index", columnList = "course_id"),
         @Index(name = "chapter_id_index", columnList = "chapter_id"),
         @Index(name = "class_id_index", columnList = "class_id")
 })
-@org.hibernate.annotations.Table(appliesTo = "course_drill_count", comment = "练习统计记录表")
-public class CourseDrillCount extends BaseCourseCount implements Serializable {
+@org.hibernate.annotations.Table(appliesTo = "course_rewards_description", comment = "课堂奖级详情记录表")
+public class CourseRewardsDescription extends BaseCourseDescription implements Serializable {
 
-
-
+//    @Column(name = "grade", columnDefinition = "INT(11) COMMENT '分数'")
+//    private Integer grade;
 
 }
