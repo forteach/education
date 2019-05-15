@@ -17,6 +17,14 @@ import java.util.List;
  */
 public interface CourseChapterCountRepository extends JpaRepository<CourseChapterCount, String> {
 
+    /**
+     * 查询课程统计信息
+     * @param courseId
+     * @param chapterId
+     * @param classId
+     * @param circleId
+     * @return
+     */
     @Query(value = " SELECT " +
             " ccc.courseId AS courseId, " +
             " ccc.chapterId AS chapterId, " +

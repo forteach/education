@@ -1,18 +1,21 @@
 package com.forteach.education.count.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.forteach.education.authority.domain.StudentEntitys;
 import com.forteach.education.common.service.StudentService;
-import com.forteach.education.count.domain.CourseJoinChapter;
 import com.forteach.education.count.dto.ICourseCount;
-import com.forteach.education.count.repository.*;
+import com.forteach.education.count.repository.CourseChapterCountRepository;
+import com.forteach.education.count.repository.description.CourseJoinChapterDescriptionRepository;
 import com.forteach.education.count.service.CourseCountService;
 import com.forteach.education.count.web.req.CourseCountReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
+
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
@@ -21,15 +24,18 @@ import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
  * @description: 查询统计信息
  */
 @Service
-public class CourseCountServiceImpl implements CourseCountService{
+public class CourseCountServiceImpl implements CourseCountService {
 
     private final StudentService studentService;
     private final CourseChapterCountRepository courseChapterCountRepository;
+    private final CourseJoinChapterDescriptionRepository courseJoinChapterDescriptionRepository;
 
     @Autowired
     public CourseCountServiceImpl(StudentService studentService,
-                                  CourseChapterCountRepository courseChapterCountRepository,) {
+                                  CourseJoinChapterDescriptionRepository courseJoinChapterDescriptionRepository,
+                                  CourseChapterCountRepository courseChapterCountRepository) {
         this.studentService = studentService;
+        this.courseJoinChapterDescriptionRepository = courseJoinChapterDescriptionRepository;
         this.courseChapterCountRepository = courseChapterCountRepository;
     }
 
@@ -44,11 +50,12 @@ public class CourseCountServiceImpl implements CourseCountService{
     }
 
     @Override
-    public List<StudentEntitys> findJoinCircleStudent(String circleId){
-        CourseJoinChapter courseJoinChapter = courseJoinChapterRepository.findByIsValidatedEqualsAndCircleId(TAKE_EFFECT_OPEN, circleId);
-        if (courseJoinChapter != null){
-            return studentService.getStudentListByStr(courseJoinChapter.getStudents());
-        }
-        return null;
+    public List<StudentEntitys> findJoinCircleStudent(String circleId) {
+        List<StudentEntitys> studentEntitys = CollUtil.newArrayList();
+        courseJoinChapterDescriptionRepository.findByIsValidatedEqualsAndCircleId(TAKE_EFFECT_OPEN, circleId)
+                .stream()
+                .filter(Objects::nonNull)
+                .forEach(s -> studentEntitys.add(studentService.getStudentEntitysById(s.getStudentId())));
+        return studentEntitys;
     }
 }

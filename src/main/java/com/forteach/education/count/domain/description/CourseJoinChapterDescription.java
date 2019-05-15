@@ -45,6 +45,4 @@ public class CourseJoinChapterDescription extends Entitys implements Serializabl
 
     public String studentId;
 
-    @Column(name = "grade", columnDefinition = "VARCHAR(11) COMMENT '评分'")
-    private String grade;
 }

@@ -3,6 +3,8 @@ package com.forteach.education.count.repository.description;
 import com.forteach.education.count.domain.description.CourseJoinChapterDescription;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
@@ -12,4 +14,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface CourseJoinChapterDescriptionRepository extends JpaRepository<CourseJoinChapterDescription, String> {
 
+
+    /**
+     * 根据课程id 查询加入信息
+     * @param isValidated
+     * @param circleId
+     * @return
+     */
+    List<CourseJoinChapterDescription> findByIsValidatedEqualsAndCircleId(String isValidated, String circleId);
 }

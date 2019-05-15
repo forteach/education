@@ -31,6 +31,11 @@ public class StudentServiceImpl implements StudentService {
         return STUDENT_ADO.concat(studentId);
     }
 
+    /**
+     * 通过学生id 获取学生信息
+     * @param studentId
+     * @return
+     */
     @Override
     public StudentEntitys getStudentEntitysById(String studentId){
         String key = getStudentKey(studentId);
@@ -45,6 +50,11 @@ public class StudentServiceImpl implements StudentService {
                 .build();
     }
 
+    /**
+     * 学生集合list ==> 获取学生对象信息
+     * @param stringList
+     * @return
+     */
     @Override
     public List<StudentEntitys> getStudentEntitysList(List<String> stringList){
         List<StudentEntitys> studentEntityslist = Lists.newArrayList();
@@ -54,6 +64,11 @@ public class StudentServiceImpl implements StudentService {
         return studentEntityslist;
     }
 
+    /**
+     * "," 逗号分隔获取学生对象信息
+     * @param studentIds
+     * @return
+     */
     @Override
     public List<StudentEntitys> getStudentListByStr(String studentIds){
         return getStudentEntitysList(Arrays.asList(studentIds.split(",")));
