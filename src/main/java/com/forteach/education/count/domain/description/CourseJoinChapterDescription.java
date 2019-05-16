@@ -2,8 +2,10 @@ package com.forteach.education.count.domain.description;
 
 import com.forteach.education.common.domain.Entitys;
 import com.forteach.education.count.domain.pk.CourseJoinChapterPk;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -29,6 +31,9 @@ import java.io.Serializable;
         @Index(name = "circle_id_index", columnList = "circle_id"),
         @Index(name = "student_id_index", columnList = "student_id")
 })
+@NoArgsConstructor
+@AllArgsConstructor
+@IdClass(CourseJoinChapterPk.class)
 @org.hibernate.annotations.Table(appliesTo = "course_join_chapter_description", comment = "课堂章节加入学生详情表")
 public class CourseJoinChapterDescription extends Entitys implements Serializable {
 
@@ -41,6 +46,7 @@ public class CourseJoinChapterDescription extends Entitys implements Serializabl
 
     private String classId;
 
+    @Column(name = "circle_id", columnDefinition = "VARCHAR(32) COMMENT '课堂id'")
     private String circleId;
 
     public String studentId;

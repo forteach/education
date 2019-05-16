@@ -48,15 +48,41 @@ public interface CourseRepository extends JpaRepository<Course, String> {
      * @return
      */
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    @Query(value = "SELECT  " +
-            " c.courseId AS courseId, c.courseName AS courseName, c.topPicSrc AS topPicSrc, " +
-            " c.courseDescribe AS courseDescribe, cjc.chapterId AS chapterId, cc.chapterName AS chapterName " +
-            " FROM Course AS c " +
-            " LEFT JOIN CourseJoinChapter AS cjc ON c.courseId = cjc.courseId " +
-            " LEFT JOIN CourseChapter AS cc ON c.courseId = cc.courseId " +
-            " WHERE c.isValidated = '0' AND cc.isValidated = '0' AND c.courseId IN " +
-            " (SELECT courseId FROM TeacherClassCourse WHERE classId = ?1) " +
-            " ORDER BY c.createTime DESC")
-    List<ICourseListDto> findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(String classId);
+//    @Query(value = "SELECT  " +
+//            " c.courseId AS courseId, " +
+//            " c.courseName AS courseName, " +
+//            " c.topPicSrc AS topPicSrc, " +
+//            " c.courseDescribe AS courseDescribe, " +
+//            " ccc.chapterId AS chapterId, " +
+//            " cc.chapterName AS chapterName " +
+//            " FROM Course AS c " +
+//            " LEFT JOIN CourseChapter AS cc ON c.courseId = cc.courseId " +
+//            " LEFT JOIN CourseChapterCount AS ccc ON c.courseId = ccc.courseId " +
+//            " AND cc.chapterId = ccc.chapterId " +
+//            " AND ccc.classId = ?1 " +
+//            " WHERE c.isValidated = '0' " +
+//            " AND cc.isValidated = '0' " +
+//            " AND c.courseId IN " +
+//            " (SELECT DISTINCT tcc.courseId FROM TeacherClassCourse AS tcc " +
+//            " WHERE tcc.isValidated = '0' AND  tcc.classId = ?1) " +
+//            " ORDER BY c.createTime DESC ")
 
+    @Query(value = "select " +
+            " c.courseId as courseId, " +
+            " c.courseName as courseName, " +
+            " c.topPicSrc as topPicSrc, " +
+            " c.courseDescribe as courseDescribe, " +
+            " cc.chapterId as chapterId, " +
+            " cc.chapterName as chapterName " +
+            " from Course as c " +
+            " left join CourseChapter as cc on c.courseId = cc.chapterId " +
+            " left join CourseChapterCount as ccc on c.courseId = ccc.chapterId " +
+            " and ccc.chapterId = cc.chapterId " +
+            " and ccc.classId = ?1 " +
+            " where c.isValidated = '0' " +
+            " and cc.isValidated = '0' " +
+            " and c.courseId in " +
+            " (select distinct tcc.courseId from TeacherClassCourse as tcc where tcc.isValidated = '0' and tcc.classId = ?1) " +
+            " order by c.createTime desc")
+    List<ICourseListDto> findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(String classId);
 }
