@@ -8,7 +8,7 @@ package com.forteach.education.course.dto;
  * @Description:
  */
 
-public interface ICourseListDto {
+public interface ICourseChapterListDto {
 
     /**
      * 课程ID
@@ -29,14 +29,14 @@ public interface ICourseListDto {
      *
      * @return
      */
-    public String getCourseNumber();
+//    public String getCourseNumber();
 
     /**
      * 备课类型
      *
      * @return
      */
-    public String getLessonPreparationType();
+//    public String getLessonPreparationType();
 
     /**
      * 课程封面
@@ -51,17 +51,17 @@ public interface ICourseListDto {
      */
     public String getCourseDescribe();
 
-//    /**
-//     * 章节id
-//     * @return
-//     */
-//    public String getChapterId();
-//
-//    /**
-//     * 章节名字
-//     * @return
-//     */
-//    public String getChapterName();
+    /**
+     * 章节id
+     * @return
+     */
+    public String getChapterId();
+
+    /**
+     * 章节名字
+     * @return
+     */
+    public String getChapterName();
 
 
 }

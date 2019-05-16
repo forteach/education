@@ -28,7 +28,6 @@ public class FindArticleIdRequest implements Serializable {
     @ApiModelProperty(value = "资讯Id", name = "articleId")
     private String articleId;
 
-    @Builder.Default
     @ApiModelProperty(value = "分页排序字段", name = "sortVo")
     private SortVo sortVo = new SortVo();
 

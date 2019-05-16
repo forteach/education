@@ -163,16 +163,16 @@ public class CourseServiceImpl implements CourseService {
     public List<CourseListResp> myCourseList(String classId) {
         List<CourseListResp> listRespList = Lists.newArrayList();
         courseRepository.findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(classId)
-                .parallelStream()
+                .stream()
                 .filter(Objects::nonNull)
-                .forEach(iCourseListDto -> {
+                .forEach(iCourseChapterListDto -> {
                     listRespList.add(CourseListResp.builder()
-                            .courseId(iCourseListDto.getCourseId())
-                            .courseName(iCourseListDto.getCourseName())
-                            .topPicSrc(iCourseListDto.getTopPicSrc())
-                            .courseDescribe(iCourseListDto.getCourseDescribe())
-                            .joinChapterId(iCourseListDto.getChapterId())
-                            .joinChapterName(iCourseListDto.getChapterName())
+                            .courseId(iCourseChapterListDto.getCourseId())
+                            .courseName(iCourseChapterListDto.getCourseName())
+                            .topPicSrc(iCourseChapterListDto.getTopPicSrc())
+                            .courseDescribe(iCourseChapterListDto.getCourseDescribe())
+                            .joinChapterId(iCourseChapterListDto.getChapterId())
+                            .joinChapterName(iCourseChapterListDto.getChapterName())
                             .build());
                 });
         return listRespList;

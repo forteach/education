@@ -48,11 +48,9 @@ public class ChapteDataReq {
     @ApiModelProperty(name = "datumName", value = "资料名称", dataType = "string", notes = "资料名称")
     private String datumName;
 
-    @Builder.Default
     @ApiModelProperty(name = "teachShare", value = "教师共享", dataType = "string", notes = "0不共享 1 共享")
     private String teachShare = "0";
 
-    @Builder.Default
     @ApiModelProperty(name = "stuShare", value = "学生共享", dataType = "string", notes = "0不共享 1共享")
     private String stuShare = "0";
 

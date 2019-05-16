@@ -1,6 +1,7 @@
 package com.forteach.education.course.repository;
 
 import com.forteach.education.course.domain.Course;
+import com.forteach.education.course.dto.ICourseChapterListDto;
 import com.forteach.education.course.dto.ICourseListDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,25 +49,6 @@ public interface CourseRepository extends JpaRepository<Course, String> {
      * @return
      */
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-//    @Query(value = "SELECT  " +
-//            " c.courseId AS courseId, " +
-//            " c.courseName AS courseName, " +
-//            " c.topPicSrc AS topPicSrc, " +
-//            " c.courseDescribe AS courseDescribe, " +
-//            " ccc.chapterId AS chapterId, " +
-//            " cc.chapterName AS chapterName " +
-//            " FROM Course AS c " +
-//            " LEFT JOIN CourseChapter AS cc ON c.courseId = cc.courseId " +
-//            " LEFT JOIN CourseChapterCount AS ccc ON c.courseId = ccc.courseId " +
-//            " AND cc.chapterId = ccc.chapterId " +
-//            " AND ccc.classId = ?1 " +
-//            " WHERE c.isValidated = '0' " +
-//            " AND cc.isValidated = '0' " +
-//            " AND c.courseId IN " +
-//            " (SELECT DISTINCT tcc.courseId FROM TeacherClassCourse AS tcc " +
-//            " WHERE tcc.isValidated = '0' AND  tcc.classId = ?1) " +
-//            " ORDER BY c.createTime DESC ")
-
     @Query(value = "select " +
             " c.courseId as courseId, " +
             " c.courseName as courseName, " +
@@ -84,5 +66,5 @@ public interface CourseRepository extends JpaRepository<Course, String> {
             " and c.courseId in " +
             " (select distinct tcc.courseId from TeacherClassCourse as tcc where tcc.isValidated = '0' and tcc.classId = ?1) " +
             " order by c.createTime desc")
-    List<ICourseListDto> findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(String classId);
+    List<ICourseChapterListDto> findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(String classId);
 }

@@ -36,7 +36,6 @@ public class CourseChapterReq implements Serializable {
     @ApiModelProperty(value = "章节父编号", name = "chapterParentId", dataType = "string")
     private String chapterParentId;
 
-    @Builder.Default
     @ApiModelProperty(value = "层级位置", name = "sort", dataType = "String", notes = "树型结构所处的顺序默认１")
     private String sort = "1";
 
@@ -46,7 +45,6 @@ public class CourseChapterReq implements Serializable {
     @ApiModelProperty(name = "chapterType", value = "层级")
     private String chapterLevel;
 
-    @Builder.Default
     @ApiModelProperty(value = "是否发布", name = "publish", dataType = "string", notes = "是否发布　Y(是) N(否)", example = "Y")
     private String publish = "Y";
 

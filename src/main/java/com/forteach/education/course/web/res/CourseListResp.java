@@ -2,6 +2,7 @@ package com.forteach.education.course.web.res;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ import java.io.Serializable;
  */
 @Data
 @Builder
+@AllArgsConstructor
 @ApiModel(value = "课程添加成功", description = "课程信息")
 public class CourseListResp implements Serializable {
 
@@ -55,19 +57,6 @@ public class CourseListResp implements Serializable {
         this.courseNumber = courseNumber;
         this.lessonPreparationType = lessonPreparationType;
         this.topPicSrc = topPicSrc;
-    }
-
-    public CourseListResp(String courseId, String courseName, String courseNumber, String lessonPreparationType, String topPicSrc, String courseDescribe, String chapterId, String chapterName, String joinChapterId, String joinChapterName) {
-        this.courseId = courseId;
-        this.courseName = courseName;
-        this.courseNumber = courseNumber;
-        this.lessonPreparationType = lessonPreparationType;
-        this.topPicSrc = topPicSrc;
-        this.courseDescribe = courseDescribe;
-        this.chapterId = chapterId;
-        this.chapterName = chapterName;
-        this.joinChapterId = joinChapterId;
-        this.joinChapterName = joinChapterName;
     }
 
     public CourseListResp() {

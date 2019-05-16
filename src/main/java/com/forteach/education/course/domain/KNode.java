@@ -1,5 +1,6 @@
 package com.forteach.education.course.domain;
 
+import cn.hutool.core.util.StrUtil;
 import com.forteach.education.common.domain.Entitys;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -41,7 +42,6 @@ public class KNode extends Entitys implements Serializable {
     @Column(name = "chapter_id", columnDefinition = "VARCHAR(32) COMMENT '章节ID'")
     private String chapterId;
 
-    @Builder.Default
     @Column(name = "k_node_type", columnDefinition = "int COMMENT '知识点类型2 单个知识点，1　多个知识点'")
-    private int kNodeType = 2;
+    private int kNodeType = StrUtil.isNotBlank(String.valueOf(this.getKNodeId())) ? this.getKNodeType() : 2;
 }
