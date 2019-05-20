@@ -1,6 +1,7 @@
 package com.forteach.education.count.web.control;
 
 import com.alibaba.fastjson.JSONObject;
+import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
@@ -39,13 +40,14 @@ public class CourseCountController {
         this.courseCountService = courseCountService;
     }
 
+    @UserLoginToken
     @ApiOperation(value = "查询课程章节对应的统计信息")
     @PostMapping(path = "/findCourseCount")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "课程id", required = true, dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "chapterId", value = "章节", required = true, dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "classId", value = "班级", required = true, dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "classId", value = "课程id", example = "", dataType = "string", paramType = "query")
+            @ApiImplicitParam(name = "circleId", value = "课程id", example = "0043fb829d984207ac6d6766df7ca2c5", dataType = "string", paramType = "query")
     })
     public WebResult findCourseCount(@RequestBody CourseCountReq courseCountReq, HttpServletRequest httpServletRequest){
         MyAssert.isNull(courseCountReq.getCourseId(), DefineCode.ERR0010, "科目编号不为空");
@@ -56,6 +58,7 @@ public class CourseCountController {
     }
 
 
+    @UserLoginToken
     @ApiOperation(value = "查询加入课堂的学生信息")
     @GetMapping("/findJoinCircleStudent")
     @ApiImplicitParam(name = "circleId", value = "课堂id", required = true, dataType = "string", paramType = "query")

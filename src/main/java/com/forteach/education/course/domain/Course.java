@@ -2,7 +2,6 @@ package com.forteach.education.course.domain;
 
 
 import com.forteach.education.common.domain.Entitys;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

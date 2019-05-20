@@ -56,6 +56,7 @@ public class CourseReviewController {
         return WebResult.okResult(courseReviewService.save(courseReviewDescribe));
     }
 
+    @UserLoginToken
     @ApiOperation(value = "删除评论")
     @PostMapping("/delete")
     @ApiImplicitParam(name = "reviewId", value = "评论id", dataType = "string", paramType = "from", required = true)
@@ -65,6 +66,7 @@ public class CourseReviewController {
         return WebResult.okResult();
     }
 
+    @UserLoginToken
     @GetMapping("/findReviewFirst")
     @ApiOperation(value = "查询课程评论", notes = "查询最近一条课程评论和评分")
     @ApiImplicitParam(name = "courseId", value = "课程id", dataType = "string", required = true, paramType = "from")

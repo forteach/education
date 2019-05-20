@@ -228,7 +228,7 @@ public class CourseController {
     })
     public WebResult deleteIsValidById(@ApiParam(name = "courseId", value = "根据资源ID 逻辑删除对应科目信息", type = "string", required = true) @RequestBody String courseId) {
         MyAssert.blank(courseId, DefineCode.ERR0010, "科目ID不为空");
-        courseService.deleteIsValidById(courseId);
+        courseService.deleteIsValidById(String.valueOf(JSONObject.parseObject("courseId").getString("courseId")));
         return WebResult.okResult();
     }
 
