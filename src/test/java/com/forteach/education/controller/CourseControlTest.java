@@ -110,9 +110,9 @@ public class CourseControlTest {
         CourseFindAllReq req = new CourseFindAllReq();
         SortVo sv = new SortVo();
         req.setSortVo(sv);
-        log.info("------*{}", JSON.toJSONString(req));
-        WebResult r = courseController.findAll(req);
-        log.info("*********{}", JSON.toJSONString(r));
+//        log.info("------*{}", JSON.toJSONString(req));
+//        WebResult r = courseController.findAll(req);
+//        log.info("*********{}", JSON.toJSONString(r));
     }
 
     @Test

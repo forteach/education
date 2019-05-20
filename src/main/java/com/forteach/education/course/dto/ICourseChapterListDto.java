@@ -64,4 +64,18 @@ public interface ICourseChapterListDto {
     public String getChapterName();
 
 
+    /**
+     * 教师名称
+     * @return
+     */
+    public String getTeacherName();
+
+    /**
+     * 教师id
+     * @return
+     */
+    public String getTeacherId();
+
+
+
 }

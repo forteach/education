@@ -6,6 +6,7 @@ import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.course.domain.CourseReviewDescribe;
 import com.forteach.education.course.service.CourseReviewService;
 import com.forteach.education.course.web.req.CourseReviewReq;
@@ -74,7 +75,10 @@ public class CourseReviewController {
 
     @PostMapping("/findReview")
     @ApiOperation(value = "分页查询课程评论")
-    @ApiImplicitParam(name = "courseId", value = "课程id", dataType = "string", required = true, paramType = "from")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "课程id", dataType = "string", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "sortVo", value = "分页字段", dataTypeClass = SortVo.class, required = true, paramType = "query")
+    })
     public WebResult findReviewPage(@RequestBody CourseReviewReq reviewReq){
         MyAssert.isNull(reviewReq.getCourseId(), DefineCode.ERR0010, "课程id 不能为空");
         MyAssert.blank(String.valueOf(reviewReq.getSortVo().getPage()), DefineCode.ERR0010, "当前页码不为空");

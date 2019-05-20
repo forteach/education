@@ -173,6 +173,8 @@ public class CourseServiceImpl implements CourseService {
                             .courseDescribe(iCourseChapterListDto.getCourseDescribe())
                             .joinChapterId(iCourseChapterListDto.getChapterId())
                             .joinChapterName(iCourseChapterListDto.getChapterName())
+                            .teacherId(iCourseChapterListDto.getTeacherId())
+                            .teacherName(iCourseChapterListDto.getTeacherName())
                             .build());
                 });
         return listRespList;

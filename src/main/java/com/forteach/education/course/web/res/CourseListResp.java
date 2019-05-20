@@ -51,6 +51,12 @@ public class CourseListResp implements Serializable {
     @ApiModelProperty(value = "已经上课的课程名称", name = "joinChapterName", dataType = "string")
     private String joinChapterName;
 
+    @ApiModelProperty(name = "teacherId", value = "教师id", dataType = "string")
+    private String teacherId;
+
+    @ApiModelProperty(name = "teacherName", value = "教师名字", dataType = "string")
+    private String teacherName;
+
     public CourseListResp(String courseId, String courseName, String courseNumber, String lessonPreparationType, String topPicSrc) {
         this.courseId = courseId;
         this.courseName = courseName;

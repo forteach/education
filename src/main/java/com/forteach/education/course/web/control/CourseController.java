@@ -144,10 +144,11 @@ public class CourseController {
             @ApiImplicitParam(name = "sortVo", value = "分页参数息", dataTypeClass = CourseFindAllReq.class, example = "{\"sortVo\":{\"isValidated\":\"0\",\"page\":0,\"size\":15,\"sort\":1}}")
     })
     @PostMapping("/findAll")
-    public WebResult findAll(@ApiParam(name = "sortVo", value = "分页查科目信息") @RequestBody CourseFindAllReq req) {
+    public WebResult findAll(@ApiParam(name = "sortVo", value = "分页查科目信息") @RequestBody CourseFindAllReq req, HttpServletRequest request) {
         SortVo sortVo = req.getSortVo();
         MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
         MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
+        req.setUserId(tokenService.getTeacherId(request));
         PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
         return WebResult.okResult(courseService.findAll(page).stream()
                 .map((item) -> {

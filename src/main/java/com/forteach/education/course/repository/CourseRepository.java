@@ -48,23 +48,59 @@ public interface CourseRepository extends JpaRepository<Course, String> {
      * @param classId
      * @return
      */
-    @Transactional(readOnly = true, rollbackFor = Exception.class)
-    @Query(value = "select " +
-            " c.courseId as courseId, " +
-            " c.courseName as courseName, " +
-            " c.topPicSrc as topPicSrc, " +
-            " c.courseDescribe as courseDescribe, " +
-            " cc.chapterId as chapterId, " +
-            " cc.chapterName as chapterName " +
+//    @Query(value = "select " +
+//            " c.courseId as courseId, " +
+//            " c.courseName as courseName, " +
+//            " c.topPicSrc as topPicSrc, " +
+//            " c.courseDescribe as courseDescribe, " +
+//            " cc.chapterId as chapterId, " +
+//            " cc.chapterName as chapterName " +
+//            " from Course as c " +
+//            " left join CourseChapter as cc on c.courseId = cc.chapterId " +
+//            " left join CourseChapterCount as ccc on c.courseId = ccc.chapterId " +
+//            " and ccc.chapterId = cc.chapterId " +
+//            " and ccc.classId = ?1 " +
+//            " where c.isValidated = '0' " +
+//            " and cc.isValidated = '0' " +
+//            " and c.courseId in " +
+//            " (select distinct tcc.courseId from TeacherClassCourse as tcc where tcc.isValidated = '0' and tcc.classId = ?1) " +
+//            " order by c.createTime desc")
+
+//    @Query(value = " select " +
+//            "  c.courseId       as courseId, " +
+//            "  c.courseName     as courseName, " +
+//            "  c.topPicSrc     as topPicSrc, " +
+//            "  c.courseDescribe as corseDescribe" +
+//            "  " +
+//            " from Course as c " +
+////            "     CourseChapter as cc " +
+//            " where c.isValidated = '0' " +
+////            "  and cc.isValidated = '0' " +
+////            "  and c.courseId = cc.courseId " +
+//            "  and c.courseId in ( " +
+//            "  select distinct tcc.courseId " +
+//            "  from TeacherClassCourse as tcc " +
+//            "  where tcc.isValidated = '0' " +
+//            "    and tcc.classId = ?1 " +
+//            " ) " +
+//            " order by c.createTime desc ")
+
+    @Query(value = " select " +
+            "  c.courseId       as courseId, " +
+            "  c.courseName     as courseName, " +
+            "  c.topPicSrc     as topPicSrc, " +
+            "  c.courseDescribe as courseDescribe, " +
+            "  t.teacherId      as teacherId, " +
+            "  t.teacherName    as teacherName " +
             " from Course as c " +
-            " left join CourseChapter as cc on c.courseId = cc.chapterId " +
-            " left join CourseChapterCount as ccc on c.courseId = ccc.chapterId " +
-            " and ccc.chapterId = cc.chapterId " +
-            " and ccc.classId = ?1 " +
+            "       left join TeacherClassCourse as tcc on c.courseId = tcc.courseId " +
+            "       left join Teacher as t on t.teacherId= tcc.teacherId " +
             " where c.isValidated = '0' " +
-            " and cc.isValidated = '0' " +
-            " and c.courseId in " +
-            " (select distinct tcc.courseId from TeacherClassCourse as tcc where tcc.isValidated = '0' and tcc.classId = ?1) " +
-            " order by c.createTime desc")
+            "  and t.isValidated = '0' " +
+            "  and tcc.isValidated = '0'" +
+//            " and c.createUser = tcc.teacherId " +
+            "  and tcc.classId = ?1 " +
+            " order by c.createTime ")
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
     List<ICourseChapterListDto> findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(String classId);
 }
