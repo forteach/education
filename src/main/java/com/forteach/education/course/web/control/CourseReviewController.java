@@ -57,7 +57,7 @@ public class CourseReviewController {
     }
 
     @UserLoginToken
-    @ApiOperation(value = "删除评论")
+    @ApiOperation(value = "删除评论", notes = "逻辑删除课程评论信息")
     @PostMapping("/delete")
     @ApiImplicitParam(name = "reviewId", value = "评论id", dataType = "string", paramType = "from", required = true)
     public WebResult delete(@RequestBody String reviewId){

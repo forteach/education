@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * @description:
  */
 @RestController
-@Api(value = "课程章节评级操作", tags = {"对课程章节评价进行操作"})
+@Api(value = "课程章节评论操作", tags = {"对课程章节评价进行操作"})
 @RequestMapping(path = "/courseChapterReview", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class CourseChapterReviewController {
 
