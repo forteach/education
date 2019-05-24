@@ -1,9 +1,10 @@
 package com.forteach.education.course.service;
 
 import com.forteach.education.common.keyword.WebResult;
-import com.forteach.education.course.domain.CourseChapterReview;
 import com.forteach.education.course.dto.IStudentDto;
 import com.forteach.education.course.web.req.CourseChapterReviewSaveReq;
+import com.forteach.education.course.web.res.CourseChapterReviewDescribeResp;
+import com.forteach.education.course.web.res.CourseChapterReviewResp;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface CourseChapterReviewService {
      * @param chapterId
      * @return
      */
-    CourseChapterReview findChapterReview(String chapterId);
+    CourseChapterReviewResp findChapterReview(String chapterId);
 
     /**
      * 查询评论过的学生信息
@@ -36,4 +37,6 @@ public interface CourseChapterReviewService {
      * @return
      */
     List<IStudentDto> findCourseChapterStudentsAll(String chapterId);
+
+    CourseChapterReviewDescribeResp findMyCourseChapterReview(String studentId, String chapterId);
 }

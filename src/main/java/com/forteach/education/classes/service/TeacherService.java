@@ -1,6 +1,7 @@
 package com.forteach.education.classes.service;
 
 import com.forteach.education.classes.domain.Teacher;
+import com.forteach.education.classes.dto.IClassesDto;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.web.resp.TeacherInfoResp;
 import org.springframework.data.domain.Page;
@@ -81,4 +82,11 @@ public interface TeacherService {
      * @return
      */
     List<TeacherInfoResp> findAllTeacherInfo();
+
+    /**
+     * 教师端查询我的班级信息
+     * @param teacherId
+     * @return
+     */
+    List<IClassesDto> findMyTeachClassInfo(String teacherId);
 }

@@ -1,7 +1,7 @@
 package com.forteach.education.classes.repository;
 
 import com.forteach.education.classes.domain.Teacher;
-import com.forteach.education.classes.dto.TeacherInfoDto;
+import com.forteach.education.classes.dto.ITeacherInfoDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -36,7 +36,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, String>, JpaSp
      */
     @Transactional(readOnly = true)
     @Query(value = "select teacherId AS teacherId, teacherCode AS teacherCode, teacherName AS teacherName FROM Teacher WHERE isValidated = :isValidated ORDER BY teacherName ASC ")
-    List<TeacherInfoDto> findByIsValidatedEquals(String isValidated);
+    List<ITeacherInfoDto> findByIsValidatedEquals(String isValidated);
 
 
     /**

@@ -48,4 +48,15 @@ public interface CourseChapterReviewDescribeRepository extends JpaRepository<Cou
     @Query(value = " SELECT s.id AS studentId, s.userName AS studentName, s.portrait AS portrait, s.classId AS classId FROM StudentEntitys AS s " +
             " WHERE s.id IN (SELECT DISTINCT studentId FROM CourseChapterReviewDescribe WHERE isValidated = '0' AND chapterId = ?1 )")
     List<IStudentDto> findCourseChapterReviewByChapterId(String chapterId);
+
+
+    /**
+     * 查询有效的学生课程章节评分
+     * @param isValidated
+     * @param studentId
+     * @param chapterId
+     * @return
+     */
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    CourseChapterReviewDescribe findByIsValidatedEqualsAndStudentIdAndChapterId(String isValidated, String studentId, String chapterId);
 }

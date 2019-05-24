@@ -7,7 +7,7 @@ package com.forteach.education.classes.dto;
  * @version: 1.0
  * @description:
  */
-public interface TeacherInfoDto {
+public interface ITeacherInfoDto {
     /**
      * 教师id
      * @return

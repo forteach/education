@@ -1,7 +1,8 @@
-package com.forteach.education.authority.web.control;
+package com.forteach.education.classes.web.control;
 
 import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.authority.annotation.UserLoginToken;
+import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.classes.service.TeacherService;
 import com.forteach.education.common.config.MyAssert;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
@@ -29,10 +31,12 @@ import javax.validation.constraints.NotBlank;
 public class TeacherController {
 
     private final TeacherService teacherService;
+    private final TokenService tokenService;
 
     @Autowired
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherService teacherService, TokenService tokenService) {
         this.teacherService = teacherService;
+        this.tokenService = tokenService;
     }
 
     /**
@@ -178,5 +182,13 @@ public class TeacherController {
     public WebResult findTeachersBySpecialtyId(@ApiParam(name = "specialtyId", value = "专业ID") @RequestBody String specialtyId) {
         MyAssert.blank(specialtyId, DefineCode.ERR0010, "专业ID信息不为空");
         return WebResult.okResult(teacherService.findTeachersBySpecialtyId(String.valueOf(JSONObject.parseObject(specialtyId).getString("specialtyId"))));
+    }
+
+    @UserLoginToken
+    @ApiOperation(value = "老师查询自己所教的班级信息", notes = "教师端查询所教课的班级信息")
+    @PostMapping("/myTeacherClass")
+    public WebResult myTeachClass(HttpServletRequest request){
+        String teacherId = tokenService.getTeacherId(request);
+        return WebResult.okResult(teacherService.findMyTeachClassInfo(teacherId));
     }
 }

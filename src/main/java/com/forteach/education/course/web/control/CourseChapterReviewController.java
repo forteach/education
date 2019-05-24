@@ -54,7 +54,7 @@ public class CourseChapterReviewController {
         return courseChapterReviewService.save(reviewSaveReq);
     }
 
-    @ApiOperation(value = "查询学生评价的信息", notes = "查询章节评价信息")
+    @ApiOperation(value = "查询当课程章节评价的信息", notes = "查询章节评价信息(评价的分数, 评价的人数)")
     @GetMapping("/findChapterReview")
     @ApiImplicitParam(name = "chapterId", value = "课程章节id", dataType = "string", required = true, paramType = "query")
     public WebResult findChapterReview(@RequestBody String chapterId){
@@ -62,11 +62,21 @@ public class CourseChapterReviewController {
         return WebResult.okResult(courseChapterReviewService.findChapterReview(JSONObject.parseObject(chapterId).getString("chapterId")));
     }
 
-    @ApiOperation(value = "查询评价的所有学生", notes = "查询所有评论过的学生列表信息")
+    @ApiOperation(value = "查询评价过的所有学生", notes = "查询所有评论过的学生列表信息")
     @GetMapping("/findCourseChapterStudentsAll")
     @ApiImplicitParam(name = "chapterId", value = "课程章节id", dataType = "string", required = true, paramType = "query")
     public WebResult findCourseChapterStudentsAll(@RequestBody String chapterId){
         MyAssert.isNull(chapterId, DefineCode.ERR0010, "课程章节不为空");
         return WebResult.okResult(courseChapterReviewService.findCourseChapterStudentsAll(JSONObject.parseObject(chapterId).getString("chapterId")));
+    }
+
+    @UserLoginToken
+    @ApiOperation(value = "查询我的评价", notes = "学生端查询自己评价当前课程章节信息")
+    @PostMapping("/myCourseChapterReview")
+    public WebResult findMyCourseChapterReview(@RequestBody String chapterId, HttpServletRequest request){
+        MyAssert.isNull(chapterId, DefineCode.ERR0010, "课程章节不为空");
+        String chapterIdStr = JSONObject.parseObject(chapterId).getString("chapterId");
+        String studentId = tokenService.getStudentId(request);
+        return WebResult.okResult(courseChapterReviewService.findMyCourseChapterReview(studentId, chapterIdStr));
     }
 }

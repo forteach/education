@@ -1,9 +1,11 @@
 package com.forteach.education.classes.service.impl;
 
 import com.forteach.education.classes.domain.Teacher;
+import com.forteach.education.classes.dto.IClassesDto;
 import com.forteach.education.classes.repository.TeacherRepository;
 import com.forteach.education.classes.service.TeacherService;
 import com.forteach.education.common.web.vo.SortVo;
+import com.forteach.education.course.repository.TeacherClassCourseRepository;
 import com.forteach.education.util.StringUtil;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.resp.TeacherInfoResp;
@@ -16,8 +18,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
@@ -33,10 +37,12 @@ import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
+    private final TeacherClassCourseRepository teacherClassCourseRepository;
 
     @Autowired
-    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+    public TeacherServiceImpl(TeacherRepository teacherRepository, TeacherClassCourseRepository teacherClassCourseRepository) {
         this.teacherRepository = teacherRepository;
+        this.teacherClassCourseRepository = teacherClassCourseRepository;
     }
 
     /**
@@ -145,7 +151,7 @@ public class TeacherServiceImpl implements TeacherService {
     public List<TeacherInfoResp> findAllTeacherInfo() {
         List<TeacherInfoResp> list = new ArrayList<>();
         teacherRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN)
-                .parallelStream()
+                .stream()
                 .forEach(t -> {
                     list.add(TeacherInfoResp.builder()
                             .teacherId(t.getTeacherId())
@@ -154,6 +160,11 @@ public class TeacherServiceImpl implements TeacherService {
                             .build());
                 });
         return list;
+    }
+
+    @Override
+    public List<IClassesDto> findMyTeachClassInfo(String teacherId) {
+        return teacherClassCourseRepository.findClassInfoByTeacherId(teacherId);
     }
 
 

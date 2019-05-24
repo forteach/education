@@ -12,6 +12,8 @@ import com.forteach.education.course.repository.CourseChapterReviewDescribeRepos
 import com.forteach.education.course.repository.CourseChapterReviewRepository;
 import com.forteach.education.course.service.CourseChapterReviewService;
 import com.forteach.education.course.web.req.CourseChapterReviewSaveReq;
+import com.forteach.education.course.web.res.CourseChapterReviewDescribeResp;
+import com.forteach.education.course.web.res.CourseChapterReviewResp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,18 +80,28 @@ public class CourseChapterReviewServiceImpl implements CourseChapterReviewServic
     }
 
     @Override
-    public CourseChapterReview findChapterReview(String chapterId) {
+    public CourseChapterReviewResp findChapterReview(String chapterId) {
         CourseChapterReview courseChapterReview = courseChapterReviewRepository.findByIsValidatedEqualsAndChapterId(TAKE_EFFECT_OPEN, chapterId);
-        courseChapterReview.setCreateTime(null);
-        courseChapterReview.setIsValidated(null);
-        courseChapterReview.setUpdateUser(null);
-        courseChapterReview.setUpdateTime(null);
-        courseChapterReview.setCreateUser(null);
-        return courseChapterReview;
+        return CourseChapterReviewResp.builder()
+                .averageScore(courseChapterReview.getAverageScore())
+                .chapterId(courseChapterReview.getChapterId())
+                .reviewAmount(courseChapterReview.getReviewAmount())
+                .build();
     }
 
     @Override
     public List<IStudentDto> findCourseChapterStudentsAll(String chapterId) {
         return courseChapterReviewDescribeRepository.findCourseChapterReviewByChapterId(chapterId);
     }
+
+    @Override
+    public CourseChapterReviewDescribeResp findMyCourseChapterReview(String studentId, String chapterId) {
+        CourseChapterReviewDescribe courseChapterReviewDescribe = courseChapterReviewDescribeRepository.findByIsValidatedEqualsAndStudentIdAndChapterId(TAKE_EFFECT_OPEN, studentId, chapterId);
+        return CourseChapterReviewDescribeResp.builder()
+                .chapterId(courseChapterReviewDescribe.getChapterId())
+                .score(courseChapterReviewDescribe.getScore())
+                .studentId(courseChapterReviewDescribe.getStudentId())
+                .build();
+    }
+
 }
