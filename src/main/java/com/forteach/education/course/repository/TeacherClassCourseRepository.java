@@ -32,6 +32,9 @@ public interface TeacherClassCourseRepository extends JpaRepository<TeacherClass
      * @return
      */
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    @Query(value = " select classId as classId, className as className from Classes where isValidated = '0' and classId in (select distinct classId from TeacherClassCourse where isValidated = '0' and teacherId = ?1)")
-    List<IClassesDto> findClassInfoByTeacherId(String teacherId);
+    @Query(value = " select classId as classId, className as className from Classes " +
+            " where isValidated = '0' and classId " +
+            " in (select distinct classId from TeacherClassCourse where " +
+            " isValidated = '0' and teacherId = ?1 and courseId = ?2 or ?2 is null or ?2 ='') ")
+    List<IClassesDto> findClassInfoByTeacherId(String teacherId, String courseId);
 }

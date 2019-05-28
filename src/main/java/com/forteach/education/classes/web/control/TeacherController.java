@@ -185,10 +185,11 @@ public class TeacherController {
     }
 
     @UserLoginToken
-    @ApiOperation(value = "老师查询自己所教的班级信息", notes = "教师端查询所教课的班级信息")
     @PostMapping("/myTeachClass")
-    public WebResult myTeachClass(HttpServletRequest request){
+    @ApiOperation(value = "老师查询自己所教的班级信息", notes = "教师端查询所教课的班级信息")
+    @ApiImplicitParam(name = "courseId", value = "课程id", dataType = "string", paramType = "form")
+    public WebResult myTeachClass(@RequestBody String courseId, HttpServletRequest request){
         String teacherId = tokenService.getTeacherId(request);
-        return WebResult.okResult(teacherService.findMyTeachClassInfo(teacherId));
+        return WebResult.okResult(teacherService.findMyTeachClassInfo(teacherId, JSONObject.parseObject(courseId).getString("courseId")));
     }
 }

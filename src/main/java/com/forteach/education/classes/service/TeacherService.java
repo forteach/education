@@ -88,5 +88,5 @@ public interface TeacherService {
      * @param teacherId
      * @return
      */
-    List<IClassesDto> findMyTeachClassInfo(String teacherId);
+    List<IClassesDto> findMyTeachClassInfo(String teacherId, String courseId);
 }

@@ -163,8 +163,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<IClassesDto> findMyTeachClassInfo(String teacherId) {
-        return teacherClassCourseRepository.findClassInfoByTeacherId(teacherId);
+    public List<IClassesDto> findMyTeachClassInfo(String teacherId, String courseId) {
+        return teacherClassCourseRepository.findClassInfoByTeacherId(teacherId, courseId);
     }
 
 
