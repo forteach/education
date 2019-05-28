@@ -14,6 +14,7 @@ import com.forteach.education.course.service.CourseShareService;
 import com.forteach.education.course.web.control.verify.CourseVer;
 import com.forteach.education.course.web.req.CourseFindAllReq;
 import com.forteach.education.course.web.req.CourseSaveReq;
+import com.forteach.education.course.web.req.CourseStudyReq;
 import com.forteach.education.course.web.res.CourseListResp;
 import com.forteach.education.course.web.res.CourseResp;
 import com.forteach.education.course.web.res.CourseSaveResp;
@@ -182,7 +183,7 @@ public class CourseController {
     @PostMapping("/selectTeachersByShareId")
     @ApiOperation(value = "根据课程备课分享ID查询对应的协作老师信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "shareId", value = "科目备课分享ID", dataType = "string", required = true, example = "")
+            @ApiImplicitParam(name = "shareId", value = "科目备课分享ID", dataType = "string", required = true)
     })
     public WebResult selectTeachersByCourseId(@ApiParam(name = "shareId", value = "查询对应的协作老师信息", type = "string", required = true) @RequestBody String shareId) {
         MyAssert.blank(shareId, DefineCode.ERR0010, "科目备课分享ID不为空");
@@ -290,6 +291,21 @@ public class CourseController {
     public WebResult findImagesByCourseId(@ApiParam(name = "courseId", value = "查询对应的", type = "string", required = true) @RequestBody String courseId) {
         MyAssert.blank(courseId, DefineCode.ERR0010, "科目ID不为空");
         return WebResult.okResult(courseService.findImagesByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
+    }
+
+    /**
+     * 查询学生的课程学生信息
+     * @param courseStudyReq
+     * @param request
+     * @return
+     */
+    @UserLoginToken
+    @ApiOperation(value = "查询学生课程学习状态信息", notes = "查询相关课程的学生状态信息")
+    @PostMapping("/findCourseStudy")
+    @ApiImplicitParam(name = "studyStatus", value = "学习状态 0 未学习　1 在学习　2 已完结", dataType = "int")
+    public WebResult findCourseStudy(@RequestBody CourseStudyReq courseStudyReq, HttpServletRequest request){
+        String studentId = tokenService.getStudentId(request);
+        return WebResult.okResult(courseService.findCourseStudyList(studentId, courseStudyReq.getStudyStatus()));
     }
 
 }

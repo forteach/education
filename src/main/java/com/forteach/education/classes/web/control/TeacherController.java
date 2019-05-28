@@ -186,7 +186,7 @@ public class TeacherController {
 
     @UserLoginToken
     @ApiOperation(value = "老师查询自己所教的班级信息", notes = "教师端查询所教课的班级信息")
-    @PostMapping("/myTeacherClass")
+    @PostMapping("/myTeachClass")
     public WebResult myTeachClass(HttpServletRequest request){
         String teacherId = tokenService.getTeacherId(request);
         return WebResult.okResult(teacherService.findMyTeachClassInfo(teacherId));

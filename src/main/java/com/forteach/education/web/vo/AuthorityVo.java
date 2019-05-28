@@ -36,6 +36,6 @@ public class AuthorityVo implements Serializable {
     /**
      * 需要保存的栏目动作集合
      */
-    @ApiModelProperty(value = "需要保存的栏目动作集合", notes = "json 串", name = "json", example = "")
+    @ApiModelProperty(value = "需要保存的栏目动作集合", notes = "json 串", name = "json")
     private String json;
 }

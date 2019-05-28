@@ -42,11 +42,11 @@ public class CourseReviewController {
     @ApiOperation(value = "提交评论和老师回复", notes = "学生评论课程和老师回复的接口")
     @PostMapping("/save")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "课程id", required = true, dataType = "string", paramType = "from", example = "课程id不为空"),
-            @ApiImplicitParam(name = "reviewId", value = "评论id", dataType = "string", paramType = "from", example = "学生新评论不用传, 教师回复必须传值"),
-            @ApiImplicitParam(name = "reviewDescribe", value = "评论内容", dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "score", value = "评论分数", dataType = "int", paramType = "from", example = "评论分数"),
-            @ApiImplicitParam(name = "reply", value = "老师回复内容", dataType = "string", paramType = "from", example = "当教师回复调用不能为空")
+            @ApiImplicitParam(name = "courseId", value = "课程id", required = true, dataType = "string", paramType = "form", example = "课程id不为空"),
+            @ApiImplicitParam(name = "reviewId", value = "评论id", dataType = "string", paramType = "form", example = "学生新评论不用传, 教师回复必须传值"),
+            @ApiImplicitParam(name = "reviewDescribe", value = "评论内容", dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "score", value = "评论分数", dataType = "int", paramType = "form", example = "5"),
+            @ApiImplicitParam(name = "reply", value = "老师回复内容", dataType = "string", paramType = "form", example = "当教师回复调用不能为空")
 
     })
     public WebResult save(@RequestBody CourseReviewDescribe courseReviewDescribe, HttpServletRequest request){

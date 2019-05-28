@@ -13,8 +13,11 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(name = "datum_area", indexes = {@Index(columnList = "chapter_id", name = "chapter_id_index"),
-        @Index(columnList = "datum_area", name = "datum_area_index"), @Index(columnList = "k_node_id", name = "k_node_id_index")})
+@Table(name = "datum_area", indexes = {
+        @Index(columnList = "chapter_id", name = "chapter_id_index"),
+        @Index(columnList = "datum_area", name = "datum_area_index"),
+        @Index(columnList = "k_node_id", name = "k_node_id_index")
+})
 @org.hibernate.annotations.Table(appliesTo = "datum_area", comment = "资料领域对照表")
 @IdClass(DatumAreaPk.class)
 @ApiModel(value = "章节资料领域对照表")

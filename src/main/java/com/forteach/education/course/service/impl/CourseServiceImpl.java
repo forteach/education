@@ -10,10 +10,8 @@ import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseEntity;
 import com.forteach.education.course.domain.CourseShare;
 import com.forteach.education.course.dto.ICourseListDto;
-import com.forteach.education.course.repository.CourseEntrityRepository;
-import com.forteach.education.course.repository.CourseRepository;
-import com.forteach.education.course.repository.CourseReviewDescribeRepository;
-import com.forteach.education.course.repository.TeacherClassCourseRepository;
+import com.forteach.education.course.dto.ICourseStudyDto;
+import com.forteach.education.course.repository.*;
 import com.forteach.education.course.service.CourseService;
 import com.forteach.education.course.service.CourseShareService;
 import com.forteach.education.course.web.req.CourseImagesReq;
@@ -69,6 +67,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Resource
     private CourseReviewDescribeRepository courseReviewDescribeRepository;
+
+    @Resource
+    private CourseStudyRepository courseStudyRepository;
 
     /**
      * 保存课程基本信息
@@ -253,5 +254,11 @@ public class CourseServiceImpl implements CourseService {
     public List<CourseEntity> findCourseList() {
         return courseEntrityRepository.findByIsValidated(TAKE_EFFECT_OPEN);
     }
+
+    @Override
+    public List<ICourseStudyDto> findCourseStudyList(String studentId, Integer studyStatus) {
+        return courseStudyRepository.findByIsValidatedEqualsAndStudentId(studentId, studyStatus);
+    }
+
 
 }

@@ -78,7 +78,7 @@ public class ArticleCommentService {
             int newcount=Integer.valueOf(count).intValue()+1;
             stringRedisTemplate.opsForValue().set(replykey,String.valueOf(newcount));
 
-            if(request.getUserType().equals("C")){
+            if("C".equals(request.getUserType())){
                 //学生名称
                 artcomment.setUserName(findStudentsName(request.getUserId()));
                 //学生头像

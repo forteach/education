@@ -32,7 +32,7 @@ public class SortVo implements Serializable {
     @ApiModelProperty(value = "有无效", name = "isValidated", notes = "0 有效 1　无效 (默认0)", dataType = "string", example = "0")
     private String isValidated = StrUtil.isNotBlank(this.getIsValidated()) ? this.getIsValidated() : "0";
 
-    @ApiModelProperty(value = "sort", name = "排序方式", notes = "排序方式 0 正序　１ 倒叙　默认倒叙(1)", dataType = "int", example = "1")
+    @ApiModelProperty(value = "sort", name = "排序方式", notes = "排序方式 0 正序 1 倒叙　默认倒叙(1)", dataType = "int", example = "1")
     private int sort = StrUtil.isNotBlank(String.valueOf(this.getSort())) ? this.getSort() : 1;
 
     public SortVo() {

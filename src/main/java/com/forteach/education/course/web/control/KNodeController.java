@@ -54,7 +54,7 @@ public class KNodeController {
     @ApiOperation(value = "根据章节ID查询知识点信息")
     @PostMapping("/findByChapter")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "chapterId", value = "章节ID", example = "", dataType = "string", required = true, readOnly = true)
+            @ApiImplicitParam(name = "chapterId", value = "章节ID", dataType = "string", required = true, readOnly = true)
     })
     public WebResult findByChapter(@ApiParam(name = "chapterId", value = "章节ID", required = true, readOnly = true) @RequestBody String chapterId) {
         MyAssert.blank(chapterId, DefineCode.ERR0010, "章节ID不为空");
@@ -64,7 +64,7 @@ public class KNodeController {
     @ApiOperation(value = "根据课程ID查询知识点信息")
     @PostMapping("/findByCourse")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "课程ID", example = "", dataType = "string", required = true, readOnly = true)
+            @ApiImplicitParam(name = "courseId", value = "课程ID", dataType = "string", required = true, readOnly = true)
     })
     public WebResult findByCourse(@ApiParam(name = "courseId", value = "课程ID", required = true, readOnly = true) @RequestBody String courseId) {
         MyAssert.blank(courseId, DefineCode.ERR0010, "课程ID不为空");

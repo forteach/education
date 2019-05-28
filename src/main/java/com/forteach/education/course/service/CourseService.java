@@ -4,6 +4,7 @@ import com.forteach.education.classes.web.req.RTeacher;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseEntity;
 import com.forteach.education.course.dto.ICourseListDto;
+import com.forteach.education.course.dto.ICourseStudyDto;
 import com.forteach.education.course.web.req.CourseImagesReq;
 import com.forteach.education.course.web.res.CourseListResp;
 import com.forteach.education.images.course.domain.CourseImages;
@@ -48,5 +49,7 @@ public interface CourseService {
     public List<CourseListResp> myCourseList(String classId);
 
     public List<CourseEntity> findCourseList();
+
+    public List<ICourseStudyDto> findCourseStudyList(String studentId, Integer studyStatus);
 
 }
