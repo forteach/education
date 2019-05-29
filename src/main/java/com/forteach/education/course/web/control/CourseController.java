@@ -135,7 +135,8 @@ public class CourseController {
                 course.getTopPicSrc(),
                 course.getShareType(),
                 course.getCourseDescribe(),
-                shareId);
+                shareId,
+                course.getAlias());
         return WebResult.okResult(reps);
     }
 
@@ -153,7 +154,7 @@ public class CourseController {
         PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
         return WebResult.okResult(courseService.findAll(page).stream()
                 .map((item) -> {
-                    return new CourseListResp(item.getCourseId(), item.getCourseName(), item.getCourseNumber(), item.getLessonPreparationType(), item.getTopPicSrc());
+                    return new CourseListResp(item.getCourseId(), item.getCourseName(), item.getCourseNumber(), item.getLessonPreparationType(), item.getTopPicSrc(), item.getAlias());
                 })
                 .collect(toList()));
     }
@@ -174,7 +175,7 @@ public class CourseController {
         PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
         return WebResult.okResult(courseService.findMyCourse(userId, page).stream()
                 .map((item) -> {
-                    return new CourseListResp(item.getCourseId(), item.getCourseName(), item.getCourseNumber(), item.getLessonPreparationType(), item.getTopPicSrc());
+                    return new CourseListResp(item.getCourseId(), item.getCourseName(), item.getCourseNumber(), item.getLessonPreparationType(), item.getTopPicSrc(), item.getAlias());
                 })
                 .collect(toList()));
     }

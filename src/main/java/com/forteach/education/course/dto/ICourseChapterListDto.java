@@ -25,6 +25,12 @@ public interface ICourseChapterListDto {
     public String getCourseName();
 
     /**
+     * 别名
+     * @return
+     */
+    public String getAlias();
+
+    /**
      * 课程编号
      *
      * @return

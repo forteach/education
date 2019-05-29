@@ -41,9 +41,15 @@ public class CourseResp implements Serializable {
     @ApiModelProperty(value = "shareId")
     private String shareId;
 
+    @ApiModelProperty(name = "alias", value = "别名", dataType = "string", example = "第一学期")
+    private String alias;
+
+    @ApiModelProperty(value = "授课类型", name = "teachingType", dataType = "int", notes = "1、录播课程 2、直播课程 3、线下课堂", example = "1", required = true)
     private String teachingType;
 
-    public CourseResp(String courseId, String courseName, String courseNumber, String lessonPreparationType, String teachingType, String topPicSrc, String shareType, String courseDescribe, String shareId) {
+    public CourseResp(String courseId, String courseName, String courseNumber,
+                      String lessonPreparationType, String teachingType, String topPicSrc,
+                      String shareType, String courseDescribe, String shareId, String alias) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.courseNumber = courseNumber;
@@ -53,6 +59,7 @@ public class CourseResp implements Serializable {
         this.shareType = shareType;
         this.courseDescribe = courseDescribe;
         this.shareId = shareId;
+        this.alias = alias;
     }
 
 }

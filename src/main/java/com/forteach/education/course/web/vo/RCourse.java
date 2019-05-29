@@ -47,4 +47,7 @@ public class RCourse implements Serializable {
     @ApiModelProperty(name = "courseDescribe", value = "课程描述富文本", notes = "长字段富文本", example = "<p>富文本</p>")
     private String courseDescribe;
 
+    @ApiModelProperty(name = "alias", value = "别名", dataType = "string", example = "第一学期")
+    private String alias;
+
 }

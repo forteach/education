@@ -1,7 +1,5 @@
 package com.forteach.education.course.dto;
 
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
@@ -20,6 +18,12 @@ public interface ICourseStudyDto {
      * @return
      */
     public String getCourseName();
+
+    /**
+     * 别名
+     * @return
+     */
+    public String getAlias();
 
     /**
      * 章节id

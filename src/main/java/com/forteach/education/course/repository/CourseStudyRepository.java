@@ -16,14 +16,6 @@ import java.util.List;
  * @description: 课程学习数据
  */
 public interface CourseStudyRepository extends JpaRepository<CourseStudy, String> {
-    /**
-     * 查询有效的学习状态课程信息
-     * @param isValidated
-     * @param courseId
-     * @param studentId
-     * @return
-     */
-//    List<CourseStudy> findByIsValidatedEqualsAndCourseIdAndStudentId(String isValidated, String courseId, String studentId);
 
     /**
      * 查询学生学习课程的状态信息
@@ -33,6 +25,7 @@ public interface CourseStudyRepository extends JpaRepository<CourseStudy, String
     @Query(value = "select " +
             " c.courseId as courseId, " +
             " c.courseName as courseName, " +
+            " c.alias as alias, " +
             " cc.chapterId as chapterId, " +
             " cc.chapterName as chapterName, " +
             " cs.studyStatus as studyStatus, " +

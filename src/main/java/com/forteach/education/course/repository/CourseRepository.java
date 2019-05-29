@@ -51,6 +51,7 @@ public interface CourseRepository extends JpaRepository<Course, String> {
     @Query(value = " select " +
             "  c.courseId       as courseId, " +
             "  c.courseName     as courseName, " +
+            "  c.alias          as alias, " +
             "  c.topPicSrc     as topPicSrc, " +
             "  c.courseDescribe as courseDescribe, " +
             "  t.teacherId      as teacherId, " +

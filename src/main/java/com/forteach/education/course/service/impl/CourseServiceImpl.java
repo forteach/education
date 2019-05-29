@@ -160,7 +160,7 @@ public class CourseServiceImpl implements CourseService {
      * @return
      */
     @Override
-    @Cacheable(value = "myCourseList", key = "#classId", sync = true)
+    @Cacheable(value = "myCourseList", key = "#classId", sync = true, unless = "#result eq null")
     public List<CourseListResp> myCourseList(String classId) {
         List<CourseListResp> listRespList = Lists.newArrayList();
         courseRepository.findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(classId)
@@ -170,6 +170,7 @@ public class CourseServiceImpl implements CourseService {
                     listRespList.add(CourseListResp.builder()
                             .courseId(iCourseChapterListDto.getCourseId())
                             .courseName(iCourseChapterListDto.getCourseName())
+                            .alias(iCourseChapterListDto.getAlias())
                             .topPicSrc(iCourseChapterListDto.getTopPicSrc())
                             .courseDescribe(iCourseChapterListDto.getCourseDescribe())
                             .joinChapterId(iCourseChapterListDto.getChapterId())

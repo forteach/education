@@ -35,6 +35,9 @@ public class Course extends Entitys {
     @Column(name = "course_name", columnDefinition = "VARCHAR(40) COMMENT '科目名称'")
     private String courseName;
 
+    @Column(name = "alias", columnDefinition = "VARCHAR(32) COMMENT '别名'")
+    private String alias;
+
     @Column(name = "course_number", columnDefinition = "VARCHAR(32) COMMENT '课程编号'")
     private String courseNumber;
 
