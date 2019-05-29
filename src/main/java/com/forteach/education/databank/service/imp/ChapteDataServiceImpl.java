@@ -122,36 +122,29 @@ public class ChapteDataServiceImpl implements ChapteDataService {
             datumAreaRepository.save(da);
         }
 
-        //3、根据资料ID，获得领域信息，组装成都好分割的字符串
-//        List<String> list = datumAreaRepository.findByFileId(fileId).stream().map(item -> {
-//            return item.getDatumArea();
-//        }).collect(Collectors.toList());
-//        String newArea = String.join(",", list);
-        String newArea = datumArea;
-
         //4、修改文件资料表的资料领域字段
         switch (datumType) {
             //文档
             case Dic.COURSE_ZILIAO_FILE:
-                fileDatumRepository.updateDatumArea(fileId, newArea);
+                fileDatumRepository.updateDatumArea(fileId, datumArea);
                 fileDatumRepository.updateStuShare(fileId, stuShare);
                 fileDatumRepository.updateTeachShare(fileId, teachShare);
                 break;
             //视频
             case Dic.COURSE_ZILIAO_VIEW:
-                viewDatumRepository.updateDatumArea(fileId, newArea);
+                viewDatumRepository.updateDatumArea(fileId, datumArea);
                 viewDatumRepository.updateStuShare(fileId, stuShare);
                 viewDatumRepository.updateTeachShare(fileId, teachShare);
                 break;
             //音频
             case Dic.COURSE_ZILIAO_AUDIO:
-                audioDatumRepository.updateDatumArea(fileId, newArea);
+                audioDatumRepository.updateDatumArea(fileId, datumArea);
                 audioDatumRepository.updateStuShare(fileId, stuShare);
                 audioDatumRepository.updateTeachShare(fileId, teachShare);
                 break;
             //链接
             case Dic.COURSE_ZILIAO_LINK:
-                linkDatumRepository.updateDatumArea(fileId, newArea);
+                linkDatumRepository.updateDatumArea(fileId, datumArea);
                 linkDatumRepository.updateStuShare(fileId, stuShare);
                 linkDatumRepository.updateTeachShare(fileId, teachShare);
                 break;

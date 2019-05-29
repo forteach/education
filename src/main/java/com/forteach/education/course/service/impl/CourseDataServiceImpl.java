@@ -118,14 +118,8 @@ public class CourseDataServiceImpl implements CourseDataService {
             courseDatumAreaRepository.save(da);
         }
 
-        //3、根据资料ID，获得领域信息，组装成都好分割的字符串
-        List<String> list = courseDatumAreaRepository.findByFileId(fileId).stream().map(item -> {
-            return item.getDatumArea();
-        }).collect(Collectors.toList());
-        String newArea = String.join(",", list);
-
         //4、根据资料主表的资料ID，结合所选的单个资料领域，修改文件资料表的资料领域字段
-        courseDataRepository.updateDatumArea(fileId, newArea);
+        courseDataRepository.updateDatumArea(fileId, datumArea);
         courseDataRepository.updateStuShare(fileId, stuShare);
         courseDataRepository.updateTeachShare(fileId, teachShare);
 

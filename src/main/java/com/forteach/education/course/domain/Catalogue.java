@@ -11,18 +11,18 @@ import javax.persistence.*;
  * @Email: zhang10092009@hotmail.com
  * @Date: 18-11-16 14:09
  * @Version: 1.0
- * @Description: 课程讲课目录
+ * @Description: 科目章节
  */
 @Data
 @Entity
 @Builder
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "course_chapter", indexes = {@Index(columnList = "chapter_id", name = "chapter_id_index"), @Index(columnList = "course_id", name = "course_id_index")})
-@org.hibernate.annotations.Table(appliesTo = "course_chapter", comment = "课程讲课目录")
+@Table(name = "catalogue", indexes = {@Index(columnList = "chapter_id", name = "chapter_id_index"), @Index(columnList = "course_id", name = "course_id_index")})
+@org.hibernate.annotations.Table(appliesTo = "catalogue", comment = "科目章节")
 @GenericGenerator(name = "system-uuid", strategy = "uuid")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseChapter extends Entitys {
+public class Catalogue extends Entitys {
 
     @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '科目编号'")
     private String courseId;
