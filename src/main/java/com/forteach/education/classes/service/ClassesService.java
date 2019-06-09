@@ -3,6 +3,7 @@ package com.forteach.education.classes.service;
 import com.forteach.education.classes.domain.Classes;
 import com.forteach.education.classes.web.req.ClassesVo;
 import com.forteach.education.common.web.vo.SortVo;
+import com.forteach.education.course.dto.IStudentDto;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -38,4 +39,5 @@ public interface ClassesService {
 
     public Classes findById(String id);
 
+    List<IStudentDto> findStudentsByClassId(String classId);
 }

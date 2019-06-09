@@ -1,5 +1,6 @@
 package com.forteach.education.classes.web.control;
 
+import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.classes.domain.Classes;
 import com.forteach.education.classes.service.ClassesService;
@@ -63,5 +64,13 @@ public class ClassController {
         MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
         MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
         return WebResult.okResult(classesService.pageAll(sortVo));
+    }
+
+//    @UserLoginToken
+    @ApiOperation(value = "查询班级中有效的学生信息")
+    @PostMapping(path = "/findStudentsByClassId")
+    public WebResult findStudentsByClassId(@RequestBody String classId){
+        MyAssert.isNull(classId, DefineCode.ERR0010, "班级id不为空");
+        return WebResult.okResult(classesService.findStudentsByClassId(JSONObject.parseObject(classId).getString("classId")));
     }
 }

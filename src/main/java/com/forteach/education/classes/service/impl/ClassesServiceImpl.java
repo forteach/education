@@ -1,11 +1,13 @@
 package com.forteach.education.classes.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.authority.repository.StudentRepository;
 import com.forteach.education.classes.domain.Classes;
 import com.forteach.education.classes.repository.ClassesRepository;
 import com.forteach.education.classes.service.ClassesService;
 import com.forteach.education.classes.web.req.ClassesVo;
 import com.forteach.education.common.web.vo.SortVo;
+import com.forteach.education.course.dto.IStudentDto;
 import com.forteach.education.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -32,9 +34,11 @@ import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 public class ClassesServiceImpl implements ClassesService {
 
     private final ClassesRepository classesRepository;
+    private final StudentRepository studentRepository;
 
-    public ClassesServiceImpl(ClassesRepository classesRepository) {
+    public ClassesServiceImpl(ClassesRepository classesRepository, StudentRepository studentRepository) {
         this.classesRepository = classesRepository;
+        this.studentRepository = studentRepository;
     }
 
 
@@ -80,5 +84,10 @@ public class ClassesServiceImpl implements ClassesService {
     @Override
     public Classes findById(String id){
         return classesRepository.findByClassId(id);
+    }
+
+    @Override
+    public List<IStudentDto> findStudentsByClassId(String classId) {
+        return studentRepository.findByIsValidatedEqualsAndClassIdOrderByCreateTime(classId);
     }
 }
