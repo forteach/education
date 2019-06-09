@@ -66,7 +66,7 @@ public class ClassController {
         return WebResult.okResult(classesService.pageAll(sortVo));
     }
 
-//    @UserLoginToken
+    @UserLoginToken
     @ApiOperation(value = "查询班级中有效的学生信息")
     @PostMapping(path = "/findStudentsByClassId")
     public WebResult findStudentsByClassId(@RequestBody String classId){
