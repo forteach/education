@@ -68,6 +68,7 @@ public class ClassController {
 
     @UserLoginToken
     @ApiOperation(value = "查询班级中有效的学生信息")
+    @ApiImplicitParam(name = "classId", value = "班级id", dataType = "string", required = true, paramType = "query")
     @PostMapping(path = "/findStudentsByClassId")
     public WebResult findStudentsByClassId(@RequestBody String classId){
         MyAssert.isNull(classId, DefineCode.ERR0010, "班级id不为空");
