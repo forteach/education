@@ -10,6 +10,7 @@ import com.forteach.education.databank.service.ChapteDataService;
 import com.forteach.education.databank.web.control.verify.ChapterDataVerify;
 import com.forteach.education.databank.web.req.ChapteDataListReq;
 import com.forteach.education.databank.web.req.ChapteDataReq;
+import com.forteach.education.databank.web.req.ChapterDataRemoveReq;
 import com.forteach.education.web.vo.DataDatumVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,4 +127,19 @@ public class ChapteDataController {
         }
     }
 
+    @UserLoginToken
+    @PostMapping("/removeDatumList")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", required = true, paramType = "form"),
+            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "string", required = true, paramType = "form", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例"),
+    })
+    public WebResult removeDatumList(@RequestBody ChapterDataRemoveReq chapterDataRemoveReq){
+
+        MyAssert.isNull(chapterDataRemoveReq.getCourseId(), DefineCode.ERR0010, "科目编号不为空");
+        MyAssert.isNull(chapterDataRemoveReq.getChapterId(), DefineCode.ERR0010, "科目编号不为空");
+        chapteDataService.removeDatumList(chapterDataRemoveReq);
+        return WebResult.okResult();
+
+    }
 }

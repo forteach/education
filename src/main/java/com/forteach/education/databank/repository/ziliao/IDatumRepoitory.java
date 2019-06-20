@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,4 +57,22 @@ public interface IDatumRepoitory<T, ID> extends JpaRepository<T, ID> {
     @Transactional(readOnly = true)
     public Page<T> findAll(Specification<T> specification, Pageable pageable);
 
+    /**
+     * 通过章节和课程id查询
+     * @param chapterId
+     * @param courseId
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
+    public List<T> findByChapterIdAndCourseId(String chapterId, String courseId);
+
+    /**
+     * 删除对应资料信息
+     * @param chapterId
+     * @param courseId
+     * @return
+     */
+    @Modifying(clearAutomatically = true)
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteAllByChapterIdAndCourseId(String chapterId, String courseId);
 }

@@ -9,6 +9,7 @@ import com.forteach.education.course.domain.ziliao.CourseData;
 import com.forteach.education.databank.domain.ziliao.*;
 import com.forteach.education.databank.repository.ziliao.*;
 import com.forteach.education.databank.service.ChapteDataService;
+import com.forteach.education.databank.web.req.ChapterDataRemoveReq;
 import com.forteach.education.databank.web.res.DatumResp;
 import com.forteach.education.exception.AssertErrorException;
 import com.forteach.education.util.FileUtils;
@@ -28,7 +29,9 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 import static java.util.stream.Collectors.toList;
 
@@ -360,4 +363,58 @@ public class ChapteDataServiceImpl implements ChapteDataService {
 
     }
 
+    @Override
+    public void removeDatumList(ChapterDataRemoveReq chapterDataRemoveReq) {
+//        switch (chapterDataRemoveReq.getDatumType()){
+//                //文档
+//                case Dic.COURSE_ZILIAO_FILE:
+//                    size = saveT(courseId, chapterId, datumArea, datumType, teachShare, stuShare, files, fileDatumRepository, new FileDatum());
+//                    break;
+//                //视频
+//                case Dic.COURSE_ZILIAO_VIEW:
+//                    size = saveT(courseId, chapterId, datumArea, datumType, teachShare, stuShare, files, viewDatumRepository, new ViewDatum());
+//                    break;
+//                //音频
+//                case Dic.COURSE_ZILIAO_AUDIO:
+//                    size = saveT(courseId, chapterId, datumArea, datumType, teachShare, stuShare, files, audioDatumRepository, new AudioDatum());
+//                    break;
+//                //链接
+//                case Dic.COURSE_ZILIAO_LINK:
+//                    size = saveT(courseId, chapterId, datumArea, datumType, teachShare, stuShare, files, linkDatumRepository, new LinkDatum());
+//                    break;
+//                default:
+//                    MyAssert.fail(DefineCode.ERR0010, new AssertErrorException(DefineCode.ERR0010, "文件类型不正确"), "文件类型不正确");
+//            }
+//        }
+    }
+
+    /**
+     * 修改
+     *
+     * @param courseId
+     * @param chapterId
+     * @param rep
+     * @param fd
+     */
+    public void removeIsValidatedClose(String courseId, String chapterId, IDatumRepoitory rep, AbsDatum fd) {
+        List<AbsDatum> list = rep.findByChapterIdAndCourseId(chapterId, courseId);
+        list.stream().map(absDatum -> {
+            absDatum.setIsValidated(TAKE_EFFECT_CLOSE);
+            return absDatum;
+        }).collect(toList());
+        rep.saveAll(list);
+    }
+
+    /**
+     * 修改
+     *
+     * @param courseId
+     * @param chapterId
+     * @param rep
+     * @param fd
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteDatum(String courseId, String chapterId, IDatumRepoitory rep, AbsDatum fd) {
+        rep.deleteAllByChapterIdAndCourseId(chapterId, courseId);
+    }
 }
