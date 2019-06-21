@@ -49,5 +49,7 @@ public interface ChapteDataService {
 
     public void deleteById(String dataId);
 
-    void removeDatumList(ChapterDataRemoveReq chapterDataRemoveReq);
+    void removeChapteDataList(ChapterDataRemoveReq chapterDataRemoveReq);
+
+    void deleteChapteDataList(ChapterDataRemoveReq chapterDataRemoveReq);
 }

@@ -40,4 +40,11 @@ public interface ClassesService {
     public Classes findById(String id);
 
     List<IStudentDto> findStudentsByClassId(String classId);
+
+    /**
+     * 逻辑删除班级信息
+     * @param classId
+     * @return
+     */
+    void removeClass(String classId);
 }

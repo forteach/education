@@ -61,6 +61,14 @@ public interface CourseDatumAreaRepository extends JpaRepository<CourseDatumArea
     public int deleteByChapterId(String chapterId);
 
     /**
+     * 删除文件挂载
+     * @param chapterId
+     * @param fileIds
+     * @return
+     */
+    public int deleteByChapterIdAndFileIdIn(String chapterId, List<String> fileIds);
+
+    /**
      * 根据文件编号和资料领域删除信息
      * @param fileId
      * @param datumArea
@@ -70,4 +78,11 @@ public interface CourseDatumAreaRepository extends JpaRepository<CourseDatumArea
     @Modifying(clearAutomatically = true)
     public int deleteByFileIdAndDatumArea(String fileId, String datumArea);
 
+    /**
+     * 查询章节资料领域对照表
+     * @param chapterId
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public List<CourseDatumArea> findByChapterId(String chapterId);
 }

@@ -1,8 +1,10 @@
 package com.forteach.education.course.service;
 
 import com.forteach.education.course.domain.ziliao.CourseData;
+import com.forteach.education.course.web.req.CourseDataDeleteReq;
 import com.forteach.education.course.web.vo.RCourseData;
 import com.forteach.education.databank.web.res.DatumResp;
+import com.forteach.education.web.req.CourseDataDatumReq;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -69,4 +71,15 @@ public interface CourseDataService {
 
     public void deleteById(String dataId);
 
+    /**
+     * 逻辑删除挂接的课程资料信息
+     * @param courseDataDeleteReq
+     */
+    void removeCourseData(CourseDataDeleteReq courseDataDeleteReq);
+
+    /**
+     * 物理删除需要挂接的文件信息
+     * @param courseDataDeleteReq
+     */
+    void deleteCourseData(CourseDataDeleteReq courseDataDeleteReq);
 }

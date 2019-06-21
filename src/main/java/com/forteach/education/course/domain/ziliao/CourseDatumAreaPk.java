@@ -21,7 +21,7 @@ public class CourseDatumAreaPk  implements Serializable {
     @Column(name = "file_id", columnDefinition = "VARCHAR(32) COMMENT '文件编号'", insertable = false, updatable = false)
     public String fileId;
 
-    @Column(name = "datum_area", columnDefinition = "VARCHAR(32) COMMENT '资料领域：1教案 2课件 3预习参考 4课堂参考 5授课案例、6复习参考'", insertable = false, updatable = false)
+    @Column(name = "datum_area", columnDefinition = "VARCHAR(32) COMMENT '资料领域 : 1教案 2课件 3预习参考 4课堂参考 5授课案例、6复习参考'", insertable = false, updatable = false)
     private String datumArea;
 
     public CourseDatumAreaPk() {

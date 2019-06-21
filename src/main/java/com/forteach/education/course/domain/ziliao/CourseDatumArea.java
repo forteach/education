@@ -32,7 +32,7 @@ public class CourseDatumArea extends Entitys {
     public String fileId;
 
     /**
-     * 资料领域：3预习参考 4课堂参考 5授课案例、6复习参考'
+     * 资料领域 : 3预习参考 4课堂参考 5授课案例、6复习参考'
      */
     private String datumArea;
 

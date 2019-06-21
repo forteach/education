@@ -210,9 +210,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional(rollbackForClassName = "Exception")
     public void deleteIsValidById(String courseId) {
-        Course course = courseRepository.findById(courseId).get();
-        course.setIsValidated(TAKE_EFFECT_CLOSE);
-        courseRepository.save(course);
+        courseRepository.findById(courseId)
+                .ifPresent(course -> {
+                    course.setIsValidated(TAKE_EFFECT_CLOSE);
+                    courseRepository.save(course);
+                });
     }
 
     @Override

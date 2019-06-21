@@ -364,28 +364,45 @@ public class ChapteDataServiceImpl implements ChapteDataService {
     }
 
     @Override
-    public void removeDatumList(ChapterDataRemoveReq chapterDataRemoveReq) {
-//        switch (chapterDataRemoveReq.getDatumType()){
-//                //文档
-//                case Dic.COURSE_ZILIAO_FILE:
-//                    size = saveT(courseId, chapterId, datumArea, datumType, teachShare, stuShare, files, fileDatumRepository, new FileDatum());
-//                    break;
-//                //视频
-//                case Dic.COURSE_ZILIAO_VIEW:
-//                    size = saveT(courseId, chapterId, datumArea, datumType, teachShare, stuShare, files, viewDatumRepository, new ViewDatum());
-//                    break;
-//                //音频
-//                case Dic.COURSE_ZILIAO_AUDIO:
-//                    size = saveT(courseId, chapterId, datumArea, datumType, teachShare, stuShare, files, audioDatumRepository, new AudioDatum());
-//                    break;
-//                //链接
-//                case Dic.COURSE_ZILIAO_LINK:
-//                    size = saveT(courseId, chapterId, datumArea, datumType, teachShare, stuShare, files, linkDatumRepository, new LinkDatum());
-//                    break;
-//                default:
-//                    MyAssert.fail(DefineCode.ERR0010, new AssertErrorException(DefineCode.ERR0010, "文件类型不正确"), "文件类型不正确");
-//            }
-//        }
+    @Transactional(rollbackFor = Exception.class)
+    public void removeChapteDataList(ChapterDataRemoveReq chapterDataRemoveReq) {
+        if (StrUtil.isBlank(chapterDataRemoveReq.getDatumType())) {
+            //没有传需要删除类型需要全部删除,接
+            //文档
+            removeIsValidatedClose(chapterDataRemoveReq.getCourseId(), chapterDataRemoveReq.getChapterId(), fileDatumRepository, new FileDatum());
+            //视频
+            removeIsValidatedClose(chapterDataRemoveReq.getCourseId(), chapterDataRemoveReq.getChapterId(), viewDatumRepository, new ViewDatum());
+            //音频
+            removeIsValidatedClose(chapterDataRemoveReq.getCourseId(), chapterDataRemoveReq.getChapterId(), audioDatumRepository, new AudioDatum());
+            //链接
+            removeIsValidatedClose(chapterDataRemoveReq.getCourseId(), chapterDataRemoveReq.getChapterId(), linkDatumRepository, new LinkDatum());
+        }else {
+            //传值,有具体要删除的类型
+            removeTypeDataList(chapterDataRemoveReq);
+        }
+    }
+
+    private void removeTypeDataList(ChapterDataRemoveReq chapterDataRemoveReq){
+        switch (chapterDataRemoveReq.getDatumType()){
+            //文档
+            case Dic.COURSE_ZILIAO_FILE:
+                removeIsValidatedClose(chapterDataRemoveReq.getCourseId(), chapterDataRemoveReq.getChapterId(), fileDatumRepository, new FileDatum());
+                break;
+            //视频
+            case Dic.COURSE_ZILIAO_VIEW:
+                removeIsValidatedClose(chapterDataRemoveReq.getCourseId(), chapterDataRemoveReq.getChapterId(), viewDatumRepository, new ViewDatum());
+                break;
+            //音频
+            case Dic.COURSE_ZILIAO_AUDIO:
+                removeIsValidatedClose(chapterDataRemoveReq.getCourseId(), chapterDataRemoveReq.getChapterId(), audioDatumRepository, new AudioDatum());
+                break;
+            //链接
+            case Dic.COURSE_ZILIAO_LINK:
+                removeIsValidatedClose(chapterDataRemoveReq.getCourseId(), chapterDataRemoveReq.getChapterId(), linkDatumRepository, new LinkDatum());
+                break;
+            default:
+                MyAssert.fail(DefineCode.ERR0010, new AssertErrorException(DefineCode.ERR0010, "文件类型不正确"), "文件类型不正确");
+        }
     }
 
     /**
@@ -405,16 +422,27 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         rep.saveAll(list);
     }
 
-    /**
-     * 修改
-     *
-     * @param courseId
-     * @param chapterId
-     * @param rep
-     * @param fd
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public void deleteDatum(String courseId, String chapterId, IDatumRepoitory rep, AbsDatum fd) {
-        rep.deleteAllByChapterIdAndCourseId(chapterId, courseId);
+    @Override
+    public void deleteChapteDataList(ChapterDataRemoveReq chapterDataRemoveReq) {
+
+        List<String> datumTypes = StrUtil.splitTrim(chapterDataRemoveReq.getDatumType(), ",");
+        List<String> datumArea = StrUtil.splitTrim(chapterDataRemoveReq.getDatumArea(), ",");
+
+    }
+
+    private Predicate setPredicateByChapteData(Root<?> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder, String chapterId, String courseId, String datumType, String datumArea){
+        List<Predicate> predicatesList = new ArrayList<>();
+        if (StrUtil.isNotBlank(chapterId)) {
+            predicatesList.add(criteriaBuilder.equal(root.get("chapterId"), chapterId));
+        }
+        if (StrUtil.isNotBlank(courseId)){
+            predicatesList.add(criteriaBuilder.equal(root.get("courseId"), courseId));
+        }
+        //资料类型 1文档 2 图册　3视频　4音频　5链接
+        if (StrUtil.isNotBlank(datumType)) {
+            predicatesList.add(criteriaBuilder.equal(root.get("datumType"), datumType));
+        }
+        //
+        return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
     }
 }

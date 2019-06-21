@@ -94,6 +94,7 @@ public class CatalogueServiceImpl implements CatalogueService {
     }
 
 
+    @Override
     @Transactional(rollbackForClassName = "Exception")
     public void delete(Catalogue courseChapter) {
         catalogueRepository.delete(courseChapter);

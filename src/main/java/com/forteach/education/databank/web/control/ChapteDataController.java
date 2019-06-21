@@ -128,18 +128,34 @@ public class ChapteDataController {
     }
 
     @UserLoginToken
-    @PostMapping("/removeDatumList")
+    @ApiOperation(value = "移除挂载的文件资料信息", notes = "逻辑删除挂载的信息")
+    @PostMapping("/removeChapteDataList")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", required = true, paramType = "form"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "form"),
-            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "string", required = true, paramType = "form", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例"),
+            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "string", paramType = "form", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例 (多个用‘,’分割), 不传值是全部需要移除"),
+            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "string", paramType = "form", example  = "资料类型 1文档　2图册　3视频　4音频　5链接, (多个用‘,’分割), 不传值是全部需要移除")
     })
-    public WebResult removeDatumList(@RequestBody ChapterDataRemoveReq chapterDataRemoveReq){
-
+    public WebResult removeChapteDataList(@RequestBody ChapterDataRemoveReq chapterDataRemoveReq){
         MyAssert.isNull(chapterDataRemoveReq.getCourseId(), DefineCode.ERR0010, "科目编号不为空");
         MyAssert.isNull(chapterDataRemoveReq.getChapterId(), DefineCode.ERR0010, "科目编号不为空");
-        chapteDataService.removeDatumList(chapterDataRemoveReq);
+        chapteDataService.removeChapteDataList(chapterDataRemoveReq);
         return WebResult.okResult();
+    }
 
+    @UserLoginToken
+    @ApiOperation(value = "删除挂载文件资料信息", notes = "删除挂载文件资料信息(物理删除)")
+    @PostMapping("/deleteChapteDataList")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", required = true, paramType = "form"),
+            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "datumArea", value = "资料领域", dataType = "string", paramType = "form", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例 (多个用‘,’分割), 不传值是全部需要删除"),
+            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "string", paramType = "form", example  = "资料类型 1文档　2图册　3视频　4音频　5链接, (多个用‘,’分割), 不传值是全部需要删除")
+    })
+    public WebResult deleteChapteDataList(@RequestBody ChapterDataRemoveReq chapterDataRemoveReq){
+        MyAssert.isNull(chapterDataRemoveReq.getCourseId(), DefineCode.ERR0010, "科目编号不为空");
+        MyAssert.isNull(chapterDataRemoveReq.getChapterId(), DefineCode.ERR0010, "科目编号不为空");
+        chapteDataService.deleteChapteDataList(chapterDataRemoveReq);
+        return WebResult.okResult();
     }
 }

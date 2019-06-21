@@ -4,6 +4,7 @@ import com.forteach.education.course.domain.ziliao.CourseAtlits;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -23,4 +24,7 @@ public interface CourseArlitsRepository extends JpaRepository<CourseAtlits, Stri
     @Transactional(readOnly = true)
     public Page<CourseAtlits> findByChapterIdAndIsValidated(String chapterId, String isValidated, Pageable pageable);
 
+    @Modifying(clearAutomatically = true)
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteByChapterId(String chapterId);
 }

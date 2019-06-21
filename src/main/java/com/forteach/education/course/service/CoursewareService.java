@@ -39,4 +39,12 @@ public interface CoursewareService {
      * @return
      */
     public List<CoursewareAll> getPhotoList(String arlitId);
+
+    public void removePhotoList(String arlitId);
+
+    public void removeCourseArlitsList(String chapterId);
+
+    public void removeCourseware(String chapterId, String importantType, String datumType);
+
+    public void removeCourseAtlit(String chapterId);
 }

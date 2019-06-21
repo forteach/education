@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -41,6 +43,23 @@ public interface CourseDataRepository extends IFileRepoitory<CourseData, String>
     public void updateStuShare(String dataId, String stuShare);
 
     @Transactional
+    @Modifying(clearAutomatically = true)
     public int deleteByChapterId(String chapterId);
+
+    /**
+     * 删除无效挂载文件
+     * @param chapterId
+     * @param dataIds
+     * @return
+     */
+    public int deleteByChapterIdAndDataIdIn(String chapterId, List<String> dataIds);
+
+    /**
+     * 查询章节资料
+     * @param chapterId
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public List<CourseData> findByChapterId(String chapterId);
 
 }

@@ -7,10 +7,12 @@ import com.forteach.education.course.domain.ziliao.CourseDatumArea;
 import com.forteach.education.course.repository.ziliao.CourseDataRepository;
 import com.forteach.education.course.repository.ziliao.CourseDatumAreaRepository;
 import com.forteach.education.course.service.CourseDataService;
+import com.forteach.education.course.web.req.CourseDataDeleteReq;
 import com.forteach.education.course.web.vo.RCourseData;
 import com.forteach.education.databank.web.res.DatumResp;
 import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.UpdateUtil;
+import com.forteach.education.web.req.CourseDataDatumReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -139,7 +143,7 @@ public class CourseDataServiceImpl implements CourseDataService {
     public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumType, Pageable pageable) {
 
         //转换LIST对象
-        return courseDataRepository.findByChapterIdAndDatumTypeAndKNodeIdAndIsValidatedOrderByCreateTimeAsc(chapterId, datumType, kNodeId, Dic.TAKE_EFFECT_OPEN, pageable).getContent()
+        return courseDataRepository.findByChapterIdAndDatumTypeAndKNodeIdAndIsValidatedOrderByCreateTimeAsc(chapterId, datumType, kNodeId, TAKE_EFFECT_OPEN, pageable).getContent()
                 .stream()
                 .map((item) -> {
                     DatumResp dr = new DatumResp();
@@ -168,7 +172,7 @@ public class CourseDataServiceImpl implements CourseDataService {
     public List<DatumResp> findDatumList(String chapterId, String datumType, Pageable pageable) {
 
         //再根据资料编号查找资料信息，转换LIST对象
-        List<DatumResp> list = courseDataRepository.findByChapterIdAndDatumTypeAndIsValidatedOrderByCreateTimeAsc(chapterId, datumType, Dic.TAKE_EFFECT_OPEN, pageable).getContent()
+        List<DatumResp> list = courseDataRepository.findByChapterIdAndDatumTypeAndIsValidatedOrderByCreateTimeAsc(chapterId, datumType, TAKE_EFFECT_OPEN, pageable).getContent()
                 .stream()
                 .map((item) -> {
                     DatumResp dr = new DatumResp();
@@ -193,7 +197,7 @@ public class CourseDataServiceImpl implements CourseDataService {
     public List<DatumResp> findDatumList(String chapterId, Pageable pageable) {
 
         //再根据资料编号查找资料信息，转换LIST对象
-        List<DatumResp> list = courseDataRepository.findByChapterIdAndIsValidatedOrderByCreateTimeAsc(chapterId, Dic.TAKE_EFFECT_OPEN, pageable).getContent()
+        List<DatumResp> list = courseDataRepository.findByChapterIdAndIsValidatedOrderByCreateTimeAsc(chapterId, TAKE_EFFECT_OPEN, pageable).getContent()
                 .stream()
                 .map((item) -> {
                     DatumResp dr = new DatumResp();
@@ -215,6 +219,42 @@ public class CourseDataServiceImpl implements CourseDataService {
     @Override
     public void deleteById(String dataId) {
 
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeCourseData(CourseDataDeleteReq courseDataDeleteReq) {
+        //修改资料表无效
+        List<CourseDatumArea> courseDatumAreas = courseDatumAreaRepository.findByChapterId(courseDataDeleteReq.getChapterId())
+                .stream()
+                .map(courseDatumArea -> {
+                    if (!courseDataDeleteReq.getFileIds().isEmpty() && courseDataDeleteReq.getFileIds().contains(courseDatumArea.getDataId())) {
+                        courseDatumArea.setIsValidated(TAKE_EFFECT_CLOSE);
+                    } else {
+                        courseDatumArea.setIsValidated(TAKE_EFFECT_CLOSE);
+                    }
+                    return courseDatumArea;
+                }).collect(toList());
+        courseDatumAreaRepository.saveAll(courseDatumAreas);
+        //修改
+        List<CourseData> courseDataList = courseDataRepository.findByChapterId(courseDataDeleteReq.getChapterId())
+                        .stream()
+                        .map(courseData -> {
+                            if (!courseDataDeleteReq.getFileIds().isEmpty() && courseDataDeleteReq.getFileIds().contains(courseData.getDataId())){
+                                courseData.setIsValidated(TAKE_EFFECT_CLOSE);
+                            }else {
+                                courseData.setIsValidated(TAKE_EFFECT_CLOSE);
+                            }
+                            return courseData;
+                        }).collect(toList());
+        courseDataRepository.saveAll(courseDataList);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteCourseData(CourseDataDeleteReq courseDataDeleteReq) {
+        courseDataRepository.deleteByChapterIdAndDataIdIn(courseDataDeleteReq.getChapterId(), courseDataDeleteReq.getFileIds());
+        courseDatumAreaRepository.deleteByChapterIdAndFileIdIn(courseDataDeleteReq.getChapterId(), courseDataDeleteReq.getFileIds());
     }
 
 

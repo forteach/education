@@ -15,9 +15,13 @@ import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.UpdateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
+import static java.util.stream.Collectors.toList;
 
 @Service
 @Slf4j
@@ -60,7 +64,7 @@ public class CoursewareServiceImpl implements CoursewareService {
             ic.setDatumType(obj.getDatumType());
             ic.setImportantType(obj.getImportantType());
             return ic;
-        }).collect(Collectors.toList());
+        }).collect(toList());
 
         impCoursewareRepoitory.saveAll(list);
         return getImpCourseware(obj.getChapterId(), obj.getImportantType(), obj.getDatumType());
@@ -88,7 +92,7 @@ public class CoursewareServiceImpl implements CoursewareService {
             photo.setChapterId(obj.getChapterId());
             UpdateUtil.copyNullProperties(item, photo);
             return photo;
-        }).collect(Collectors.toList());
+        }).collect(toList());
 
         photoDatumRepository.saveAll(list);
         return getCourseArlitsList(obj.getChapterId());
@@ -110,7 +114,7 @@ public class CoursewareServiceImpl implements CoursewareService {
             CoursewareAll ca = new CoursewareAll();
             UpdateUtil.copyNullProperties(item, ca);
             return ca;
-        }).collect(Collectors.toList());
+        }).collect(toList());
 
         if (list.size() > 0) {
             return new ImpCoursewareAll(chapterId, importantType, files.size(), datumType, "", files);
@@ -132,7 +136,7 @@ public class CoursewareServiceImpl implements CoursewareService {
                             UpdateUtil.copyNullProperties(item, ca);
                             return ca;
                         }
-                ).collect(Collectors.toList());
+                ).collect(toList());
 
         return list;
 
@@ -146,9 +150,54 @@ public class CoursewareServiceImpl implements CoursewareService {
                     CoursewareAll ca = new CoursewareAll();
                     UpdateUtil.copyNullProperties(item, ca);
                     return ca;
-                }).collect(Collectors.toList());
+                }).collect(toList());
         return phlist;
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removePhotoList(String arlitId) {
+        List<Photos> photosList = photoDatumRepository.findByArlitsIdAndIsValidated(arlitId, Dic.TAKE_EFFECT_OPEN)
+                .stream()
+                .map(photos -> {
+                    photos.setIsValidated(TAKE_EFFECT_CLOSE);
+                    return photos;
+                }).collect(toList());
+        photoDatumRepository.saveAll(photosList);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeCourseArlitsList(String chapterId) {
+        List<CourseAtlits> courseAtlitsList = courseArlitsRepository.findByChapterIdAndIsValidated(chapterId, Dic.TAKE_EFFECT_OPEN).stream()
+                .map(courseAtlits -> {
+                    courseAtlits.setIsValidated(TAKE_EFFECT_CLOSE);
+                    return courseAtlits;
+                }).collect(toList());
+        courseArlitsRepository.saveAll(courseAtlitsList);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeCourseware(String chapterId, String importantType, String datumType) {
+        List<ImportantCourseware> list = impCoursewareRepoitory.findByChapterIdAndDatumTypeAndImportantTypeAndIsValidated(chapterId, datumType, importantType, Dic.TAKE_EFFECT_OPEN)
+                .stream().map(importantCourseware -> {
+                    importantCourseware.setImportantType(TAKE_EFFECT_CLOSE);
+                    return importantCourseware;
+                }).collect(toList());
+        impCoursewareRepoitory.saveAll(list);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeCourseAtlit(String chapterId) {
+        removeCourseArlitsList(chapterId);
+        List<Photos> photosList = photoDatumRepository.findByChapterId(chapterId).stream()
+                .map(photos -> {
+                    photos.setIsValidated(TAKE_EFFECT_CLOSE);
+                    return photos;
+                }).collect(toList());
+        photoDatumRepository.saveAll(photosList);
+    }
 }
 

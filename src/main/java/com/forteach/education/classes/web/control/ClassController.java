@@ -66,6 +66,16 @@ public class ClassController {
         return WebResult.okResult(classesService.pageAll(sortVo));
     }
 
+
+    @UserLoginToken
+    @ApiOperation(value = "逻辑删除班级信息")
+    @PostMapping(path = "/removeClass")
+    public WebResult removeClass(@RequestBody String classId){
+        MyAssert.isNull(classId, DefineCode.ERR0010, "班级id不为空");
+        classesService.removeClass(JSONObject.parseObject(classId).getString("classId"));
+        return WebResult.okResult();
+    }
+
     @UserLoginToken
     @ApiOperation(value = "查询班级中有效的学生信息")
     @ApiImplicitParam(name = "classId", value = "班级id", dataType = "string", required = true, paramType = "query")

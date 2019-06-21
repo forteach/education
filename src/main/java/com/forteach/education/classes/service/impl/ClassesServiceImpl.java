@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
 /**
@@ -89,5 +90,15 @@ public class ClassesServiceImpl implements ClassesService {
     @Override
     public List<IStudentDto> findStudentsByClassId(String classId) {
         return studentRepository.findByIsValidatedEqualsAndClassIdOrderByCreateTime(classId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeClass(String classId) {
+        classesRepository.findById(classId)
+                .ifPresent(classes -> {
+                    classes.setIsValidated(TAKE_EFFECT_CLOSE);
+                    classesRepository.save(classes);
+                });
     }
 }

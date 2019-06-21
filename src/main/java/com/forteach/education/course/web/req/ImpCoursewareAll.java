@@ -58,8 +58,10 @@ public class ImpCoursewareAll implements Serializable {
     /**
      * 课件或教案文件列表
      */
+    @ApiModelProperty(name = "files", value = "课件或教案文件列表", dataType = "list")
     private List<CoursewareAll> files;
 
+    @ApiModelProperty(hidden = true)
     private String createUser;
 
     public ImpCoursewareAll(String chapterId, String importantType, int fileCount, String datumType, String photoDatumName, List<CoursewareAll> files) {

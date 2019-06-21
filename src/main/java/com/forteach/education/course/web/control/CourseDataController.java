@@ -2,12 +2,14 @@ package com.forteach.education.course.web.control;
 
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.authority.annotation.UserLoginToken;
+import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.course.service.CourseDataService;
 import com.forteach.education.course.web.control.verify.CourseDataVer;
+import com.forteach.education.course.web.req.CourseDataDeleteReq;
 import com.forteach.education.course.web.req.CoursewareAll;
 import com.forteach.education.databank.web.req.ChapteDataListReq;
 import com.forteach.education.databank.web.req.ChapteDataReq;
@@ -15,6 +17,7 @@ import com.forteach.education.databank.web.res.DatumResp;
 import com.forteach.education.web.req.CourseDataDatumReq;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tools.ant.types.resources.Tokens;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -42,6 +46,8 @@ public class CourseDataController {
     private CourseDataVer courseDataVer;
     @Resource
     private CourseDataService courseDataService;
+    @Resource
+    private TokenService tokenService;
 
     @UserLoginToken
     @ApiOperation(value = "保存挂接课程资料信息", notes = "保存挂接课程资料信息")
@@ -114,5 +120,31 @@ public class CourseDataController {
         return WebResult.okResult(list);
     }
 
+
+    @UserLoginToken
+    @ApiOperation(value = "删除挂接的课程资料信息", notes = "逻辑删除挂接课程资料信息")
+    @PostMapping("/removeCourseData")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataTypeClass = String.class, required = true),
+            @ApiImplicitParam(name = "files", value = "多个文件列表", dataTypeClass = List.class, example = "传入需要删除的文件id,不传全部删除")
+    })
+    public WebResult removeCourseData(@RequestBody CourseDataDeleteReq courseDataDeleteReq, HttpServletRequest request){
+        courseDataDeleteReq.setUpdateUser(tokenService.getUserId(request));
+        courseDataService.removeCourseData(courseDataDeleteReq);
+        return WebResult.okResult();
+    }
+
+    @UserLoginToken
+    @ApiOperation(value = "删除挂接的课程资料信息", notes = "物理删除挂接课程资料信息")
+    @PostMapping("/deleteCourseData")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "chapterId", value = "章节编号", dataTypeClass = String.class, required = true),
+            @ApiImplicitParam(name = "files", value = "多个文件列表", dataTypeClass = List.class, example = "传入需要删除的文件id,不传全部删除")
+    })
+    public WebResult deleteCourseData(@RequestBody CourseDataDeleteReq courseDataDeleteReq, HttpServletRequest request){
+        courseDataDeleteReq.setUpdateUser(tokenService.getUserId(request));
+        courseDataService.deleteCourseData(courseDataDeleteReq);
+        return WebResult.okResult();
+    }
 
 }
