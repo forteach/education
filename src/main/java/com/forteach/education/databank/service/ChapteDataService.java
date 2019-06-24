@@ -1,7 +1,5 @@
 package com.forteach.education.databank.service;
 
-import com.forteach.education.course.domain.ziliao.CourseData;
-import com.forteach.education.databank.web.req.ChapterDataRemoveReq;
 import com.forteach.education.databank.web.res.DatumResp;
 import com.forteach.education.web.vo.DataDatumVo;
 import org.springframework.data.domain.Pageable;
@@ -45,11 +43,7 @@ public interface ChapteDataService {
 
     public List<DatumResp> findDatumList(String chapterId, String kNodeId, String datumArea, String datumType, Pageable pageable);
 
-    public void delete(CourseData chapteData);
+    void removeChapteDataList(String courseId, String chapterId, String datumType);
 
-    public void deleteById(String dataId);
-
-    void removeChapteDataList(ChapterDataRemoveReq chapterDataRemoveReq);
-
-    void deleteChapteDataList(ChapterDataRemoveReq chapterDataRemoveReq);
+    void removeOne(String fileId, String datumArea);
 }

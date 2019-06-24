@@ -10,33 +10,39 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecificationExecutor<Article> {
 
+	@Transactional(readOnly = true)
 	public Article findByArticleId(String articleId);
 
 	/**
 	 * 分页查看资讯信息
 	 */
+	@Transactional(readOnly = true)
 	public Page<IArticle> findByUserIdOrderByCreateTimeDesc(String userId, Pageable pageable);
 
 	/**
 	 * 分页查看资讯信息
 	 */
+	@Transactional(readOnly = true)
 	public Page<IArticle> findByCourseIdOrderByCreateTimeDesc(String courseId, Pageable pageable);
 
 	/**
 	 * 分页查看资讯信息
 	 */
+	@Transactional(readOnly = true)
 	public Page<IArticle> findByUserIdAndCourseIdOrderByCreateTimeDesc(String userId,String courseId, Pageable pageable);
 
+	@Transactional(rollbackFor = Exception.class)
 	public Page<IArticle> findAllByOrderByCreateTimeDesc(Pageable pageable);
 
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query("update  Article  set isValidated='1' where articleId in(?1)")
 	public int delMoreByArticleIds(List<String> articleIds);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query("update  Article  set isValidated='1' where articleId =?1")
 	public int deleteArticleById(String articleId);
 
@@ -46,7 +52,7 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
 	 * @param articleIds
 	 * @return
 	 */
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query("update  Article  set isNice=?2 where articleId =?1")
 	public void addNice(String articleIds,String value);
 
@@ -55,7 +61,7 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
 	 * 收藏数量
 	 * @return
 	 */
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query("update  Article  set collectCount=collectCount+1 where articleId =?1")
 	public int addCollectCount(String articleId);
 
@@ -63,7 +69,7 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
 	 * 点赞数量
 	 * @return
 	 */
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query("update  Article  set clickGood=clickGood+1 where articleId =?1")
 	public int addClickGood(String articleId);
 
@@ -71,7 +77,7 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
 	 * 点击数量
 	 * @return
 	 */
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query("update  Article  set clickCount=clickCount+1 where articleId =?1")
 	public int addClickCount(String articleId);
 

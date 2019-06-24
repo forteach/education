@@ -244,7 +244,7 @@ public class ArticleService {
      * @param articleId
      * @return
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public int addClickGood(String articleId,String userId) {
 
 //        boolean result=myArticleService.exixtsMyArticle(articleId,userId,myArticleService.GOOD);
@@ -271,7 +271,7 @@ public class ArticleService {
      * @param articleId
      * @return
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public int addCollectCount(String articleId,String userId) {
         boolean result=myArticleService.exixtsMyArticle(articleId,userId,ArticleKey.SHOUCANGVALUE);
         if(!result){
@@ -292,28 +292,28 @@ public class ArticleService {
 
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String  addNice(String articleId,String value){
         articleDao.addNice(articleId,value);
         return value;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String delCollect(String articleId,String userId) {
         return  myArticleService.deleteMyArticle(articleId,userId,ArticleKey.SHOUCANGVALUE);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String delGood(String articleId,String userId) {
         return myArticleService.deleteMyArticle(articleId,userId,ArticleKey.GOODVALUE);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public int delMoreByArticleIds(List<String> articleIds) {
         return articleDao.delMoreByArticleIds(articleIds);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public int deleteArticleById(String articleId) {
         return articleDao.deleteArticleById(articleId);
     }

@@ -66,4 +66,24 @@ public interface DatumAreaRepository extends JpaRepository<DatumArea, String> {
     @Modifying(clearAutomatically = true)
     public int deleteByFileIdAndDatumArea(String fileId, String datumArea);
 
+    /**
+     * 根据章节id和类型删除对应列表信息
+     * @param chapterId
+     * @param datumType
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Modifying(clearAutomatically = true)
+    public int deleteByChapterIdAndDatumType(String chapterId, String datumType);
+
+    /***
+     * 根据课程和章节删除
+     * @param chapterId
+     * @param courseId
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Modifying(clearAutomatically = true)
+    public int deleteByChapterIdAndCourseId(String chapterId, String courseId);
+
 }
