@@ -27,18 +27,18 @@ public class MyArticle extends Entitys implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(length = 40, name = "pk_Id", nullable = false)
+	@Column(name = "pk_Id", nullable = false, columnDefinition = "VARCHAR(40) COMMENT '主键id'")
 	private String pkId;
 
-	@Column(length = 40, name = "article_id", nullable = false)
-	private String articleId;//文章id
+	@Column(name = "article_id", nullable = false, columnDefinition = "VARCHAR(40) COMMENT '文章id'")
+	private String articleId;
 
-	@Column(length = 40, name = "user_id", nullable = false)
-	private String userId;//用户id
+	@Column(name = "user_id", nullable = false, columnDefinition = "VARCHAR(40) COMMENT '用户id'")
+	private String userId;
 
 	/**
 	 * 我的文章标签类型 0：我发布的 1：我收藏的 2:点赞
 	 */
-	@Column(name = "tag_type", nullable = false)
-	private int tagType;//文章id
+	@Column(name = "tag_type", nullable = false, columnDefinition = "VARCHAR(32) COMMENT '我的文章标签类型 0：我发布的 1：我收藏的 2:点赞'")
+	private int tagType;
 }

@@ -1,23 +1,18 @@
 package com.forteach.education.information.web.control;
 
 
-import com.forteach.education.common.keyword.WebResult;
-import com.forteach.education.information.service.MyArticleService;
-import com.forteach.education.information.web.req.myArticle.DeleteMyArticleRequest;
-import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-@RequestMapping(path = "/myArticle", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "我的资讯资料", tags = {"我的资讯资料（收藏、发布）"})
+//
+//@RestController
+//@RequestMapping(path = "/myArticle", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//@Api(value = "我的资讯资料", tags = {"我的资讯资料（收藏、发布）"})
 public class MyArticleController {
-	@Autowired
-	private MyArticleService myArticleService;
+
+//	private final MyArticleService myArticleService;
+//
+//	@Autowired
+//	public MyArticleController(MyArticleService myArticleService) {
+//		this.myArticleService = myArticleService;
+//	}
 
 //	@PostMapping("/save")
 //	public WebResult saveMyArticle(SaveMyArticleRequest request) {

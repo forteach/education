@@ -25,7 +25,7 @@ import java.io.Serializable;
 @ApiModel(value = "资讯评论列表")
 public class FindArticleIdRequest implements Serializable {
 
-    @ApiModelProperty(value = "资讯Id", name = "articleId")
+    @ApiModelProperty(value = "资讯Id", name = "articleId", dataType = "string", required = true)
     private String articleId;
 
     @ApiModelProperty(value = "分页排序字段", name = "sortVo")

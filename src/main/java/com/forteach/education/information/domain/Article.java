@@ -42,61 +42,61 @@ public class Article extends Entitys implements Serializable {
 
     /** 文章编号.**/
     @Id
-    @Column(length = 40, nullable = false, name = "article_id")
+    @Column(name = "article_id", columnDefinition = "VARCHAR(40) COMMENT '文章编号'")
     private String articleId;
 
     /** 课程编号.**/
-    @Column(length = 40, nullable = false, name = "course_id")
+    @Column(name = "course_id", columnDefinition = "VARCHAR(32) COMMENT '课程编号'")
     private String courseId;
 
-    /** 课程编号.**/
-    @Column(length = 40,  name = "course_name")
+    /** 课程名称.**/
+    @Column(name = "course_name", columnDefinition = "VARCHAR(32) COMMENT '课程名称'")
     private String courseName;
 
     /** 发布人编号.**/
-    @Column(length = 40, nullable = false, name = "user_id")
+    @Column(name = "user_id", columnDefinition = "VARCHAR(32) COMMENT '发布人id'")
     private String userId;
 
     /** 发布人名称.**/
-    @Column(length = 40,  name = "user_name")
+    @Column(name = "user_name", columnDefinition = "VARCHAR(32) COMMENT '发布人名称'")
     private String userName;
 
     /** 发布人头像.**/
-    @Column(length = 255,  name = "user_tortrait")
+    @Column(name = "user_tortrait", columnDefinition = "VARCHAR(256)　COMMENT '发布人头像'")
     private String userTortrait;
 
     /** 班级编号.**/
-    @Column(length = 40, nullable = false, name = "class_id")
+    @Column(name = "class_id", columnDefinition = "VARCHAR(32) COMMENT '班级id'")
     private String classId;
 
     /** 班级名称.**/
-    @Column(length = 40,  name = "class_name")
+    @Column(name = "class_name", columnDefinition = "VARCHAR(32) COMMENT '班级名称'")
     private String className;
 
     /** 文章题目.**/
-    @Column(length = 150)
+    @Column(name = "title", columnDefinition = "VARCHAR(256) COMMENT '文章题目'")
     private String title;
 
     // 标题图片连接.**/
-    @Column(length = 255, name = "img_url")
+    @Column(name = "img_url", columnDefinition = "VARCHAR(256) COMMENT '标题图片地址链接'")
     private String imgUrl;
 
     // 外资料引用连接.**/
-    @Column(length = 255, name = "link_url")
+    @Column(name = "link_url", columnDefinition = "VARCHAR(256) COMMENT '外资料引用链接'")
     private String linkUrl;
 
     //@Transient
     /** 是否置顶.**/
-    @Column(name = "is_top")
+    @Column(name = "is_top", columnDefinition = "VARCHAR(32) COMMENT '是否置顶'")
     private String isTop;
 
     //@Transient
     /** 是否精华.**/
-    @Column(name = "is_nice")
+    @Column(name = "is_nice", columnDefinition = "VARCHAR(32) COMMENT '是否精华'")
     private String isNice;
 
     /** 文章描述.**/
-    @Column(length = 255)
+    @Column(name = "description", columnDefinition = "VARCHAR(2000) COMMENT '文章描述'")
     private String description;
 
     /** 文章内容.**/
@@ -104,24 +104,23 @@ public class Article extends Entitys implements Serializable {
     private String articleConten;
 
     /** 点击量.**/
-    @Column(name = "click_count")
+    @Column(name = "click_count", columnDefinition = "VARCHAR(32) COMMENT '点击量'")
     private int clickCount;
 
     /** 收藏数量 **/
-    @Column(name = "collect_count")
+    @Column(name = "collect_count", columnDefinition = "VARCHAR(32) COMMENT '收藏数量'")
     private int collectCount;
 
     /** 点赞数量 **/
-    @Column(name = "click_good")
+    @Column(name = "click_good", columnDefinition = "VARCHAR(32) COMMENT '点击数量'")
     private int clickGood;
 
     /** 评论数量 **/
-    @Column(name = "comment_count")
+    @Column(name = "comment_count", columnDefinition = "VARCHAR(32) COMMENT '评论击量'")
     private int commentCount;
 
     /** 资讯分类. **/
-
-    @Column(length = 10,name = "article_type")
+    @Column(name = "article_type", columnDefinition = "VARCHAR(32) COMMENT '咨询分类'")
     private String articleType;
 
 //    /** 资讯详情图片集合. **/

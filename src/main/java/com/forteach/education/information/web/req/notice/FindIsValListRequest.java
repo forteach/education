@@ -28,7 +28,7 @@ public class FindIsValListRequest implements Serializable {
 //    @ApiModelProperty(value = "是否可用", name = "isVal")
 //    private String isVal;
 
-    @ApiModelProperty(value = "分页排序字段", name = "sortVo")
+    @ApiModelProperty(value = "分页排序字段", name = "sortVo", required = true)
     private SortVo sortVo = new SortVo();
 
 }

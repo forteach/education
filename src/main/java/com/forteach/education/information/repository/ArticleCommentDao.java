@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface ArticleCommentDao extends JpaRepository<ArticleComment, String>, JpaSpecificationExecutor<ArticleComment> {
 
+    @Transactional(readOnly = true)
     public ArticleComment findByCommentId(String CommentId);
 
     /**
@@ -23,7 +23,7 @@ public interface ArticleCommentDao extends JpaRepository<ArticleComment, String>
      * @return
      */
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query( "update ArticleComment set reContent=?1 ,reContenTime=?2 ,replyUserName=?3 where commentId=?4")
     public int saveReply( String reContent,String reContenTime,String replyUserName,String commentId);
 
@@ -31,7 +31,7 @@ public interface ArticleCommentDao extends JpaRepository<ArticleComment, String>
      * 评论点赞数量
      * @return
      */
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("update  ArticleComment  set goodCount=goodCount+1 where commentId =?1")
     public int addGoodCount(String commentId);
 
@@ -41,6 +41,7 @@ public interface ArticleCommentDao extends JpaRepository<ArticleComment, String>
      * @param pageable
      * @return
      */
+    @Transactional(readOnly = true)
     public Page<ArticleComment> findByArticleIdOrderByCreateTimeDesc(String articleId, Pageable pageable);
 
 }

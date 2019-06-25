@@ -15,6 +15,9 @@ import com.forteach.education.information.web.res.artComment.ArtCommentListRespo
 import com.forteach.education.information.web.res.artComment.SaveArtCommentResponse;
 import com.forteach.education.util.UpdateUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
@@ -30,13 +33,26 @@ import static java.util.stream.Collectors.toList;
 @Api(value = "文章资讯资料", tags = {"文章资讯资料操作信息"})
 public class ArticleCommentController {
 
+	private final ArticleCommentService articleCommentService;
+
 	@Autowired
-	private ArticleCommentService articleCommentService;
+	public ArticleCommentController(ArticleCommentService articleCommentService) {
+		this.articleCommentService = articleCommentService;
+	}
 
 	/**
 	 * 保存资讯、资讯所属模块信息
 	 */
 
+	@UserLoginToken
+	@ApiOperation(value = "保存资讯、资讯所属模块信息")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "userId", value = "评论文章用户编号", dataType = "string", paramType = "form", example = "为空是保存，否则修改"),
+			@ApiImplicitParam(name = "commentId", value = "评论编号", dataType = "string", required = true, paramType = "form"),
+			@ApiImplicitParam(name = "articleId", value = "文章编号", dataType = "string", required = true, paramType = "form"),
+			@ApiImplicitParam(name = "content", value = "评论的内容", dataType = "string", required = true, paramType = "form"),
+			@ApiImplicitParam(name = "userType", value = "评论人员类型 S 学生  T 教师", dataType = "string", required = true)
+	})
 	@PostMapping("/saveOrUpdate")
 	public WebResult save(@RequestBody SaveArtCommentRequest request) {
 
@@ -59,6 +75,11 @@ public class ArticleCommentController {
 	 * @param req
 	 * @return
 	 */
+	@ApiOperation(value = "所有资讯倒序分页获取")
+	@ApiImplicitParams({
+			@ApiImplicitParam(value = "资讯Id", name = "articleId", required = true, dataType = "string", paramType = "query"),
+			@ApiImplicitParam(value = "分页排序字段", name = "sortVo", dataTypeClass = SortVo.class, required = true, paramType = "query")
+	})
 	@PostMapping("/findArticleId")
 	public WebResult findArticleComment(@RequestBody FindArticleIdRequest req){
 		String artId=req.getArticleId();
@@ -80,6 +101,8 @@ public class ArticleCommentController {
 	 * 点赞数量增加
 	 */
 	@PostMapping("/addGood")
+	@ApiOperation(value = "点赞数量增加")
+	@ApiImplicitParam(name = "commentId", value = "资讯评论编号", dataType = "string", required = true, paramType = "query")
 	public WebResult addClickGood(@RequestBody AddCommentGoodRequest req){
 		MyAssert.isNull(req.getCommentId(), DefineCode.ERR0010,"评论编号不能为空");
 		return WebResult.okResult(String.valueOf(articleCommentService.addClickGood(req.getCommentId())));
@@ -89,7 +112,13 @@ public class ArticleCommentController {
 	 * 点赞数量增加
 	 */
 	@UserLoginToken
+	@ApiOperation(value = "点赞数量增加")
 	@PostMapping("/saveReply")
+	@ApiImplicitParams({
+			@ApiImplicitParam(value = "评论ID", name = "commentId", required = true, dataType = "string"),
+			@ApiImplicitParam(value = "回复内容", name = "reply", required = true, dataType = "string"),
+			@ApiImplicitParam(value = "回复人名称", name = "replyUserName", required = true, dataType = "string")
+	})
 	public WebResult saveReply(@RequestBody SaveReplyRequest req){
 		MyAssert.isNull(req.getReply(), DefineCode.ERR0010,"评论回复内容不能为空");
 		MyAssert.isNull(req.getCommentId(), DefineCode.ERR0010,"评论编号不能为空");

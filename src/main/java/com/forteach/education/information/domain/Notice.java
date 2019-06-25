@@ -32,15 +32,15 @@ public class Notice extends Entitys implements Serializable {
 
     /** 文章编号.**/
     @Id
-    @Column(length = 40, nullable = false, name = "notice_id")
+    @Column(length = 40, nullable = false, name = "notice_id", columnDefinition = "VARCHAR(40) COMMENT '文章编号'")
     private String noticeId;
 
-    /** 课程编号.**/
-    @Column(length = 2000, nullable = false, name = "content")
+    /** 公告内容.**/
+    @Column(name = "content", columnDefinition = "VARCHAR(10000) COMMENT '公告内容'")
     private String content;
 
     /** 公告所属领域.**/
-    @Column(length = 40,  name = "area")
+    @Column(name = "area", columnDefinition = "VARCHAR(32) COMMENT '公告所属领域'")
     private String area;
 
 }

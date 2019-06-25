@@ -25,13 +25,13 @@ import java.io.Serializable;
 @ApiModel(value = "资讯评论回复")
 public class SaveReplyRequest implements Serializable {
 
-    @ApiModelProperty(value = "评论ID", name = "commentId")
+    @ApiModelProperty(value = "评论ID", name = "commentId", required = true, dataType = "string")
     private String commentId;
 
-    @ApiModelProperty(value = "回复内容", name = "reply")
+    @ApiModelProperty(value = "回复内容", name = "reply", required = true, dataType = "string")
     private String reply;
 
-    @ApiModelProperty(value = "回复人名称", name = "replyUserName")
+    @ApiModelProperty(value = "回复人名称", name = "replyUserName", required = true, dataType = "string")
     private String replyUserName;
 
 }
