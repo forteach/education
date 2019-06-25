@@ -127,8 +127,8 @@ public class ChapteDataController {
         }
     }
 
-    @ApiOperation(value = "删除单个文件")
     @UserLoginToken
+    @ApiOperation(value = "删除单个文件")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "datumArea", dataType = "string", value = "资料领域", example = "资料领域：1教案 2课件 3预习参考 4教学参考 5授课案例 6 复习参考, 不传值是全部需要移除"),
             @ApiImplicitParam(name = "fileId", value = "资料id", dataType = "string", paramType = "form")
@@ -142,12 +142,12 @@ public class ChapteDataController {
     }
 
     @UserLoginToken
-    @ApiOperation(value = "移除挂载的文件资料信息", notes = "逻辑删除挂载的信息")
+    @ApiOperation(value = "移除挂载的文件资料信息", notes = "删除一类文件挂载信息或全部挂载信息")
     @PostMapping("/removeChapteDataList")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", required = true, paramType = "form"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "form"),
-            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "string", paramType = "form", example  = "资料类型 1文档　2图册　3视频　4音频　5链接, (多个用‘,’分割), 不传值是全部需要移除")
+            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "string", paramType = "form", example  = "资料类型 1文档　2图册　3视频　4音频　5链接, (多个用‘,’分割), 不传值是全部需要删除挂载")
     })
     public WebResult removeChapteDataList(@RequestBody ChapterDataRemoveReq chapterDataRemoveReq){
         MyAssert.isNull(chapterDataRemoveReq.getCourseId(), DefineCode.ERR0010, "科目编号不为空");

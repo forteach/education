@@ -74,5 +74,5 @@ public interface IDatumRepoitory<T, ID> extends JpaRepository<T, ID> {
      */
     @Modifying(clearAutomatically = true)
     @Transactional(rollbackFor = Exception.class)
-    public int deleteAllByChapterIdAndCourseId(String chapterId, String courseId);
+    public int deleteAllByCourseIdAndChapterId(String courseId, String chapterId);
 }

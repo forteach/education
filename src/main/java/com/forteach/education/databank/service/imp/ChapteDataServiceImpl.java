@@ -325,6 +325,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         {
             final String id = absDatum.getFileId();
             final String type = absDatum.getDatumType();
+            final String courseId1 = absDatum.getCourseId();
             final String chapterId1 = absDatum.getChapterId();
             final String knodeId = absDatum.getKNodeId();
             List<DatumArea> list = new ArrayList<DatumArea>();
@@ -333,6 +334,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
                 da.setFileId(id);
                 da.setDatumArea(area);
                 da.setDatumType(type);
+                da.setCourseId(courseId1);
                 da.setChapterId(chapterId1);
                 da.setKNodeId(knodeId);
                 list.add(da);
@@ -352,16 +354,16 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         if (StrUtil.isBlank(datumType)) {
             //没有传需要删除类型需要全部删除
             //文档
-            fileDatumRepository.deleteAllByChapterIdAndCourseId(courseId, chapterId);
+            fileDatumRepository.deleteAllByCourseIdAndChapterId(courseId, chapterId);
             //视频
-            viewDatumRepository.deleteAllByChapterIdAndCourseId(courseId, chapterId);
+            viewDatumRepository.deleteAllByCourseIdAndChapterId(courseId, chapterId);
             //音频
-            audioDatumRepository.deleteAllByChapterIdAndCourseId(courseId, chapterId);
+            audioDatumRepository.deleteAllByCourseIdAndChapterId(courseId, chapterId);
             //链接
-            linkDatumRepository.deleteAllByChapterIdAndCourseId(courseId, chapterId);
+            linkDatumRepository.deleteAllByCourseIdAndChapterId(courseId, chapterId);
 
             //全部文件列表信息需要删除
-            datumAreaRepository.deleteByChapterIdAndCourseId(chapterId, courseId);
+            datumAreaRepository.deleteAllByChapterIdAndCourseId(chapterId, courseId);
         }else {
             //传值,有具体要删除的类型
             removeTypeDataList(courseId, chapterId, datumType);
@@ -370,23 +372,23 @@ public class ChapteDataServiceImpl implements ChapteDataService {
 
     private void removeTypeDataList(String courseId, String chapterId, String datumType){
         //删除文件信息列表
-        datumAreaRepository.deleteByChapterIdAndDatumType(chapterId, datumType);
+        datumAreaRepository.deleteAllByCourseIdAndChapterIdAndDatumType(courseId, chapterId, datumType);
         switch (datumType){
             //文档
             case Dic.COURSE_ZILIAO_FILE:
-                fileDatumRepository.deleteAllByChapterIdAndCourseId(courseId, chapterId);
+                fileDatumRepository.deleteAllByCourseIdAndChapterId(courseId, chapterId);
                 break;
             //视频
             case Dic.COURSE_ZILIAO_VIEW:
-                viewDatumRepository.deleteAllByChapterIdAndCourseId(courseId, chapterId);
+                viewDatumRepository.deleteAllByCourseIdAndChapterId(courseId, chapterId);
                 break;
             //音频
             case Dic.COURSE_ZILIAO_AUDIO:
-                audioDatumRepository.deleteAllByChapterIdAndCourseId(courseId, chapterId);
+                audioDatumRepository.deleteAllByCourseIdAndChapterId(courseId, chapterId);
                 break;
             //链接
             case Dic.COURSE_ZILIAO_LINK:
-                linkDatumRepository.deleteAllByChapterIdAndCourseId(chapterId, courseId);
+                linkDatumRepository.deleteAllByCourseIdAndChapterId(chapterId, courseId);
                 break;
             default:
                 MyAssert.fail(DefineCode.ERR0010, new AssertErrorException(DefineCode.ERR0010, "文件类型不正确"), "文件类型不正确");
@@ -402,9 +404,10 @@ public class ChapteDataServiceImpl implements ChapteDataService {
     @Transactional(rollbackFor = Exception.class)
     public void removeOne(String fileId, String datumArea) {
         DatumArea datum = datumAreaRepository.findByFileIdAndDatumArea(fileId, datumArea);
+        MyAssert.isNull(datum, DefineCode.ERR0014, "不存在要删除的文件");
         String datumType = datum.getDatumType();
         //删除文件列表
-        datumAreaRepository.deleteByFileIdAndDatumArea(fileId, datumType);
+        datumAreaRepository.deleteByFileIdAndDatumArea(fileId, datumArea);
         switch (datumType){
             //文档
             case Dic.COURSE_ZILIAO_FILE:

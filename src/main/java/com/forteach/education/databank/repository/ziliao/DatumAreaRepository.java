@@ -68,13 +68,14 @@ public interface DatumAreaRepository extends JpaRepository<DatumArea, String> {
 
     /**
      * 根据章节id和类型删除对应列表信息
+     * @param courseId
      * @param chapterId
      * @param datumType
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
     @Modifying(clearAutomatically = true)
-    public int deleteByChapterIdAndDatumType(String chapterId, String datumType);
+    public int deleteAllByCourseIdAndChapterIdAndDatumType(String courseId, String chapterId, String datumType);
 
     /***
      * 根据课程和章节删除
@@ -84,6 +85,6 @@ public interface DatumAreaRepository extends JpaRepository<DatumArea, String> {
      */
     @Transactional(rollbackFor = Exception.class)
     @Modifying(clearAutomatically = true)
-    public int deleteByChapterIdAndCourseId(String chapterId, String courseId);
+    public int deleteAllByChapterIdAndCourseId(String chapterId, String courseId);
 
 }
