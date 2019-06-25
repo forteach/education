@@ -264,4 +264,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
 
+    @Override
+    public int deleteImagesByCourseId(String courseId) {
+        return courseImagesService.deleteImagesByCourseId(courseId);
+    }
 }

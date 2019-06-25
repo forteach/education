@@ -37,4 +37,8 @@ public class CourseImagesService {
     public List<CourseImages> findImagesByCourseId(String courseId) {
         return courseImagesRepository.findByIsValidatedEqualsAndCourseIdOrderByIndexNumAsc(TAKE_EFFECT_OPEN, courseId);
     }
+
+    public int deleteImagesByCourseId(String courseId){
+        return courseImagesRepository.deleteAllByCourseId(courseId);
+    }
 }

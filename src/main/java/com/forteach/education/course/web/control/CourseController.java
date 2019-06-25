@@ -309,4 +309,12 @@ public class CourseController {
         return WebResult.okResult(courseService.findCourseStudyList(studentId, courseStudyReq.getStudyStatus()));
     }
 
+    @UserLoginToken
+    @ApiOperation(value = "删除课程轮播图")
+    @ApiImplicitParam(name = "courseId", value = "科目/课程id", dataType = "string", required = true, paramType = "form")
+    @PostMapping(path = "/deleteImagesByCourseId")
+    public WebResult deleteImagesByCourseId(@RequestBody String courseId){
+        MyAssert.isNull(courseId, DefineCode.ERR0010, "课程id不为空");
+        return WebResult.okResult(courseService.deleteImagesByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
+    }
 }
