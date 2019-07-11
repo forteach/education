@@ -95,7 +95,6 @@ public class CourseController {
             @ApiImplicitParam(name = "teachers", value = "教师信息列表", dataTypeClass = Teacher.class)
     })
     public WebResult edit(@ApiParam(name = "courseReq", value = "科目课程对象", required = true) @RequestBody CourseSaveReq courseReq) {
-        MyAssert.blank(courseReq.getOldShareId(), DefineCode.ERR0010, "修改前课程的备课共享编号不为空");
         if ("2".equals(courseReq.getCourse().getLessonPreparationType())) {
             MyAssert.elt(0, courseReq.getTeachers().size(), DefineCode.ERR0010, "教师信息列表不为空");
         }
