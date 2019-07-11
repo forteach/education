@@ -1,7 +1,9 @@
 package com.forteach.education.classes.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.classes.dto.IClassesDto;
+import com.forteach.education.classes.dto.TeacherCourseDto;
 import com.forteach.education.classes.repository.TeacherRepository;
 import com.forteach.education.classes.service.TeacherService;
 import com.forteach.education.common.web.vo.SortVo;
@@ -167,5 +169,12 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherClassCourseRepository.findClassInfoByTeacherId(teacherId, courseId);
     }
 
-
+    @Override
+    public List<TeacherCourseDto> findTeacherByCourseId(String courseId) {
+        if (StrUtil.isNotBlank(courseId)) {
+            return teacherClassCourseRepository.findTeacherByCourseId(courseId);
+        }else {
+            return teacherClassCourseRepository.findTeacher();
+        }
+    }
 }

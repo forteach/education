@@ -15,7 +15,6 @@ import java.io.Serializable;
  * @description:
  */
 @Data
-@Builder
 @ApiModel(value = "课程章节评分信息")
 public class CourseChapterReviewResp implements Serializable {
 
@@ -27,4 +26,13 @@ public class CourseChapterReviewResp implements Serializable {
 
     @ApiModelProperty(name = "reviewAmount", value = "评价数量", dataType = "int")
     private Integer reviewAmount;
+
+    public CourseChapterReviewResp() {
+    }
+
+    public CourseChapterReviewResp(String chapterId, String averageScore, Integer reviewAmount) {
+        this.chapterId = chapterId;
+        this.averageScore = averageScore;
+        this.reviewAmount = reviewAmount;
+    }
 }

@@ -192,4 +192,13 @@ public class TeacherController {
         String teacherId = tokenService.getTeacherId(request);
         return WebResult.okResult(teacherService.findMyTeachClassInfo(teacherId, JSONObject.parseObject(courseId).getString("courseId")));
     }
+
+
+    @ApiOperation(value = "查询课程对应的有那个个老师所教")
+    @ApiImplicitParam(name = "courseId", value = "课程id", dataType = "string", paramType = "form")
+    @PostMapping(path = "/findTeacherByCourseId")
+    public WebResult findTeacherByCourseId(@RequestBody String courseId){
+        MyAssert.isNull(courseId, DefineCode.ERR0010, "课程id不为空");
+        return WebResult.okResult(teacherService.findTeacherByCourseId(JSONObject.parseObject(courseId).getString("courseId")));
+    }
 }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
@@ -81,12 +82,12 @@ public class CourseChapterReviewServiceImpl implements CourseChapterReviewServic
 
     @Override
     public CourseChapterReviewResp findChapterReview(String chapterId) {
-        CourseChapterReview courseChapterReview = courseChapterReviewRepository.findByIsValidatedEqualsAndChapterId(TAKE_EFFECT_OPEN, chapterId);
-        return CourseChapterReviewResp.builder()
-                .averageScore(courseChapterReview.getAverageScore())
-                .chapterId(courseChapterReview.getChapterId())
-                .reviewAmount(courseChapterReview.getReviewAmount())
-                .build();
+        Optional<CourseChapterReview> optional = courseChapterReviewRepository.findByIsValidatedEqualsAndChapterId(TAKE_EFFECT_OPEN, chapterId);
+        if (optional.isPresent()){
+            CourseChapterReview courseChapterReview = optional.get();
+                    return new CourseChapterReviewResp(courseChapterReview.getChapterId(), courseChapterReview.getAverageScore(), courseChapterReview.getReviewAmount());
+        }
+        return new CourseChapterReviewResp();
     }
 
     @Override

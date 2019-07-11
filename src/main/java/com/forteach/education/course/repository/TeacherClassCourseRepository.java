@@ -1,6 +1,7 @@
 package com.forteach.education.course.repository;
 
 import com.forteach.education.classes.dto.IClassesDto;
+import com.forteach.education.classes.dto.TeacherCourseDto;
 import com.forteach.education.course.domain.TeacherClassCourse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -39,4 +40,16 @@ public interface TeacherClassCourseRepository extends JpaRepository<TeacherClass
             " (select distinct courseNumber from Course where isValidated = '0' and courseId = ?2 or ?2 is null or ?2 ='' )) ")
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     List<IClassesDto> findClassInfoByTeacherId(String teacherId, String courseId);
+
+
+    @Query(value = "select teacherId as teacherId, teacherName as teacherName from Teacher where isValidated = '0' and teacherId in " +
+            " (select distinct teacherId from TeacherClassCourse where isValidated = '0' and courseId in " +
+            " (select distinct courseNumber from Course  where isValidated = '0' and courseId = ?1 ))")
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
+    List<TeacherCourseDto> findTeacherByCourseId(String courseId);
+
+    @Query(value = "select teacherId as teacherId, teacherName as teacherName from Teacher where isValidated = '0' and teacherId in " +
+            " (select distinct teacherId from TeacherClassCourse where isValidated = '0')")
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
+    List<TeacherCourseDto> findTeacher();
 }

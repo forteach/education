@@ -55,7 +55,7 @@ public class CourseChapterReviewController {
     }
 
     @ApiOperation(value = "查询当课程章节评价的信息", notes = "查询章节评价信息(评价的分数, 评价的人数)")
-    @GetMapping("/findChapterReview")
+    @PostMapping("/findChapterReview")
     @ApiImplicitParam(name = "chapterId", value = "课程章节id", dataType = "string", required = true, paramType = "query")
     public WebResult findChapterReview(@RequestBody String chapterId){
         MyAssert.isNull(chapterId, DefineCode.ERR0010, "课程章节不为空");
@@ -63,7 +63,7 @@ public class CourseChapterReviewController {
     }
 
     @ApiOperation(value = "查询评价过的所有学生", notes = "查询所有评论过的学生列表信息")
-    @GetMapping("/findCourseChapterStudentsAll")
+    @PostMapping("/findCourseChapterStudentsAll")
     @ApiImplicitParam(name = "chapterId", value = "课程章节id", dataType = "string", required = true, paramType = "query")
     public WebResult findCourseChapterStudentsAll(@RequestBody String chapterId){
         MyAssert.isNull(chapterId, DefineCode.ERR0010, "课程章节不为空");

@@ -4,6 +4,8 @@ import com.forteach.education.course.domain.CourseChapterReview;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * @author: zhangyy
  * @email: zhang10092009@hotmail.com
@@ -20,5 +22,5 @@ public interface CourseChapterReviewRepository extends JpaRepository<CourseChapt
      * @return
      */
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    CourseChapterReview findByIsValidatedEqualsAndChapterId(String isValidated, String chapterId);
+    Optional<CourseChapterReview> findByIsValidatedEqualsAndChapterId(String isValidated, String chapterId);
 }
