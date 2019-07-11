@@ -76,6 +76,8 @@ public class CourseController {
         RCourse rcourse = req.getCourse();
         Course course = new Course();
         UpdateUtil.copyNullProperties(rcourse, course);
+        //教辅设置授课类型是线下课堂
+        course.setTeachingType("3");
         course.setCreateUser(tokenService.getUserId(request));
         List<String> list = courseService.save(course, req.getTeachers());
         //创建输出课程对象
