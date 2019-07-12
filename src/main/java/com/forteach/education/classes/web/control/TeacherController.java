@@ -194,7 +194,7 @@ public class TeacherController {
     }
 
 
-    @ApiOperation(value = "查询课程对应的有那个个老师所教")
+    @ApiOperation(value = "查询课程对应的排课教师信息", notes = "根据课程id查询对应的排课教师信息")
     @ApiImplicitParam(name = "courseId", value = "课程id", dataType = "string", paramType = "form")
     @PostMapping(path = "/findTeacherByCourseId")
     public WebResult findTeacherByCourseId(@RequestBody String courseId){
