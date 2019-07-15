@@ -42,12 +42,21 @@ public interface TeacherClassCourseRepository extends JpaRepository<TeacherClass
     List<IClassesDto> findClassInfoByTeacherId(String teacherId, String courseId);
 
 
+    /**
+     * 查询从信息数字话校园课程对应的教师信息
+     * @param courseId 课程ID
+     * @return List<TeacherCourseDto>
+     */
     @Query(value = "select teacherId as teacherId, teacherName as teacherName from Teacher where isValidated = '0' and teacherId in " +
             " (select distinct teacherId from TeacherClassCourse where isValidated = '0' and courseId in " +
             " (select distinct courseNumber from Course  where isValidated = '0' and courseId = ?1 ))")
     @Transactional(rollbackFor = Exception.class, readOnly = true)
     List<TeacherCourseDto> findTeacherByCourseId(String courseId);
 
+    /**
+     * 查询全部对应的课程信息
+     * @return　List<TeacherCourseDto>
+     */
     @Query(value = "select teacherId as teacherId, teacherName as teacherName from Teacher where isValidated = '0' and teacherId in " +
             " (select distinct teacherId from TeacherClassCourse where isValidated = '0')")
     @Transactional(rollbackFor = Exception.class, readOnly = true)
