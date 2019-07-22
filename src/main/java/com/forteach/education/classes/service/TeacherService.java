@@ -93,8 +93,8 @@ public interface TeacherService {
 
     /**
      * 查询老师课程对应所教的班级
-     * @param courseId
+     * @param courseNumber
      * @return
      */
-    List<TeacherCourseDto> findTeacherByCourseId(String courseId);
+    List<TeacherCourseDto> findTeacherByCourseId(String courseNumber);
 }
