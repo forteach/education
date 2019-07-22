@@ -170,9 +170,9 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<TeacherCourseDto> findTeacherByCourseId(String courseId) {
-        if (StrUtil.isNotBlank(courseId)) {
-            return teacherClassCourseRepository.findTeacherByCourseId(courseId);
+    public List<TeacherCourseDto> findTeacherByCourseId(String courseNumber) {
+        if (StrUtil.isNotBlank(courseNumber)) {
+            return teacherClassCourseRepository.findTeacherByCourseId(courseNumber);
         }else {
             return teacherClassCourseRepository.findTeacher();
         }

@@ -195,10 +195,10 @@ public class TeacherController {
 
 
     @ApiOperation(value = "查询课程对应的排课教师信息", notes = "根据课程id查询对应的排课教师信息")
-    @ApiImplicitParam(name = "courseId", value = "课程id", dataType = "string", paramType = "form")
-    @PostMapping(path = "/findTeacherByCourseId")
-    public WebResult findTeacherByCourseId(@RequestBody String courseId){
-        MyAssert.isNull(courseId, DefineCode.ERR0010, "课程id不为空");
-        return WebResult.okResult(teacherService.findTeacherByCourseId(JSONObject.parseObject(courseId).getString("courseId")));
+    @ApiImplicitParam(name = "courseNumber", value = "课程id", dataType = "string", paramType = "query")
+    @PostMapping(path = "/findTeacherByCourseNumber")
+    public WebResult findTeacherByCourseNumber(@RequestBody String courseNumber){
+        MyAssert.isNull(courseNumber, DefineCode.ERR0010, "课程id不为空");
+        return WebResult.okResult(teacherService.findTeacherByCourseId(JSONObject.parseObject(courseNumber).getString("courseNumber")));
     }
 }
