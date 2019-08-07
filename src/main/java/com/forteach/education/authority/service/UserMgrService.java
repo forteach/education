@@ -1,6 +1,7 @@
 package com.forteach.education.service;
 
 import com.forteach.education.authority.domain.SysUsers;
+import com.forteach.education.authority.web.req.SysUserEditReq;
 
 import java.util.List;
 
@@ -23,5 +24,5 @@ public interface UserMgrService {
      * @param user
      * @return
      */
-    SysUsers edit(SysUsers user);
+    SysUsers edit(SysUserEditReq user);
 }
