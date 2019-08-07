@@ -24,8 +24,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Optional;
-import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
-import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
+
+import static com.forteach.education.common.keyword.Dic.*;
 
 /**
  * @Auther: zhangyy
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
         } else if (!user.getPassWord().equals(Md5Util.macMD5(userLoginReq.getPassWord().concat(salt)))) {
             return WebResult.failException("密码错误");
         }
-        String token = tokenService.createToken(user.getId());
+        String token = tokenService.createToken(user.getId(), TOKEN_TEACHER);
         //保存token到redis
         tokenService.saveRedis(token, user);
         UserRole userRole = userRoleRepository.findByUserIdIs(user.getId());

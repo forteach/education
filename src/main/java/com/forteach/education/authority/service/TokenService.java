@@ -17,7 +17,7 @@ public interface TokenService {
      * @param userId
      * @return
      */
-    String createToken(String userId);
+    String createToken(String userId, String userType);
 
     /**
      * 获取JWT验证
@@ -66,4 +66,17 @@ public interface TokenService {
      * @param userId
      */
     void removeToken(String userId);
+
+    /**
+     * 获取微信openId
+     * @param request
+     * @return
+     */
+    String getOpenId(HttpServletRequest request);
+    /**
+     * 获取用户的 session-key
+     * @param openId
+     * @return
+     */
+    String getSessionKey(String openId);
 }

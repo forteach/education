@@ -99,4 +99,20 @@ public class Dic {
      */
     public static final String STUDENT_ADO = "studentsData$";
 
+    /**
+     * 设置保存redis时间常量信息
+     */
+    public final static Long TWO_HOURS = 3600L * 2;
+    public final static Long ONE_DAYS = 3600L * 24;
+    public final static Long SEVEN_DAYS = 3600L * 24 * 7;
+    /**
+     * 微信　token 信息
+     */
+    public final static String USER_PREFIX = "userToken$";
+
+    /**
+     * 微信登录用户是否绑定信息标识 0 (绑定)　1(未绑定)
+     */
+    public final static String WX_INFO_BINDIND_0 = "0";
+    public final static String WX_INFO_BINDIND_1 = "1";
 }

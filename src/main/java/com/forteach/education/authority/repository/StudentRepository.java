@@ -26,4 +26,11 @@ public interface StudentRepository extends JpaRepository<StudentEntitys, String>
     @Query(value = "select id as studentId, userName as studentName, portrait as portrait, classId as classId from StudentEntitys where isValidated = '0' and classId = ?1 order by createTime asc ")
     List<IStudentDto> findByIsValidatedEqualsAndClassIdOrderByCreateTime(String classId);
 
+    /**
+     * 通过身份证号码查询有效状态的学生信息
+     * @param isValidated 有效状态
+     * @param IDCardNo 身份证号码
+     * @return
+     */
+    List<StudentEntitys> findByIsValidatedEqualsAndIdCardNo(String isValidated, String IDCardNo);
 }

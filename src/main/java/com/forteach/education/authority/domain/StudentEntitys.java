@@ -36,7 +36,7 @@ public class StudentEntitys extends Entitys {
     private String userName;
 
     @Column(name = "id_card_no", columnDefinition = "VARCHAR(32) COMMENT '身份证号码'")
-    private String IDCardNo;
+    private String idCardNo;;
 
     @Column(name = "portrait", columnDefinition = "VARCHAR(255) COMMENT '学生头像url'")
     private String portrait;
@@ -47,10 +47,10 @@ public class StudentEntitys extends Entitys {
     public StudentEntitys() {
     }
 
-    public StudentEntitys(String id, String userName, String IDCardNo, String portrait, String classId) {
+    public StudentEntitys(String id, String userName, String idCardNo, String portrait, String classId) {
         this.id = id;
         this.userName = userName;
-        this.IDCardNo = IDCardNo;
+        this.idCardNo = idCardNo;;
         this.portrait = portrait;
         this.classId = classId;
     }
