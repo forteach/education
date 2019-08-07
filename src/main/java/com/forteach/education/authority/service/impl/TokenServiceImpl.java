@@ -28,7 +28,7 @@ import static com.forteach.education.common.keyword.Dic.*;
  * @Description:
  */
 @Slf4j
-@Service(value = "TokenService")
+@Service
 public class TokenServiceImpl implements TokenService {
 
     @Value("${token.salt}")
@@ -42,13 +42,14 @@ public class TokenServiceImpl implements TokenService {
 
     /**
      * 生成一个token
+     *
      * @param userId
      * @return
      */
     @Override
-    public String createToken(String userId) {
+    public String createToken(String userId, String userType) {
         return JWT.create()
-                .withAudience(userId, TOKEN_TEACHER)
+                .withAudience(userId, userType)
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_VALIDITY_TIME * 1000))
                 .sign(Algorithm.HMAC256(salt.concat(userId)));
@@ -56,6 +57,7 @@ public class TokenServiceImpl implements TokenService {
 
     /**
      * 校验token
+     *
      * @param userId
      * @return
      */
@@ -66,6 +68,7 @@ public class TokenServiceImpl implements TokenService {
 
     /**
      * 获取token携带的用户信息
+     *
      * @param request
      * @return
      */
@@ -75,9 +78,9 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public String getStudentId(HttpServletRequest request){
+    public String getStudentId(HttpServletRequest request) {
         String token = request.getHeader("token");
-        if (TOKEN_STUDENT.equals(getValue(token, 1))){
+        if (TOKEN_STUDENT.equals(getValue(token, 1))) {
             return hashOperations.get(getKey(getValue(token, 0)), "studentId");
         }
         return null;
@@ -86,7 +89,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public String getTeacherId(HttpServletRequest request) {
         String token = request.getHeader("token");
-        if (TOKEN_TEACHER.equals(getValue(token, 1))){
+        if (TOKEN_TEACHER.equals(getValue(token, 1))) {
             return getValue(token, 0);
         }
         return null;
@@ -95,7 +98,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public String getClassId(HttpServletRequest request) {
         String token = request.getHeader("token");
-        if (TOKEN_STUDENT.equals(getValue(token, 1))){
+        if (TOKEN_STUDENT.equals(getValue(token, 1))) {
             return hashOperations.get(getKey(getValue(token, 0)), "classId");
         }
         return null;
@@ -119,11 +122,22 @@ public class TokenServiceImpl implements TokenService {
         stringRedisTemplate.delete(this.getKey(userId));
     }
 
-    private String getValue(String token, int index){
+    private String getValue(String token, int index) {
         return JWT.decode(token).getAudience().get(index);
     }
 
-    private String getKey(String userId){
+    private String getKey(String userId) {
         return USER_TOKEN_PREFIX.concat(userId);
+    }
+
+    @Override
+    public String getOpenId(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        return JWT.decode(token).getAudience().get(0);
+    }
+
+    @Override
+    public String getSessionKey(String openId) {
+        return hashOperations.get(USER_PREFIX.concat(openId), "sessionKey");
     }
 }
