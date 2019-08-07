@@ -65,6 +65,11 @@ public class RoleController extends BaseController {
     @UserLoginToken
     @PostMapping(value = "/edit")
     @ApiOperation(value = "编辑/保存角色", notes = "编辑/保存角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色编号", dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "roleName", value = "角色名称", dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "remark", value = "备注 角色说明", dataType = "string", paramType = "form")
+    })
     public WebResult editRole(@Valid @RequestBody @ApiParam(value = "角色数据", required = true) SysRole sysRole) {
         return WebResult.okResult(roleService.edit(sysRole));
     }
@@ -77,7 +82,7 @@ public class RoleController extends BaseController {
      */
     @UserLoginToken
     @PostMapping(value = "/remove")
-    @ApiOperation(value = "删除角色", notes = "通过角色id删除角色")
+    @ApiOperation(value = "删除角色", notes = "通过角色id删除角色(物理删除)")
     @ApiImplicitParam(name = "roleId", value = "角色id", dataType = "string", required = true, paramType = "from")
     public WebResult removeRole(@RequestBody @ApiParam(value = "通过角色id删除角色", required = true) AuthorityVo authorityVo) {
         MyAssert.blank(authorityVo.getRoleId(), DefineCode.ERR0010, "角色id不为空");
@@ -218,7 +223,14 @@ public class RoleController extends BaseController {
     @PostMapping("/saveEdit")
     @ApiOperation(value = "修改保存栏目信息", notes = "保存栏目时栏目编号(colId)不为空，修改栏目信息传 空字符串 ")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "colId", value = "栏目编号", dataType = "string", example = "121213dwe", paramType = "from")
+            @ApiImplicitParam(name = "colId", value = "栏目编号", dataType = "string", example = "121213dwe", paramType = "from"),
+            @ApiImplicitParam(name = "colName", required = true, value = "栏目名称", dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "colNameModel", required = true, value = "栏目跳转", dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "colParentId", value = "父栏目编号", dataType = "string", example = "没有父栏目不用传数据", paramType = "form"),
+            @ApiImplicitParam(name = "colParentName", value = "父栏目名称", dataType = "string", example = "没有父栏目不用传数据", paramType = "form"),
+            @ApiImplicitParam(name = "colUrl", value = "链接地址", required = true, dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "colImgUrl", value = "链接图标", required = true, dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "isOrder", value = "栏目顺序", dataType = "int", paramType = "form")
     })
     public WebResult saveEdit(@RequestBody ActionColumnReq actionColumnReq){
         return WebResult.okResult(actionColumnService.editSaveActionColumn(actionColumnReq));

@@ -1,7 +1,9 @@
 package com.forteach.education.authority.web.control;
 
+import cn.hutool.core.lang.Validator;
+import cn.hutool.core.util.StrUtil;
 import com.forteach.education.authority.annotation.UserLoginToken;
-import com.forteach.education.authority.domain.SysUsers;
+import com.forteach.education.authority.web.req.SysUserEditReq;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
@@ -31,7 +33,7 @@ public class SysUserManagerController {
 
     private final UserMgrService userMgrService;
 
-    private SysUserManagerController(UserMgrService userMgrService){
+    private SysUserManagerController(UserMgrService userMgrService) {
         this.userMgrService = userMgrService;
     }
 
@@ -64,7 +66,16 @@ public class SysUserManagerController {
     @UserLoginToken
     @PostMapping(value = "/edit")
     @ApiOperation(value = "编辑用户", notes = "编辑/保存用户")
-    public WebResult edit(@Valid @RequestBody @ApiParam(value = "编辑/保存用户", required = true) SysUsers user) {
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户主键", dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "registerPhone", value = "注册手机号码", dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "email", value = "邮箱", dataType = "string", paramType = "form")
+    })
+    public WebResult edit(@Valid @RequestBody @ApiParam(value = "编辑/保存用户", required = true) SysUserEditReq user) {
+        MyAssert.isNull(user.getId(), DefineCode.ERR0010, "用户id不能为空");
+        if (StrUtil.isNotBlank(user.getRegisterPhone())) {
+            MyAssert.isFalse(Validator.isMobile(user.getRegisterPhone()), DefineCode.ERR0010, "手机号码格式不正确");
+        }
         return WebResult.okResult(userMgrService.edit(user));
     }
 
