@@ -53,8 +53,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     @Override
     public Specialty getSpecialtyById(String specialtyId) {
-        return specialtyRepository.findById(specialtyId)
-                .orElse(new Specialty());
+        return specialtyRepository.findById(specialtyId).orElseGet(Specialty::new);
     }
 
     @Override

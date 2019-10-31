@@ -124,7 +124,7 @@ public class WeChatUserServiceImpl implements WeChatUserService {
             binding = weChatUserInfoOptional.get().getBinding();
         }
 
-        Map<String, Object> map = BeanUtil.beanToMap(weChatUserInfoOptional.orElse(new WeChatUserInfo()));
+        Map<String, Object> map = BeanUtil.beanToMap(weChatUserInfoOptional.orElseGet(WeChatUserInfo::new));
         map.put("openId", openId);
         map.put("sessionKey", openId);
         map.put("token", token);

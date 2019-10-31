@@ -149,8 +149,7 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public Course getById(String id) {
-        return courseRepository.findById(id)
-                .orElse(new Course());
+        return courseRepository.findById(id).orElseGet(Course::new);
     }
 
 
