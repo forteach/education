@@ -1,5 +1,6 @@
 package com.forteach.education.filter;
 
+import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -42,14 +43,13 @@ public class SysUserLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         // 从 http 请求头中取出 token
-        String token = httpServletRequest.getHeader("token");
         // 如果不是映射到方法直接通过
-        if(!(object instanceof HandlerMethod)){
+        if (!(object instanceof HandlerMethod)) {
             return true;
         }
-        HandlerMethod handlerMethod=(HandlerMethod)object;
-        Method method =handlerMethod.getMethod();
-        //检查是否有 passtoken注释，有则跳过认证
+        HandlerMethod handlerMethod = (HandlerMethod) object;
+        Method method = handlerMethod.getMethod();
+        //检查是否有 passToken注释，有则跳过认证
         if (method.isAnnotationPresent(PassToken.class)) {
             PassToken passToken = method.getAnnotation(PassToken.class);
             if (passToken.required()) {
@@ -57,37 +57,35 @@ public class SysUserLoginInterceptor implements HandlerInterceptor {
             }
         }
         //检查有没有需要用户权限的注解
-        if (method.isAnnotationPresent(UserLoginToken.class)) {
-            UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
-            if (userLoginToken.required()) {
-                // 执行认证
-                MyAssert.blank(token, DefineCode.ERR0004, "token is null");
-                // 获取 token 中的 openId
-                String openId = null;
-                try {
-                    openId = JWT.decode(token).getAudience().get(0);
-                } catch (JWTDecodeException j) {
-                    if (log.isErrorEnabled()){
-                        log.error("token 校验非法 401");
-                    }
-                    MyAssert.fail(DefineCode.ERR0004, j, "401");
+        UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
+        if (userLoginToken.required()) {
+            String token = httpServletRequest.getHeader("token");
+            // 执行认证
+            MyAssert.isTrue(StrUtil.isBlank(token), DefineCode.ERR0004, "token is null");
+            // 获取 token 中的 openId
+            String openId = null;
+            try {
+                openId = JWT.decode(token).getAudience().get(0);
+            } catch (JWTDecodeException j) {
+                if (log.isErrorEnabled()) {
+                    log.error("token 校验非法 401");
                 }
-                if (!stringRedisTemplate.hasKey(USER_TOKEN_PREFIX.concat(openId))) {
-                    if (log.isErrorEnabled()){
-                        log.error("token 已经过期，请重新登录");
-                    }
-                    MyAssert.fail(DefineCode.ERR0004, new TokenExpiredException("token 已经过期，请重新登录"), "token 已经过期，请重新登录");
+                MyAssert.fail(DefineCode.ERR0004, j, "401");
+            }
+            if (!stringRedisTemplate.hasKey(USER_TOKEN_PREFIX.concat(openId))) {
+                if (log.isErrorEnabled()) {
+                    log.error("token 已经过期，请重新登录");
                 }
-                // 验证 token
-                try {
-                    tokenService.verifier(openId).verify(token);
-                } catch (JWTVerificationException e) {
-                    if (log.isErrorEnabled()){
-                        log.error("token 非法无效 401");
-                    }
-                    MyAssert.fail(DefineCode.ERR0004, e, "非法 token");
+                MyAssert.fail(DefineCode.ERR0004, new TokenExpiredException("token 已经过期，请重新登录"), "token 已经过期，请重新登录");
+            }
+            // 验证 token
+            try {
+                tokenService.verifier(openId).verify(token);
+            } catch (JWTVerificationException e) {
+                if (log.isErrorEnabled()) {
+                    log.error("token 非法无效 401");
                 }
-                return true;
+                MyAssert.fail(DefineCode.ERR0004, e, "非法 token");
             }
         }
         return true;
@@ -99,6 +97,7 @@ public class SysUserLoginInterceptor implements HandlerInterceptor {
                            Object o, ModelAndView modelAndView) throws Exception {
 
     }
+
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest,
                                 HttpServletResponse httpServletResponse,

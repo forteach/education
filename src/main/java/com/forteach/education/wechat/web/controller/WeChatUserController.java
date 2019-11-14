@@ -2,6 +2,7 @@ package com.forteach.education.wechat.web.controller;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import com.forteach.education.authority.annotation.PassToken;
 import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
@@ -39,6 +40,7 @@ public class WeChatUserController {
         this.weChatUserService = weChatUserService;
     }
 
+    @PassToken
     @ApiOperation(value = "微信小程序登录接口", notes = "微信小程序登录接口")
     @GetMapping("/login")
     @ApiImplicitParams({
@@ -84,6 +86,7 @@ public class WeChatUserController {
      * @param studentId
      * @return
      */
+    @PassToken
     @GetMapping("/restart/{studentId}")
     public WebResult restart(@PathVariable("studentId") String studentId) {
         return weChatUserService.restart(studentId);

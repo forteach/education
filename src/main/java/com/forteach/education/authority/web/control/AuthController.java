@@ -1,6 +1,7 @@
 package com.forteach.education.authority.web.control;
 
 import com.alibaba.fastjson.JSONObject;
+import com.forteach.education.authority.annotation.PassToken;
 import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.authority.service.RoleService;
 import com.forteach.education.authority.service.TokenService;
@@ -44,6 +45,7 @@ public class AuthController {
         this.tokenService = tokenService;
     }
 
+    @PassToken
     @ApiOperation("用户登录")
     @PostMapping("/login")
     @ApiImplicitParams({
