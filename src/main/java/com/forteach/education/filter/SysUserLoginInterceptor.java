@@ -41,8 +41,8 @@ public class SysUserLoginInterceptor implements HandlerInterceptor {
     private StringRedisTemplate stringRedisTemplate;
 
     @Override
+    @SuppressWarnings(value = "all")
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
-        // 从 http 请求头中取出 token
         // 如果不是映射到方法直接通过
         if (!(object instanceof HandlerMethod)) {
             return true;
@@ -56,37 +56,34 @@ public class SysUserLoginInterceptor implements HandlerInterceptor {
                 return true;
             }
         }
-        //检查有没有需要用户权限的注解
-        UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
-        if (userLoginToken.required()) {
-            String token = httpServletRequest.getHeader("token");
-            // 执行认证
-            MyAssert.isTrue(StrUtil.isBlank(token), DefineCode.ERR0004, "token is null");
-            // 获取 token 中的 openId
-            String openId = null;
-            try {
-                openId = JWT.decode(token).getAudience().get(0);
-            } catch (JWTDecodeException j) {
-                if (log.isErrorEnabled()) {
-                    log.error("token 校验非法 401");
-                }
-                MyAssert.fail(DefineCode.ERR0004, j, "401");
+        // 从 http 请求头中取出 token
+        String token = httpServletRequest.getHeader("token");
+        // 执行认证
+        MyAssert.isTrue(StrUtil.isBlank(token), DefineCode.ERR0004, "token is null");
+        // 获取 token 中的 openId
+        String openId = null;
+        try {
+            openId = JWT.decode(token).getAudience().get(0);
+        } catch (JWTDecodeException j) {
+            if (log.isErrorEnabled()) {
+                log.error("token 校验非法 401");
             }
-            if (!stringRedisTemplate.hasKey(USER_TOKEN_PREFIX.concat(openId))) {
-                if (log.isErrorEnabled()) {
-                    log.error("token 已经过期，请重新登录");
-                }
-                MyAssert.fail(DefineCode.ERR0004, new TokenExpiredException("token 已经过期，请重新登录"), "token 已经过期，请重新登录");
+            MyAssert.fail(DefineCode.ERR0004, j, "401");
+        }
+        if (!stringRedisTemplate.hasKey(USER_TOKEN_PREFIX.concat(openId))) {
+            if (log.isErrorEnabled()) {
+                log.error("token 已经过期，请重新登录");
             }
-            // 验证 token
-            try {
-                tokenService.verifier(openId).verify(token);
-            } catch (JWTVerificationException e) {
-                if (log.isErrorEnabled()) {
-                    log.error("token 非法无效 401");
-                }
-                MyAssert.fail(DefineCode.ERR0004, e, "非法 token");
+            MyAssert.fail(DefineCode.ERR0004, new TokenExpiredException("token 已经过期，请重新登录"), "token 已经过期，请重新登录");
+        }
+        // 验证 token
+        try {
+            tokenService.verifier(openId).verify(token);
+        } catch (JWTVerificationException e) {
+            if (log.isErrorEnabled()) {
+                log.error("token 非法无效 401");
             }
+            MyAssert.fail(DefineCode.ERR0004, e, "非法 token");
         }
         return true;
     }

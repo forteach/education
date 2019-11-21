@@ -162,14 +162,14 @@ public class WeChatUserServiceImpl implements WeChatUserService {
     }
 
     @Override
+    @SuppressWarnings(value = "all")
     @Transactional(rollbackFor = Exception.class)
     public WebResult restart(String string) {
         List<WeChatUserInfo> list = weChatUserInfoRepository.findByStudentId(string);
         if (list.size() > 0) {
-            list.stream().filter(Objects::nonNull)
-                    .forEach(weChatUserInfo -> {
-                        weChatUserInfoRepository.delete(weChatUserInfo);
-                    });
+            list.forEach(weChatUserInfo -> {
+                weChatUserInfoRepository.delete(weChatUserInfo);
+            });
             return WebResult.okResult();
         } else {
             return WebResult.okResult("不存要删除的用户");
