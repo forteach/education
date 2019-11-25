@@ -157,6 +157,10 @@ public class CoursewareServiceImpl implements CoursewareService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void removePhotoList(String arlitId) {
+        courseArlitsRepository.findById(arlitId).ifPresent(c -> {
+            c.setIsValidated(TAKE_EFFECT_CLOSE);
+            courseArlitsRepository.save(c);
+        });
         List<Photos> photosList = photoDatumRepository.findByArlitsIdAndIsValidated(arlitId, Dic.TAKE_EFFECT_OPEN)
                 .stream()
                 .map(photos -> {
@@ -175,6 +179,15 @@ public class CoursewareServiceImpl implements CoursewareService {
                     return courseAtlits;
                 }).collect(toList());
         courseArlitsRepository.saveAll(courseAtlitsList);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeCourseArlits(String fileId) {
+        courseArlitsRepository.findById(fileId).ifPresent(c -> {
+            c.setIsValidated(TAKE_EFFECT_CLOSE);
+            courseArlitsRepository.save(c);
+        });
     }
 
     @Override
@@ -198,6 +211,12 @@ public class CoursewareServiceImpl implements CoursewareService {
                     return photos;
                 }).collect(toList());
         photoDatumRepository.saveAll(photosList);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByFileId(String fileId) {
+        impCoursewareRepoitory.deleteById(fileId);
     }
 }
 

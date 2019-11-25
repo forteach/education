@@ -44,7 +44,12 @@ public interface CoursewareService {
 
     public void removeCourseArlitsList(String chapterId);
 
+    public void removeCourseArlits(String fileId);
+
     public void removeCourseware(String chapterId, String importantType, String datumType);
 
     public void removeCourseAtlit(String chapterId);
+
+    /** 删除课程重要课件*/
+    void deleteByFileId(String fileId);
 }

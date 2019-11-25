@@ -14,10 +14,7 @@ import com.forteach.education.course.web.res.CourseAtlitListResp;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -136,6 +133,17 @@ public class CoursewareController {
 
     }
 
+    @ApiOperation(value = "删除单个重要课件图册列表(逻辑删除)", notes = "删除重要课件图册列表(逻辑删除)")
+    @PostMapping("/removeCourseArlits")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "图册编号ID", dataTypeClass = String.class, required = true),
+    })
+    public WebResult removeCourseArlits(@RequestBody String id) {
+        MyAssert.blank(id, DefineCode.ERR0010, "图册编号id不为空");
+        coursewareService.removeCourseArlits(JSONObject.parseObject(id).getString("id"));
+        return WebResult.okResult();
+    }
+
     @ApiOperation(value = "获得重要课件图集列表", notes = "获得重要课件图集列表")
     @PostMapping("/getPhotoList")
     @ApiImplicitParams({
@@ -155,4 +163,12 @@ public class CoursewareController {
         return WebResult.okResult();
     }
 
+    @ApiOperation(value = "物理删除课件的文件信息")
+    @DeleteMapping(path = "/{fileId}")
+    @ApiImplicitParam(name = "fileId", value = "文件课件id", dataTypeClass = String.class, required = true)
+    public WebResult deleteByFileId(@PathVariable String fileId){
+        MyAssert.isNull(fileId, DefineCode.ERR0010, "文件id不是空");
+        coursewareService.deleteByFileId(fileId);
+        return WebResult.okResult();
+    }
 }
