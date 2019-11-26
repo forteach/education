@@ -1,6 +1,8 @@
 package com.forteach.education.common.service;
 
 import com.forteach.education.authority.domain.StudentEntitys;
+import com.forteach.education.authority.web.req.FindAllPageStudentReq;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -33,4 +35,6 @@ public interface StudentService {
      * @return
      */
     public List<StudentEntitys> getStudentListByStr(String studentIds);
+
+    Page<StudentEntitys> findAllPage(FindAllPageStudentReq req);
 }
