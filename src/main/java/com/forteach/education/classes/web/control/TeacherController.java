@@ -5,6 +5,7 @@ import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.classes.service.TeacherService;
+import com.forteach.education.classes.web.req.FindAllTeacherPage;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
@@ -138,10 +139,11 @@ public class TeacherController {
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @PostMapping("/findAll")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "teacherName", value = "教师名称", dataType = "string"),
             @ApiImplicitParam(name = "page", value = "分页从0开始", required = true, dataType = "int", type = "int", example = "0"),
             @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10"),
     })
-    public WebResult findAll(@ApiParam(value = "分页对象", name = "sortVo", required = true) @RequestBody SortVo sortVo) {
+    public WebResult findAll(@ApiParam(value = "分页对象", name = "sortVo", required = true) @RequestBody FindAllTeacherPage sortVo) {
         MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
         MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
         return WebResult.okResult(teacherService.findAll(sortVo));

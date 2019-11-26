@@ -34,4 +34,6 @@ public interface CourseShareService {
      * @return
      */
     public CourseShare findByCourseIdAll(String courseId);
+
+    List<String> findAllByUserId(String userId);
 }

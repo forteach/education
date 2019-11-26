@@ -6,6 +6,9 @@ import com.forteach.education.classes.dto.IClassesDto;
 import com.forteach.education.classes.dto.TeacherCourseDto;
 import com.forteach.education.classes.repository.TeacherRepository;
 import com.forteach.education.classes.service.TeacherService;
+import com.forteach.education.classes.web.req.FindAllTeacherPage;
+import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.course.repository.TeacherClassCourseRepository;
 import com.forteach.education.util.StringUtil;
@@ -23,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
@@ -104,8 +108,12 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     @Cacheable(value = "teachers", key = "#root.targetClass", unless = "#result eq null")
-    public Page<Teacher> findAll(SortVo sortVo) {
-        Page<Teacher> page = teacherRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize()));
+    public Page<Teacher> findAll(FindAllTeacherPage sortVo) {
+        PageRequest of = PageRequest.of(sortVo.getPage(), sortVo.getSize());
+        if (StrUtil.isNotBlank(sortVo.getTeacherName())){
+            teacherRepository.findAllByIsValidatedEqualsAndTeacherNameIsLike(StringUtil.hasEmptyIsValidated(new SortVo(sortVo.getPage(), sortVo.getSize())), sortVo.getTeacherName(), of);
+        }
+        Page<Teacher> page = teacherRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(StringUtil.hasEmptyIsValidated(new SortVo(sortVo.getPage(), sortVo.getSize())), of);
         return page;
     }
 
@@ -176,5 +184,11 @@ public class TeacherServiceImpl implements TeacherService {
         }else {
             return teacherClassCourseRepository.findTeacher();
         }
+    }
+
+    public Teacher findById(String teacherId){
+        Optional<Teacher> optional = teacherRepository.findById(teacherId);
+        MyAssert.isFalse(optional.isPresent(), DefineCode.ERR0014,"不存在对应教师");
+        return optional.get();
     }
 }

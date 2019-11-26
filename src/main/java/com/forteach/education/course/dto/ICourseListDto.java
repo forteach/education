@@ -51,6 +51,8 @@ public interface ICourseListDto {
      */
     public String getTopPicSrc();
 
+    public String getCreateUser();
+
     /**
      * 课程简介或描述
      * @return

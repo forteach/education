@@ -53,4 +53,6 @@ public interface CourseService {
     public List<ICourseStudyDto> findCourseStudyList(String studentId, Integer studyStatus);
 
     public int deleteImagesByCourseId(String courseId);
+
+    List<CourseListResp> findJoinCourse(String userId);
 }

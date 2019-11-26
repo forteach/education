@@ -3,7 +3,7 @@ package com.forteach.education.classes.service;
 import com.forteach.education.classes.domain.Teacher;
 import com.forteach.education.classes.dto.IClassesDto;
 import com.forteach.education.classes.dto.TeacherCourseDto;
-import com.forteach.education.common.web.vo.SortVo;
+import com.forteach.education.classes.web.req.FindAllTeacherPage;
 import com.forteach.education.web.resp.TeacherInfoResp;
 import org.springframework.data.domain.Page;
 
@@ -53,7 +53,7 @@ public interface TeacherService {
      * @param sortVo
      * @return
      */
-    Page<Teacher> findAll(SortVo sortVo);
+    Page<Teacher> findAll(FindAllTeacherPage sortVo);
 
     /**
      * 根据ID 查询教师信息
@@ -97,4 +97,6 @@ public interface TeacherService {
      * @return
      */
     List<TeacherCourseDto> findTeacherByCourseId(String courseNumber);
+
+    Teacher findById(String teacherId);
 }

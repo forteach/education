@@ -38,6 +38,11 @@ public class SortVo implements Serializable {
     public SortVo() {
     }
 
+    public SortVo(int page, int size) {
+        this.page = page;
+        this.size = size;
+    }
+
     public SortVo(int page, @DecimalMin(value = "0", message = "每页数量不能小于０") @DecimalMax(value = "200", message = "每页数量不能大于200") int size, String sorting, @Range(min = 0, max = 1, message = "是否有效参数不正确") String isValidated, @Range(min = 0, max = 1, message = "排序方式不正确") int sort) {
         this.page = page;
         this.size = size;

@@ -2,6 +2,7 @@ package com.forteach.education.course.repository;
 
 import com.forteach.education.course.domain.CourseShare;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -21,4 +22,8 @@ public interface CourseShareRepository extends JpaRepository<CourseShare, String
     @Transactional(readOnly = true)
     public CourseShare findByCourseIdAndShareArea(String courseId, String shareArea);
 
+    @Query(value = "select distinct courseId from CourseShare where isValidated = '0' and shareId in " +
+            " (select distinct shareId from CourseShareUsers where isValidated = '0' and userId = ?1) ")
+    @Transactional(readOnly = true)
+    List<String> findAllByUserId(String userId);
 }

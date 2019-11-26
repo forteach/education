@@ -129,4 +129,8 @@ public class CourseShareServiceImpl implements CourseShareService {
     public CourseShare findByCourseIdAll(String courseId) {
         return courseShareRepository.findByCourseIdAndShareArea(courseId, COURSE_SHARE_AREA_ALL);
     }
+    @Override
+    public List<String> findAllByUserId(String userId){
+        return courseShareRepository.findAllByUserId(userId);
+    }
 }

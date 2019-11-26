@@ -2,6 +2,7 @@ package com.forteach.education.course.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.classes.service.TeacherService;
 import com.forteach.education.classes.web.req.RTeacher;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
@@ -27,8 +28,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.forteach.education.common.keyword.Dic.*;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @Auther: zhangyy
@@ -71,6 +74,9 @@ public class CourseServiceImpl implements CourseService {
     @Resource
     private CourseStudyRepository courseStudyRepository;
 
+    @Resource
+    private TeacherService teacherService;
+
     /**
      * 保存课程基本信息
      *
@@ -95,7 +101,7 @@ public class CourseServiceImpl implements CourseService {
         }
 
         //3、设置返回数据
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         result.add(course.getCourseId());
         result.add(shareId);
         return result;
@@ -266,5 +272,19 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public int deleteImagesByCourseId(String courseId) {
         return courseImagesService.deleteImagesByCourseId(courseId);
+    }
+
+    @Override
+    public List<CourseListResp> findJoinCourse(String userId) {
+        List<String> list = courseShareService.findAllByUserId(userId);
+        if (!list.isEmpty()){
+            return courseRepository.findAllById(list)
+                    .stream()
+                    .filter(Objects::nonNull)
+                    .map(c -> new CourseListResp(c.getCourseId(), c.getCourseName(), c.getCourseNumber(), c.getLessonPreparationType(),
+                            c.getTopPicSrc(), c.getAlias(), c.getCreateUser(), teacherService.findById(c.getCreateUser()).getTeacherName()))
+                    .collect(toList());
+        }
+        return new ArrayList<>();
     }
 }

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.classes.domain.Teacher;
+import com.forteach.education.classes.service.TeacherService;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
@@ -57,6 +58,8 @@ public class CourseController {
 
     @Resource
     private CourseShareService courseShareService;
+    @Resource
+    private TeacherService teacherService;
 
     @UserLoginToken
     @ApiOperation(value = "保存课程科目信息", notes = "保存科目课程信息")
@@ -155,7 +158,8 @@ public class CourseController {
         PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
         return WebResult.okResult(courseService.findAll(page).stream()
                 .map((item) -> {
-                    return new CourseListResp(item.getCourseId(), item.getCourseName(), item.getCourseNumber(), item.getLessonPreparationType(), item.getTopPicSrc(), item.getAlias());
+                    return new CourseListResp(item.getCourseId(), item.getCourseName(), item.getCourseNumber(), item.getLessonPreparationType(),
+                            item.getTopPicSrc(), item.getAlias(), item.getCreateUser(), teacherService.getTeacherById(item.getCreateUser()).getTeacherName());
                 })
                 .collect(toList()));
     }
@@ -176,9 +180,17 @@ public class CourseController {
         PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
         return WebResult.okResult(courseService.findMyCourse(userId, page).stream()
                 .map((item) -> {
-                    return new CourseListResp(item.getCourseId(), item.getCourseName(), item.getCourseNumber(), item.getLessonPreparationType(), item.getTopPicSrc(), item.getAlias());
+                    return new CourseListResp(item.getCourseId(), item.getCourseName(), item.getCourseNumber(), item.getLessonPreparationType(), item.getTopPicSrc(),
+                            item.getAlias(), item.getCreateUser(), teacherService.getTeacherById(item.getCreateUser()).getTeacherName());
                 })
                 .collect(toList()));
+    }
+
+    @ApiOperation(value = "查询我参与的集体备课")
+    @GetMapping(path = "/myJoinCourse")
+    public WebResult findMyJoinCourse(HttpServletRequest request){
+        String userId = tokenService.getUserId(request);
+        return WebResult.okResult(courseService.findJoinCourse(userId));
     }
 
     @UserLoginToken
