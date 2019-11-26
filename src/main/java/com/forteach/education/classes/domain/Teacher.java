@@ -52,4 +52,7 @@ public class Teacher extends Entitys implements Serializable {
     @ApiModelProperty(value = "教师编号", name = "teacherCode", example = "S1234", required = true)
     @Column(name = "teacher_code", columnDefinition = "VARCHAR(32) COMMENT '教师编号'")
     private String teacherCode;
+
+    @Column(name = "phone", columnDefinition = "VARCHAR(32) COMMENT '电话号码'")
+    private String phone;
 }

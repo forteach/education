@@ -71,7 +71,9 @@ public class TeacherServiceImpl implements TeacherService {
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "teacher", key = "#teacher.teacherCode", unless = "#result eq null")
     public Teacher edit(Teacher teacher) {
-        Teacher source = teacherRepository.findById(teacher.getTeacherId()).get();
+        Optional<Teacher> optional = teacherRepository.findById(teacher.getTeacherId());
+        MyAssert.isFalse(optional.isPresent(), DefineCode.ERR0014, "要修改的教师信息不存在");
+        Teacher source = optional.get();
         UpdateUtil.copyNullProperties(source, teacher);
         return teacherRepository.save(teacher);
     }
@@ -110,11 +112,10 @@ public class TeacherServiceImpl implements TeacherService {
     @Cacheable(value = "teachers", key = "#root.targetClass", unless = "#result eq null")
     public Page<Teacher> findAll(FindAllTeacherPage sortVo) {
         PageRequest of = PageRequest.of(sortVo.getPage(), sortVo.getSize());
-        if (StrUtil.isNotBlank(sortVo.getTeacherName())){
-            teacherRepository.findAllByIsValidatedEqualsAndTeacherNameIsLike(StringUtil.hasEmptyIsValidated(new SortVo(sortVo.getPage(), sortVo.getSize())), sortVo.getTeacherName(), of);
+        if (StrUtil.isNotBlank(sortVo.getTeacherName())) {
+            return teacherRepository.findAllByIsValidatedEqualsAndTeacherNameLike(StringUtil.hasEmptyIsValidated(new SortVo(sortVo.getPage(), sortVo.getSize())), "%" + sortVo.getTeacherName() + "%", of);
         }
-        Page<Teacher> page = teacherRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(StringUtil.hasEmptyIsValidated(new SortVo(sortVo.getPage(), sortVo.getSize())), of);
-        return page;
+        return teacherRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(StringUtil.hasEmptyIsValidated(new SortVo(sortVo.getPage(), sortVo.getSize())), of);
     }
 
     /**
@@ -161,14 +162,11 @@ public class TeacherServiceImpl implements TeacherService {
     public List<TeacherInfoResp> findAllTeacherInfo() {
         List<TeacherInfoResp> list = new ArrayList<>();
         teacherRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN)
-                .stream()
-                .forEach(t -> {
-                    list.add(TeacherInfoResp.builder()
-                            .teacherId(t.getTeacherId())
-                            .teacherCode(t.getTeacherCode())
-                            .teacherName(t.getTeacherName())
-                            .build());
-                });
+                .forEach(t -> list.add(TeacherInfoResp.builder()
+                        .teacherId(t.getTeacherId())
+                        .teacherCode(t.getTeacherCode())
+                        .teacherName(t.getTeacherName())
+                        .build()));
         return list;
     }
 
@@ -181,14 +179,14 @@ public class TeacherServiceImpl implements TeacherService {
     public List<TeacherCourseDto> findTeacherByCourseId(String courseNumber) {
         if (StrUtil.isNotBlank(courseNumber)) {
             return teacherClassCourseRepository.findTeacherByCourseId(courseNumber);
-        }else {
+        } else {
             return teacherClassCourseRepository.findTeacher();
         }
     }
 
-    public Teacher findById(String teacherId){
+    public Teacher findById(String teacherId) {
         Optional<Teacher> optional = teacherRepository.findById(teacherId);
-        MyAssert.isFalse(optional.isPresent(), DefineCode.ERR0014,"不存在对应教师");
+        MyAssert.isFalse(optional.isPresent(), DefineCode.ERR0014, "不存在对应教师");
         return optional.get();
     }
 }

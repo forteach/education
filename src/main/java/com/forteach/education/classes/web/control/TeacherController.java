@@ -9,7 +9,6 @@ import com.forteach.education.classes.web.req.FindAllTeacherPage;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
-import com.forteach.education.common.web.vo.SortVo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -51,7 +50,8 @@ public class TeacherController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "specialtyId", value = "专业ID", required = true, dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "teacherName", value = "教师名称", required = true, dataType = "string", paramType = "from"),
-            @ApiImplicitParam(name = "teacherCode", value = "教师编号", required = true, dataType = "string", paramType = "from")
+            @ApiImplicitParam(name = "teacherCode", value = "教师编号", required = true, dataType = "string", paramType = "from"),
+            @ApiImplicitParam(name = "phone", value = "电话", required = true, dataType = "string", paramType = "from")
     })
     @UserLoginToken
     public WebResult save(@ApiParam(value = "保存教师信息", name = "teacher", required = true) @RequestBody Teacher teacher) {
@@ -83,6 +83,7 @@ public class TeacherController {
             @ApiImplicitParam(name = "specialtyId", value = "专业ID", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "teacherName", value = "教师名称", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "teacherCode", value = "教师编号", dataType = "string", paramType = "from"),
+            @ApiImplicitParam(name = "phone", value = "电话", dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "isValidated", value = "是否有效", dataType = "string", paramType = "from")
     })
     @UserLoginToken
@@ -152,7 +153,7 @@ public class TeacherController {
     @UserLoginToken
     @GetMapping("/findAll")
     @ApiOperation("查询所有教师信息")
-    public WebResult findAllTeacherInfo(){
+    public WebResult findAllTeacherInfo() {
         return WebResult.okResult(teacherService.findAllTeacherInfo());
     }
 
@@ -190,7 +191,7 @@ public class TeacherController {
     @PostMapping("/myTeachClass")
     @ApiOperation(value = "老师查询自己所教的班级信息", notes = "教师端查询所教课的班级信息")
     @ApiImplicitParam(name = "courseId", value = "课程id", dataType = "string", paramType = "form")
-    public WebResult myTeachClass(@RequestBody String courseId, HttpServletRequest request){
+    public WebResult myTeachClass(@RequestBody String courseId, HttpServletRequest request) {
         String teacherId = tokenService.getTeacherId(request);
         return WebResult.okResult(teacherService.findMyTeachClassInfo(teacherId, JSONObject.parseObject(courseId).getString("courseId")));
     }
@@ -199,7 +200,7 @@ public class TeacherController {
     @ApiOperation(value = "查询课程对应的排课教师信息", notes = "根据课程id查询对应的排课教师信息")
     @ApiImplicitParam(name = "courseNumber", value = "课程id", dataType = "string", paramType = "query")
     @PostMapping(path = "/findTeacherByCourseNumber")
-    public WebResult findTeacherByCourseNumber(@RequestBody String courseNumber){
+    public WebResult findTeacherByCourseNumber(@RequestBody String courseNumber) {
         MyAssert.isNull(courseNumber, DefineCode.ERR0010, "课程id不为空");
         return WebResult.okResult(teacherService.findTeacherByCourseId(JSONObject.parseObject(courseNumber).getString("courseNumber")));
     }
