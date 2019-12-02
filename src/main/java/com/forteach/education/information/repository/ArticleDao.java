@@ -35,7 +35,7 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
 	@Transactional(readOnly = true)
 	public Page<IArticle> findByUserIdAndCourseIdOrderByCreateTimeDesc(String userId,String courseId, Pageable pageable);
 
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = Exception.class, readOnly = true)
 	public Page<IArticle> findAllByOrderByCreateTimeDesc(Pageable pageable);
 
 	@Modifying(clearAutomatically = true)

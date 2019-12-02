@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
 
@@ -201,6 +202,7 @@ public class ArticleController  {
 		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
 			return WebResult.okResult(articleService.findAllDesc(page)
 					.stream()
+					.filter(Objects::nonNull)
 					.map(item -> {
 						ArticleStuListResponse ar = new ArticleStuListResponse();
 						UpdateUtil.copyProperties(item, ar);
