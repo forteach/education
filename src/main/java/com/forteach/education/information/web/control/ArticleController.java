@@ -195,6 +195,8 @@ public class ArticleController  {
 	@PostMapping("/findStuAllDesc")
 	public WebResult findStuAllDesc(@RequestBody FindAllRequest req){
 		SortVo sortVo = req.getSortVo();
+		MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
+		MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
 		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
 			return WebResult.okResult(articleService.findAllDesc(page)

@@ -34,6 +34,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
 
@@ -173,11 +174,11 @@ public class CourseController {
             @ApiImplicitParam(name = "sortVo", value = "分页参数息", dataTypeClass = CourseFindAllReq.class, example = "{\"sortVo\":{\"isValidated\":\"0\",\"page\":0,\"size\":15,\"sort\":1}}", required = true, paramType = "query")
     })
     public WebResult findMyCourse(@ApiParam(name = "CourseFindAllReq", value = "课程列表请求对象", required = true) @RequestBody CourseFindAllReq req, HttpServletRequest request) {
-        String userId = tokenService.getUserId(request);
         SortVo sortVo = req.getSortVo();
         MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
         MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
         PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
+        String userId = tokenService.getUserId(request);
         return WebResult.okResult(courseService.findMyCourse(userId, page).stream()
                 .map((item) -> {
                     return new CourseListResp(item.getCourseId(), item.getCourseName(), item.getCourseNumber(), item.getLessonPreparationType(), item.getTopPicSrc(),
@@ -202,7 +203,7 @@ public class CourseController {
     public WebResult selectTeachersByCourseId(@ApiParam(name = "shareId", value = "查询对应的协作老师信息", type = "string", required = true) @RequestBody String shareId) {
         MyAssert.blank(shareId, DefineCode.ERR0010, "科目备课分享ID不为空");
         List<CourseUsersResp> list = courseShareService.findByShareIdUsers(String.valueOf(JSONObject.parseObject(shareId).getString("shareId")))
-                .stream().map(item -> {
+                .stream().filter(Objects::nonNull).map(item -> {
                     CourseUsersResp resp = new CourseUsersResp();
                     UpdateUtil.copyNullProperties(item, resp);
                     return resp;

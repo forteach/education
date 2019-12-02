@@ -85,6 +85,8 @@ public class ArticleCommentController {
 		String artId=req.getArticleId();
 		MyAssert.isNull(artId, DefineCode.ERR0010,"资料编号不能为空");
 		SortVo sortVo = req.getSortVo();
+		MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
+		MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
 			return WebResult.okResult(articleCommentService.findByArticleId(artId,page)
 					.stream()
