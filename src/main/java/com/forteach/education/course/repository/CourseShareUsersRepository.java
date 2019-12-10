@@ -18,6 +18,7 @@ public interface CourseShareUsersRepository extends JpaRepository<CourseShareUse
 
     /**
      * 删除分型用户
+     *
      * @param shareId
      * @return
      */
@@ -27,6 +28,7 @@ public interface CourseShareUsersRepository extends JpaRepository<CourseShareUse
 
     /**
      * 查询分享的协作成员信息
+     *
      * @param shareId
      * @return
      */

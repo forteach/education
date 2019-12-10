@@ -115,4 +115,6 @@ public class Dic {
      */
     public final static String WX_INFO_BINDIND_0 = "0";
     public final static String WX_INFO_BINDIND_1 = "1";
+
+    public final static String MY_COURSE_CLASS = "my_course_class_";
 }

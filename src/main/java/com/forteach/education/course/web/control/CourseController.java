@@ -14,6 +14,7 @@ import com.forteach.education.course.service.CourseService;
 import com.forteach.education.course.service.CourseShareService;
 import com.forteach.education.course.web.control.verify.CourseVer;
 import com.forteach.education.course.web.req.CourseFindAllReq;
+import com.forteach.education.course.web.req.CourseImagesReq;
 import com.forteach.education.course.web.req.CourseSaveReq;
 import com.forteach.education.course.web.req.CourseStudyReq;
 import com.forteach.education.course.web.res.CourseListResp;
@@ -22,7 +23,6 @@ import com.forteach.education.course.web.res.CourseSaveResp;
 import com.forteach.education.course.web.res.CourseUsersResp;
 import com.forteach.education.course.web.vo.RCourse;
 import com.forteach.education.util.UpdateUtil;
-import com.forteach.education.course.web.req.CourseImagesReq;
 import com.forteach.education.web.vo.DataDatumVo;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
@@ -189,7 +189,7 @@ public class CourseController {
 
     @ApiOperation(value = "查询我参与的集体备课")
     @GetMapping(path = "/myJoinCourse")
-    public WebResult findMyJoinCourse(HttpServletRequest request){
+    public WebResult findMyJoinCourse(HttpServletRequest request) {
         String userId = tokenService.getUserId(request);
         return WebResult.okResult(courseService.findJoinCourse(userId));
     }
@@ -215,7 +215,7 @@ public class CourseController {
     @UserLoginToken
     @ApiOperation(value = "学生查询我的课程信息", notes = "学生端查询我的课程信息")
     @GetMapping(path = "/myCourseList")
-    public WebResult myCourseList(HttpServletRequest request){
+    public WebResult myCourseList(HttpServletRequest request) {
         String classId = tokenService.getClassId(request);
         return WebResult.okResult(courseService.myCourseList(classId));
     }
@@ -223,7 +223,7 @@ public class CourseController {
     @UserLoginToken
     @ApiOperation(value = "查询课程信息", notes = "查询同步的外部课程信息")
     @GetMapping("/findCourseList")
-    public WebResult findCourseList(){
+    public WebResult findCourseList() {
         return WebResult.okResult(courseService.findCourseList());
     }
 
@@ -275,6 +275,7 @@ public class CourseController {
 
     /**
      * 保存课程轮播图信息
+     *
      * @param courseImagesReq
      * @return
      */
@@ -310,6 +311,7 @@ public class CourseController {
 
     /**
      * 查询学生的课程学生信息
+     *
      * @param courseStudyReq
      * @param request
      * @return
@@ -318,7 +320,7 @@ public class CourseController {
     @ApiOperation(value = "查询学生课程学习状态信息", notes = "查询相关课程的学生状态信息")
     @PostMapping("/findCourseStudy")
     @ApiImplicitParam(name = "studyStatus", value = "学习状态 0 未学习　1 在学习　2 已完结", dataType = "int")
-    public WebResult findCourseStudy(@RequestBody CourseStudyReq courseStudyReq, HttpServletRequest request){
+    public WebResult findCourseStudy(@RequestBody CourseStudyReq courseStudyReq, HttpServletRequest request) {
         String studentId = tokenService.getStudentId(request);
         return WebResult.okResult(courseService.findCourseStudyList(studentId, courseStudyReq.getStudyStatus()));
     }
@@ -327,7 +329,7 @@ public class CourseController {
     @ApiOperation(value = "删除课程轮播图")
     @ApiImplicitParam(name = "courseId", value = "科目/课程id", dataType = "string", required = true, paramType = "form")
     @PostMapping(path = "/deleteImagesByCourseId")
-    public WebResult deleteImagesByCourseId(@RequestBody String courseId){
+    public WebResult deleteImagesByCourseId(@RequestBody String courseId) {
         MyAssert.isNull(courseId, DefineCode.ERR0010, "课程id不为空");
         return WebResult.okResult(courseService.deleteImagesByCourseId(String.valueOf(JSONObject.parseObject(courseId).getString("courseId"))));
     }

@@ -2,6 +2,7 @@ package com.forteach.education.course.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.forteach.education.classes.service.TeacherService;
 import com.forteach.education.classes.web.req.RTeacher;
 import com.forteach.education.common.config.MyAssert;
@@ -10,6 +11,7 @@ import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseEntity;
 import com.forteach.education.course.domain.CourseShare;
+import com.forteach.education.course.domain.CourseShareUsers;
 import com.forteach.education.course.dto.ICourseListDto;
 import com.forteach.education.course.dto.ICourseStudyDto;
 import com.forteach.education.course.repository.*;
@@ -23,15 +25,17 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.Duration;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.forteach.education.common.keyword.Dic.*;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 /**
  * @Auther: zhangyy
@@ -43,6 +47,9 @@ import static java.util.stream.Collectors.toList;
 @Service
 @Slf4j
 public class CourseServiceImpl implements CourseService {
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 课程基本信息
@@ -96,12 +103,12 @@ public class CourseServiceImpl implements CourseService {
         //2、如果是集体备课，保存集体备课基本信息
         String shareId = "";
         if (LESSON_PREPARATION_TYPE_GROUP.equals(course.getLessonPreparationType())) {
-            MyAssert.isTrue(teachers.size()==0, DefineCode.ERR0010,"集体备课，必须选择备课教师");
+            MyAssert.isTrue(teachers.size() == 0, DefineCode.ERR0010, "集体备课，必须选择备课教师");
             shareId = courseShareService.save(course, teachers);
         }
 
         //3、设置返回数据
-        List<String> result = new ArrayList<>();
+        List<String> result = new ArrayList<>(2);
         result.add(course.getCourseId());
         result.add(shareId);
         return result;
@@ -131,7 +138,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course findByCourseId(String courseId){
+    public Course findByCourseId(String courseId) {
         return courseRepository.findByCourseId(courseId);
     }
 
@@ -161,17 +168,33 @@ public class CourseServiceImpl implements CourseService {
 
     /**
      * 学生端查询我的课程信息
+     *
      * @param classId
      * @return
      */
     @Override
     @Cacheable(value = "myCourseList", key = "#classId", sync = true, unless = "#result eq null")
     public List<CourseListResp> myCourseList(String classId) {
+        String key = MY_COURSE_CLASS.concat(classId);
+        if (stringRedisTemplate.hasKey(key)) {
+            return JSONUtil.toList(JSONUtil.parseArray(stringRedisTemplate.opsForValue().get(key)), CourseListResp.class);
+        }
         List<CourseListResp> listRespList = Lists.newArrayList();
         courseRepository.findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(classId)
                 .stream()
                 .filter(Objects::nonNull)
                 .forEach(iCourseChapterListDto -> {
+                    String teacherName = iCourseChapterListDto.getTeacherName();
+                    if (LESSON_PREPARATION_TYPE_GROUP.equals(iCourseChapterListDto.getLessonPreparationType())) {
+                        //是集体备课, 查找对应的备课教师,后以逗号分割
+                        String teacherNames = String.join(",", courseShareService.findByShareIdUsers(courseShareService
+                                .findByCourseIdAll(iCourseChapterListDto.getCourseId()).getShareId())
+                                .stream()
+                                .filter(Objects::nonNull)
+                                .map(CourseShareUsers::getUserName)
+                                .collect(toSet()));
+                        teacherName = teacherName.concat(",").concat(teacherNames);
+                    }
                     listRespList.add(CourseListResp.builder()
                             .courseId(iCourseChapterListDto.getCourseId())
                             .courseName(iCourseChapterListDto.getCourseName())
@@ -181,9 +204,12 @@ public class CourseServiceImpl implements CourseService {
                             .joinChapterId(iCourseChapterListDto.getChapterId())
                             .joinChapterName(iCourseChapterListDto.getChapterName())
                             .teacherId(iCourseChapterListDto.getTeacherId())
-                            .teacherName(iCourseChapterListDto.getTeacherName())
+                            .teacherName(teacherName)
                             .build());
                 });
+        if (!listRespList.isEmpty()) {
+            stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(listRespList), Duration.ofSeconds(10));
+        }
         return listRespList;
     }
 
@@ -210,8 +236,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
 
-
-
     @Override
     @Transactional(rollbackForClassName = "Exception")
     public void deleteIsValidById(String courseId) {
@@ -225,7 +249,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional(rollbackForClassName = "Exception")
     public void saveCourseImages(CourseImagesReq courseImagesReq) {
-        courseImagesService.saveCourseImages(courseImagesReq.getCourseId(),courseImagesReq.getImages());
+        courseImagesService.saveCourseImages(courseImagesReq.getCourseId(), courseImagesReq.getImages());
     }
 
 
@@ -255,6 +279,7 @@ public class CourseServiceImpl implements CourseService {
 
     /**
      * 查询同步过来的课程信息
+     *
      * @return
      */
     @Override
@@ -277,7 +302,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<CourseListResp> findJoinCourse(String userId) {
         List<String> list = courseShareService.findAllByUserId(userId);
-        if (!list.isEmpty()){
+        if (!list.isEmpty()) {
             return courseRepository.findAllById(list)
                     .stream()
                     .filter(Objects::nonNull)
