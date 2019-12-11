@@ -7,6 +7,7 @@ import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.information.domain.Article;
+import com.forteach.education.information.dto.IArticle;
 import com.forteach.education.information.service.ArticleService;
 import com.forteach.education.information.web.req.article.*;
 import com.forteach.education.information.web.req.myArticle.DeleteMyArticleRequest;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -199,62 +201,35 @@ public class ArticleController  {
 		MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
 		MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
-		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
-			return WebResult.okResult(articleService.findAllDesc(page)
-					.stream()
-					.filter(Objects::nonNull)
-					.map(item -> {
-						ArticleStuListResponse ar = new ArticleStuListResponse();
-						UpdateUtil.copyProperties(item, ar);
-						//设置是否收藏、发布、点赞
-						articleService.setStuTagType(ar,item.getArticleId(),req.getUserId());
-						return ar;
-					})
-					.collect(toList()));
+		List<ArticleStuListResponse> listResponses = new ArrayList<>();
+		//没有条件查询
+		if(StrUtil.isBlank(req.getCourseId()) && StrUtil.isBlank(req.getStudentId())){
+			listResponses = setListResponse(articleService.findAllDesc(page), req.getUserId());
 		}
-
-		if(StrUtil.isNotBlank(req.getCourseId())&&StrUtil.isBlank(req.getStudentId())){
-			return WebResult.okResult(articleService.findByCourseId(req.getCourseId(),page)
-					.stream()
-					.map(item -> {
-						ArticleStuListResponse ar = new ArticleStuListResponse();
-						UpdateUtil.copyProperties(item, ar);
-						//设置是否收藏、发布、点赞
-						articleService.setStuTagType(ar,item.getArticleId(),req.getStudentId());
-						return ar;
-					})
-					.collect(toList()));
+		//只有对应的课程查询
+		if(StrUtil.isNotBlank(req.getCourseId()) && StrUtil.isBlank(req.getStudentId())){
+			listResponses = setListResponse(articleService.findByCourseId(req.getCourseId(),page), req.getUserId());
 		}
-
-		if(StrUtil.isBlank(req.getCourseId())&&StrUtil.isNotBlank(req.getStudentId())){
-			return WebResult.okResult(articleService.findByStudentId(req.getStudentId(),page)
-					.stream()
-					.map(item -> {
-						ArticleStuListResponse ar = new ArticleStuListResponse();
-						UpdateUtil.copyProperties(item, ar);
-						//设置是否收藏、发布、点赞
-						articleService.setStuTagType(ar,item.getArticleId(),req.getStudentId());
-						return ar;
-					})
-					.collect(toList()));
+		//查询只有对应的学生
+		if(StrUtil.isBlank(req.getCourseId()) && StrUtil.isNotBlank(req.getStudentId())){
+			listResponses = setListResponse(articleService.findByStudentId(req.getStudentId(),page), req.getStudentId());
 		}
-
-		if(StrUtil.isNotBlank(req.getCourseId())&&StrUtil.isNotBlank(req.getStudentId())){
-			return WebResult.okResult(articleService.findByUserIdAndCourseIdByCreateTimeDesc(req.getStudentId(),req.getCourseId(),page)
-					.stream()
-					.map(item -> {
-						ArticleStuListResponse ar = new ArticleStuListResponse();
-						UpdateUtil.copyProperties(item, ar);
-						//设置是否收藏、发布、点赞
-						articleService.setStuTagType(ar,item.getArticleId(),req.getStudentId());
-						return ar;
-					})
-					.collect(toList()));
+		//查询对应的学生和课程
+		if(StrUtil.isNotBlank(req.getCourseId()) && StrUtil.isNotBlank(req.getStudentId())){
+			listResponses = setListResponse(articleService.findByUserIdAndCourseIdByCreateTimeDesc(req.getStudentId(),req.getCourseId(),page), req.getStudentId());
 		}
-
-		return null;
+		return WebResult.okResult(listResponses);
 	}
 
+	private List<ArticleStuListResponse> setListResponse(List<IArticle> list, String studentId){
+		return list.stream().filter(Objects::nonNull).map(item -> {
+		ArticleStuListResponse ar = new ArticleStuListResponse();
+		UpdateUtil.copyProperties(item, ar);
+		//设置是否收藏、发布、点赞
+		articleService.setStuTagType(ar,item.getArticleId(), studentId);
+		return ar;
+		}).collect(toList());
+	}
 
 
 	/**

@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static com.forteach.education.information.service.ArticleKey.STUDENT;
 import static com.forteach.education.information.service.ArticleKey.STUDENT_ADO;
 
 
@@ -69,7 +70,7 @@ public class ArticleCommentService {
             artcomment.setCreateUser(request.getUserId());
 
             //初始化点击量数据
-            String artcommentkey=ArticleKey.ARTCOMMENTGOOD.concat(artcomment.getCommentId());
+            String artcommentkey = ArticleKey.ARTCOMMENTGOOD.concat(artcomment.getCommentId());
             stringRedisTemplate.opsForValue().set(artcommentkey,"0");
 
             //增加资讯回复数量
@@ -78,7 +79,7 @@ public class ArticleCommentService {
             int newcount=Integer.valueOf(count).intValue()+1;
             stringRedisTemplate.opsForValue().set(replykey,String.valueOf(newcount));
 
-            if("C".equals(request.getUserType())){
+            if(STUDENT.equals(request.getUserType())){
                 //学生名称
                 artcomment.setUserName(findStudentsName(request.getUserId()));
                 //学生头像
@@ -87,9 +88,7 @@ public class ArticleCommentService {
                 artcomment.setUserName("教师");
                 //TODO 添加教师头像路径？
             }
-
         }
-
         return articleCommentDao.save(artcomment);
     }
 

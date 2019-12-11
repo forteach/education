@@ -45,7 +45,9 @@ public class ArtCommentListResponse {
 	/**评论点赞数量 **/
 	private int goodCount;
 
-	//评论人员类型 S 学生  T 教师
+	/**
+	 * 评论人员类型 S 学生  T 教师
+	 */
 	private String userType;
 
 	/**评论点赞数量 **/

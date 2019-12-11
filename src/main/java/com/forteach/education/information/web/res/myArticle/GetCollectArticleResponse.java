@@ -17,21 +17,29 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class GetCollectArticleResponse implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
-	private String imgUrl;//头像地址
-	
-	private String alias;//名称
-	
-	private String title;//标题
-	
-	private int clickCount;//点击量
-	
-	private int collectCount;//收藏量
-	
-	private String addTime;//添加时间
-
+	/**
+	 * 头像地址
+	 */
+	private String imgUrl;
+	/**
+	 * 名称
+	 */
+	private String alias;
+	/**
+	 * 标题
+	 */
+	private String title;
+	/**
+	 * 点击量
+	 */
+	private int clickCount;
+	/**
+	 * 收藏量
+	 */
+	private int collectCount;
+	/**
+	 * 添加时间
+	 */
+	private String addTime;
 }

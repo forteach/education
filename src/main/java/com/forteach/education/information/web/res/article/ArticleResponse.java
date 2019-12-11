@@ -44,10 +44,10 @@ public class ArticleResponse implements IArtTag, Serializable {
 	/** 文章题目.**/
 	private String title;
 
-	// 标题图片连接.**/
-	private String imgUrl;
+	/** 外资料引用连接** /
+	 private String imgUrl;
 
-	// 外资料引用连接.**/
+	 /** 外资料引用连接**/
 	private String linkUrl;
 
 	//@Transient
@@ -73,7 +73,6 @@ public class ArticleResponse implements IArtTag, Serializable {
 	private int commentCount;
 
 	/** 资讯分类. **/
-
 	private String articleType;
 
 
@@ -90,5 +89,4 @@ public class ArticleResponse implements IArtTag, Serializable {
 
 	/** 是否是本人贴 */
 	private String isMy;
-
 }

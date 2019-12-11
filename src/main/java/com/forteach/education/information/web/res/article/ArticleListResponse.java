@@ -28,7 +28,9 @@ public class ArticleListResponse implements Serializable {
 	/** 文章题目.**/
 	private String title;
 
-	// 图片连接.**/
+	/**
+	 * 图片连接.
+	 */
 	private String imgUrl;
 
 	/** 文章描述.**/
@@ -67,5 +69,4 @@ public class ArticleListResponse implements Serializable {
 	private String className;
 
 	public String createTime;
-
 }

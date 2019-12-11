@@ -98,5 +98,4 @@ public class NoticeController {
 				})
 				.collect(toList()));
 	}
-
 }

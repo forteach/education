@@ -1,5 +1,6 @@
 package com.forteach.education.information.web.control;
 
+import cn.hutool.core.util.StrUtil;
 import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
@@ -43,7 +44,6 @@ public class ArticleCommentController {
 	/**
 	 * 保存资讯、资讯所属模块信息
 	 */
-
 	@UserLoginToken
 	@ApiOperation(value = "保存资讯、资讯所属模块信息")
 	@ApiImplicitParams({
@@ -51,7 +51,7 @@ public class ArticleCommentController {
 			@ApiImplicitParam(name = "commentId", value = "评论编号", dataType = "string", required = true, paramType = "form"),
 			@ApiImplicitParam(name = "articleId", value = "文章编号", dataType = "string", required = true, paramType = "form"),
 			@ApiImplicitParam(name = "content", value = "评论的内容", dataType = "string", required = true, paramType = "form"),
-			@ApiImplicitParam(name = "userType", value = "评论人员类型 S 学生  T 教师", dataType = "string", required = true)
+			@ApiImplicitParam(name = "userType", value = "评论人员类型 S 学生  T 教师", dataType = "string", required = true, paramType = "form")
 	})
 	@PostMapping("/saveOrUpdate")
 	public WebResult save(@RequestBody SaveArtCommentRequest request) {
@@ -59,11 +59,12 @@ public class ArticleCommentController {
 		MyAssert.isNull(request.getArticleId(), DefineCode.ERR0010,"资料编号不能为空");
 		MyAssert.isNull(request.getUserId(), DefineCode.ERR0010,"评论人编号不能为空");
 		MyAssert.isNull(request.getContent(), DefineCode.ERR0010,"评论内容不能为空");
-		MyAssert.isNull(request.getUserType(), DefineCode.ERR0010,"评论人类型不能为空");
+		String userType = request.getUserType();
+		MyAssert.isTrue(StrUtil.isBlank(userType), DefineCode.ERR0010,"评论人类型不为空");
 
-		ArticleComment artcomment=articleCommentService.save(request);
+		ArticleComment artcomment = articleCommentService.save(request);
 
-		SaveArtCommentResponse res=new SaveArtCommentResponse();
+		SaveArtCommentResponse res = new SaveArtCommentResponse();
 
 		UpdateUtil.copyNullProperties(artcomment, res);
 		// 调用save方法
@@ -127,5 +128,4 @@ public class ArticleCommentController {
 		MyAssert.isNull(req.getReplyUserName(), DefineCode.ERR0010,"评论回复人不能为空");
 		return WebResult.okResult(String.valueOf(articleCommentService.saveReply(req.getReply(),req.getCommentId(),req.getReplyUserName())));
 	}
-
 }

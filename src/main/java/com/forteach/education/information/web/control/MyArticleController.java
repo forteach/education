@@ -61,5 +61,4 @@ public class MyArticleController {
 //	public WebResult deleteMyArticle(@RequestBody DeleteMyArticleRequest req) {
 //		return WebResult.okResult(myArticleService.deleteMyArticle(req.getArticleId(),req.getUserId(),myArticleService.SHOUCANG));
 //	}
-
 }

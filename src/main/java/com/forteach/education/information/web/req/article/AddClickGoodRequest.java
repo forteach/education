@@ -29,6 +29,4 @@ public class AddClickGoodRequest implements Serializable {
 	/** 点赞操作人 **/
 	@ApiModelProperty(name = "UserId", value = "操作人", dataType = "string", required = true)
 	private String UserId;
-
-
 }

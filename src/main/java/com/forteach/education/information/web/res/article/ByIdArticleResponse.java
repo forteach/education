@@ -43,7 +43,9 @@ public class ByIdArticleResponse implements Serializable {
 //	/** 用户URL. **/
 //	private String userImgUrl;
 
-	/** 资讯点击量. **/
+	/**
+	 * 资讯点击量
+	 */
 	private int clickCount;
 
 	/** 资讯添加时间. **/
