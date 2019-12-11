@@ -44,10 +44,10 @@ public class ArticleResponse implements IArtTag, Serializable {
 	/** 文章题目.**/
 	private String title;
 
-	/** 外资料引用连接** /
+	/** 外资料引用连接 ** /
 	 private String imgUrl;
 
-	 /** 外资料引用连接**/
+	 /** 外资料引用连接 **/
 	private String linkUrl;
 
 	//@Transient

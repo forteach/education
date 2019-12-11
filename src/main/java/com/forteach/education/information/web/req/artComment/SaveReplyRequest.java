@@ -1,6 +1,5 @@
 package com.forteach.education.information.web.req.artComment;
 
-import com.forteach.education.common.web.vo.SortVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -33,5 +32,4 @@ public class SaveReplyRequest implements Serializable {
 
     @ApiModelProperty(value = "回复人名称", name = "replyUserName", required = true, dataType = "string")
     private String replyUserName;
-
 }

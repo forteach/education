@@ -31,6 +31,4 @@ public class SaveNoticeRequest implements Serializable {
 	 */
 	@ApiModelProperty(name = "area", value = "公告领域 P：全部 C：课程", dataType = "string")
 	private String area;
-
-
 }

@@ -10,5 +10,5 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteArticleResponse implements Serializable {
-private String flag;
+    private String flag;
 }

@@ -5,11 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteArticleRequest implements Serializable {
 
-	private String articleId;
+    private String articleId;
 
 }

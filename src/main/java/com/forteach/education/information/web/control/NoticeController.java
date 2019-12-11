@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -91,6 +93,7 @@ public class NoticeController {
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
 		return WebResult.okResult(noticeService.findByIsValidatedDesc("0",page)
 				.stream()
+				.filter(Objects::nonNull)
 				.map(item -> {
 					ListNoticeResponse ar = new ListNoticeResponse();
 					UpdateUtil.copyNullProperties(item, ar);

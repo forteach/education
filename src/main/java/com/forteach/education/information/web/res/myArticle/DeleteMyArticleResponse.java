@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 /**
  * 取消收藏
- *
  */
 
 @Data
@@ -16,6 +15,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class DeleteMyArticleResponse implements Serializable {
 
-private String flag;
+    private String flag;
 
 }

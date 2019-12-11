@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * 
-* @ClassName: TopArticleByIdRequest 
-* @Description: 资讯点赞数量增加
-* @author A18ccms a18ccms_gmail_com 
-* @date 2016年5月3日 上午9:59:32 
-*
+ * @author A18ccms a18ccms_gmail_com
+ * @ClassName: TopArticleByIdRequest
+ * @Description: 资讯点赞数量增加
+ * @date 2016年5月3日 上午9:59:32
  */
 @Data
 @AllArgsConstructor
@@ -22,11 +20,15 @@ import java.io.Serializable;
 @ApiModel(value = "资讯点赞数量增加")
 public class AddNiceRequest implements Serializable {
 
-	/** 资讯编号. **/
-	@ApiModelProperty(name = "articleId", value = "资讯编号", dataType = "string", required = true)
-	private String articleId;
+    /**
+     * 资讯编号.
+     **/
+    @ApiModelProperty(name = "articleId", value = "资讯编号", dataType = "string", required = true)
+    private String articleId;
 
-	/**加精华值  true   false **/
-	@ApiModelProperty(name = "value", value = "加精华值  true   false", dataType = "string", required = true)
-	private String value;
+    /**
+     * 加精华值  true   false
+     **/
+    @ApiModelProperty(name = "value", value = "加精华值  true   false", dataType = "string", required = true)
+    private String value;
 }

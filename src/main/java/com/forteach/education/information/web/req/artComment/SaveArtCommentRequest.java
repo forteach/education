@@ -10,9 +10,8 @@ import java.io.Serializable;
 
 /**
  * 创建资讯评论
- * 
- * @author zjw
  *
+ * @author zjw
  */
 @Data
 @ApiModel(value = "创建资讯评论")
@@ -20,24 +19,34 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class SaveArtCommentRequest implements Serializable {
 
-	/** 评论编号. **/
-	@ApiModelProperty(name = "commentId", value = "评论编号", dataType = "string", required = true)
-	private String commentId;
+    /**
+     * 评论编号.
+     **/
+    @ApiModelProperty(name = "commentId", value = "评论编号", dataType = "string", required = true)
+    private String commentId;
 
-	/** 文章编号. **/
-	@ApiModelProperty(name = "articleId", value = "文章编号", dataType = "string", required = true)
-	private String articleId;
+    /**
+     * 文章编号.
+     **/
+    @ApiModelProperty(name = "articleId", value = "文章编号", dataType = "string", required = true)
+    private String articleId;
 
-	/** 评论文章用户编号. **/
-	@ApiModelProperty(name = "userId", value = "评论文章用户编号", dataType = "string")
-	private String userId;
+    /**
+     * 评论文章用户编号.
+     **/
+    @ApiModelProperty(name = "userId", value = "评论文章用户编号", dataType = "string")
+    private String userId;
 
-	/** 评论的内容. **/
-	@ApiModelProperty(name = "content", value = "评论的内容", dataType = "string", required = true)
-	private String content;
+    /**
+     * 评论的内容.
+     **/
+    @ApiModelProperty(name = "content", value = "评论的内容", dataType = "string", required = true)
+    private String content;
 
-	/**评论人员类型 S 学生  T 教师*/
-	@ApiModelProperty(name = "userType", value = "评论人员类型 S 学生  T 教师", dataType = "string", required = true)
-	private String userType;
+    /**
+     * 评论人员类型 S 学生  T 教师
+     */
+    @ApiModelProperty(name = "userType", value = "评论人员类型 S 学生  T 教师", dataType = "string", required = true)
+    private String userType;
 
 }

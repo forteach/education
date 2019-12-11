@@ -254,7 +254,7 @@ public class ArticleService {
 //            myArticleService.save(myArticle);
 //        }
 //
-        //资讯点赞次数+1
+        // 资讯点赞次数 +1
         articleDao.addClickGood(articleId);
 
         String key=ArticleKey.GOOD.concat(articleId);

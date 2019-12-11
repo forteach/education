@@ -11,6 +11,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class TopArticleByIdResponse implements Serializable {
 
-private String flag;
+    private String flag;
 
 }

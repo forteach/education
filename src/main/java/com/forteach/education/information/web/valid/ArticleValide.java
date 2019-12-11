@@ -5,7 +5,6 @@ import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.information.web.req.article.SaveArticleRequest;
 
 public class ArticleValide {
-
 	public static void saveValide(SaveArticleRequest request){
 		String articleType=request.getArticleType();
 		String title=request.getTitle();

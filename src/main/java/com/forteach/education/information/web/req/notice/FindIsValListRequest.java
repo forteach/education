@@ -30,5 +30,4 @@ public class FindIsValListRequest implements Serializable {
 
     @ApiModelProperty(value = "分页排序字段", name = "sortVo", required = true)
     private SortVo sortVo = new SortVo();
-
 }

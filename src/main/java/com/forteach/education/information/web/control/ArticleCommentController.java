@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 import static java.util.stream.Collectors.toList;
 
 @RestController
@@ -91,6 +93,7 @@ public class ArticleCommentController {
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
 			return WebResult.okResult(articleCommentService.findByArticleId(artId,page)
 					.stream()
+					.filter(Objects::nonNull)
 					.map(item -> {
 						ArtCommentListResponse ar = new ArtCommentListResponse();
 						UpdateUtil.copyNullProperties(item, ar);

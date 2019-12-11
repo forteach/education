@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 /**
  * 保存收藏
- *
  */
 @Data
 @AllArgsConstructor
@@ -18,8 +17,9 @@ import java.io.Serializable;
 @ApiModel(value = "保存收藏")
 public class ByIdNoticeRequest implements Serializable {
 
-	/** 公告ID. */
+	/**
+	 * 公告ID.
+	 */
 	@ApiModelProperty(name = "noticeId", value = "公告ID", dataType = "string", required = true)
 	private String noticeId;
-
 }
