@@ -30,35 +30,19 @@ import javax.annotation.Resource;
 @Service
 public class ArticleService {
 
-    //资讯信息在首页只显示6条数据
-    @Value("${com.pageSize:6}")
-    private String articleHomePageSize;
-
-//    /**
-//     * 学生信息前缀
-//     */
-//    public static final String STUDENT_ADO = "studentsData$";
-//
-//    public static final String SHOUCANG="ShouCang";
-//
-//    public static final String GOOD="Good";
-//
-//    public static final String ARTCOMMENTREPLY="ArtCommentReply";
-
-
-    @Autowired
+    @Resource
     private ArticleDao articleDao;
 
-    @Autowired
+    @Resource
     private ArtIcleImagesService artIcleImagesService;
 
-    @Autowired
+    @Resource
     private ClassesService classesService;
 
-    @Autowired
+    @Resource
     private MyArticleService myArticleService;
 
-    @Autowired
+    @Resource
     private CourseService courseService;
 
     @Resource
@@ -258,11 +242,11 @@ public class ArticleService {
         articleDao.addClickGood(articleId);
 
         String key=ArticleKey.GOOD.concat(articleId);
-
-        String count=stringRedisTemplate.opsForValue().get(key);
-        int newcount=Integer.valueOf(count).intValue()+1;
-        stringRedisTemplate.opsForValue().set(key,String.valueOf(newcount));
-        return newcount;
+        String count = stringRedisTemplate.opsForValue().get(key);
+        String countStr = StrUtil.isBlank(count) ? "0" : count;
+        int newCount=Integer.parseInt(countStr) + 1;
+        stringRedisTemplate.opsForValue().set(key,String.valueOf(newCount));
+        return newCount;
     }
 
     /**
@@ -285,9 +269,10 @@ public class ArticleService {
         String key=ArticleKey.SHOUCANG.concat(articleId);
         //if(stringRedisTemplate.hasKey(key)){
             String count=stringRedisTemplate.opsForValue().get(key);
-            int newcount=Integer.valueOf(count).intValue()+1;
-            stringRedisTemplate.opsForValue().set(key,String.valueOf(newcount));
-            return newcount;
+            String countStr = StrUtil.isBlank(count) ? "0" : count;
+            int newCount=Integer.parseInt(countStr) + 1;
+            stringRedisTemplate.opsForValue().set(key,String.valueOf(newCount));
+            return newCount;
        // }
 
     }

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -91,7 +92,7 @@ public class NoticeController {
 	public WebResult findAll(@RequestBody FindIsValListRequest request) {
 		SortVo sortVo = request.getSortVo();
 		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
-		return WebResult.okResult(noticeService.findByIsValidatedDesc("0",page)
+		return WebResult.okResult(noticeService.findByIsValidatedDesc(TAKE_EFFECT_OPEN,page)
 				.stream()
 				.filter(Objects::nonNull)
 				.map(item -> {
