@@ -83,7 +83,7 @@ public class TokenServiceImpl implements TokenService {
         if (TOKEN_STUDENT.equals(getValue(token, 1))) {
             return hashOperations.get(getKey(getValue(token, 0)), "studentId");
         }
-        return null;
+        return "";
     }
 
     @Override
@@ -92,7 +92,7 @@ public class TokenServiceImpl implements TokenService {
         if (TOKEN_TEACHER.equals(getValue(token, 1))) {
             return getValue(token, 0);
         }
-        return null;
+        return "";
     }
 
     @Override
@@ -101,7 +101,7 @@ public class TokenServiceImpl implements TokenService {
         if (TOKEN_STUDENT.equals(getValue(token, 1))) {
             return hashOperations.get(getKey(getValue(token, 0)), "classId");
         }
-        return null;
+        return "";
     }
 
     @Override

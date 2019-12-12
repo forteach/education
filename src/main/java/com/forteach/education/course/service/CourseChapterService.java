@@ -8,6 +8,7 @@ import com.forteach.education.web.resp.CourseTreeResp;
 import com.forteach.education.web.vo.CourseChapterVo;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @Auther: zhangyy
@@ -35,4 +36,6 @@ public interface CourseChapterService {
     public List<ICourseChapterDto> findByChapterParentId(String isValidated, String chapterParentId);
 
     public List<ICourseChapterDto> findAllCourseChapter(CourseChapterVo vo);
+
+    Optional<CourseChapter> findById(String chapterId);
 }

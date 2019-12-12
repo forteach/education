@@ -2,6 +2,7 @@ package com.forteach.education.count.repository.description;
 
 import com.forteach.education.count.domain.description.CourseJoinChapterDescription;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,4 +23,7 @@ public interface CourseJoinChapterDescriptionRepository extends JpaRepository<Co
      * @return
      */
     List<CourseJoinChapterDescription> findByIsValidatedEqualsAndCircleId(String isValidated, String circleId);
+
+    @Transactional(readOnly = true)
+    List<CourseJoinChapterDescription> findAllByIsValidatedEqualsAndCourseIdAndStudentIdOrderByCreateTimeDesc(String isValidated, String courseId, String studentId);
 }

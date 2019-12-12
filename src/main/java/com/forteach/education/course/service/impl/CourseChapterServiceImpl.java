@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -200,5 +201,10 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Override
     public List<ICourseChapterDto> findAllCourseChapter(CourseChapterVo vo) {
         return courseChapterRepository.findCourseId(vo.getIsValidated(), vo.getCourseId());
+    }
+
+    @Override
+    public Optional<CourseChapter> findById(String chapterId){
+        return courseChapterRepository.findById(chapterId);
     }
 }

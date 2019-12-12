@@ -46,7 +46,7 @@ public interface CourseService {
 
     public Course getById(String id);
 
-    public List<CourseListResp> myCourseList(String classId);
+    public List<CourseListResp> myCourseList(String classId, String studentId);
 
     public List<CourseEntity> findCourseList();
 

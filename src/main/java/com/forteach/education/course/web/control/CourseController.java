@@ -217,7 +217,8 @@ public class CourseController {
     @GetMapping(path = "/myCourseList")
     public WebResult myCourseList(HttpServletRequest request) {
         String classId = tokenService.getClassId(request);
-        return WebResult.okResult(courseService.myCourseList(classId));
+        String studentId = tokenService.getStudentId(request);
+        return WebResult.okResult(courseService.myCourseList(classId, studentId));
     }
 
     @UserLoginToken

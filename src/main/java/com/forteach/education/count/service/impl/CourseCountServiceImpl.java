@@ -1,6 +1,5 @@
 package com.forteach.education.count.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.forteach.education.authority.domain.StudentEntitys;
 import com.forteach.education.common.service.StudentService;
 import com.forteach.education.count.dto.ICourseCount;
@@ -11,8 +10,8 @@ import com.forteach.education.count.web.req.CourseCountReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
@@ -51,11 +50,9 @@ public class CourseCountServiceImpl implements CourseCountService {
 
     @Override
     public List<StudentEntitys> findJoinCircleStudent(String circleId) {
-        List<StudentEntitys> studentEntitys = CollUtil.newArrayList();
+        List<StudentEntitys> list = new ArrayList<>();
         courseJoinChapterDescriptionRepository.findByIsValidatedEqualsAndCircleId(TAKE_EFFECT_OPEN, circleId)
-                .stream()
-                .filter(Objects::nonNull)
-                .forEach(s -> studentEntitys.add(studentService.getStudentEntitysById(s.getStudentId())));
-        return studentEntitys;
+                .forEach(s -> list.add(studentService.getStudentEntitysById(s.getStudentId())));
+        return list;
     }
 }

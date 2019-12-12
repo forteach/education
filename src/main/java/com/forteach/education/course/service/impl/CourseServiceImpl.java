@@ -8,13 +8,13 @@ import com.forteach.education.classes.web.req.RTeacher;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.Dic;
-import com.forteach.education.course.domain.Course;
-import com.forteach.education.course.domain.CourseEntity;
-import com.forteach.education.course.domain.CourseShare;
-import com.forteach.education.course.domain.CourseShareUsers;
+import com.forteach.education.count.domain.description.CourseJoinChapterDescription;
+import com.forteach.education.count.repository.description.CourseJoinChapterDescriptionRepository;
+import com.forteach.education.course.domain.*;
 import com.forteach.education.course.dto.ICourseListDto;
 import com.forteach.education.course.dto.ICourseStudyDto;
 import com.forteach.education.course.repository.*;
+import com.forteach.education.course.service.CourseChapterService;
 import com.forteach.education.course.service.CourseService;
 import com.forteach.education.course.service.CourseShareService;
 import com.forteach.education.course.web.req.CourseImagesReq;
@@ -83,6 +83,11 @@ public class CourseServiceImpl implements CourseService {
 
     @Resource
     private TeacherService teacherService;
+
+    @Resource
+    private CourseJoinChapterDescriptionRepository courseJoinChapterDescriptionRepository;
+    @Resource
+    private CourseChapterService courseChapterService;
 
     /**
      * 保存课程基本信息
@@ -172,17 +177,16 @@ public class CourseServiceImpl implements CourseService {
      * @param classId
      * @return
      */
+//    @Cacheable(value = "myCourseList", key = "#classId", sync = true, unless = "#result eq null")
     @Override
-    @Cacheable(value = "myCourseList", key = "#classId", sync = true, unless = "#result eq null")
-    public List<CourseListResp> myCourseList(String classId) {
+    @SuppressWarnings(value = "all")
+    public List<CourseListResp> myCourseList(String classId, String studentId) {
         String key = MY_COURSE_CLASS.concat(classId);
         if (stringRedisTemplate.hasKey(key)) {
             return JSONUtil.toList(JSONUtil.parseArray(stringRedisTemplate.opsForValue().get(key)), CourseListResp.class);
         }
         List<CourseListResp> listRespList = Lists.newArrayList();
         courseRepository.findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(classId)
-                .stream()
-                .filter(Objects::nonNull)
                 .forEach(iCourseChapterListDto -> {
                     String teacherName = iCourseChapterListDto.getTeacherName();
                     if (LESSON_PREPARATION_TYPE_GROUP.equals(iCourseChapterListDto.getLessonPreparationType())) {
@@ -195,20 +199,34 @@ public class CourseServiceImpl implements CourseService {
                                 .collect(toSet()));
                         teacherName = teacherName.concat(",").concat(teacherNames);
                     }
+                    String chapterId = "";
+                    String chapterName = "";
+                    Optional<CourseJoinChapterDescription> first = courseJoinChapterDescriptionRepository
+                            .findAllByIsValidatedEqualsAndCourseIdAndStudentIdOrderByCreateTimeDesc(TAKE_EFFECT_OPEN, iCourseChapterListDto.getCourseId(), studentId)
+                            .stream()
+                            .filter(Objects::nonNull)
+                            .findFirst();
+                    if (first.isPresent()){
+                        chapterId = first.get().getChapterId();
+                        Optional<CourseChapter> chapter = courseChapterService.findById(chapterId);
+                        if (chapter.isPresent()){
+                            chapterName = chapter.get().getChapterName();
+                        }
+                    }
                     listRespList.add(CourseListResp.builder()
                             .courseId(iCourseChapterListDto.getCourseId())
                             .courseName(iCourseChapterListDto.getCourseName())
                             .alias(iCourseChapterListDto.getAlias())
                             .topPicSrc(iCourseChapterListDto.getTopPicSrc())
                             .courseDescribe(iCourseChapterListDto.getCourseDescribe())
-                            .joinChapterId(iCourseChapterListDto.getChapterId())
-                            .joinChapterName(iCourseChapterListDto.getChapterName())
+                            .joinChapterId(chapterId)
+                            .joinChapterName(chapterName)
                             .teacherId(iCourseChapterListDto.getTeacherId())
                             .teacherName(teacherName)
                             .build());
                 });
         if (!listRespList.isEmpty()) {
-            stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(listRespList), Duration.ofSeconds(10));
+            stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(listRespList), Duration.ofSeconds(30));
         }
         return listRespList;
     }
