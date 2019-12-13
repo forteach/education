@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
 import static java.util.stream.Collectors.toList;
@@ -48,6 +49,7 @@ public class CoursewareServiceImpl implements CoursewareService {
 
     /**
      * 保存除图集以外，重要课件文件
+     *
      * @param obj
      * @return
      */
@@ -66,12 +68,15 @@ public class CoursewareServiceImpl implements CoursewareService {
             return ic;
         }).collect(toList());
 
-        impCoursewareRepoitory.saveAll(list);
+        if (!list.isEmpty()) {
+            impCoursewareRepoitory.saveAll(list);
+        }
         return getImpCourseware(obj.getChapterId(), obj.getImportantType(), obj.getDatumType());
     }
 
     /**
      * 保存图集
+     *
      * @param obj
      * @return
      */
@@ -85,16 +90,21 @@ public class CoursewareServiceImpl implements CoursewareService {
         //保存图集信息
         courseArlitsRepository.save(ca);
 
-        List<Photos> list = obj.getFiles().stream().map(item -> {
-            Photos photo = new Photos();
-            photo.setId(IdUtil.fastSimpleUUID());
-            photo.setArlitsId(ca.getId());
-            photo.setChapterId(obj.getChapterId());
-            UpdateUtil.copyNullProperties(item, photo);
-            return photo;
-        }).collect(toList());
+        List<Photos> list = obj.getFiles()
+                .stream()
+                .filter(Objects::nonNull)
+                .map(item -> {
+                    Photos photo = new Photos();
+                    photo.setId(IdUtil.fastSimpleUUID());
+                    photo.setArlitsId(ca.getId());
+                    photo.setChapterId(obj.getChapterId());
+                    UpdateUtil.copyNullProperties(item, photo);
+                    return photo;
+                }).collect(toList());
 
-        photoDatumRepository.saveAll(list);
+        if (!list.isEmpty()){
+            photoDatumRepository.saveAll(list);
+        }
         return getCourseArlitsList(obj.getChapterId());
 
     }
@@ -116,7 +126,7 @@ public class CoursewareServiceImpl implements CoursewareService {
             return ca;
         }).collect(toList());
 
-        if (list.size() > 0) {
+        if (!list.isEmpty()) {
             return new ImpCoursewareAll(chapterId, importantType, files.size(), datumType, "", files);
         }
         return null;
@@ -124,34 +134,32 @@ public class CoursewareServiceImpl implements CoursewareService {
 
     /**
      * 获得图集列表
+     *
      * @param chapterId
      * @return
      */
     @Override
     public List<CoursewareAll> getCourseArlitsList(String chapterId) {
-
-        List<CoursewareAll> list = courseArlitsRepository.findByChapterIdAndIsValidated(chapterId, Dic.TAKE_EFFECT_OPEN)
-                .stream().map((item) -> {
-                            CoursewareAll ca = new CoursewareAll();
-                            UpdateUtil.copyNullProperties(item, ca);
-                            return ca;
-                        }
-                ).collect(toList());
-
-        return list;
-
+        return courseArlitsRepository.findByChapterIdAndIsValidated(chapterId, Dic.TAKE_EFFECT_OPEN)
+                .stream()
+                .filter(Objects::nonNull)
+                .map(item -> {
+                    CoursewareAll ca = new CoursewareAll();
+                    UpdateUtil.copyNullProperties(item, ca);
+                    return ca;
+                }).collect(toList());
     }
 
     @Override
     public List<CoursewareAll> getPhotoList(String arlitId) {
 
-        List<CoursewareAll> phlist = photoDatumRepository.findByArlitsIdAndIsValidated(arlitId, Dic.TAKE_EFFECT_OPEN)
-                .stream().map((item) -> {
+        return photoDatumRepository.findByArlitsIdAndIsValidated(arlitId, Dic.TAKE_EFFECT_OPEN)
+                .stream().filter(Objects::nonNull)
+                .map(item -> {
                     CoursewareAll ca = new CoursewareAll();
                     UpdateUtil.copyNullProperties(item, ca);
                     return ca;
                 }).collect(toList());
-        return phlist;
     }
 
     @Override
@@ -163,22 +171,23 @@ public class CoursewareServiceImpl implements CoursewareService {
         });
         List<Photos> photosList = photoDatumRepository.findByArlitsIdAndIsValidated(arlitId, Dic.TAKE_EFFECT_OPEN)
                 .stream()
-                .map(photos -> {
-                    photos.setIsValidated(TAKE_EFFECT_CLOSE);
-                    return photos;
-                }).collect(toList());
-        photoDatumRepository.saveAll(photosList);
+                .filter(Objects::nonNull)
+                .peek(p -> p.setIsValidated(TAKE_EFFECT_CLOSE))
+                .collect(toList());
+        if (!photosList.isEmpty()) {
+            photoDatumRepository.saveAll(photosList);
+        }
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void removeCourseArlitsList(String chapterId) {
         List<CourseAtlits> courseAtlitsList = courseArlitsRepository.findByChapterIdAndIsValidated(chapterId, Dic.TAKE_EFFECT_OPEN).stream()
-                .map(courseAtlits -> {
-                    courseAtlits.setIsValidated(TAKE_EFFECT_CLOSE);
-                    return courseAtlits;
-                }).collect(toList());
-        courseArlitsRepository.saveAll(courseAtlitsList);
+                .peek(c -> c.setIsValidated(TAKE_EFFECT_CLOSE))
+                .collect(toList());
+        if (!courseAtlitsList.isEmpty()) {
+            courseArlitsRepository.saveAll(courseAtlitsList);
+        }
     }
 
     @Override
@@ -194,11 +203,13 @@ public class CoursewareServiceImpl implements CoursewareService {
     @Transactional(rollbackFor = Exception.class)
     public void removeCourseware(String chapterId, String importantType, String datumType) {
         List<ImportantCourseware> list = impCoursewareRepoitory.findByChapterIdAndDatumTypeAndImportantTypeAndIsValidated(chapterId, datumType, importantType, Dic.TAKE_EFFECT_OPEN)
-                .stream().map(importantCourseware -> {
-                    importantCourseware.setImportantType(TAKE_EFFECT_CLOSE);
-                    return importantCourseware;
-                }).collect(toList());
-        impCoursewareRepoitory.saveAll(list);
+                .stream()
+                .filter(Objects::nonNull)
+                .peek(i -> i.setImportantType(TAKE_EFFECT_CLOSE))
+                .collect(toList());
+        if (!list.isEmpty()) {
+            impCoursewareRepoitory.saveAll(list);
+        }
     }
 
     @Override
@@ -206,11 +217,11 @@ public class CoursewareServiceImpl implements CoursewareService {
     public void removeCourseAtlit(String chapterId) {
         removeCourseArlitsList(chapterId);
         List<Photos> photosList = photoDatumRepository.findByChapterId(chapterId).stream()
-                .map(photos -> {
-                    photos.setIsValidated(TAKE_EFFECT_CLOSE);
-                    return photos;
-                }).collect(toList());
-        photoDatumRepository.saveAll(photosList);
+                .peek(p -> p.setIsValidated(TAKE_EFFECT_CLOSE))
+                .collect(toList());
+        if (!photosList.isEmpty()){
+            photoDatumRepository.saveAll(photosList);
+        }
     }
 
     @Override

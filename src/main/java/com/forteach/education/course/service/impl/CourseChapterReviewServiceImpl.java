@@ -97,12 +97,15 @@ public class CourseChapterReviewServiceImpl implements CourseChapterReviewServic
 
     @Override
     public CourseChapterReviewDescribeResp findMyCourseChapterReview(String studentId, String chapterId) {
-        CourseChapterReviewDescribe courseChapterReviewDescribe = courseChapterReviewDescribeRepository.findByIsValidatedEqualsAndStudentIdAndChapterId(TAKE_EFFECT_OPEN, studentId, chapterId);
-        return CourseChapterReviewDescribeResp.builder()
+        Optional<CourseChapterReviewDescribe> optional = courseChapterReviewDescribeRepository.findByIsValidatedEqualsAndStudentIdAndChapterId(TAKE_EFFECT_OPEN, studentId, chapterId);
+        if (optional.isPresent()) {
+            CourseChapterReviewDescribe courseChapterReviewDescribe = optional.get();
+            return CourseChapterReviewDescribeResp.builder()
                 .chapterId(courseChapterReviewDescribe.getChapterId())
                 .score(courseChapterReviewDescribe.getScore())
                 .studentId(courseChapterReviewDescribe.getStudentId())
                 .build();
+        }
+        return new CourseChapterReviewDescribeResp();
     }
-
 }

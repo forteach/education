@@ -1,7 +1,5 @@
 package com.forteach.education.information.repository;
 
-import java.util.List;
-
 import com.forteach.education.information.domain.Article;
 import com.forteach.education.information.dto.IArticle;
 import org.springframework.data.domain.Page;
@@ -11,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecificationExecutor<Article> {
 
@@ -29,6 +29,12 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
 	@Transactional(readOnly = true)
 	public Page<IArticle> findByCourseIdOrderByCreateTimeDesc(String courseId, Pageable pageable);
 
+	@Transactional(readOnly = true)
+	List<IArticle> findAllByArticleIdInOrderByCreateTimeDesc(List<String> articleIds);
+
+	@Transactional(readOnly = true)
+	List<IArticle> findAllByArticleIdInAndTitleLikeOrderByCreateTimeDesc(List<String> articleIds, String title);
+
 	/**
 	 * 分页查看资讯信息
 	 */
@@ -37,6 +43,9 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
 
 	@Transactional(rollbackFor = Exception.class, readOnly = true)
 	public Page<IArticle> findAllByOrderByCreateTimeDesc(Pageable pageable);
+
+	@Transactional(rollbackFor = Exception.class, readOnly = true)
+	public Page<IArticle> findAllByTitleLikeOrderByCreateTimeDesc(String title, Pageable pageable);
 
 	@Modifying(clearAutomatically = true)
 	@Query("update  Article  set isValidated='1' where articleId in(?1)")

@@ -1,7 +1,6 @@
 package com.forteach.education.course.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.course.domain.ziliao.CourseData;
 import com.forteach.education.course.domain.ziliao.CourseDatumArea;
 import com.forteach.education.course.repository.ziliao.CourseDataRepository;
@@ -12,7 +11,6 @@ import com.forteach.education.course.web.vo.RCourseData;
 import com.forteach.education.databank.web.res.DatumResp;
 import com.forteach.education.util.FileUtils;
 import com.forteach.education.util.UpdateUtil;
-import com.forteach.education.web.req.CourseDataDatumReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_CLOSE;
@@ -145,6 +144,7 @@ public class CourseDataServiceImpl implements CourseDataService {
         //转换LIST对象
         return courseDataRepository.findByChapterIdAndDatumTypeAndKNodeIdAndIsValidatedOrderByCreateTimeAsc(chapterId, datumType, kNodeId, TAKE_EFFECT_OPEN, pageable).getContent()
                 .stream()
+                .filter(Objects::nonNull)
                 .map((item) -> {
                     DatumResp dr = new DatumResp();
                     dr.setChapterId(item.getChapterId());
@@ -174,6 +174,7 @@ public class CourseDataServiceImpl implements CourseDataService {
         //再根据资料编号查找资料信息，转换LIST对象
         List<DatumResp> list = courseDataRepository.findByChapterIdAndDatumTypeAndIsValidatedOrderByCreateTimeAsc(chapterId, datumType, TAKE_EFFECT_OPEN, pageable).getContent()
                 .stream()
+                .filter(Objects::nonNull)
                 .map((item) -> {
                     DatumResp dr = new DatumResp();
                     UpdateUtil.copyNullProperties(item, dr);
@@ -199,6 +200,7 @@ public class CourseDataServiceImpl implements CourseDataService {
         //再根据资料编号查找资料信息，转换LIST对象
         List<DatumResp> list = courseDataRepository.findByChapterIdAndIsValidatedOrderByCreateTimeAsc(chapterId, TAKE_EFFECT_OPEN, pageable).getContent()
                 .stream()
+                .filter(Objects::nonNull)
                 .map((item) -> {
                     DatumResp dr = new DatumResp();
                     UpdateUtil.copyNullProperties(item, dr);
@@ -227,6 +229,7 @@ public class CourseDataServiceImpl implements CourseDataService {
         //修改资料表无效
         List<CourseDatumArea> courseDatumAreas = courseDatumAreaRepository.findByChapterId(courseDataDeleteReq.getChapterId())
                 .stream()
+                .filter(Objects::nonNull)
                 .map(courseDatumArea -> {
                     if (!courseDataDeleteReq.getFileIds().isEmpty() && courseDataDeleteReq.getFileIds().contains(courseDatumArea.getDataId())) {
                         courseDatumArea.setIsValidated(TAKE_EFFECT_CLOSE);
@@ -238,7 +241,7 @@ public class CourseDataServiceImpl implements CourseDataService {
         courseDatumAreaRepository.saveAll(courseDatumAreas);
         //修改
         List<CourseData> courseDataList = courseDataRepository.findByChapterId(courseDataDeleteReq.getChapterId())
-                        .stream()
+                        .stream().filter(Objects::nonNull)
                         .map(courseData -> {
                             if (!courseDataDeleteReq.getFileIds().isEmpty() && courseDataDeleteReq.getFileIds().contains(courseData.getDataId())){
                                 courseData.setIsValidated(TAKE_EFFECT_CLOSE);
@@ -256,6 +259,4 @@ public class CourseDataServiceImpl implements CourseDataService {
         courseDataRepository.deleteByChapterIdAndDataIdIn(courseDataDeleteReq.getChapterId(), courseDataDeleteReq.getFileIds());
         courseDatumAreaRepository.deleteByChapterIdAndFileIdIn(courseDataDeleteReq.getChapterId(), courseDataDeleteReq.getFileIds());
     }
-
-
 }

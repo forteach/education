@@ -32,6 +32,4 @@ public interface CatalogueService {
     public void deleteIsValidById(String chapterId);
 
     public List<CourseTreeResp> findByCourseId(String courseId);
-
-
 }

@@ -1,11 +1,13 @@
 package com.forteach.education.information.web.control;
 
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
+import com.forteach.education.images.course.service.ArtIcleImagesService;
 import com.forteach.education.information.domain.Article;
 import com.forteach.education.information.dto.IArticle;
 import com.forteach.education.information.service.ArticleService;
@@ -40,10 +42,12 @@ import static java.util.stream.Collectors.toList;
 public class ArticleController {
 
     private final ArticleService articleService;
+    private final ArtIcleImagesService artIcleImagesService;
 
     @Autowired
-    public ArticleController(ArticleService articleService) {
+    public ArticleController(ArticleService articleService, ArtIcleImagesService artIcleImagesService) {
         this.articleService = articleService;
+        this.artIcleImagesService = artIcleImagesService;
     }
 
     /**
@@ -101,6 +105,8 @@ public class ArticleController {
         UpdateUtil.copyProperties(article, res);
         //设置是否收藏、发布、点赞
         articleService.setStuTagType(res, article.getArticleId(), article.getUserId());
+        //设置图片信息
+        res.setImages(artIcleImagesService.findImagesById(article.getArticleId()));
         return WebResult.okResult(res);
     }
 
@@ -177,9 +183,8 @@ public class ArticleController {
      */
     @ApiOperation(value = "学生端所有资讯倒序分页获取")
     @ApiImplicitParams({
-            @ApiImplicitParam(value = "课程Id", name = "courseId", dataType = "string", paramType = "form"),
-            @ApiImplicitParam(value = "学生Id", name = "studentId", dataType = "string", paramType = "form"),
             @ApiImplicitParam(value = "本人的用户Id", name = "userId", dataType = "string", paramType = "form"),
+            @ApiImplicitParam(name = "type", value = "0：我发布的 1：我收藏的 2:点赞", dataType = "string", paramType = "form"),
             @ApiImplicitParam(value = "分页排序字段", name = "sortVo", dataTypeClass = SortVo.class, paramType = "form")
     })
     @PostMapping("/findStuAllDesc")
@@ -187,25 +192,19 @@ public class ArticleController {
         SortVo sortVo = req.getSortVo();
         MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
         MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
+        MyAssert.blank(req.getUserId(), DefineCode.ERR0010, "本人用户字段不为空");
         PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
-        List<ArticleStuListResponse> listResponses = new ArrayList<>();
+        //查询我的对应对应的发布章节列表
+        if (StrUtil.isNotBlank(req.getType())){
+            MyAssert.isFalse(NumberUtil.isNumber(req.getType()), DefineCode.ERR0010, "不是数字类型");
+            return WebResult.okResult(setListResponse(articleService.findMyArticle(page, req.getUserId(), Integer.parseInt(req.getType()), req.getTitle()), req.getUserId()));
+        }
+        if (StrUtil.isNotBlank(req.getTitle())){
+            return WebResult.okResult(setListResponse(articleService.findAllAndTitleDesc(page, req.getTitle()), req.getUserId()));
+        }
         //没有条件查询
-        if (StrUtil.isBlank(req.getCourseId()) && StrUtil.isBlank(req.getStudentId())) {
-            listResponses = setListResponse(articleService.findAllDesc(page), req.getUserId());
-        }
-        //只有对应的课程查询
-        if (StrUtil.isNotBlank(req.getCourseId()) && StrUtil.isBlank(req.getStudentId())) {
-            listResponses = setListResponse(articleService.findByCourseId(req.getCourseId(), page), req.getUserId());
-        }
-        //查询只有对应的学生
-        if (StrUtil.isBlank(req.getCourseId()) && StrUtil.isNotBlank(req.getStudentId())) {
-            listResponses = setListResponse(articleService.findByStudentId(req.getStudentId(), page), req.getStudentId());
-        }
-        //查询对应的学生和课程
-        if (StrUtil.isNotBlank(req.getCourseId()) && StrUtil.isNotBlank(req.getStudentId())) {
-            listResponses = setListResponse(articleService.findByUserIdAndCourseIdByCreateTimeDesc(req.getStudentId(), req.getCourseId(), page), req.getStudentId());
-        }
-        return WebResult.okResult(listResponses);
+        return WebResult.okResult(setListResponse(articleService.findAllDesc(page), req.getUserId()));
+
     }
 
     private List<ArticleStuListResponse> setListResponse(List<IArticle> list, String studentId) {
@@ -243,7 +242,7 @@ public class ArticleController {
     @ApiOperation(value = "收藏数量增加")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "articleId", value = "资讯编号", dataType = "string", required = true, paramType = "form"),
-            @ApiImplicitParam(name = "UserId", value = "操作人", dataType = "string", required = true, paramType = "form")
+            @ApiImplicitParam(name = "userId", value = "操作人", dataType = "string", required = true, paramType = "form")
     })
     public WebResult addCollect(@RequestBody AddClickGoodRequest req) {
         MyAssert.isNull(req.getArticleId(), DefineCode.ERR0010, "资料编号不能为空");

@@ -32,12 +32,15 @@ public class Article extends Entitys implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** 文章类型. */
+    @Transient
     public static String STATUS_TEXT = "txt";
 
     /** 链接类型. */
+    @Transient
     public static String STATUS_LINK = "link";
 
     /** 图片类型. */
+    @Transient
     public static String STATUS_IMAGE = "img";
 
     /** 文章编号.**/
@@ -62,7 +65,7 @@ public class Article extends Entitys implements Serializable {
     private String userName;
 
     /** 发布人头像.**/
-    @Column(name = "user_tortrait", columnDefinition = "VARCHAR(256)　COMMENT '发布人头像'")
+    @Column(name = "user_tortrait", columnDefinition = "VARCHAR(255) COMMENT '发布人头像'")
     private String userTortrait;
 
     /** 班级编号.**/
@@ -77,11 +80,11 @@ public class Article extends Entitys implements Serializable {
     @Column(name = "title", columnDefinition = "VARCHAR(256) COMMENT '文章题目'")
     private String title;
 
-    // 标题图片连接.**/
+    /** 标题图片连接.**/
     @Column(name = "img_url", columnDefinition = "VARCHAR(256) COMMENT '标题图片地址链接'")
     private String imgUrl;
 
-    // 外资料引用连接.**/
+    /** 外资料引用连接.**/
     @Column(name = "link_url", columnDefinition = "VARCHAR(256) COMMENT '外资料引用链接'")
     private String linkUrl;
 

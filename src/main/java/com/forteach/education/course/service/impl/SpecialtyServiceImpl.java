@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.Optional;
 
@@ -33,11 +34,8 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     @Override
     public Specialty save(String specialtyName) {
-        Specialty specialty = specialtyRepository.findByIsValidatedEqualsAndSpecialtyName(TAKE_EFFECT_OPEN, specialtyName);
-        if (specialty != null) {
-            return specialtyRepository.save(Specialty.builder().specialtyName(specialtyName).build());
-        }
-        return specialty;
+        return specialtyRepository.findByIsValidatedEqualsAndSpecialtyName(TAKE_EFFECT_OPEN, specialtyName)
+                .orElseGet(() -> specialtyRepository.save(Specialty.builder().specialtyName(specialtyName).build()));
     }
 
     @Override
@@ -86,7 +84,6 @@ public class SpecialtyServiceImpl implements SpecialtyService {
      */
     @Override
     public Page<Specialty> findAll(SortVo sortVo) {
-        Page<Specialty> page = specialtyRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize()));
-        return page;
+        return specialtyRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(StringUtil.hasEmptyIsValidated(sortVo), PageRequest.of(sortVo.getPage(), sortVo.getSize()));
     }
 }

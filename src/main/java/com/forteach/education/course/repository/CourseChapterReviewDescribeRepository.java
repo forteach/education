@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author: zhangyy
@@ -58,5 +59,5 @@ public interface CourseChapterReviewDescribeRepository extends JpaRepository<Cou
      * @return
      */
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    CourseChapterReviewDescribe findByIsValidatedEqualsAndStudentIdAndChapterId(String isValidated, String studentId, String chapterId);
+    Optional<CourseChapterReviewDescribe> findByIsValidatedEqualsAndStudentIdAndChapterId(String isValidated, String studentId, String chapterId);
 }

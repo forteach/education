@@ -1,5 +1,7 @@
 package com.forteach.education.course.service.impl;
 
+import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.course.domain.Catalogue;
 import com.forteach.education.course.dto.ICourseChapterDto;
 import com.forteach.education.course.repository.ziliao.CatalogueRepository;
@@ -10,14 +12,13 @@ import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.resp.CourseTreeResp;
 import com.forteach.education.web.resp.State;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+
 import static com.forteach.education.common.keyword.Dic.*;
 
 /**
@@ -70,7 +71,7 @@ public class CatalogueServiceImpl implements CatalogueService {
         catalogueRepository.findById(courseChapterEditReq.getChapterId())
                 .ifPresent(source -> {
                     Catalogue courseChapter = Catalogue.builder().build();
-                    BeanUtils.copyProperties(courseChapterEditReq, courseChapter);
+                    UpdateUtil.copyProperties(courseChapterEditReq, courseChapter);
                     UpdateUtil.copyNullProperties(source, courseChapter);
                     //2、设置创建时间
                     courseChapter.setCreateTime(source.getCreateTime());
@@ -124,20 +125,24 @@ public class CatalogueServiceImpl implements CatalogueService {
      */
     private Set<String> findLists(String courseId, String chapterParentId) {
         List<Catalogue> lists = catalogueRepository.findByCourseIdAndAndChapterParentId(courseId, chapterParentId);
-        Set<String> stringSet = lists.stream().filter(courseChapter -> !COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId()))
+        Set<String> stringSet = lists.stream()
+                .filter(courseChapter -> !COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId()))
                 .map(Catalogue::getChapterId)
                 .collect(Collectors.toSet());
-        stringSet.parallelStream().map(s -> {
-            //查询对应的目录集合
-            return findLists(s, courseId);
-        });
+        stringSet.stream().filter(Objects::nonNull)
+                .map(s -> {
+                    //查询对应的目录集合
+                    return findLists(s, courseId);
+                });
         return stringSet;
     }
 
     @Override
     @Transactional(rollbackForClassName = "Exception")
     public void deleteIsValidById(String chapterId) {
-        Catalogue courseChapter = catalogueRepository.findById(chapterId).get();
+        Optional<Catalogue> optional = catalogueRepository.findById(chapterId);
+        MyAssert.isFalse(optional.isPresent(), DefineCode.ERR0010, "不存在要删除的信息");
+        Catalogue courseChapter = optional.get();
         Set<String> stringSet = findLists(courseChapter.getCourseId(), chapterId);
         stringSet.add(chapterId);
         int result = catalogueRepository.updateIsValidatedIds(TAKE_EFFECT_CLOSE, stringSet);

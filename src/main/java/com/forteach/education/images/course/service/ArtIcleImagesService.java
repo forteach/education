@@ -23,9 +23,9 @@ public class ArtIcleImagesService {
     @Transactional(rollbackForClassName = "Exception")
     public boolean saveImages(String articleId, List<DataDatumVo> dataList) {
         List<ArticleImages> list = new ArrayList<>();
-        List<DataDatumVo> dataDatumVos = dataList;
-        for (int i = 0; i < dataDatumVos.size(); i++) {
-            DataDatumVo dataDatumVo = dataDatumVos.get(i);
+//        List<DataDatumVo> dataDatumVos = dataList;
+        for (int i = 0; i < dataList.size(); i++) {
+            DataDatumVo dataDatumVo = dataList.get(i);
             list.add(ArticleImages.builder()
                     .articleId(articleId)
                     .indexNum(i + 1)
@@ -33,7 +33,9 @@ public class ArtIcleImagesService {
                     .imageUrl(dataDatumVo.getFileUrl())
                     .build());
         }
-        acrticleImagesRepository.saveAll(list);
+        if (!list.isEmpty()){
+            acrticleImagesRepository.saveAll(list);
+        }
         return true;
     }
 

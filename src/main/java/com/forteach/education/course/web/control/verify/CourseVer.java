@@ -12,7 +12,5 @@ public class CourseVer {
         MyAssert.isNull(req.getCourse(), DefineCode.ERR0010, "课程信息未填写");
         MyAssert.isNull(req.getCourse().getCourseName(), DefineCode.ERR0010, "课程名称不能为空");
         MyAssert.isNull(req.getCourse().getCourseNumber(), DefineCode.ERR0010, "课程编号不能为空");
-
     }
-
 }

@@ -1,10 +1,12 @@
 package com.forteach.education.information.web.res.article;
 
+import com.forteach.education.images.course.domain.ArticleImages;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 文章资讯输出
@@ -89,4 +91,9 @@ public class ArticleResponse implements IArtTag, Serializable {
 
 	/** 是否是本人贴 */
 	private String isMy;
+
+	private List<ArticleImages> images;
+
+	/** 创建时间*/
+	public String createTime;
 }

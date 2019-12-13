@@ -1,6 +1,5 @@
 package com.forteach.education.information.service;
 
-import java.util.List;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.classes.domain.Classes;
@@ -11,21 +10,22 @@ import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.service.CourseService;
 import com.forteach.education.images.course.service.ArtIcleImagesService;
 import com.forteach.education.information.domain.Article;
-import com.forteach.education.information.domain.MyArticle;
 import com.forteach.education.information.dto.IArticle;
 import com.forteach.education.information.repository.ArticleDao;
 import com.forteach.education.information.web.req.article.SaveArticleRequest;
 import com.forteach.education.information.web.res.article.IArtTag;
 import com.forteach.education.util.UpdateUtil;
 import com.forteach.education.web.vo.DataDatumVo;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ArticleService {
@@ -52,21 +52,21 @@ public class ArticleService {
     private StringRedisTemplate stringRedisTemplate;
 
     @Transactional
-    public Article save(Article article,List<DataDatumVo> dataList) {
+    public Article save(Article article, List<DataDatumVo> dataList) {
 
         //保存资讯内容图片列表信息
-        if(dataList!=null&&dataList.size()>0){
-            MyAssert.isNull(dataList.get(0), DefineCode.ERR0013,"保存资料的图片信息不能为空");
+        if (dataList != null && dataList.size() > 0) {
+            MyAssert.isNull(dataList.get(0), DefineCode.ERR0013, "保存资料的图片信息不能为空");
             //设置列表头图片
             article.setImgUrl(dataList.get(0).getFileUrl());
-            boolean saveImg=artIcleImagesService.saveImages(article.getArticleId(),dataList);
-            MyAssert.isFalse(saveImg, DefineCode.ERR0013,"保存资料图片失败");
+            boolean saveImg = artIcleImagesService.saveImages(article.getArticleId(), dataList);
+            MyAssert.isFalse(saveImg, DefineCode.ERR0013, "保存资料图片失败");
         }
 
         // 保存资讯信息
         Article art = articleDao.save(article);
         // 返回对象为空，保存失败
-        MyAssert.isNull(art, DefineCode.ERR0013,"保存资料内容失败");
+        MyAssert.isNull(art, DefineCode.ERR0013, "保存资料内容失败");
         return art;
     }
 
@@ -77,7 +77,7 @@ public class ArticleService {
      * @return
      */
     private String findStudentsName(final String id) {
-        String key=ArticleKey.STUDENT_ADO.concat(id);
+        String key = ArticleKey.STUDENT_ADO.concat(id);
         return hashOperations.get(key, "name");
     }
 
@@ -97,20 +97,21 @@ public class ArticleService {
      * @param request
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     public Article setDoMain(SaveArticleRequest request) {
         // 获得页面设置的资讯值
         String artId = request.getArticleId();
-        Article art = null;
+        Article art;
 
         // 是否获取已存在的用户信息
         if (StrUtil.isNotBlank(artId)) {
             art = findById(artId);
-            MyAssert.isNull(art, DefineCode.ERR0010,"资料信息不存在");
-            String createTime=art.getCreateTime();
+            MyAssert.isNull(art, DefineCode.ERR0010, "资料信息不存在");
+            String createTime = art.getCreateTime();
             UpdateUtil.copyProperties(request, art);
             art.setCreateTime(createTime);
 
-        }else {
+        } else {
             art = new Article();
             UpdateUtil.copyNullProperties(request, art);
             art.setArticleId(IdUtil.fastSimpleUUID());
@@ -118,22 +119,22 @@ public class ArticleService {
             art.setIsNice("false");
 
             //初始化点收藏、点赞、回复数量数据
-            String sckey=ArticleKey.SHOUCANG.concat(art.getArticleId());
-            String gdkey=ArticleKey.GOOD.concat(art.getArticleId());
-            String replykey=ArticleKey.ARTCOMMENTREPLY.concat(art.getArticleId());
-            stringRedisTemplate.opsForValue().set(sckey,"0");
-            stringRedisTemplate.opsForValue().set(gdkey,"0");
-            stringRedisTemplate.opsForValue().set(replykey,"0");
+            String sckey = ArticleKey.SHOUCANG.concat(art.getArticleId());
+            String gdkey = ArticleKey.GOOD.concat(art.getArticleId());
+            String replykey = ArticleKey.ARTCOMMENTREPLY.concat(art.getArticleId());
+            stringRedisTemplate.opsForValue().set(sckey, "0");
+            stringRedisTemplate.opsForValue().set(gdkey, "0");
+            stringRedisTemplate.opsForValue().set(replykey, "0");
 
             //获得班级信息
-            Classes cla=classesService.findById(request.getClassId());
-            MyAssert.isNull(cla, DefineCode.ERR0013,"班级信息不存在");
+            Classes cla = classesService.findById(request.getClassId());
+            MyAssert.isNull(cla, DefineCode.ERR0013, "班级信息不存在");
             //设置班级名称
             art.setClassName(cla.getClassName());
 
             //获得课程名称
-            Course course=courseService.findByCourseId(request.getCourseId());
-            MyAssert.isNull(course, DefineCode.ERR0013,"课程信息不存在");
+            Course course = courseService.findByCourseId(request.getCourseId());
+            MyAssert.isNull(course, DefineCode.ERR0013, "课程信息不存在");
             art.setCourseName(course.getCourseName());
 
             //学生名称
@@ -142,8 +143,7 @@ public class ArticleService {
             art.setUserTortrait(findStudentsPortrait(request.getUserId()));
 
             //记录我的发布信息
-            MyArticle myArticle= myArticleService.setMyArticle("",art.getUserId(),art.getArticleId(),ArticleKey.FABUVALUE);
-            myArticleService.save(myArticle);
+            myArticleService.setMyArticle("", art.getUserId(), art.getArticleId(), ArticleKey.FABUVALUE);
         }
 
         return art;
@@ -156,8 +156,8 @@ public class ArticleService {
      * @return
      */
     public Article findById(String id) {
-        Article obj=articleDao.findByArticleId(id);
-        MyAssert.isNull(obj,DefineCode.ERR0013,"该信息不存在");
+        Article obj = articleDao.findByArticleId(id);
+        MyAssert.isNull(obj, DefineCode.ERR0013, "该信息不存在");
         return obj;
     }
 
@@ -184,26 +184,31 @@ public class ArticleService {
         return articleDao.findAllByOrderByCreateTimeDesc(pageable).getContent();
     }
 
+    public List<IArticle> findAllAndTitleDesc(Pageable pageable, String title) {
+        return articleDao.findAllByTitleLikeOrderByCreateTimeDesc("%" + title + "%", pageable).getContent();
+    }
+
     /**
      * 设置学生列表是否收藏、发布、点赞
+     *
      * @param ar
      * @param articleId
      * @param userId
      */
-    public void setStuTagType(IArtTag ar, String articleId, String userId){
+    public void setStuTagType(IArtTag ar, String articleId, String userId) {
 
         //设置是否点赞
-        ar.setIsClickGood(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,ArticleKey.GOODVALUE)));
+        ar.setIsClickGood(String.valueOf(myArticleService.exixtsMyArticle(articleId, userId, ArticleKey.GOODVALUE)));
         //设置是否收藏
-        ar.setIsCollect(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,ArticleKey.SHOUCANGVALUE)));
+        ar.setIsCollect(String.valueOf(myArticleService.exixtsMyArticle(articleId, userId, ArticleKey.SHOUCANGVALUE)));
         //设置是否发布
-        ar.setIsMy(String.valueOf(myArticleService.exixtsMyArticle(articleId,userId,ArticleKey.FABUVALUE)));
+        ar.setIsMy(String.valueOf(myArticleService.exixtsMyArticle(articleId, userId, ArticleKey.FABUVALUE)));
     }
 
     /**
      * 根据学生ID，获得资讯
      *
-     * @param studentId  发布资讯的学生
+     * @param studentId 发布资讯的学生
      * @param pageable
      * @return
      */
@@ -212,14 +217,13 @@ public class ArticleService {
     }
 
     /**
-     *
-     * @param studentId   学生Id
-     * @param courseId    课程Id
+     * @param studentId 学生Id
+     * @param courseId  课程Id
      * @param pageable
      * @return
      */
-    public List<IArticle> findByUserIdAndCourseIdByCreateTimeDesc(String studentId,String courseId, Pageable pageable) {
-        return articleDao.findByUserIdAndCourseIdOrderByCreateTimeDesc(studentId,courseId, pageable).getContent();
+    public List<IArticle> findByUserIdAndCourseIdByCreateTimeDesc(String studentId, String courseId, Pageable pageable) {
+        return articleDao.findByUserIdAndCourseIdOrderByCreateTimeDesc(studentId, courseId, pageable).getContent();
     }
 
     /**
@@ -229,7 +233,7 @@ public class ArticleService {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    public int addClickGood(String articleId,String userId) {
+    public int addClickGood(String articleId, String userId) {
 
 //        boolean result=myArticleService.exixtsMyArticle(articleId,userId,myArticleService.GOOD);
 //        if(!result){
@@ -241,11 +245,11 @@ public class ArticleService {
         // 资讯点赞次数 +1
         articleDao.addClickGood(articleId);
 
-        String key=ArticleKey.GOOD.concat(articleId);
+        String key = ArticleKey.GOOD.concat(articleId);
         String count = stringRedisTemplate.opsForValue().get(key);
         String countStr = StrUtil.isBlank(count) ? "0" : count;
-        int newCount=Integer.parseInt(countStr) + 1;
-        stringRedisTemplate.opsForValue().set(key,String.valueOf(newCount));
+        int newCount = Integer.parseInt(countStr) + 1;
+        stringRedisTemplate.opsForValue().set(key, String.valueOf(newCount));
         return newCount;
     }
 
@@ -256,41 +260,39 @@ public class ArticleService {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    public int addCollectCount(String articleId,String userId) {
-        boolean result=myArticleService.exixtsMyArticle(articleId,userId,ArticleKey.SHOUCANGVALUE);
-        if(!result){
+    public int addCollectCount(String articleId, String userId) {
+        boolean result = myArticleService.exixtsMyArticle(articleId, userId, ArticleKey.SHOUCANGVALUE);
+        if (!result) {
             //记录收藏日志记录
-            MyArticle myArticle= myArticleService.setMyArticle("",userId,articleId,ArticleKey.SHOUCANGVALUE);
-            myArticleService.save(myArticle);
+            myArticleService.setMyArticle("", userId, articleId, ArticleKey.SHOUCANGVALUE);
         }
-
         //资讯点赞次数+1
         articleDao.addCollectCount(articleId);
-        String key=ArticleKey.SHOUCANG.concat(articleId);
+        String key = ArticleKey.SHOUCANG.concat(articleId);
         //if(stringRedisTemplate.hasKey(key)){
-            String count=stringRedisTemplate.opsForValue().get(key);
-            String countStr = StrUtil.isBlank(count) ? "0" : count;
-            int newCount=Integer.parseInt(countStr) + 1;
-            stringRedisTemplate.opsForValue().set(key,String.valueOf(newCount));
-            return newCount;
-       // }
+        String count = stringRedisTemplate.opsForValue().get(key);
+        String countStr = StrUtil.isBlank(count) ? "0" : count;
+        int newCount = Integer.parseInt(countStr) + 1;
+        stringRedisTemplate.opsForValue().set(key, String.valueOf(newCount));
+        return newCount;
+        // }
 
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public String  addNice(String articleId,String value){
-        articleDao.addNice(articleId,value);
+    public String addNice(String articleId, String value) {
+        articleDao.addNice(articleId, value);
         return value;
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public String delCollect(String articleId,String userId) {
-        return  myArticleService.deleteMyArticle(articleId,userId,ArticleKey.SHOUCANGVALUE);
+    public String delCollect(String articleId, String userId) {
+        return myArticleService.deleteMyArticle(articleId, userId, ArticleKey.SHOUCANGVALUE);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public String delGood(String articleId,String userId) {
-        return myArticleService.deleteMyArticle(articleId,userId,ArticleKey.GOODVALUE);
+    public String delGood(String articleId, String userId) {
+        return myArticleService.deleteMyArticle(articleId, userId, ArticleKey.GOODVALUE);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -301,6 +303,17 @@ public class ArticleService {
     @Transactional(rollbackFor = Exception.class)
     public int deleteArticleById(String articleId) {
         return articleDao.deleteArticleById(articleId);
+    }
+
+    public List<IArticle> findMyArticle(PageRequest page, String userId, int tagType, String title) {
+        List<String> list = myArticleService.findByUserIdTagType(userId, tagType, page);
+        if (!list.isEmpty()) {
+            if (StrUtil.isNotBlank(title)) {
+                return articleDao.findAllByArticleIdInAndTitleLikeOrderByCreateTimeDesc(list, "%" + title + "%");
+            }
+            return articleDao.findAllByArticleIdInOrderByCreateTimeDesc(list);
+        }
+        return new ArrayList<>();
     }
 
 //

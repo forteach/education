@@ -20,7 +20,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "article_images", indexes = {@Index(columnList = "article_id", name = "art_id_index")})
+@Table(name = "article_images", indexes = {
+        @Index(columnList = "article_id", name = "art_id_index")
+})
 @org.hibernate.annotations.Table(appliesTo = "article_images", comment = "资讯内容图片")
 public class ArticleImages extends Entitys implements Serializable {
 
@@ -30,7 +32,7 @@ public class ArticleImages extends Entitys implements Serializable {
     @Column(name = "image_id", columnDefinition = "VARCHAR(32) COMMENT '图片编号ID'")
     private String imageId;
 
-    @Column(name = "image_name", columnDefinition = "VARCHAR(32) COMMENT '图片名称'")
+    @Column(name = "image_name", columnDefinition = "VARCHAR(128) COMMENT '图片名称'")
     private String imageName;
 
 

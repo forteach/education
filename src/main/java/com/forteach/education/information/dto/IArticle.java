@@ -16,7 +16,7 @@ public interface IArticle {
     /** 文章简介.**/
     public String getDescription();
 
-    // 图片连接.**/
+    /** 图片连接.**/
     public String getImgUrl();
 
     /** 点击量.**/

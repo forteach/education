@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com
@@ -32,5 +34,5 @@ public interface SpecialtyRepository extends JpaRepository<Specialty, String> {
      * @return
      */
     @Transactional(readOnly = true)
-    Specialty findByIsValidatedEqualsAndSpecialtyName(String isValidated, String specialtyName);
+    Optional<Specialty> findByIsValidatedEqualsAndSpecialtyName(String isValidated, String specialtyName);
 }

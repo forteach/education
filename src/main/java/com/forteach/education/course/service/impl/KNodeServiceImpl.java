@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -63,11 +64,10 @@ public class KNodeServiceImpl implements KNodeService {
      */
     @Override
     public List<KNodeAll> findByChapterId(String chapterId) {
-        return kNodeRepository
-                .findByChapterIdAndKNodeTypeIsGreaterThanAndIsValidated(chapterId, 0, TAKE_EFFECT_OPEN)
-                .stream().map((item) -> {
-                    return new KNodeAll(item.getCourseId(), item.getChapterId(), item.getKNodeId(), item.getNodeName());
-                })
+        return kNodeRepository.findByChapterIdAndKNodeTypeIsGreaterThanAndIsValidated(chapterId, 0, TAKE_EFFECT_OPEN)
+                .stream()
+                .filter(Objects::nonNull)
+                .map(item -> new KNodeAll(item.getCourseId(), item.getChapterId(), item.getKNodeId(), item.getNodeName()))
                 .collect(Collectors.toList());
     }
 
@@ -80,9 +80,9 @@ public class KNodeServiceImpl implements KNodeService {
     @Override
     public List<KNodeAll> findByCourseId(String courseId) {
         return kNodeRepository.findByCourseIdAndIsValidated(courseId, TAKE_EFFECT_OPEN)
-                .stream().map((item) -> {
-                    return new KNodeAll(item.getCourseId(), item.getChapterId(), item.getKNodeId(), item.getNodeName());
-                })
+                .stream()
+                .filter(Objects::nonNull)
+                .map(item -> new KNodeAll(item.getCourseId(), item.getChapterId(), item.getKNodeId(), item.getNodeName()))
                 .collect(Collectors.toList());
     }
 

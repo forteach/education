@@ -1,5 +1,7 @@
 package com.forteach.education.course.service.impl;
 
+import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.course.domain.CourseChapter;
 import com.forteach.education.course.dto.ICourseChapterDto;
 import com.forteach.education.course.repository.CourseChapterRepository;
@@ -16,10 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.forteach.education.common.keyword.Dic.*;
@@ -111,7 +110,9 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Override
     @Transactional(rollbackForClassName = "Exception")
     public void deleteById(String chapterId) {
-        CourseChapter courseChapter = courseChapterRepository.findById(chapterId).get();
+        Optional<CourseChapter> optional = courseChapterRepository.findById(chapterId);
+        MyAssert.isFalse(optional.isPresent(), DefineCode.ERR0010, "不在在对应的信息");
+        CourseChapter courseChapter = optional.get();
         Set<String> stringSet = findLists(courseChapter.getCourseId(), chapterId);
         stringSet.add(chapterId);
         int result = courseChapterRepository.deleteBathIds(stringSet);
@@ -127,13 +128,12 @@ public class CourseChapterServiceImpl implements CourseChapterService {
      */
     private Set<String> findLists(String courseId, String chapterParentId) {
         List<CourseChapter> lists = courseChapterRepository.findByCourseIdAndAndChapterParentId(courseId, chapterParentId);
-        Set<String> stringSet = lists.stream().filter(courseChapter -> !COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId()))
+        Set<String> stringSet = lists.stream()
+                .filter(courseChapter -> !COURSE_CHAPTER_CHAPTER_PARENT_ID.equals(courseChapter.getChapterParentId()))
                 .map(CourseChapter::getChapterId)
                 .collect(Collectors.toSet());
-        stringSet.parallelStream().map(s -> {
-            //查询对应的目录集合
-            return findLists(s, courseId);
-        });
+        //递归查询
+        stringSet.forEach(s -> findLists(courseId, s));
         return stringSet;
     }
 
@@ -204,7 +204,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     }
 
     @Override
-    public Optional<CourseChapter> findById(String chapterId){
+    public Optional<CourseChapter> findById(String chapterId) {
         return courseChapterRepository.findById(chapterId);
     }
 }
