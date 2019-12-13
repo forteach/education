@@ -181,7 +181,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @SuppressWarnings(value = "all")
     public List<CourseListResp> myCourseList(String classId, String studentId) {
-        String key = MY_COURSE_CLASS.concat(classId);
+        String key = MY_COURSE_CLASS.concat(classId).concat("_").concat(studentId);
         if (stringRedisTemplate.hasKey(key)) {
             return JSONUtil.toList(JSONUtil.parseArray(stringRedisTemplate.opsForValue().get(key)), CourseListResp.class);
         }
