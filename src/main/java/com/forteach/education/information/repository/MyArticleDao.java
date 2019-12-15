@@ -16,10 +16,6 @@ public interface MyArticleDao extends JpaRepository<MyArticle, String> {
 	@Transactional(readOnly = true)
 	Page<MyArticle> findAllByIsValidatedEqualsAndUserIdAndTagTypeOrderByCreateTimeDesc(String isValidated, String userId, int tagType, Pageable pageable);
 
-
-	@Transactional(readOnly = true)
-	List<MyArticle> findAllByIsValidatedEqualsAndUserIdAndTagType(String isValidated, String userId, int tagType);
-
 	@Modifying(clearAutomatically = true)
 	void deleteByUserIdAndArticleIdAndTagType(String articleId,String userId,int tagType);
 

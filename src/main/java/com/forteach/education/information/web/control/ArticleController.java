@@ -182,7 +182,6 @@ public class ArticleController {
      * @param req
      * @return
      */
-    @PassToken
     @ApiOperation(value = "学生端所有资讯倒序分页获取")
     @ApiImplicitParams({
             @ApiImplicitParam(value = "本人的用户Id", name = "userId", dataType = "string", paramType = "form"),
