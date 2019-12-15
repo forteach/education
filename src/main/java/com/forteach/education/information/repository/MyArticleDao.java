@@ -7,13 +7,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 public interface MyArticleDao extends JpaRepository<MyArticle, String> {
 
 
 	@Transactional(readOnly = true)
-	Page<MyArticle> findAllByUserIdAndTagTypeOrderByCreateTimeDesc(String userId, int tagType, Pageable pageable);
+	Page<MyArticle> findAllByIsValidatedEqualsAndUserIdAndTagTypeOrderByCreateTimeDesc(String isValidated, String userId, int tagType, Pageable pageable);
 
+
+	@Transactional(readOnly = true)
+	List<MyArticle> findAllByIsValidatedEqualsAndUserIdAndTagType(String isValidated, String userId, int tagType);
 
 	@Modifying(clearAutomatically = true)
 	void deleteByUserIdAndArticleIdAndTagType(String articleId,String userId,int tagType);

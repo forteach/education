@@ -309,7 +309,8 @@ public class ArticleService {
         List<String> list = myArticleService.findByUserIdTagType(userId, tagType, page);
         if (!list.isEmpty()) {
             if (StrUtil.isNotBlank(title)) {
-                return articleDao.findAllByArticleIdInAndTitleLikeOrderByCreateTimeDesc(list, "%" + title + "%");
+                // 是搜索查询，先查出全部对应的类型再查对应数据
+                return articleDao.findAllByTitleLikeOrderByCreateTimeDesc(userId, tagType, "%" + title + "%", page).getContent();
             }
             return articleDao.findAllByArticleIdInOrderByCreateTimeDesc(list);
         }

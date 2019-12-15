@@ -2,6 +2,7 @@ package com.forteach.education.information.web.control;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.authority.annotation.PassToken;
 import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
@@ -181,6 +182,7 @@ public class ArticleController {
      * @param req
      * @return
      */
+    @PassToken
     @ApiOperation(value = "学生端所有资讯倒序分页获取")
     @ApiImplicitParams({
             @ApiImplicitParam(value = "本人的用户Id", name = "userId", dataType = "string", paramType = "form"),
