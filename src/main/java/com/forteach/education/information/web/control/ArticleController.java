@@ -1,8 +1,9 @@
 package com.forteach.education.information.web.control;
 
+import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
+import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
-import com.forteach.education.authority.annotation.PassToken;
 import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
@@ -19,6 +20,7 @@ import com.forteach.education.information.web.res.article.ArticleResponse;
 import com.forteach.education.information.web.res.article.ArticleStuListResponse;
 import com.forteach.education.information.web.valid.ArticleValide;
 import com.forteach.education.util.UpdateUtil;
+import com.forteach.education.wechat.config.WeChatMiniAppConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -74,6 +76,11 @@ public class ArticleController {
 
         // 验证资讯信息
         ArticleValide.saveValide(request);
+
+        //调用微信信息内容校验是否合法
+        final WxMaSecCheckService checkService = WeChatMiniAppConfig.getMaService().getSecCheckService();
+        MyAssert.isFalse(checkService.checkMessage(request.getTitle()),DefineCode.ERR0010,"输入标题不合法");
+        MyAssert.isFalse(checkService.checkMessage(request.getArticleConten()),DefineCode.ERR0010,"输入内容不合法");
 
         // 设置资讯数据
         Article article = articleService.setDoMain(request);

@@ -1,5 +1,6 @@
 package com.forteach.education.information.web.control;
 
+import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.authority.annotation.UserLoginToken;
 import com.forteach.education.common.config.MyAssert;
@@ -15,6 +16,7 @@ import com.forteach.education.information.web.req.artComment.SaveReplyRequest;
 import com.forteach.education.information.web.res.artComment.ArtCommentListResponse;
 import com.forteach.education.information.web.res.artComment.SaveArtCommentResponse;
 import com.forteach.education.util.UpdateUtil;
+import com.forteach.education.wechat.config.WeChatMiniAppConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -64,6 +66,9 @@ public class ArticleCommentController {
 		String userType = request.getUserType();
 		MyAssert.isTrue(StrUtil.isBlank(userType), DefineCode.ERR0010,"评论人类型不为空");
 
+		//调用微信信息内容校验是否合法
+		final WxMaSecCheckService checkService = WeChatMiniAppConfig.getMaService().getSecCheckService();
+		MyAssert.isFalse(checkService.checkMessage(request.getContent()),DefineCode.ERR0010,"回复内容不合法");
 		ArticleComment artcomment = articleCommentService.save(request);
 
 		SaveArtCommentResponse res = new SaveArtCommentResponse();
