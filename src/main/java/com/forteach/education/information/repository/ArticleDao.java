@@ -66,7 +66,7 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
     public Page<IArticle> findAllByOrderByCreateTimeDesc(Pageable pageable);
 
     @Transactional(rollbackFor = Exception.class, readOnly = true)
-    public Page<IArticle> findAllByTitleLikeOrderByCreateTimeDesc(String title, Pageable pageable);
+    public Page<IArticle> findAllByTitleContainingOrderByCreateTimeDesc(String title, Pageable pageable);
 
     @Modifying(clearAutomatically = true)
     @Query("update  Article  set isValidated='1' where articleId in(?1)")

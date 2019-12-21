@@ -185,7 +185,7 @@ public class ArticleService {
     }
 
     public List<IArticle> findAllAndTitleDesc(Pageable pageable, String title) {
-        return articleDao.findAllByTitleLikeOrderByCreateTimeDesc("%" + title + "%", pageable).getContent();
+        return articleDao.findAllByTitleContainingOrderByCreateTimeDesc(title, pageable).getContent();
     }
 
     /**

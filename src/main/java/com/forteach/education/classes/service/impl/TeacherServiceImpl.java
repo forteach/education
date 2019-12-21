@@ -113,7 +113,7 @@ public class TeacherServiceImpl implements TeacherService {
     public Page<Teacher> findAll(FindAllTeacherPage sortVo) {
         PageRequest of = PageRequest.of(sortVo.getPage(), sortVo.getSize());
         if (StrUtil.isNotBlank(sortVo.getTeacherName())) {
-            return teacherRepository.findAllByIsValidatedEqualsAndTeacherNameLike(StringUtil.hasEmptyIsValidated(new SortVo(sortVo.getPage(), sortVo.getSize())), "%" + sortVo.getTeacherName() + "%", of);
+            return teacherRepository.findAllByIsValidatedEqualsAndTeacherNameContaining(StringUtil.hasEmptyIsValidated(new SortVo(sortVo.getPage(), sortVo.getSize())), sortVo.getTeacherName(), of);
         }
         return teacherRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(StringUtil.hasEmptyIsValidated(new SortVo(sortVo.getPage(), sortVo.getSize())), of);
     }

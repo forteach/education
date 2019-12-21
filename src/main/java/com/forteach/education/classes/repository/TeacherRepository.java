@@ -31,7 +31,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, String>, JpaSp
     Page<Teacher> findByIsValidatedEqualsOrderByCreateTimeDesc(String isValidated, Pageable pageable);
 
     @Transactional(readOnly = true)
-    Page<Teacher> findAllByIsValidatedEqualsAndTeacherNameLike(String isValidated, String teacherName, Pageable pageable);
+    Page<Teacher> findAllByIsValidatedEqualsAndTeacherNameContaining(String isValidated, String teacherName, Pageable pageable);
 
     /**
      * 查询有效教师信息
