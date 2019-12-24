@@ -38,7 +38,7 @@ public interface ArticleDao extends JpaRepository<Article, String>, JpaSpecifica
             " a.courseName as courseName, " +
             " a.title as title, " +
             " a.description as description, " +
-            " a.imgUrl as imgUrl, " +
+//            " a.imgUrl as imgUrl, " +
             " a.clickCount as clickCount, " +
             " a.collectCount as collectCount, " +
             " a.clickGood as clickGood, " +

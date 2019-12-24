@@ -1,14 +1,13 @@
 package com.forteach.education.information.web.req.article;
 
 
-import com.forteach.education.web.vo.DataDatumVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 创建资讯
@@ -55,8 +54,8 @@ public class SaveArticleRequest implements Serializable {
 	private String title;
 
 	/**图片连接.**/
-	@ApiModelProperty(name = "imgUrl", value = "图片连接", dataType = "string")
-	private String imgUrl;
+//	@ApiModelProperty(name = "imgUrl", value = "图片连接", dataType = "string")
+//	private String imgUrl;
 
 	/** 文章连接.**/
 	@ApiModelProperty(name = "linkUrl", value = "文章连接", dataType = "string")
@@ -74,7 +73,7 @@ public class SaveArticleRequest implements Serializable {
 	@ApiModelProperty(name = "articleType", value = "资讯分类", dataType = "string")
 	private String articleType;
 
-	@ApiModelProperty(value = "图片信息", name = "images", required = true)
-	private List<DataDatumVo> images;
+//	@ApiModelProperty(value = "图片信息", name = "images", required = true)
+//	private List<DataDatumVo> images;
 
 }

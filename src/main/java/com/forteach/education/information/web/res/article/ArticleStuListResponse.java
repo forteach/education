@@ -36,7 +36,7 @@ public class ArticleStuListResponse implements IArtTag, Serializable {
     /**
      * 图片连接.
      **/
-    private String imgUrl;
+//    private String imgUrl;
 
     /**
      * 文章描述.

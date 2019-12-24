@@ -50,7 +50,7 @@ public class ArtcileControlTest {
         List<DataDatumVo> list = new ArrayList<DataDatumVo>();
         list.add(dv);
         list.add(dv1);
-        req.setImages(list);
+//        req.setImages(list);
 
         log.info("request-----{}", JSON.toJSONString(req));
         WebResult r = articleController.save(req);

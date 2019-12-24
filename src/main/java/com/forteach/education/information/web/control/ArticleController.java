@@ -1,7 +1,6 @@
 package com.forteach.education.information.web.control;
 
 import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
-import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.authority.annotation.UserLoginToken;
@@ -65,8 +64,8 @@ public class ArticleController {
             @ApiImplicitParam(name = "courseId", value = "课程编号", required = true, dataType = "string", paramType = "form"),
             @ApiImplicitParam(name = "classId", value = "班级编号", required = true, dataType = "string", paramType = "form"),
             @ApiImplicitParam(name = "userId", value = "发布人编号", required = true, dataType = "string", paramType = "form"),
-            @ApiImplicitParam(name = "images", value = "图片信息", dataTypeClass = List.class, required = true, paramType = "form"),
-            @ApiImplicitParam(name = "imgUrl", value = "图片连接", dataType = "string", paramType = "form"),
+//            @ApiImplicitParam(name = "images", value = "图片信息", dataTypeClass = List.class, required = true, paramType = "form"),
+//            @ApiImplicitParam(name = "imgUrl", value = "图片连接", dataType = "string", paramType = "form"),
             @ApiImplicitParam(name = "linkUrl", value = "文章连接", dataType = "string", paramType = "form"),
             @ApiImplicitParam(name = "description", value = "文章描述", dataType = "string", paramType = "form"),
             @ApiImplicitParam(name = "articleConten", value = "文章内容", dataType = "string", paramType = "form"),
@@ -85,7 +84,7 @@ public class ArticleController {
         // 设置资讯数据
         Article article = articleService.setDoMain(request);
 
-        articleService.save(article, request.getImages());
+        articleService.save(article);
 
         ArticleResponse res = new ArticleResponse();
 

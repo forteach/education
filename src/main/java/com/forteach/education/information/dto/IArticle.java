@@ -17,7 +17,7 @@ public interface IArticle {
     public String getDescription();
 
     /** 图片连接.**/
-    public String getImgUrl();
+//    public String getImgUrl();
 
     /** 点击量.**/
     public int getClickCount();

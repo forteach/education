@@ -81,8 +81,8 @@ public class Article extends Entitys implements Serializable {
     private String title;
 
     /** 标题图片连接.**/
-    @Column(name = "img_url", columnDefinition = "VARCHAR(256) COMMENT '标题图片地址链接'")
-    private String imgUrl;
+//    @Column(name = "img_url", columnDefinition = "VARCHAR(256) COMMENT '标题图片地址链接'")
+//    private String imgUrl;
 
     /** 外资料引用连接.**/
     @Column(name = "link_url", columnDefinition = "VARCHAR(256) COMMENT '外资料引用链接'")

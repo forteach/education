@@ -8,14 +8,12 @@ import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.service.CourseService;
-import com.forteach.education.images.course.service.ArtIcleImagesService;
 import com.forteach.education.information.domain.Article;
 import com.forteach.education.information.dto.IArticle;
 import com.forteach.education.information.repository.ArticleDao;
 import com.forteach.education.information.web.req.article.SaveArticleRequest;
 import com.forteach.education.information.web.res.article.IArtTag;
 import com.forteach.education.util.UpdateUtil;
-import com.forteach.education.web.vo.DataDatumVo;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.HashOperations;
@@ -33,8 +31,8 @@ public class ArticleService {
     @Resource
     private ArticleDao articleDao;
 
-    @Resource
-    private ArtIcleImagesService artIcleImagesService;
+//    @Resource
+//    private ArtIcleImagesService artIcleImagesService;
 
     @Resource
     private ClassesService classesService;
@@ -52,16 +50,17 @@ public class ArticleService {
     private StringRedisTemplate stringRedisTemplate;
 
     @Transactional
-    public Article save(Article article, List<DataDatumVo> dataList) {
+    public Article save(Article article) {
+//    public Article save(Article article, List<DataDatumVo> dataList) {
 
         //保存资讯内容图片列表信息
-        if (dataList != null && dataList.size() > 0) {
-            MyAssert.isNull(dataList.get(0), DefineCode.ERR0013, "保存资料的图片信息不能为空");
+//        if (dataList != null && dataList.size() > 0) {
+//            MyAssert.isNull(dataList.get(0), DefineCode.ERR0013, "保存资料的图片信息不能为空");
             //设置列表头图片
-            article.setImgUrl(dataList.get(0).getFileUrl());
-            boolean saveImg = artIcleImagesService.saveImages(article.getArticleId(), dataList);
-            MyAssert.isFalse(saveImg, DefineCode.ERR0013, "保存资料图片失败");
-        }
+//            article.setImgUrl(dataList.get(0).getFileUrl());
+//            boolean saveImg = artIcleImagesService.saveImages(article.getArticleId(), dataList);
+//            MyAssert.isFalse(saveImg, DefineCode.ERR0013, "保存资料图片失败");
+//        }
 
         // 保存资讯信息
         Article art = articleDao.save(article);
