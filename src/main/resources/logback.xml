@@ -19,7 +19,7 @@
         <File>${LOG_PATH}/access.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <MaxHistory>180</MaxHistory>
-            <FileNamePattern>access-%d{yyyy-MM-dd}_%i.log.zip</FileNamePattern>
+            <FileNamePattern>${LOG_PATH}/access-%d{yyyy-MM-dd}_%i.log.zip</FileNamePattern>
             <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <MaxFileSize>1GB</MaxFileSize>
             </TimeBasedFileNamingAndTriggeringPolicy>
@@ -38,7 +38,7 @@
         </filter>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>err-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/err-%d{yyyy-MM-dd}.log</fileNamePattern>
             <MaxHistory>100</MaxHistory>
         </rollingPolicy>
 
@@ -52,7 +52,7 @@
         <File>${LOG_PATH}/biz.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <MaxHistory>100</MaxHistory>
-            <FileNamePattern>biz-%d{yyyy-MM-dd}_%i.log.zip</FileNamePattern>
+            <FileNamePattern>${LOG_PATH}/biz-%d{yyyy-MM-dd}_%i.log.zip</FileNamePattern>
             <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <MaxFileSize>100MB</MaxFileSize>
             </TimeBasedFileNamingAndTriggeringPolicy>
@@ -68,7 +68,7 @@
         <File>${LOG_PATH}/education.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <MaxHistory>100</MaxHistory>
-            <FileNamePattern>monitor-%d{yyyy-MM-dd}_%i.log.zip</FileNamePattern>
+            <FileNamePattern>${LOG_PATH}/education-%d{yyyy-MM-dd}_%i.log.zip</FileNamePattern>
             <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <MaxFileSize>100MB</MaxFileSize>
             </TimeBasedFileNamingAndTriggeringPolicy>
@@ -93,12 +93,6 @@
     <logger name="com.forteach.education" additivty="false" level="err">
         <appender-ref ref="err"/>
     </logger>
-
-    <!--<logger name="com.yule.fishter.task" additivity="false" level="debug">-->
-    <!--<appender-ref ref="monitor"/>-->
-    <!--<appender-ref ref="console"/>-->
-    <!--</logger>-->
-
 
     <logger name="com.forteach.education.service" additivity="false" level="debug">
         <appender-ref ref="biz"/>
