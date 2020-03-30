@@ -1,5 +1,7 @@
 .gradle
+/.gradle/
 /build/
+/gradle/**
 !gradle/wrapper/gradle-wrapper.jar
 !webResult.properties
 
@@ -11,7 +13,7 @@
 .settings
 .springBeans
 .sts4-cache
-
+*.log
 
 ### IntelliJ IDEA ###
 .idea
@@ -28,8 +30,8 @@
 /.nb-gradle/
 
 ### Eclipse project files ###
-.classpath
-.project
+
+
 .DS_Store
 /target/
 /.settings/
@@ -39,12 +41,16 @@
 *.jar
 *.properties
 *.yml
-
+*.sh
 ### generated files ###
 /bin/
 gen/
-
+### vscode
+/.vscode/
 ### Log Files ###
- *.log
 src/main/java/com/forteach/education/assertions/
 src/main/resources/static/
+/logs/
+*.zip
+/web/
+/META-INF/

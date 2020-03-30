@@ -1,6 +1,7 @@
 package com.forteach.education.service;
 
-import com.forteach.education.domain.SysRole;
+import com.forteach.education.authority.domain.SysRole;
+import com.forteach.education.authority.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
-import static com.forteach.education.common.Dic.TAKE_EFFECT_OPEN;
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
 /**
  * public class Role
@@ -28,14 +29,14 @@ public class RoleServiceTest {
     private RoleService roleService;
 
     @Test
-    public void edit(){
+    public void edit() {
         SysRole sysRole = new SysRole();
         sysRole.setRoleId("4028098166c8b1fa0166c8b208c10000");
         sysRole.setIsValidated(TAKE_EFFECT_OPEN);
         sysRole.setRemark("测试工程师");
         sysRole.setRoleName("测试工程师");
         log.info("---------------------------------------------");
-        log.debug("{}",roleService.edit(sysRole));
+        log.debug("{}", roleService.edit(sysRole));
         log.info("---------------------------------------------");
     }
 
@@ -43,36 +44,36 @@ public class RoleServiceTest {
     public void existsName() {
 
         log.info("---------------------------------------------");
-        log.debug("{}",roleService.existsName("系统管理员"));
+//        log.debug("{}", roleService.existsName("系统管理员"));
         log.info("---------------------------------------------");
 
     }
 
     @Test
-    public void findRoleInfo(){
+    public void findRoleInfo() {
         log.info("---------------------------------------------");
-        log.debug("{}",roleService.findRoleInfo());
-        log.info("---------------------------------------------");
-    }
-
-    @Test
-    public void findUsersInfo(){
-        log.info("---------------------------------------------");
-        log.warn("{}",roleService.findUsersInfo(0,10,"cTime").toString());
+        log.debug("{}", roleService.findRoleInfo());
         log.info("---------------------------------------------");
     }
 
     @Test
-    public void deleteRole(){
+    public void findUsersInfo() {
+        log.info("---------------------------------------------");
+        log.warn("{}", roleService.findUsersInfo(0, 10).toString());
+        log.info("---------------------------------------------");
+    }
+
+    @Test
+    public void deleteRole() {
         log.info("---------------------------------------------");
         roleService.deleteRole("200");
         log.info("---------------------------------------------");
     }
 
     @Test
-    public void sysRoleRepository(){
+    public void sysRoleRepository() {
         log.info("---------------------------------------------");
-        log.warn("{}",roleService.findById("4028098166c8b1fa0166c8b208c10000"));
+        log.warn("{}", roleService.findById("2c91803f69510917016951e023520002"));
         log.info("---------------------------------------------");
     }
 

@@ -1,8 +1,8 @@
 package com.forteach.education.web.control;
 
 import com.alibaba.fastjson.JSONObject;
-import com.forteach.education.domain.SysUsers;
-import com.forteach.education.exception.TokenException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.forteach.education.authority.domain.SysUsers;
 import com.forteach.education.util.TokenUtil;
 import com.forteach.education.web.vo.CheckTokenVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.Objects;
 public class BaseController {
 
     @Autowired
-    protected TokenUtil tokenUtil;
+    private TokenUtil tokenUtil;
 
 
     /**
@@ -98,7 +98,7 @@ public class BaseController {
     protected CheckTokenVo isToken(String token) {
         SysUsers user = getUserCache(token);
         if (Objects.equals(null, user)) {
-            throw new TokenException("token 无效");
+            throw new TokenExpiredException("token 无效");
         }
         CheckTokenVo vo = new CheckTokenVo();
         vo.setToken(token);
