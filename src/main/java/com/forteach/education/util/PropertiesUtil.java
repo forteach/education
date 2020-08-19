@@ -1,6 +1,6 @@
 package com.forteach.education.util;
 
-import com.forteach.education.common.WebResult;
+import com.forteach.education.common.keyword.WebResult;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

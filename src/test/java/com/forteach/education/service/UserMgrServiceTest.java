@@ -22,13 +22,13 @@ import java.util.List;
 public class UserMgrServiceTest {
 
     @Resource
-    private UserMgrService userMgrService;
+    private com.forteach.education.service.UserMgrService userMgrService;
 
     @Test
-    public void updateUserRole(){
+    public void updateUserRole() {
         List<String> userIds = new ArrayList<>();
         userIds.add("123");
-        userMgrService.updateUserRole("10",userIds);
+        userMgrService.updateUserRole("10", userIds);
 
     }
 

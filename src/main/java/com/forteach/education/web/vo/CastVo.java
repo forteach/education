@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Data
 @ApiModel(value = "角色与集合模型")
-public class CastVo {
+public class CastVo implements Serializable {
     /**
      * 角色ID
      */
@@ -24,6 +25,6 @@ public class CastVo {
     /**
      * 用户ID集合
      */
-    @ApiModelProperty(value = "用户ID集合", notes = "用户ID集合", name = "userIds", example = "1,2,3,4")
+    @ApiModelProperty(value = "用户ID集合", notes = "用户ID集合", name = "userIds", example = "[1,2,3,4]")
     private List<String> userIds;
 }

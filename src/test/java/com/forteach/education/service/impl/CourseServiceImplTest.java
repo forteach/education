@@ -1,0 +1,133 @@
+package com.forteach.education.service.impl;
+
+
+import com.forteach.education.classes.web.req.RTeacher;
+import com.forteach.education.common.web.vo.SortVo;
+import com.forteach.education.course.domain.Course;
+import com.forteach.education.course.repository.CourseEntrityRepository;
+import com.forteach.education.course.repository.CourseRepository;
+import com.forteach.education.course.repository.TeacherClassCourseRepository;
+import com.forteach.education.course.service.CourseService;
+import com.forteach.education.course.web.req.CourseImagesReq;
+import com.forteach.education.course.web.req.CourseSaveReq;
+import com.forteach.education.course.web.vo.RCourse;
+import com.forteach.education.images.course.domain.CourseImages;
+import com.forteach.education.web.vo.DataDatumVo;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static com.forteach.education.common.keyword.Dic.LESSON_PREPARATION_TYPE_GROUP;
+import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
+
+/**
+ * @Auther: zhangyy
+ * @Email: zhang10092009@hotmail.com
+ * @Date: 18-11-29 15:34
+ * @Version: 1.0
+ * @Description:
+ */
+@Slf4j
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class CourseServiceImplTest {
+
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private CourseEntrityRepository courseEntrityRepository;
+    @Autowired
+    private CourseRepository courseRepository;
+    @Resource
+    private TeacherClassCourseRepository teacherClassCourseRepository;
+
+    @Test
+    public void save() {
+        RCourse c = new RCourse();
+        c.setCourseName("测试课程2");
+        c.setCourseNumber("123456");
+        c.setLessonPreparationType(LESSON_PREPARATION_TYPE_GROUP);//1、个人备课 2、集体备课
+        // c.setSpecialtyId("zhuanye001");
+        c.setTeachingType("3");
+        c.setTopPicSrc("http://118.24.120.43:8080/group1/M00/00/03/rBsADFwPZtGAIJdXAAFelcpPBsI922.jpg");
+
+        RTeacher t = new RTeacher();
+        t.setTeacherId("ff808181675ea68f01675ea6d86b0000");
+        t.setTeacherName("测试");
+
+        List<RTeacher> list = new ArrayList<RTeacher>();
+        list.add(t);
+
+        CourseSaveReq req = CourseSaveReq.builder()
+                .course(c)
+                .teachers(list)
+                .build();
+        // courseService.save(req);
+    }
+
+
+    @Test
+    public void saveCourseImages() {
+        List<DataDatumVo> list = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            list.add(DataDatumVo.builder()
+                    .fileName("文件_" + i)
+                    .fileUrl("https://www.bilibili.com/video/av6643537?from=search&seid=14324992629957613357")
+                    .indexNum(i + 1)
+                    .build());
+        }
+        courseService.saveCourseImages(
+                CourseImagesReq.builder()
+                        .courseId("ff808181673e5e6c01673e5f792b0001")
+                        .images(list)
+                        .build()
+        );
+    }
+
+    @Test
+    public void findImagesByCourseId() {
+        List<CourseImages> imagesList = courseService.findImagesByCourseId("ff808181673e5e6c01673e5f792b0001");
+        imagesList.forEach(courseImages -> {
+            log.info("courseImages : {}", courseImages.toString());
+        });
+    }
+
+    @Test
+    public void findMyCourse() {
+        SortVo sortVo = new SortVo();
+        sortVo.setSorting("cTime");
+        sortVo.setIsValidated("0");
+        sortVo.setPage(0);
+        sortVo.setSize(10);
+        sortVo.setSort(0);
+//        Page<Course> page = courseService.findMyCourse(sortVo);
+//        page.forEach(course -> {
+//            log.info(course.toString() +"\r\n");
+//        });
+    }
+
+    @Test
+    public void saveCourse(){
+        List<String> courseIds = teacherClassCourseRepository.findByClassId("201720903413201");
+                courseEntrityRepository.findByIsValidatedEqualsAndCourseIdIn(TAKE_EFFECT_OPEN, courseIds)
+                        .parallelStream()
+                        .filter(Objects::nonNull)
+                        .forEach(courseEntity -> {
+                            Course course = new Course();
+                            course.setCourseId(courseEntity.getCourseId());
+                            course.setCourseName(courseEntity.getCourseName());
+                            course.setCourseDescribe(courseEntity.getCourseDescribe());
+                            course.setShareType("1");
+                            course.setTopPicSrc("http://s7.sinaimg.cn/middle/559d9d83g99ed0955e096&690");
+                            courseRepository.save(course);
+                        });
+    }
+}

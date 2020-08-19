@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Description:
  * @author: liu zhenming
@@ -12,7 +14,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value = "角色相关操作对象")
-public class AuthorityVo {
+public class AuthorityVo implements Serializable {
     /**
      * 用户ID
      */
@@ -34,6 +36,6 @@ public class AuthorityVo {
     /**
      * 需要保存的栏目动作集合
      */
-    @ApiModelProperty(value = "需要保存的栏目动作集合", notes = "json 串", name = "json", example = "")
+    @ApiModelProperty(value = "需要保存的栏目动作集合", notes = "json 串", name = "json")
     private String json;
 }
