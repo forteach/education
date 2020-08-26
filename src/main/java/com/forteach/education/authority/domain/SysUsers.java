@@ -81,6 +81,12 @@ public class SysUsers extends Entitys implements Serializable {
     @Column(name = "teacher_id", columnDefinition = "varchar(32) comment '教师id'")
     private String teacherId;
 
+    @Column(name = "teacher_office_id", columnDefinition = "varchar(32) comment '教研室id'")
+    private String teacherOfficeId;
+
+    @Column(name = "teacher_office_name", columnDefinition = "varchar(32) comment '教研室名称'")
+    private String teacherOfficeName;
+
     /**
      * 角色id
      */

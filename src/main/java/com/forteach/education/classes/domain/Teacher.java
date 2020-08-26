@@ -55,4 +55,10 @@ public class Teacher extends Entitys implements Serializable {
 
     @Column(name = "phone", columnDefinition = "VARCHAR(32) COMMENT '电话号码'")
     private String phone;
+
+    @Column(name = "teacher_office_id", columnDefinition = "varchar(32) comment '教研室id'")
+    private String teacherOfficeId;
+
+    @Column(name = "teacher_office_name", columnDefinition = "varchar(32) comment '教研室名称'")
+    private String teacherOfficeName;
 }

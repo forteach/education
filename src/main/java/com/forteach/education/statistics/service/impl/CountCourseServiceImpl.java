@@ -1,18 +1,23 @@
 package com.forteach.education.statistics.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.statistics.domain.CountCourse;
+import com.forteach.education.statistics.repository.CountCourseRepository;
 import com.forteach.education.statistics.service.BaseCountService;
+import com.forteach.education.statistics.service.base.BaseService;
 import com.forteach.education.statistics.vo.ChartCakeVo;
+import com.forteach.education.statistics.vo.ChartColumnarVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
- * @auther: zhangyy
+ * @author: zhangyy
  * @email: zhang10092009@hotmail.com
  * @date: 2020/8/19 14:46
  * @version: 1.0
@@ -21,6 +26,16 @@ import java.util.List;
 @Service
 @Slf4j
 public class CountCourseServiceImpl implements BaseCountService<CountCourse> {
+
+    private final CountCourseRepository countCourseRepository;
+
+    private final BaseService baseService;
+
+    public CountCourseServiceImpl(CountCourseRepository countCourseRepository, BaseService baseService) {
+        this.countCourseRepository = countCourseRepository;
+        this.baseService = baseService;
+    }
+
     @Override
     public List<ChartCakeVo> findAllChartCake() {
         List<ChartCakeVo> list = new ArrayList<>();
@@ -32,8 +47,14 @@ public class CountCourseServiceImpl implements BaseCountService<CountCourse> {
     }
 
     @Override
-    public Page<CountCourse> findAllPage() {
-        List<CountCourse> list = new ArrayList<>();
-        return new PageImpl<>(list);
+    public List<ChartColumnarVo> findAllColumnarList() {
+        ChartColumnarVo chartColumnarVo = new ChartColumnarVo("", CollUtil.toList("语文", "数学", "英语", "历史", "体育"), CollUtil.toList(222, 32, 12.3, 234, 99));
+        return CollUtil.toList(chartColumnarVo);
+    }
+
+    @Override
+    public Page<CountCourse> findAllPage(Map<String, Object> map, SortVo sortVo) {
+        return baseService.findAllPage(map, sortVo.getPage(), sortVo.getSize(), sortVo.getSort(),
+                countCourseRepository);
     }
 }

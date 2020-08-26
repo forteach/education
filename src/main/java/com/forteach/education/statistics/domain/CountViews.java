@@ -12,23 +12,24 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @author: zhangyy
- * @email: zhang10092009@hotmail.com
- * @date: 2020/8/19 14:50
- * @version: 1.0
- * @description：院系统计
+ * @Author: zhangyy
+ * @Email: zhang10092009@hotmail.com
+ * @Date: 2020/8/25 15:17
+ * @Version: v1.0
+ * @Modified：访问量统计
+ * @Description:
  */
 @Data
 @Entity
-@Table(name = "count_faculty", indexes = {
+@Table(name = "count_views", indexes = {
         @Index(columnList = "teacher_id", name = "teacher_id_index")
 })
 @EqualsAndHashCode(callSuper = true)
-@org.hibernate.annotations.Table(appliesTo = "count_faculty", comment = "院系统计信息")
-@ApiModel(value = "院系统计信息")
+@org.hibernate.annotations.Table(appliesTo = "count_views", comment = "访问量统计")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CountFaculty extends Entitys implements Serializable {
+@ApiModel(value = "访问量统计")
+public class CountViews extends Entitys implements Serializable {
     @Id
     @ApiModelProperty(name = "teaherId", value = "教师Id", dataType = "string")
     @Column(name = "teacher_id", columnDefinition = "varchar(32) comment '教师Id'")
@@ -49,22 +50,25 @@ public class CountFaculty extends Entitys implements Serializable {
     @ApiModelProperty(name = "teachingOfficeName", value = "教研室名称", dataType = "string")
     @Column(name = "teaching_office_name", columnDefinition = "varchar(32) comment '教研室名称'")
     private String teachingOfficeName;
+
     /**
      * 课程访问量
      */
-    @ApiModelProperty(name = "courseViews", value = "课程访问量", dataType = "int")
-    @Column(name = "course_views", columnDefinition = "int(11) DEFAULT 0 comment '课程访问量'")
-    private Integer courseViews;
+    @ApiModelProperty(name = "courseViewsNum", value = "课程访问量", dataType = "int")
+    @Column(name = "coure_views_num", columnDefinition = "int(11) DEFAULT 0 comment '课程访问量'")
+    private Integer courseViewsNum;
+
     /**
-     * 资料访问量
+     * 资料访问数量
      */
-    @ApiModelProperty(name = "dataNum", value = "资料数量", dataType = "int")
-    @Column(name = "data_num", columnDefinition = "int(11) DEFAULT 0 comment '资料数'")
-    private Integer dataNum;
+    @ApiModelProperty(name = "dataViewsNum", value = "资料访问量", dataType = "int")
+    @Column(name = "data_views_num", columnDefinition = "int(11) DEFAULT 0 comment '资料访问量'")
+    private Integer dataViewsNum;
+
     /**
-     * 题目访问量
+     * 习题访问量
      */
-    @ApiModelProperty(name = "questionNum", value = "题目数量", dataType = "int")
-    @Column(name = "question_num", columnDefinition = "int(11) DEFAULT 0 comment '习题数'")
-    private Integer questionNum;
+    @ApiModelProperty(name = "questionViewsNum", value = "习题访问数量", dataType = "int")
+    @Column(name = "question_views_num", columnDefinition = "int(11) DEFAULT 0 comment '习题访问数量'")
+    private Integer questionViewsNum;
 }
