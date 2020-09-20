@@ -19,10 +19,6 @@ import java.io.Serializable;
 @ApiModel(value = "查询日程记录")
 public class FindPlanDateReq implements Serializable {
 
-    @NotBlank(message = "openId is bank")
-    @ApiModelProperty(name = "openId", value = "微信用户id", dataType = "string", required = true, example = "ovHRK5MCwvEnV5QBNSN__u1j-gtw")
-    private String openId;
-
     @NotBlank(message = "日期不能是空")
     @ApiModelProperty(name = "contentDate", value = "日程日期", dataType = "string", required = true, example = "2020-09")
     private String contentDate;

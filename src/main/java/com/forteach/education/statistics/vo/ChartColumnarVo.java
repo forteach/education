@@ -1,6 +1,5 @@
 package com.forteach.education.statistics.vo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -34,6 +33,11 @@ public class ChartColumnarVo implements Serializable {
     private List<Number> numberList2;
 
     public ChartColumnarVo() {
+    }
+
+    public ChartColumnarVo(String description, List<String> nameList) {
+        this.description = description;
+        this.nameList = nameList;
     }
 
     public ChartColumnarVo(String description, List<String> nameList, List<Number> numberList) {

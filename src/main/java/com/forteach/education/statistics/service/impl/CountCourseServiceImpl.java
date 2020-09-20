@@ -1,6 +1,7 @@
 package com.forteach.education.statistics.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.statistics.domain.CountCourse;
 import com.forteach.education.statistics.repository.CountCourseRepository;
@@ -48,7 +49,14 @@ public class CountCourseServiceImpl implements BaseCountService<CountCourse> {
 
     @Override
     public List<ChartColumnarVo> findAllColumnarList() {
-        ChartColumnarVo chartColumnarVo = new ChartColumnarVo("", CollUtil.toList("语文", "数学", "英语", "历史", "体育"), CollUtil.toList(222, 32, 12.3, 234, 99));
+        List<CountCourse> all = countCourseRepository.findAllByIsValidatedEquals(Dic.TAKE_EFFECT_OPEN);
+        long teacherNum = all.stream().map(CountCourse::getTeacherId).distinct().count();
+        int dataNum = all.stream().mapToInt(CountCourse::getDataNum).sum();
+        int questionNum = all.stream().mapToInt(CountCourse::getQuestionNum).sum();
+        int chapterNum = all.stream().mapToInt(CountCourse::getChapterNum).sum();
+        ChartColumnarVo chartColumnarVo = new ChartColumnarVo("",
+                CollUtil.toList("教师数量", "章节数量", "资料数", "题目数"),
+                CollUtil.toList(teacherNum, chapterNum, dataNum, questionNum));
         return CollUtil.toList(chartColumnarVo);
     }
 

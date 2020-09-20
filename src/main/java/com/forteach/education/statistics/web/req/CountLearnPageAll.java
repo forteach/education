@@ -16,8 +16,8 @@ import lombok.Data;
 @ApiModel(value = "学习统计分页查询")
 public class CountLearnPageAll extends BaseCountPageAll{
 
-    @ApiModelProperty(name = "teacherName", value = "教师名称", dataType = "string")
-    private String teacherName;
+    @ApiModelProperty(name = "studentName", value = "学生名称", dataType = "string")
+    private String studentName;
 
     @ApiModelProperty(name = "className", value = "班级名称", dataType = "string")
     private String className;

@@ -30,6 +30,8 @@ public class BaseRepositoryTest {
     private CountScoreRepository countScoreRepository;
     @Autowired
     private CountTeachingRepository countTeachingRepository;
+    @Autowired
+    private CountViewsRepository countViewsRepository;
 
     @Test
     public void save(){
@@ -56,8 +58,8 @@ public class BaseRepositoryTest {
         countLearn.setClassName("班级1");
         countLearn.setClassRoomExerciseNum(123);
         countLearn.setHomeworkNum(23);
-        countLearn.setTeacherId("dll");
-        countLearn.setTeacherName("东力力");
+        countLearn.setStudentId("15010015");
+        countLearn.setStudentName("张韩振");
         countLearn.setSpecialtyId("12");
         countLearn.setSpecialtyName("专业1");
         countLearn.setCourseNum(12);
@@ -91,6 +93,17 @@ public class BaseRepositoryTest {
         countTeaching.setTeacherId("dll");
         countTeaching.setTeacherName("东力力");
         countTeachingRepository.save(countTeaching);
+
+
+        CountViews countViews = new CountViews();
+        countViews.setTeacherId("bh");
+        countViews.setTeacherName("卞慧");
+        countViews.setCourseViewsNum(12);
+        countViews.setDataViewsNum(323);
+        countViews.setQuestionViewsNum(123);
+        countViews.setTeachingOfficeId("057196");
+        countViews.setTeachingOfficeName("财会教研室");
+        countViewsRepository.save(countViews);
     }
 
 }

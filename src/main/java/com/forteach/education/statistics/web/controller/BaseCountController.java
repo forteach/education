@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,7 +32,7 @@ public abstract class BaseCountController<T> {
     @PassToken
     @ApiOperation(value = "饼状图统计信息")
     @GetMapping("/cake")
-    public WebResult findCakeList(HttpServletRequest httpServletRequest) {
+    public WebResult findCakeList(@ApiIgnore HttpServletRequest httpServletRequest) {
         return WebResult.okResult(baseCountService.findAllChartCake());
     }
 
@@ -39,7 +40,7 @@ public abstract class BaseCountController<T> {
     @PassToken
     @ApiOperation(value = "查询柱状图(教研室)")
     @GetMapping("/columnar")
-    public WebResult findColumnarList(HttpServletRequest httpServletRequest){
+    public WebResult findColumnarList(@ApiIgnore HttpServletRequest httpServletRequest){
         return WebResult.okResult(baseCountService.findAllColumnarList());
     }
 }

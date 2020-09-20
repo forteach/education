@@ -21,7 +21,8 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "count_score", indexes = {
-        @Index(columnList = "student_id", name = "student_id_index")
+        @Index(columnList = "student_id", name = "student_id_index"),
+        @Index(columnList = "course_id", name = "course_id_index")
 })
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "count_score", comment = "学生成绩统计")
@@ -39,6 +40,14 @@ public class CountScore extends Entitys implements Serializable {
     @ApiModelProperty(name = "studentName", value = "学生名称", dataType = "string")
     @Column(name = "student_name", columnDefinition = "varchar(32) comment '学生名称'")
     private String studentName;
+
+    @ApiModelProperty(name = "courseId", value = "课程Id", dataType = "string")
+    @Column(name = "course_id", columnDefinition = "varchar(32) comment '课程Id'")
+    private String courseId;
+
+    @ApiModelProperty(name = "courseName", value = "课程名称", dataType = "string")
+    @Column(name = "course_name", columnDefinition = "varchar(32) comment '课程名称'")
+    private String courseName;
 
     @ApiModelProperty(name = "classId", value = "班级Id", dataType = "string")
     @Column(name = "class_id", columnDefinition = "varchar(32) comment '班级Id'")
@@ -77,7 +86,7 @@ public class CountScore extends Entitys implements Serializable {
      * 优秀数（80分以上）
      */
     @ApiModelProperty(name = "outstandingNum", value = "优秀数", dataType = "int")
-    @Column(name = "outstanding_num", columnDefinition = "int(11) DEFAULT 0 comment '及格率'")
+    @Column(name = "outstanding_num", columnDefinition = "int(11) DEFAULT 0 comment '优秀数'")
     private Integer outstandingNum;
     /**
      * 优秀率

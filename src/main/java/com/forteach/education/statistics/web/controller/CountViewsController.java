@@ -11,10 +11,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -45,7 +48,7 @@ public class CountViewsController extends BaseCountController<CountViews>{
             @ApiImplicitParam(name = "teacherName", value = "教师名称", dataType = "string", paramType = "body"),
             @ApiImplicitParam(name = "teachingOfficeName", value = "教研室名称", dataType = "string", paramType = "body")
     })
-    public WebResult findAllPage(@RequestBody @Validated CountViewsPageAll pageAll, HttpServletRequest httpServletRequest){
+    public WebResult findAllPage(@RequestBody @Validated CountViewsPageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest){
         Map<String, Object> map = new HashMap<>(4);
         if (StrUtil.isNotBlank(pageAll.getTeacherName())){
             map.put("teacherName", pageAll.getTeacherName());
@@ -60,7 +63,7 @@ public class CountViewsController extends BaseCountController<CountViews>{
     @PassToken
     @ApiOperation(value = "查询学校访问量")
     @PostMapping(path = "/findAllViews")
-    public WebResult findAllViews(HttpServletRequest httpServletRequest){
+    public WebResult findAllViews(@ApiIgnore HttpServletRequest httpServletRequest){
         return WebResult.okResult(countViewsService.findAllViews());
     }
 }

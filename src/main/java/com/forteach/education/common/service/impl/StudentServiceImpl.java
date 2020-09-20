@@ -96,7 +96,9 @@ public class StudentServiceImpl implements StudentService {
         StringBuilder dataSql = new StringBuilder("select " +
                 " c.class_id as class_id, c.class_name as class_name, s.id as id, s.user_name as user_name, s.portrait as portrait, " +
                 " s.birth_date as birth_date, s.gender as gender, s.grade as grade, s.id_card_no as id_card_no, s.phone as phone, s.student_status as student_status, " +
-                " s.c_time as c_time, s.u_time as u_time, s.u_user as u_user, s.is_validated as is_validated, s.c_user as c_user, s.is_graduate as is_graduate from student_info as s left join classes as c on s.class_id = c.class_id ");
+                " s.c_time as c_time, s.u_time as u_time, s.u_user as u_user, s.is_validated as is_validated, s.c_user as c_user, s.is_graduate as is_graduate, " +
+                " s.teacher_office_id as teacher_office_id, s.teacher_office_name as teacher_office_name " +
+                " from student_info as s left join classes as c on s.class_id = c.class_id ");
         StringBuilder whereSql = new StringBuilder(" where s.is_validated = '0' ");
         StringBuilder countSql = new StringBuilder(" select count(1) from student_info as s left join classes as c on s.class_id = c.class_id ");
         if (StrUtil.isNotBlank(req.getStudentName())){

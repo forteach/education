@@ -32,6 +32,8 @@ public interface BaseCountService<T> {
 
     /**
      * 分页查询对应的统计信息
+     * @param map 查询参数集合
+     * @param sortVo 分页信息
      * @return
      */
     Page<T> findAllPage(Map<String, Object> map, SortVo sortVo);

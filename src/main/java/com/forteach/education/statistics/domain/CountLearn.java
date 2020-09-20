@@ -21,7 +21,8 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "count_learn", indexes = {
-        @Index(columnList = "teacher_id", name = "teacher_id_index")
+        @Index(columnList = "student_id", name = "student_id_index"),
+        @Index(columnList = "course_id", name = "course_id_index")
 })
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "count_learn", comment = "学习统计")
@@ -32,13 +33,22 @@ public class CountLearn extends Entitys implements Serializable {
 
 
     @Id
-    @ApiModelProperty(name = "teaherId", value = "教师Id", dataType = "string")
-    @Column(name = "teacher_id", columnDefinition = "varchar(32) comment '教师Id'")
-    private String teacherId;
+    @ApiModelProperty(name = "student_id", value = "学生Id", dataType = "string")
+    @Column(name = "student_id", columnDefinition = "varchar(32) comment '学生Id'")
+    private String studentId;
 
-    @ApiModelProperty(name = "teacherName", value = "教师名称", dataType = "string")
-    @Column(name = "teacher_name", columnDefinition = "varchar(32) comment '教师名称'")
-    private String teacherName;
+    @ApiModelProperty(name = "studentName", value = "学生名称", dataType = "string")
+    @Column(name = "student_name", columnDefinition = "varchar(32) comment '学生名称'")
+    private String studentName;
+
+
+    @ApiModelProperty(name = "courseId", value = "课程Id", dataType = "string")
+    @Column(name = "course_id", columnDefinition = "varchar(32) comment '课程Id'")
+    private String courseId;
+
+    @ApiModelProperty(name = "courseName", value = "课程名称", dataType = "string")
+    @Column(name = "course_name", columnDefinition = "varchar(32) comment '课程名称'")
+    private String courseName;
 
     @ApiModelProperty(name = "classId", value = "班级Id", dataType = "int")
     @Column(name = "class_id", columnDefinition = "varchar(32) comment '班级Id'")

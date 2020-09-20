@@ -46,6 +46,12 @@ public class CountCourse extends Entitys implements Serializable {
     @Column(name = "teacher_num", columnDefinition = "int(11) DEFAULT 0 comment '教师数'")
     private Integer teacherNum;
 
+    @Column(name = "teacher_id", columnDefinition = "varchar(32) comment '教师id'")
+    private String teacherId;
+
+    @Column(name = "teacher_name", columnDefinition = "varchar(32) comment ''教师名称")
+    private String teacherName;
+
     @ApiModelProperty(name = "chapterNum", value = "章节数量", dataType = "int")
     @Column(name = "chapter_num", columnDefinition = "int(11) DEFAULT 0 comment '章节数'")
     private Integer chapterNum;

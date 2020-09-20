@@ -11,13 +11,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -45,11 +45,11 @@ public class CountLearnController extends BaseCountController<CountLearn> {
     @ApiOperation(value = "分页查询学习统计信息")
     @PostMapping("/findAllPage")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "teacherName", value = "教师名称", dataType = "string", paramType = "body"),
+            @ApiImplicitParam(name = "studentName", value = "学生名称", dataType = "string", paramType = "body"),
             @ApiImplicitParam(name = "className", value = "班级名称", dataType = "string", paramType = "body"),
             @ApiImplicitParam(name = "specialtyName", value = "专业名称", dataType = "string", paramType = "body")
     })
-    public WebResult findAllPage(@RequestBody @Validated CountLearnPageAll pageAll, HttpServletRequest httpServletRequest){
+    public WebResult findAllPage(@RequestBody @Validated CountLearnPageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest){
         Map<String, Object> map = new HashMap<>(16);
         if (StrUtil.isNotBlank(pageAll.getClassName())){
             map.put("className", pageAll.getClassName());
@@ -57,8 +57,8 @@ public class CountLearnController extends BaseCountController<CountLearn> {
         if (StrUtil.isNotBlank(pageAll.getSpecialtyName())){
             map.put("specialtyName", pageAll.getSpecialtyName());
         }
-        if (StrUtil.isNotBlank(pageAll.getTeacherName())){
-            map.put("teacherName", pageAll.getTeacherName());
+        if (StrUtil.isNotBlank(pageAll.getStudentName())){
+            map.put("studentName", pageAll.getStudentName());
         }
         return WebResult.okResult(baseCountService.findAllPage(map, pageAll.getSortVo()));
     }
@@ -66,7 +66,7 @@ public class CountLearnController extends BaseCountController<CountLearn> {
     @PassToken
     @ApiOperation(value = "查询专业图表信息")
     @PostMapping("/findAllSpecialty")
-    public WebResult findAllSpecialty(HttpServletRequest httpServletRequest){
+    public WebResult findAllSpecialty(@ApiIgnore HttpServletRequest httpServletRequest){
         return WebResult.okResult(countLearnService.findAllColumnarBySpecialty());
     }
 }

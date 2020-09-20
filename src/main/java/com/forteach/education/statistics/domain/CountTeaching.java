@@ -21,7 +21,8 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "count_teaching", indexes = {
-        @Index(columnList = "teacher_id", name = "teacher_id_index")
+        @Index(columnList = "teacher_id", name = "teacher_id_index"),
+        @Index(columnList = "course_id", name = "course_id_index")
 })
 @EqualsAndHashCode(callSuper = true)
 @org.hibernate.annotations.Table(appliesTo = "count_teaching", comment = "教学统计")
@@ -31,6 +32,14 @@ import java.io.Serializable;
 public class CountTeaching extends Entitys implements Serializable {
 
     @Id
+    @ApiModelProperty(name = "courseId", value = "课程Id", dataType = "string")
+    @Column(name = "course_id", columnDefinition = "varchar(32) comment '课程Id'")
+    private String courseId;
+
+    @ApiModelProperty(name = "courseName", value = "课程名称", dataType = "string")
+    @Column(name = "course_name", columnDefinition = "varchar(32) comment '课程名称'")
+    private String courseName;
+
     @ApiModelProperty(name = "teaherId", value = "教师Id", dataType = "string")
     @Column(name = "teacher_id", columnDefinition = "varchar(32) comment '教师Id'")
     private String teacherId;

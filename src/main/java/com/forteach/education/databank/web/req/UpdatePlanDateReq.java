@@ -22,10 +22,6 @@ public class UpdatePlanDateReq implements Serializable {
     @ApiModelProperty(name = "id", value = "记录id", dataType = "string", example = "ff8081817278a8be0172790566320002")
     private String id;
 
-    @NotBlank(message = "openId is bank")
-    @ApiModelProperty(name = "openId", value = "微信用户openId", dataType = "string", required = true, example = "ovHRK5MCwvEnV5QBNSN__u1j-gtw")
-    private String openId;
-
     @ApiModelProperty(name = "content", value = "备注说明", dataType = "string", example = "10:00-12:00 电子商务一班数学")
     private String content;
 

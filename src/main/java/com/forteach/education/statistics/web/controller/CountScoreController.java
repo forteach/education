@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -50,7 +51,7 @@ public class CountScoreController extends BaseCountController<CountScore> {
             @ApiImplicitParam(name = "className", value = "班级名称", dataType = "string", paramType = "body"),
             @ApiImplicitParam(name = "specialtyName", value = "专业名称", dataType = "string", paramType = "body")
     })
-    public WebResult findAllPage(@RequestBody @Validated CountScorePageAll pageAll, HttpServletRequest httpServletRequest){
+    public WebResult findAllPage(@RequestBody @Validated CountScorePageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest){
         Map<String, Object> map = new HashMap<>(8);
         if (StrUtil.isNotBlank(pageAll.getClassName())){
             map.put("className", pageAll.getClassName());
@@ -66,8 +67,8 @@ public class CountScoreController extends BaseCountController<CountScore> {
     @PassToken
     @PostMapping(path = "/findAllBySpecialty")
     @ApiOperation(value = "根据专业查询图表信息")
-    public WebResult findAllSpecialty(HttpServletRequest httpServletRequest){
-        return WebResult.okResult(countScoreService.findAllBySpecialty());
+    public WebResult findAllSpecialty(@ApiIgnore HttpServletRequest httpServletRequest){
+        return WebResult.okResult(countScoreService.findAllBySpecialty(""));
     }
 
 }

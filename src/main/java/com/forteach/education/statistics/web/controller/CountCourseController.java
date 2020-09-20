@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class CountCourseController extends BaseCountController<CountCourse> {
     @ApiOperation(value = "课程统计信息分页查询")
     @PostMapping("/findAllPage")
     @ApiImplicitParam(name = "courseName", value = "课程名称", dataType = "string", paramType = "body")
-    public WebResult findAllPage(@RequestBody @Validated CountCoursePageAll pageAll, HttpServletRequest httpServletRequest){
+    public WebResult findAllPage(@RequestBody @Validated CountCoursePageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest){
         Map<String, Object> map = new HashMap<>(2);
         if (StrUtil.isNotBlank(pageAll.getCourseName())){
             map.put("courseName", pageAll.getCourseName());

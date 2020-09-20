@@ -1,6 +1,9 @@
 package com.forteach.education.statistics.repository;
 
 import com.forteach.education.statistics.domain.CountScore;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author: zhangyy
@@ -11,4 +14,12 @@ import com.forteach.education.statistics.domain.CountScore;
  */
 public interface CountScoreRepository extends BaseRepository<CountScore, String> {
 
+    /**
+     * 查询专业对应的成绩
+     * @param isValidated
+     * @param specialtyId
+     * @return
+     */
+    @Transactional(readOnly = true)
+    List<CountScore> findAllByIsValidatedEqualsAndSpecialtyId(String isValidated, String specialtyId);
 }

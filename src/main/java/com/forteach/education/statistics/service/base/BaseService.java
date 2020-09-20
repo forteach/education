@@ -1,7 +1,9 @@
 package com.forteach.education.statistics.service.base;
 
 import cn.hutool.core.util.StrUtil;
+import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.statistics.repository.BaseRepository;
+import com.forteach.education.statistics.vo.ChartColumnarVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -9,8 +11,10 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class BaseService<T> {
@@ -33,4 +37,11 @@ public class BaseService<T> {
             return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
         }, PageRequest.of(page, size, anEnum, "createTime"));
     }
+
+
+//    public List<ChartColumnarVo> findChatColumnarVo(BaseRepository baseRepository){
+//         baseRepository.findAllByIsValidatedEquals(Dic.TAKE_EFFECT_OPEN)
+//                .stream()
+//                .collect(Collectors.groupingBy(t -> t.getClass()));
+//    }
 }

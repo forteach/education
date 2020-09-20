@@ -1,6 +1,10 @@
 package com.forteach.education.statistics.repository;
 
 import com.forteach.education.statistics.domain.CountLearn;
+import com.forteach.education.statistics.domain.CountScore;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author: zhangyy
@@ -11,4 +15,12 @@ import com.forteach.education.statistics.domain.CountLearn;
  */
 public interface CountLearnRepository extends BaseRepository<CountLearn, String> {
 
+    /**
+     * 查询专业对应的学习
+     * @param isValidated
+     * @param specialtyId
+     * @return
+     */
+    @Transactional(readOnly = true)
+    List<CountLearn> findAllByIsValidatedEqualsAndSpecialtyId(String isValidated, String specialtyId);
 }

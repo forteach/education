@@ -1,5 +1,6 @@
 package com.forteach.education.statistics.service.impl;
 
+import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.statistics.domain.CountScore;
 import com.forteach.education.statistics.repository.CountScoreRepository;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import static cn.hutool.core.collection.CollUtil.newArrayList;
 import static cn.hutool.core.collection.CollUtil.toList;
 
 /**
@@ -40,24 +43,16 @@ public class CountScoreServiceImpl implements BaseCountService<CountScore> {
     @Override
     public List<ChartCakeVo> findAllChartCake() {
         List<ChartCakeVo> list = new ArrayList<>();
-        list.add(new ChartCakeVo("数学",79));
-        list.add(new ChartCakeVo("语文",90));
-        list.add(new ChartCakeVo("英语",99));
-        list.add(new ChartCakeVo("生物",62.5));
+        list.add(new ChartCakeVo("数学", 79));
+        list.add(new ChartCakeVo("语文", 90));
+        list.add(new ChartCakeVo("英语", 99));
+        list.add(new ChartCakeVo("生物", 62.5));
         return list;
     }
 
     @Override
     public List<ChartColumnarVo> findAllColumnarList() {
-        ChartColumnarVo chartColumnarVo = new ChartColumnarVo("及格数/优秀数（教研室）",
-                toList("历史", "电子商务", "语文", "体育"),
-                toList(335, 310, 234, 135),
-                toList(135, 110, 134, 35));
-        ChartColumnarVo columnarVo = new ChartColumnarVo("及格率/优秀率(教研室)",
-                toList("历史", "电子商务", "语文", "体育"),
-                toList(0.9, 0.95, 0.92, 0.94),
-                toList(0.6, 0.55, 0.62, 0.44));
-        return toList(chartColumnarVo, columnarVo);
+        return findChartColumnarVo(countScoreRepository.findAllByIsValidatedEquals(Dic.TAKE_EFFECT_OPEN));
     }
 
     @Override
@@ -66,15 +61,30 @@ public class CountScoreServiceImpl implements BaseCountService<CountScore> {
                 countScoreRepository);
     }
 
-    public List<ChartColumnarVo> findAllBySpecialty(){
+    public List<ChartColumnarVo> findAllBySpecialty(String specialtyId) {
+        List<CountScore> all = countScoreRepository.findAllByIsValidatedEqualsAndSpecialtyId(Dic.TAKE_EFFECT_OPEN, specialtyId);
+        return findChartColumnarVo(all);
+    }
+
+    private List<ChartColumnarVo> findChartColumnarVo(List<CountScore> all){
+        //课程名称
+        List<String> courseNames = all.stream().map(CountScore::getCourseName).collect(Collectors.toList());
+        //优秀数
+        List outstandingNum = all.stream().map(CountScore::getOutstandingNum).collect(Collectors.toList());
+        //及格数
+        List passNum = all.stream().map(CountScore::getPassNum).collect(Collectors.toList());
+        //及格率
+        List passRate = all.stream().map(CountScore::getPassRate).collect(Collectors.toList());
+        //优秀率
+        List outstanding = all.stream().map(CountScore::getOutstandingRate).collect(Collectors.toList());
         ChartColumnarVo chartColumnarVo = new ChartColumnarVo("及格数/优秀数（专业）",
-                toList("电子商务", "外贸", "会记", "物业"),
-                toList(135, 110, 134, 135),
-                toList(35, 40, 34, 35));
+                newArrayList(courseNames),
+                newArrayList(outstandingNum),
+                newArrayList(passNum));
         ChartColumnarVo columnarVo = new ChartColumnarVo("及格率/优秀率(专业)",
-                toList("电子商务", "外贸", "会记", "物业"),
-                toList(0.9, 0.95, 0.92, 0.94),
-                toList(0.4, 0.45, 0.32, 0.44));
+                newArrayList(courseNames),
+                newArrayList(outstanding),
+                newArrayList(passRate));
         return toList(chartColumnarVo, columnarVo);
     }
 }

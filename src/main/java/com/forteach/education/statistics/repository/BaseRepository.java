@@ -3,6 +3,9 @@ package com.forteach.education.statistics.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @Author: zhangyy
@@ -14,5 +17,11 @@ import org.springframework.data.repository.NoRepositoryBean;
  */
 @NoRepositoryBean
 public interface BaseRepository<T, ID> extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
-
+    /**
+     * 查询全部有效信息
+     * @param isValidated
+     * @return
+     */
+    @Transactional(readOnly = true)
+    List<T> findAllByIsValidatedEquals(String isValidated);
 }

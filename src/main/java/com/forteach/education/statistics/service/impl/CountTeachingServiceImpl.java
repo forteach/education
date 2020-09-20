@@ -1,6 +1,7 @@
 package com.forteach.education.statistics.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.statistics.domain.CountTeaching;
 import com.forteach.education.statistics.repository.CountTeachingRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author: zhangyy
@@ -48,18 +50,24 @@ public class CountTeachingServiceImpl implements BaseCountService<CountTeaching>
 
     @Override
     public List<ChartColumnarVo> findAllColumnarList() {
-        ChartColumnarVo chartColumnarVo = new ChartColumnarVo("课程数（教研室）",
-                CollUtil.toList("电子商务", "英语", "物理", "信息技术"),
-                CollUtil.toList(35, 34, 30, 35));
+        List<CountTeaching> all = countTeachingRepository.findAllByIsValidatedEquals(Dic.TAKE_EFFECT_OPEN);
+        List<String> courseNames = all.stream().map(CountTeaching::getCourseName).collect(Collectors.toList());
+        List courseList = all.stream().map(CountTeaching::getCourseNum).collect(Collectors.toList());
+        List dataList = all.stream().map(CountTeaching::getDataNum).collect(Collectors.toList());
+        List questionList = all.stream().map(CountTeaching::getQuestionNum).collect(Collectors.toList());
+        List chapterList = all.stream().map(CountTeaching::getChapterNum).collect(Collectors.toList());
+                ChartColumnarVo chartColumnarVo = new ChartColumnarVo("课程数（教研室）",
+                CollUtil.newArrayList(courseNames),
+                CollUtil.newArrayList(courseList));
         ChartColumnarVo columnarChapterVo = new ChartColumnarVo("章节数（教研室）",
-                CollUtil.toList("电子商务", "英语", "物理", "信息技术"),
-                CollUtil.toList(399, 500, 300, 689));
+                CollUtil.newArrayList(courseNames),
+                CollUtil.newArrayList(chapterList));
         ChartColumnarVo columnarDataVo = new ChartColumnarVo("资料数（教研室）",
-                CollUtil.toList("电子商务", "英语", "物理", "信息技术"),
-                CollUtil.toList(3098, 235, 456, 5678));
+                CollUtil.newArrayList(courseNames),
+                CollUtil.newArrayList(dataList));
         ChartColumnarVo columnarQuestionVo = new ChartColumnarVo("题目数（教研室）",
-                CollUtil.toList("电子商务", "英语", "物理", "信息技术"),
-                CollUtil.toList(3245, 2343, 4342, 3456));
+                CollUtil.newArrayList(courseNames),
+                CollUtil.newArrayList(questionList));
         return CollUtil.toList(chartColumnarVo, columnarChapterVo, columnarDataVo, columnarQuestionVo);
     }
 
