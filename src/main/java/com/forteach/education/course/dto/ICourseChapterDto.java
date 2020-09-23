@@ -1,9 +1,5 @@
 package com.forteach.education.course.dto;
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-
 /**
  * @Auther: zhangyy
  * @Email: zhang10092009@hotmail.com

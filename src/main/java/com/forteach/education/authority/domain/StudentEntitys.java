@@ -20,7 +20,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "student_info",indexes = {
+@Table(name = "student_info", indexes = {
         @Index(columnList = "id", name = "id_index"),
         @Index(columnList = "id_card_no", name = "id_card_no_index")
 })

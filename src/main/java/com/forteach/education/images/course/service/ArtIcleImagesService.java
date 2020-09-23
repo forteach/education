@@ -1,9 +1,7 @@
 package com.forteach.education.images.course.service;
 
 import com.forteach.education.images.course.domain.ArticleImages;
-import com.forteach.education.images.course.domain.CourseImages;
 import com.forteach.education.images.course.repository.ArticleImagesRepository;
-import com.forteach.education.images.course.repository.CourseImagesRepository;
 import com.forteach.education.web.vo.DataDatumVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.forteach.education.common.keyword.Dic.TAKE_EFFECT_OPEN;
 
 @Service
 public class ArtIcleImagesService {
@@ -33,7 +29,7 @@ public class ArtIcleImagesService {
                     .imageUrl(dataDatumVo.getFileUrl())
                     .build());
         }
-        if (!list.isEmpty()){
+        if (!list.isEmpty()) {
             acrticleImagesRepository.saveAll(list);
         }
         return true;

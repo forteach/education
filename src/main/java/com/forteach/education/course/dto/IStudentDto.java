@@ -11,24 +11,28 @@ public interface IStudentDto {
 
     /**
      * 学生id
+     *
      * @return
      */
     public String getStudentId();
 
     /**
      * 学生姓名
+     *
      * @return
      */
     public String getStudentName();
 
     /**
      * 学生头像
+     *
      * @return
      */
     public String getPortrait();
 
     /**
      * 班级id
+     *
      * @return
      */
     public String getClassId();

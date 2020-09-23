@@ -66,7 +66,7 @@ public class CountScoreServiceImpl implements BaseCountService<CountScore> {
         return findChartColumnarVo(all);
     }
 
-    private List<ChartColumnarVo> findChartColumnarVo(List<CountScore> all){
+    private List<ChartColumnarVo> findChartColumnarVo(List<CountScore> all) {
         //课程名称
         List<String> courseNames = all.stream().map(CountScore::getCourseName).collect(Collectors.toList());
         //优秀数

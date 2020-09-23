@@ -13,7 +13,7 @@ import javax.persistence.*;
 @org.hibernate.annotations.Table(appliesTo = "course_atlits", comment = "图集信息")
 @ApiModel(value = "图集信息")
 @EqualsAndHashCode(callSuper = true)
-public class CourseAtlits extends Entitys{
+public class CourseAtlits extends Entitys {
 
     @Id
     @Column(name = "id", columnDefinition = "VARCHAR(32) COMMENT '图集编号'")

@@ -19,6 +19,7 @@ public interface CourseChapterCountRepository extends JpaRepository<CourseChapte
 
     /**
      * 查询课程统计信息
+     *
      * @param courseId
      * @param chapterId
      * @param classId

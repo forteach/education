@@ -20,19 +20,22 @@ import java.util.Map;
 public interface BaseCountService<T> {
     /**
      * 获取对应的饼状图表信息
+     *
      * @return
      */
     List<ChartCakeVo> findAllChartCake();
 
     /**
      * 查询柱状图数据
+     *
      * @return
      */
     List<ChartColumnarVo> findAllColumnarList();
 
     /**
      * 分页查询对应的统计信息
-     * @param map 查询参数集合
+     *
+     * @param map    查询参数集合
      * @param sortVo 分页信息
      * @return
      */

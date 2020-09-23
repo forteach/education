@@ -2,7 +2,6 @@ package com.forteach.education.course.web.req;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.hibernate.validator.constraints.URL;
 
 import java.io.Serializable;
 import java.util.List;

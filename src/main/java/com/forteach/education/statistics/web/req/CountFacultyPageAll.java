@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value = "分页查询院系统计")
-public class CountFacultyPageAll extends BaseCountPageAll{
+public class CountFacultyPageAll extends BaseCountPageAll {
 
     @ApiModelProperty(name = "teacherName", value = "教师名称", dataType = "string")
     private String teacherName;

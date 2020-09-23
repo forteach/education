@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -25,15 +24,16 @@ public class SysRoleRepositoryTest {
 
     @Resource
     private SysRoleRepository sysRoleRepository;
+
     @Test
-    public void findSysRoleByRoleNameAndIsValidated(){
+    public void findSysRoleByRoleNameAndIsValidated() {
         sysRoleRepository.findByIsValidatedEquals(TAKE_EFFECT_OPEN)
                 .forEach(System.out::println);
     }
 
     @Test
 //    @Transactional(rollbackFor = Exception.class)
-    public void save(){
+    public void save() {
         ArrayList<SysRole> sysRoleArrayList = new ArrayList<>();
         SysRole sysRoleAdmin = new SysRole();
         sysRoleAdmin.setRoleName("admin");

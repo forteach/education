@@ -1,4 +1,5 @@
 package com.forteach.education.common.service.impl;
+
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.authority.domain.StudentEntitys;
 import com.forteach.education.authority.repository.StudentRepository;
@@ -19,7 +20,6 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.forteach.education.common.keyword.Dic.STUDENT_ADO;
 
@@ -43,17 +43,18 @@ public class StudentServiceImpl implements StudentService {
         this.studentRepository = studentRepository;
     }
 
-    private String getStudentKey(String studentId){
+    private String getStudentKey(String studentId) {
         return STUDENT_ADO.concat(studentId);
     }
 
     /**
      * 通过学生id 获取学生信息
+     *
      * @param studentId
      * @return
      */
     @Override
-    public StudentEntitys getStudentEntitysById(String studentId){
+    public StudentEntitys getStudentEntitysById(String studentId) {
         String key = getStudentKey(studentId);
         String studentName = hashOperations.get(key, "name");
         String classId = hashOperations.get(key, "classId");
@@ -68,25 +69,27 @@ public class StudentServiceImpl implements StudentService {
 
     /**
      * 学生集合list ==> 获取学生对象信息
+     *
      * @param stringList
      * @return
      */
     @Override
-    public List<StudentEntitys> getStudentEntitysList(List<String> stringList){
+    public List<StudentEntitys> getStudentEntitysList(List<String> stringList) {
         List<StudentEntitys> studentEntityslist = Lists.newArrayList();
-        for (String string :stringList) {
-        	studentEntityslist.add(getStudentEntitysById(string));
+        for (String string : stringList) {
+            studentEntityslist.add(getStudentEntitysById(string));
         }
         return studentEntityslist;
     }
 
     /**
      * "," 逗号分隔获取学生对象信息
+     *
      * @param studentIds
      * @return
      */
     @Override
-    public List<StudentEntitys> getStudentListByStr(String studentIds){
+    public List<StudentEntitys> getStudentListByStr(String studentIds) {
         return getStudentEntitysList(Arrays.asList(studentIds.split(",")));
     }
 
@@ -101,10 +104,10 @@ public class StudentServiceImpl implements StudentService {
                 " from student_info as s left join classes as c on s.class_id = c.class_id ");
         StringBuilder whereSql = new StringBuilder(" where s.is_validated = '0' ");
         StringBuilder countSql = new StringBuilder(" select count(1) from student_info as s left join classes as c on s.class_id = c.class_id ");
-        if (StrUtil.isNotBlank(req.getStudentName())){
+        if (StrUtil.isNotBlank(req.getStudentName())) {
             whereSql.append(" and s.user_name = :studentName");
         }
-        if (StrUtil.isNotBlank(req.getClassName())){
+        if (StrUtil.isNotBlank(req.getClassName())) {
             whereSql.append(" and c.class_name = :className");
         }
         dataSql.append(whereSql).append(" order by s.c_time desc");
@@ -112,16 +115,16 @@ public class StudentServiceImpl implements StudentService {
 
         Query dataQuery = entityManager.createNativeQuery(dataSql.toString(), StudentEntitys.class);
         Query countQuery = entityManager.createNativeQuery(countSql.toString());
-        if (StrUtil.isNotBlank(req.getStudentName())){
+        if (StrUtil.isNotBlank(req.getStudentName())) {
             dataQuery.setParameter("studentName", req.getStudentName());
             countQuery.setParameter("studentName", req.getStudentName());
         }
-        if (StrUtil.isNotBlank(req.getClassName())){
+        if (StrUtil.isNotBlank(req.getClassName())) {
             dataQuery.setParameter("className", req.getClassName());
             countQuery.setParameter("className", req.getClassName());
         }
         //设置分页
-        dataQuery.setFirstResult((int)of.getOffset());
+        dataQuery.setFirstResult((int) of.getOffset());
         dataQuery.setMaxResults(of.getPageSize());
         BigInteger count = (BigInteger) countQuery.getSingleResult();
         long total = count.longValue();

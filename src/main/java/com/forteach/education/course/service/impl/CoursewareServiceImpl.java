@@ -102,7 +102,7 @@ public class CoursewareServiceImpl implements CoursewareService {
                     return photo;
                 }).collect(toList());
 
-        if (!list.isEmpty()){
+        if (!list.isEmpty()) {
             photoDatumRepository.saveAll(list);
         }
         return getCourseArlitsList(obj.getChapterId());
@@ -219,7 +219,7 @@ public class CoursewareServiceImpl implements CoursewareService {
         List<Photos> photosList = photoDatumRepository.findByChapterId(chapterId).stream()
                 .peek(p -> p.setIsValidated(TAKE_EFFECT_CLOSE))
                 .collect(toList());
-        if (!photosList.isEmpty()){
+        if (!photosList.isEmpty()) {
             photoDatumRepository.saveAll(photosList);
         }
     }

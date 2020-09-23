@@ -16,6 +16,7 @@ public interface CountScoreRepository extends BaseRepository<CountScore, String>
 
     /**
      * 查询专业对应的成绩
+     *
      * @param isValidated
      * @param specialtyId
      * @return

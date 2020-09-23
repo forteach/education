@@ -46,12 +46,12 @@ public class CountFacultyController extends BaseCountController<CountFaculty> {
             @ApiImplicitParam(name = "teacherName", value = "教师名称", dataType = "string", paramType = "body"),
             @ApiImplicitParam(name = "teachingOfficeName", value = "教研室名称", dataType = "string", paramType = "body")
     })
-    public WebResult findAllPage(@RequestBody @Validated CountFacultyPageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest){
+    public WebResult findAllPage(@RequestBody @Validated CountFacultyPageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest) {
         Map<String, Object> map = new HashMap<>(4);
-        if (StrUtil.isNotBlank(pageAll.getTeachingOfficeName())){
+        if (StrUtil.isNotBlank(pageAll.getTeachingOfficeName())) {
             map.put("teachingOfficeName", pageAll.getTeachingOfficeName());
         }
-        if (StrUtil.isNotBlank(pageAll.getTeacherName())){
+        if (StrUtil.isNotBlank(pageAll.getTeacherName())) {
             map.put("teacherName", pageAll.getTeacherName());
         }
         return WebResult.okResult(baseCountService.findAllPage(map, pageAll.getSortVo()));

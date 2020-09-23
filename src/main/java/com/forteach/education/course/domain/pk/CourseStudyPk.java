@@ -1,6 +1,5 @@
 package com.forteach.education.course.domain.pk;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.Column;

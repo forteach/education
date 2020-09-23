@@ -17,6 +17,7 @@ import java.util.List;
 public interface PlanDateRepository extends JpaRepository<PlanDate, String> {
     /**
      * 查询微信用户的月份对应的日程计划
+     *
      * @param openId
      * @param contentDate
      * @return

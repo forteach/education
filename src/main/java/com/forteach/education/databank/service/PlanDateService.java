@@ -15,13 +15,11 @@ import java.util.List;
  */
 public interface PlanDateService {
     /**
-     *
      * @param planDate
      */
     void saveUpdate(PlanDate planDate);
 
     /**
-     *
      * @param openId
      * @param contentDate
      * @return
@@ -30,6 +28,7 @@ public interface PlanDateService {
 
     /**
      * 删除日程
+     *
      * @param id
      */
     void deleteById(String id);

@@ -33,9 +33,10 @@ import java.util.Map;
 @Api(value = "访问量统计信息", tags = {"访问量统计信息"})
 @RestController
 @RequestMapping(path = "/statistics/views", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class CountViewsController extends BaseCountController<CountViews>{
+public class CountViewsController extends BaseCountController<CountViews> {
 
     private final CountViewsServiceImpl countViewsService;
+
     public CountViewsController(BaseCountService<CountViews> baseCountService, CountViewsServiceImpl countViewsService) {
         super(baseCountService);
         this.countViewsService = countViewsService;
@@ -48,12 +49,12 @@ public class CountViewsController extends BaseCountController<CountViews>{
             @ApiImplicitParam(name = "teacherName", value = "教师名称", dataType = "string", paramType = "body"),
             @ApiImplicitParam(name = "teachingOfficeName", value = "教研室名称", dataType = "string", paramType = "body")
     })
-    public WebResult findAllPage(@RequestBody @Validated CountViewsPageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest){
+    public WebResult findAllPage(@RequestBody @Validated CountViewsPageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest) {
         Map<String, Object> map = new HashMap<>(4);
-        if (StrUtil.isNotBlank(pageAll.getTeacherName())){
+        if (StrUtil.isNotBlank(pageAll.getTeacherName())) {
             map.put("teacherName", pageAll.getTeacherName());
         }
-        if (StrUtil.isNotBlank(pageAll.getTeachingOfficeName())){
+        if (StrUtil.isNotBlank(pageAll.getTeachingOfficeName())) {
             map.put("teachingOfficeName", pageAll.getTeachingOfficeName());
         }
         return WebResult.okResult(baseCountService.findAllPage(map, pageAll.getSortVo()));
@@ -63,7 +64,7 @@ public class CountViewsController extends BaseCountController<CountViews>{
     @PassToken
     @ApiOperation(value = "查询学校访问量")
     @PostMapping(path = "/findAllViews")
-    public WebResult findAllViews(@ApiIgnore HttpServletRequest httpServletRequest){
+    public WebResult findAllViews(@ApiIgnore HttpServletRequest httpServletRequest) {
         return WebResult.okResult(countViewsService.findAllViews());
     }
 }

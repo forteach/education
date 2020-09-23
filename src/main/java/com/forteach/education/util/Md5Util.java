@@ -14,10 +14,11 @@ public class Md5Util {
 
     /**
      * 生成macMD5加密字符串
+     *
      * @param passWord
      * @return
      */
-    public static String macMD5(String passWord){
+    public static String macMD5(String passWord) {
         byte[] key = passWord.getBytes();
         HMac mac = new HMac(HmacAlgorithm.HmacMD5, key);
         return mac.digestHex(passWord);

@@ -1,9 +1,7 @@
 package com.forteach.education.statistics.service.base;
 
 import cn.hutool.core.util.StrUtil;
-import com.forteach.education.common.keyword.Dic;
 import com.forteach.education.statistics.repository.BaseRepository;
-import com.forteach.education.statistics.vo.ChartColumnarVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -11,10 +9,8 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component
 public class BaseService<T> {

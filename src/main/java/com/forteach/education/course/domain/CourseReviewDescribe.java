@@ -29,7 +29,7 @@ import javax.persistence.*;
 @org.hibernate.annotations.Table(appliesTo = "course_review_describe", comment = "课程评论详情")
 @Table(name = "course_review_describe", indexes =
         {@Index(columnList = "review_id", name = "review_id_index"),
-        @Index(columnList = "course_id", name = "course_id_index")})
+                @Index(columnList = "course_id", name = "course_id_index")})
 public class CourseReviewDescribe extends Entitys {
 
     @Id
@@ -65,5 +65,6 @@ public class CourseReviewDescribe extends Entitys {
 
     @ApiModelProperty(hidden = true)
     @Column(name = "reply_time", columnDefinition = "VARCHAR(32) COMMENT '回复时间'")
-    private String replyTime = StrUtil.isBlank(this.createTime) ? DateUtil.now() : this.createTime;;
+    private String replyTime = StrUtil.isBlank(this.createTime) ? DateUtil.now() : this.createTime;
+    ;
 }

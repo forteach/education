@@ -15,9 +15,11 @@ import java.io.Serializable;
 @Data
 public class SpecialtyRestVo implements Serializable {
 
-    public interface Update{}
+    public interface Update {
+    }
 
-    public interface Add{}
+    public interface Add {
+    }
 
     @NotBlank(groups = {Update.class})
     @NotBlank(groups = {Add.class})

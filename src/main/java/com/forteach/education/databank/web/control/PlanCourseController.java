@@ -8,6 +8,7 @@ import com.forteach.education.databank.web.req.PlanCourseReq;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +41,7 @@ public class PlanCourseController {
 
     @ApiOperation(value = "查询用户排课信息")
     @PostMapping(path = "/findMyPlanCourse")
-    public WebResult findMyPlanCourse(@RequestBody PlanCourseReq req, @ApiIgnore HttpServletRequest httpServletRequest){
+    public WebResult findMyPlanCourse(@RequestBody @Validated PlanCourseReq req, @ApiIgnore HttpServletRequest httpServletRequest) {
         String teacherId = tokenService.getTeacherId(httpServletRequest);
         List<PlanCourse> myPlanCourse = planCourseService.findMyPlanCourse(req.getYear(), req.getSemester(), teacherId);
         return WebResult.okResult(myPlanCourse);

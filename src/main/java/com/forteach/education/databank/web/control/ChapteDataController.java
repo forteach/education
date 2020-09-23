@@ -114,8 +114,8 @@ public class ChapteDataController {
     public WebResult findDatumList(@ApiParam(value = "资料信息列表", name = "chapteData") @RequestBody ChapteDataListReq req) {
         MyAssert.blank(String.valueOf(req.getSortVo().getPage()), DefineCode.ERR0010, "页码参数不为空");
         MyAssert.blank(String.valueOf(req.getSortVo().getSize()), DefineCode.ERR0010, "每页条数不为空");
-        MyAssert.gt(req.getSortVo().getPage(), 0, DefineCode.ERR0010,"页码参数不正确");
-        MyAssert.gt(req.getSortVo().getSize(), 0, DefineCode.ERR0010,"每页显示条数不正确");
+        MyAssert.gt(req.getSortVo().getPage(), 0, DefineCode.ERR0010, "页码参数不正确");
+        MyAssert.gt(req.getSortVo().getSize(), 0, DefineCode.ERR0010, "每页显示条数不正确");
         //1、初始化分页参数
         SortVo sortVo = req.getSortVo();
         PageRequest pageReq = PageRequest.of(sortVo.getPage(), sortVo.getSize());
@@ -134,7 +134,7 @@ public class ChapteDataController {
             @ApiImplicitParam(name = "fileId", value = "资料id", dataType = "string", paramType = "form")
     })
     @PostMapping(path = "/removeOne")
-    public WebResult removeOne(@RequestBody ChapterDataRemoveReq chapterDataRemoveReq){
+    public WebResult removeOne(@RequestBody ChapterDataRemoveReq chapterDataRemoveReq) {
         MyAssert.isNull(chapterDataRemoveReq.getFileId(), DefineCode.ERR0010, "资料id不为空");
         MyAssert.isNull(chapterDataRemoveReq.getDatumArea(), DefineCode.ERR0010, "资料领域不为空");
         chapteDataService.removeOne(chapterDataRemoveReq.getFileId(), chapterDataRemoveReq.getDatumArea());
@@ -147,9 +147,9 @@ public class ChapteDataController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseId", value = "科目编号", dataType = "string", required = true, paramType = "form"),
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataType = "string", paramType = "form"),
-            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "string", paramType = "form", example  = "资料类型 1文档　2图册　3视频　4音频　5链接, (多个用‘,’分割), 不传值是全部需要删除挂载")
+            @ApiImplicitParam(name = "datumType", value = "资料类型", dataType = "string", paramType = "form", example = "资料类型 1文档　2图册　3视频　4音频　5链接, (多个用‘,’分割), 不传值是全部需要删除挂载")
     })
-    public WebResult removeChapteDataList(@RequestBody ChapterDataRemoveReq chapterDataRemoveReq){
+    public WebResult removeChapteDataList(@RequestBody ChapterDataRemoveReq chapterDataRemoveReq) {
         MyAssert.isNull(chapterDataRemoveReq.getCourseId(), DefineCode.ERR0010, "科目编号不为空");
         MyAssert.isNull(chapterDataRemoveReq.getChapterId(), DefineCode.ERR0010, "科目编号不为空");
         chapteDataService.removeChapteDataList(chapterDataRemoveReq.getCourseId(), chapterDataRemoveReq.getChapterId(), chapterDataRemoveReq.getDatumType());

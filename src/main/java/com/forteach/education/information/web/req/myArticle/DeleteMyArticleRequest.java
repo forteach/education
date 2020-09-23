@@ -11,7 +11,6 @@ import java.io.Serializable;
 
 /**
  * 取消收藏
- *
  */
 @Data
 @AllArgsConstructor

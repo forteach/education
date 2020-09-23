@@ -27,7 +27,7 @@ public class PlanCourseServiceImpl implements PlanCourseService {
     }
 
     @Override
-    public List<PlanCourse> findMyPlanCourse(String year, String semester, String teacherId){
+    public List<PlanCourse> findMyPlanCourse(String year, String semester, String teacherId) {
         return planCourseRepository.findAllByIsValidatedEqualsAndYearAndSemesterAndTeacherId(Dic.TAKE_EFFECT_OPEN, year, semester, teacherId);
     }
 }

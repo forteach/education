@@ -10,6 +10,6 @@ import com.forteach.education.statistics.domain.CountViews;
  * @Modified：访问量统计
  * @Description:
  */
-public interface CountViewsRepository extends BaseRepository<CountViews, String>{
+public interface CountViewsRepository extends BaseRepository<CountViews, String> {
 
 }

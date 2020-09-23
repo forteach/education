@@ -18,6 +18,7 @@ public interface RoleColActRepository extends JpaRepository<RoleColAct, Long> {
 
     /**
      * 根据角色ID 获取栏目编号
+     *
      * @param roleId
      * @return
      */
@@ -26,6 +27,7 @@ public interface RoleColActRepository extends JpaRepository<RoleColAct, Long> {
 
     /**
      * 获取角色栏目对应的动作
+     *
      * @param colId
      * @param roleId
      * @return
@@ -35,6 +37,7 @@ public interface RoleColActRepository extends JpaRepository<RoleColAct, Long> {
 
     /**
      * 删除该角色的所有子栏目
+     *
      * @param roleId
      */
     @Modifying(clearAutomatically = true)

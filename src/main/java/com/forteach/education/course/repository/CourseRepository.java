@@ -69,8 +69,9 @@ public interface CourseRepository extends JpaRepository<Course, String> {
 //    List<ICourseChapterListDto> findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(String classId);
 
 
-        /**
+    /**
      * 分页查询课程信息根据课程id查询课程列表
+     *
      * @param classId
      * @return
      */

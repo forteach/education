@@ -39,7 +39,7 @@ public class AuthController {
 
     private final TokenService tokenService;
 
-    public AuthController(UserService userService, RoleService roleService, TokenService tokenService){
+    public AuthController(UserService userService, RoleService roleService, TokenService tokenService) {
         this.userService = userService;
         this.roleService = roleService;
         this.tokenService = tokenService;
@@ -53,7 +53,7 @@ public class AuthController {
             @ApiImplicitParam(name = "teacherCode", value = "教师代码", required = true, dataType = "string", paramType = "from"),
             @ApiImplicitParam(name = "passWord", value = "密码", required = true, dataType = "string", paramType = "from")
     })
-    public WebResult login(@RequestBody UserLoginReq userLoginReq){
+    public WebResult login(@RequestBody UserLoginReq userLoginReq) {
         MyAssert.blank(userLoginReq.getTeacherCode(), DefineCode.ERR0010, "教师代码不为空");
         MyAssert.blank(userLoginReq.getPassWord(), DefineCode.ERR0010, "密码不为空");
         return userService.login(userLoginReq);
@@ -72,18 +72,18 @@ public class AuthController {
 
     @ApiOperation("重置教师账户密码为初始化密码")
     @PostMapping("/resetPassWord")
-    @ApiImplicitParam(name = "teacherCode",value = "教师代码", required = true, dataType = "string",paramType = "from")
+    @ApiImplicitParam(name = "teacherCode", value = "教师代码", required = true, dataType = "string", paramType = "from")
     @UserLoginToken
-    public WebResult resetPassWord(@RequestBody String teacherCode){
+    public WebResult resetPassWord(@RequestBody String teacherCode) {
         MyAssert.blank(teacherCode, DefineCode.ERR0010, "教师代码不为空");
         return userService.resetPassWord(JSONObject.parseObject(teacherCode).getString("teacherCode"));
     }
 
     @ApiOperation("添加教师用户信息用户账户")
     @PostMapping("/addSysTeacher")
-    @ApiImplicitParam(name = "teacherCode",value = "教师代码", required = true, dataType = "string",paramType = "from")
+    @ApiImplicitParam(name = "teacherCode", value = "教师代码", required = true, dataType = "string", paramType = "from")
     @UserLoginToken
-    public WebResult addSysTeacher(@RequestBody String teacherCode){
+    public WebResult addSysTeacher(@RequestBody String teacherCode) {
         MyAssert.blank(teacherCode, DefineCode.ERR0010, "教师代码不为空");
         return userService.addSysTeacher(JSONObject.parseObject(teacherCode).getString("teacherCode"));
     }
@@ -95,7 +95,7 @@ public class AuthController {
             @ApiImplicitParam(value = "新密码", name = "newPassWord", required = true, dataType = "string", paramType = "from")
     })
     @UserLoginToken
-    public WebResult updatePassWord(@RequestBody UpdatePassWordReq updatePassWordReq, HttpServletRequest request){
+    public WebResult updatePassWord(@RequestBody UpdatePassWordReq updatePassWordReq, HttpServletRequest request) {
         MyAssert.blank(updatePassWordReq.getOldPassWord(), DefineCode.ERR0010, "旧密码不能为空");
         MyAssert.blank(updatePassWordReq.getNewPassWord(), DefineCode.ERR0010, "新密码不能为空");
         updatePassWordReq.setTeacherCode(tokenService.getUserId(request));
@@ -106,7 +106,7 @@ public class AuthController {
     @ApiOperation("修改教师用户状态")
     @PutMapping("/updateState")
     @ApiImplicitParam(name = "teacherCode", value = "教师代码", required = true, dataType = "string", paramType = "from")
-    public WebResult updateState(@RequestBody String teacherCode){
+    public WebResult updateState(@RequestBody String teacherCode) {
         MyAssert.blank(teacherCode, DefineCode.ERR0010, "教师代码不为空");
         String teacherCodeStr = JSONObject.parseObject(teacherCode).getString("teacherCode");
         userService.updateState(teacherCodeStr);

@@ -41,9 +41,9 @@ public class CountCourseController extends BaseCountController<CountCourse> {
     @ApiOperation(value = "课程统计信息分页查询")
     @PostMapping("/findAllPage")
     @ApiImplicitParam(name = "courseName", value = "课程名称", dataType = "string", paramType = "body")
-    public WebResult findAllPage(@RequestBody @Validated CountCoursePageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest){
+    public WebResult findAllPage(@RequestBody @Validated CountCoursePageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest) {
         Map<String, Object> map = new HashMap<>(2);
-        if (StrUtil.isNotBlank(pageAll.getCourseName())){
+        if (StrUtil.isNotBlank(pageAll.getCourseName())) {
             map.put("courseName", pageAll.getCourseName());
         }
         return WebResult.okResult(baseCountService.findAllPage(map, pageAll.getSortVo()));

@@ -6,7 +6,6 @@ import com.forteach.education.databank.domain.PlanDate;
 import com.forteach.education.databank.repository.PlanDateRepository;
 import com.forteach.education.databank.service.PlanDateService;
 import com.forteach.education.databank.web.res.PlanDateRes;
-import com.forteach.education.information.domain.MyArticle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

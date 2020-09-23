@@ -15,6 +15,7 @@ import java.util.List;
 public interface SysActionRepository extends JpaRepository<SysAction, Long> {
     /**
      * 查询有效的动作信息
+     *
      * @param isValidated
      * @return
      */

@@ -17,6 +17,7 @@ public interface KNodeRepository extends JpaRepository<KNode, String> {
 
     /**
      * 根据章节编号查找知识点
+     *
      * @param chapterId
      * @param kNodeType
      * @param isVal
@@ -27,6 +28,7 @@ public interface KNodeRepository extends JpaRepository<KNode, String> {
 
     /**
      * 根据课程编号查找知识点
+     *
      * @param courseId
      * @param isVal
      * @return

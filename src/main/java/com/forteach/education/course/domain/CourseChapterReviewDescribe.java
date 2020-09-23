@@ -2,7 +2,10 @@ package com.forteach.education.course.domain;
 
 import com.forteach.education.common.domain.Entitys;
 import com.forteach.education.course.domain.pk.CourseChapterReviewDescribePk;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 

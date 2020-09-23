@@ -3,15 +3,11 @@ package com.forteach.education.course.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.forteach.education.common.domain.Entitys;
 import com.forteach.education.course.domain.pk.CourseStudyPk;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlInlineBinaryData;
 import java.io.Serializable;
 
 /**

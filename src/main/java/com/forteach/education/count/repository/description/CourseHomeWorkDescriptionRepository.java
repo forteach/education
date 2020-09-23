@@ -16,6 +16,7 @@ public interface CourseHomeWorkDescriptionRepository extends JpaRepository<Cours
 
     /**
      * 获取课后作业详情
+     *
      * @param isValidated
      * @param courseId
      * @param chapterId

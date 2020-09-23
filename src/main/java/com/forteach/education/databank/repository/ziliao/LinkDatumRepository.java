@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface LinkDatumRepository extends IDatumRepoitory<LinkDatum, String> {
     /**
      * 修改资料领域
+     *
      * @param fileId
      * @param datumArea
      */
@@ -23,6 +24,7 @@ public interface LinkDatumRepository extends IDatumRepoitory<LinkDatum, String> 
 
     /**
      * 修改教师分享
+     *
      * @param fileId
      * @param teachShare
      */
@@ -32,6 +34,7 @@ public interface LinkDatumRepository extends IDatumRepoitory<LinkDatum, String> 
 
     /**
      * 修改学生可见
+     *
      * @param fileId
      * @param stuShare
      */

@@ -9,6 +9,6 @@ import com.forteach.education.statistics.domain.CountTeaching;
  * @version: 1.0
  * @description：教学情况统计
  */
-public interface CountTeachingRepository extends BaseRepository<CountTeaching, String>{
+public interface CountTeachingRepository extends BaseRepository<CountTeaching, String> {
 
 }

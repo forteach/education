@@ -157,7 +157,7 @@ public class CoursewareController {
     @ApiOperation(value = "删除图集列表接口", notes = "删除图集列表接口(逻辑删除)")
     @PostMapping("/removePhotoList")
     @ApiImplicitParam(name = "arlitId", value = "图集编号", dataTypeClass = String.class, required = true)
-    public WebResult removePhotoList(@RequestBody String arlitId){
+    public WebResult removePhotoList(@RequestBody String arlitId) {
         MyAssert.blank(arlitId, DefineCode.ERR0010, "图集编号不为空");
         coursewareService.removePhotoList(JSONObject.parseObject(arlitId).getString("arlitId"));
         return WebResult.okResult();
@@ -166,7 +166,7 @@ public class CoursewareController {
     @ApiOperation(value = "物理删除课件的文件信息")
     @DeleteMapping(path = "/{fileId}")
     @ApiImplicitParam(name = "fileId", value = "文件课件id", dataTypeClass = String.class, required = true)
-    public WebResult deleteByFileId(@PathVariable String fileId){
+    public WebResult deleteByFileId(@PathVariable String fileId) {
         MyAssert.isNull(fileId, DefineCode.ERR0010, "文件id不是空");
         coursewareService.deleteByFileId(fileId);
         return WebResult.okResult();

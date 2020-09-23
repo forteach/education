@@ -41,10 +41,10 @@ public class CountTeachingServiceImpl implements BaseCountService<CountTeaching>
     @Override
     public List<ChartCakeVo> findAllChartCake() {
         List<ChartCakeVo> list = new ArrayList<>(16);
-        list.add(new ChartCakeVo("课程数",62));
-        list.add(new ChartCakeVo("资料数",62222));
-        list.add(new ChartCakeVo("题目数",23562));
-        list.add(new ChartCakeVo("习题数",12162));
+        list.add(new ChartCakeVo("课程数", 62));
+        list.add(new ChartCakeVo("资料数", 62222));
+        list.add(new ChartCakeVo("题目数", 23562));
+        list.add(new ChartCakeVo("习题数", 12162));
         return list;
     }
 
@@ -56,7 +56,7 @@ public class CountTeachingServiceImpl implements BaseCountService<CountTeaching>
         List dataList = all.stream().map(CountTeaching::getDataNum).collect(Collectors.toList());
         List questionList = all.stream().map(CountTeaching::getQuestionNum).collect(Collectors.toList());
         List chapterList = all.stream().map(CountTeaching::getChapterNum).collect(Collectors.toList());
-                ChartColumnarVo chartColumnarVo = new ChartColumnarVo("课程数（教研室）",
+        ChartColumnarVo chartColumnarVo = new ChartColumnarVo("课程数（教研室）",
                 CollUtil.newArrayList(courseNames),
                 CollUtil.newArrayList(courseList));
         ChartColumnarVo columnarChapterVo = new ChartColumnarVo("章节数（教研室）",

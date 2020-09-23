@@ -1,6 +1,5 @@
 package com.forteach.education.course.web.req;
 
-import com.forteach.education.common.web.vo.SortVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

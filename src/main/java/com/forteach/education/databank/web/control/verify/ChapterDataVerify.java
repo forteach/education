@@ -15,17 +15,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class ChapterDataVerify {
 
-    public void saveVerify(ChapteDataReq chapteDataReq){
+    public void saveVerify(ChapteDataReq chapteDataReq) {
         MyAssert.elt(0, chapteDataReq.getFiles().size(), DefineCode.ERR0010, "文件对象不为空");
         verify(chapteDataReq);
     }
 
-    public void updateVerify(ChapteDataReq chapteDataReq){
+    public void updateVerify(ChapteDataReq chapteDataReq) {
         MyAssert.blank(chapteDataReq.getFileId(), DefineCode.ERR0010, "资料编号不为空");
         verify(chapteDataReq);
     }
 
-    private void verify(ChapteDataReq chapteDataReq){
+    private void verify(ChapteDataReq chapteDataReq) {
         MyAssert.blank(chapteDataReq.getChapterId(), DefineCode.ERR0010, "章节编号不为空");
         MyAssert.blank(chapteDataReq.getCourseId(), DefineCode.ERR0010, "科目编号不为空");
         MyAssert.blank(chapteDataReq.getDatumArea(), DefineCode.ERR0010, "资料领域不为空");

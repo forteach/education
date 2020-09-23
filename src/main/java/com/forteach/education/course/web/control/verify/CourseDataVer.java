@@ -17,9 +17,10 @@ public class CourseDataVer {
 
     /**
      * 校验更新
+     *
      * @param chapteDataReq
      */
-    public void updateAreaAndShare(ChapteDataReq chapteDataReq){
+    public void updateAreaAndShare(ChapteDataReq chapteDataReq) {
         MyAssert.blank(chapteDataReq.getChapterId(), DefineCode.ERR0010, "章节编号不为空");
         MyAssert.blank(chapteDataReq.getCourseId(), DefineCode.ERR0010, "科目编号不为空");
         MyAssert.blank(chapteDataReq.getFileId(), DefineCode.ERR0010, "资料编号不为空");

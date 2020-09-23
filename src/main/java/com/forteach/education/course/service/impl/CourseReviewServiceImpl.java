@@ -60,12 +60,12 @@ public class CourseReviewServiceImpl implements CourseReviewService {
         CourseReviewDescribe describe = null;
         if (StrUtil.isNotBlank(courseReviewDescribe.getReviewId())) {
             Optional<CourseReviewDescribe> optional = courseReviewDescribeRepository.findById(courseReviewDescribe.getReviewId());
-            if (optional.isPresent()){
+            if (optional.isPresent()) {
                 CourseReviewDescribe reviewDescribe = optional.get();
                 UpdateUtil.copyNullProperties(courseReviewDescribe, reviewDescribe);
                 describe = courseReviewDescribeRepository.save(reviewDescribe);
             }
-        }else {
+        } else {
             describe = courseReviewDescribeRepository.save(courseReviewDescribe);
         }
         //　修改课程评价人数和平均评分
@@ -97,10 +97,10 @@ public class CourseReviewServiceImpl implements CourseReviewService {
     @Override
     public CourseReviewResp findFirstReview(String courseId) {
         Optional<ICourseReviewDto> optional = courseReviewDescribeRepository.findFirstByIsValidatedEqualsAndCourseIdOrderByCreateTimeDesc(courseId)
-                        .stream()
-                        .filter(Objects::nonNull)
-                        .findFirst();
-        if (optional.isPresent()){
+                .stream()
+                .filter(Objects::nonNull)
+                .findFirst();
+        if (optional.isPresent()) {
             ICourseReviewDto iCourseReviewDto = optional.get();
             return CourseReviewResp.builder()
                     .courseId(iCourseReviewDto.getCourseId())
@@ -119,7 +119,7 @@ public class CourseReviewServiceImpl implements CourseReviewService {
     }
 
 
-    private CourseReviewDescResp builderCourseRevieDescResp(ICourseReviewDto iCourseReviewDto){
+    private CourseReviewDescResp builderCourseRevieDescResp(ICourseReviewDto iCourseReviewDto) {
         return CourseReviewDescResp.builder()
                 .studentId(iCourseReviewDto.getStudentId())
                 .studentName(iCourseReviewDto.getStudentName())

@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.Optional;
 
@@ -71,7 +72,7 @@ public class UserServiceImpl implements UserService {
         SysUsers user = userRepository.findByTeacherId(userLoginReq.getTeacherCode());
         if (user == null) {
             return WebResult.failException("用户不存在");
-        } else if (TAKE_EFFECT_CLOSE.equals(user.getIsValidated())){
+        } else if (TAKE_EFFECT_CLOSE.equals(user.getIsValidated())) {
             return WebResult.failException("您的账号已经失效,请联系管理员");
         } else if (!user.getPassWord().equals(Md5Util.macMD5(userLoginReq.getPassWord().concat(salt)))) {
             return WebResult.failException("密码错误");
@@ -150,14 +151,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public WebResult updatePassWord(UpdatePassWordReq updatePassWordReq){
+    public WebResult updatePassWord(UpdatePassWordReq updatePassWordReq) {
         Optional<SysUsers> usersOptional = userRepository.findById(updatePassWordReq.getTeacherCode());
-        if (!usersOptional.isPresent()){
+        if (!usersOptional.isPresent()) {
             return WebResult.failException("不存在相关用户");
         }
         SysUsers users = usersOptional.get();
         String newPassWord = Md5Util.macMD5(updatePassWordReq.getNewPassWord().concat(salt));
-        if (!newPassWord.equals(users.getPassWord())){
+        if (!newPassWord.equals(users.getPassWord())) {
             return WebResult.failException("旧密码不正确");
         }
         users.setPassWord(newPassWord);
@@ -171,10 +172,10 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public void updateState(String teacherCode) {
         SysUsers users = userRepository.findByTeacherId(teacherCode);
-        if (users != null){
-            if (TAKE_EFFECT_CLOSE.equals(users.isValidated)){
+        if (users != null) {
+            if (TAKE_EFFECT_CLOSE.equals(users.isValidated)) {
                 users.setIsValidated(TAKE_EFFECT_OPEN);
-            }else {
+            } else {
                 users.setIsValidated(TAKE_EFFECT_CLOSE);
             }
             userRepository.save(users);

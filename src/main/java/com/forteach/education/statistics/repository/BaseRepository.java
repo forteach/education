@@ -19,6 +19,7 @@ import java.util.List;
 public interface BaseRepository<T, ID> extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
     /**
      * 查询全部有效信息
+     *
      * @param isValidated
      * @return
      */

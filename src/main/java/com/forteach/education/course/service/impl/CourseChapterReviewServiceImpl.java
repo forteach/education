@@ -83,9 +83,9 @@ public class CourseChapterReviewServiceImpl implements CourseChapterReviewServic
     @Override
     public CourseChapterReviewResp findChapterReview(String chapterId) {
         Optional<CourseChapterReview> optional = courseChapterReviewRepository.findByIsValidatedEqualsAndChapterId(TAKE_EFFECT_OPEN, chapterId);
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             CourseChapterReview courseChapterReview = optional.get();
-                    return new CourseChapterReviewResp(courseChapterReview.getChapterId(), courseChapterReview.getAverageScore(), courseChapterReview.getReviewAmount());
+            return new CourseChapterReviewResp(courseChapterReview.getChapterId(), courseChapterReview.getAverageScore(), courseChapterReview.getReviewAmount());
         }
         return new CourseChapterReviewResp();
     }
@@ -101,10 +101,10 @@ public class CourseChapterReviewServiceImpl implements CourseChapterReviewServic
         if (optional.isPresent()) {
             CourseChapterReviewDescribe courseChapterReviewDescribe = optional.get();
             return CourseChapterReviewDescribeResp.builder()
-                .chapterId(courseChapterReviewDescribe.getChapterId())
-                .score(courseChapterReviewDescribe.getScore())
-                .studentId(courseChapterReviewDescribe.getStudentId())
-                .build();
+                    .chapterId(courseChapterReviewDescribe.getChapterId())
+                    .score(courseChapterReviewDescribe.getScore())
+                    .studentId(courseChapterReviewDescribe.getStudentId())
+                    .build();
         }
         return new CourseChapterReviewDescribeResp();
     }

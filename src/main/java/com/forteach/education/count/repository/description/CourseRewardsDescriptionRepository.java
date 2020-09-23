@@ -16,6 +16,7 @@ public interface CourseRewardsDescriptionRepository extends JpaRepository<Course
 
     /**
      * 获取奖励详情
+     *
      * @param isValidated
      * @param courseId
      * @param chapterId

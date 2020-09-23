@@ -21,6 +21,7 @@ public interface ClassesRepository extends JpaRepository<Classes, String> {
 
     /**
      * 查询所用班级信息倒叙排列
+     *
      * @param isValidated
      * @return
      */
@@ -29,6 +30,7 @@ public interface ClassesRepository extends JpaRepository<Classes, String> {
 
     /**
      * 分页查询班级信息
+     *
      * @param isValidated
      * @param pageable
      * @return

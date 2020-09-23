@@ -79,7 +79,7 @@ public class Dic {
     /**
      * 用户 token 前缀
      */
-    public final static String USER_TOKEN_PREFIX ="userToken$";
+    public final static String USER_TOKEN_PREFIX = "userToken$";
     /**
      * 用户token 的有效时间
      */
@@ -88,11 +88,11 @@ public class Dic {
     /**
      * 微信端学生类型
      */
-    public final static String TOKEN_STUDENT ="student";
+    public final static String TOKEN_STUDENT = "student";
     /**
      * 登录认证的教师类型
      */
-    public final static String TOKEN_TEACHER ="teacher";
+    public final static String TOKEN_TEACHER = "teacher";
 
     /**
      * 学生信息前缀

@@ -10,12 +10,14 @@ package com.forteach.education.count.dto;
 public interface ICourseCount {
     /**
      * 课程id
+     *
      * @return
      */
     public String getCourseId();
 
     /**
      * 章节id
+     *
      * @return
      */
     public String getChapterId();
@@ -27,24 +29,28 @@ public interface ICourseCount {
 
     /**
      * 学生人数
+     *
      * @return
      */
     public Integer getStudentsNumber();
 
     /**
      * 加入的学生人数
+     *
      * @return
      */
     public Integer getJoinNumber();
 
     /**
      * 练习人数
+     *
      * @return
      */
     public Integer getDrillNumber();
 
     /**
      * 预习人数
+     *
      * @return
      */
     public Integer getPrepareNumber();
@@ -52,24 +58,28 @@ public interface ICourseCount {
 
     /**
      * 家庭作业统计人数
+     *
      * @return
      */
     public Integer getHomeWorkNumber();
 
     /**
      * 交互统计人数
+     *
      * @return
      */
     public Integer getInteractionNumber();
 
     /**
      * 课堂奖励统计人数
+     *
      * @return
      */
     public Integer getRewardsNumber();
 
     /**
      * 完成任务人数
+     *
      * @return
      */
     public Integer getTaskNumber();

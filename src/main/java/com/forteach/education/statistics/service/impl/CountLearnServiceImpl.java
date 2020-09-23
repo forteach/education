@@ -86,7 +86,7 @@ public class CountLearnServiceImpl implements BaseCountService<CountLearn> {
 //                CollUtil.toList("历史", "电子商务", "语文", "体育"),
 //                CollUtil.toList(335, 310, 234, 135));
 //        return CollUtil.toList(chartColumnarVo, chartQuestionVo, chartHomeworkVo, chartExperienceExchangeVo);
-        
+
         //查询统计信息并分组给予前端对应的数据结构
         return findChartColumnarVo(countLearnRepository.findAllByIsValidatedEquals(Dic.TAKE_EFFECT_OPEN));
     }

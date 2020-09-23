@@ -36,70 +36,72 @@ import static java.util.stream.Collectors.toList;
 @Api(value = "简单公告", tags = {"公告类型（公开、课程）"})
 public class NoticeController {
 
-	private final NoticeService noticeService;
+    private final NoticeService noticeService;
 
-	@Autowired
-	public NoticeController(NoticeService noticeService) {
-		this.noticeService = noticeService;
-	}
+    @Autowired
+    public NoticeController(NoticeService noticeService) {
+        this.noticeService = noticeService;
+    }
 
-	@UserLoginToken
-	@ApiOperation(value = "保存/修改简单公告")
-	@PostMapping("/save")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "noticeId", value = "公告ID", dataType = "string", paramType = "query"),
-			@ApiImplicitParam(name = "content", value = "公告内容", dataType = "string", paramType = "query"),
-			@ApiImplicitParam(name = "area", value = "公告领域 P：全部 C：课程", dataType = "string", paramType = "query")
-	})
-	public WebResult save(@RequestBody SaveNoticeRequest request) {
-		return WebResult.okResult(noticeService.save(request.getNoticeId(),request.getContent(),request.getArea()));
-	}
+    @UserLoginToken
+    @ApiOperation(value = "保存/修改简单公告")
+    @PostMapping("/save")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "noticeId", value = "公告ID", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "content", value = "公告内容", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "area", value = "公告领域 P：全部 C：课程", dataType = "string", paramType = "query")
+    })
+    public WebResult save(@RequestBody SaveNoticeRequest request) {
+        return WebResult.okResult(noticeService.save(request.getNoticeId(), request.getContent(), request.getArea()));
+    }
 
-	@ApiOperation(value = "根据公告id查询详情")
-	@PostMapping("/findById")
-	@ApiImplicitParam(name = "noticeId", value = "公告ID", dataType = "string", required = true, paramType = "query")
-	public WebResult findById(@RequestBody ByIdNoticeRequest request) {
-		MyAssert.isNull(request.getNoticeId(), DefineCode.ERR0010, "公告id不为空");
- 		return WebResult.okResult(noticeService.findById(request.getNoticeId()));
-	}
+    @ApiOperation(value = "根据公告id查询详情")
+    @PostMapping("/findById")
+    @ApiImplicitParam(name = "noticeId", value = "公告ID", dataType = "string", required = true, paramType = "query")
+    public WebResult findById(@RequestBody ByIdNoticeRequest request) {
+        MyAssert.isNull(request.getNoticeId(), DefineCode.ERR0010, "公告id不为空");
+        return WebResult.okResult(noticeService.findById(request.getNoticeId()));
+    }
 
-	/**
-	 * 根据Id删除公告
-	 * @param request
-	 * @return
-	 */
-	@ApiOperation(value = "根据Id删除公告")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "noticeId", value = "公告ID", dataType = "string", required = true, paramType = "query")
-	})
-	@PostMapping("/delNotice")
-	public WebResult deleteId(@RequestBody ByIdNoticeRequest request) {
-		MyAssert.isNull(request.getNoticeId(), DefineCode.ERR0010, "公告id不为空");
-		return WebResult.okResult(noticeService.deleteByNoticeId(request.getNoticeId()));
-	}
+    /**
+     * 根据Id删除公告
+     *
+     * @param request
+     * @return
+     */
+    @ApiOperation(value = "根据Id删除公告")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "noticeId", value = "公告ID", dataType = "string", required = true, paramType = "query")
+    })
+    @PostMapping("/delNotice")
+    public WebResult deleteId(@RequestBody ByIdNoticeRequest request) {
+        MyAssert.isNull(request.getNoticeId(), DefineCode.ERR0010, "公告id不为空");
+        return WebResult.okResult(noticeService.deleteByNoticeId(request.getNoticeId()));
+    }
 
 
-	/**
-	 * 获得分页倒序列表记录
-	 * @param request
-	 * @return
-	 */
-	@ApiOperation(value = "获得分页倒序列表记录")
-	@ApiImplicitParams({
-			@ApiImplicitParam(value = "分页排序字段", name = "sortVo", required = true, dataTypeClass = SortVo.class, paramType = "query")
-	})
-	@PostMapping("/findAll")
-	public WebResult findAll(@RequestBody FindIsValListRequest request) {
-		SortVo sortVo = request.getSortVo();
-		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
-		return WebResult.okResult(noticeService.findByIsValidatedDesc(TAKE_EFFECT_OPEN,page)
-				.stream()
-				.filter(Objects::nonNull)
-				.map(item -> {
-					ListNoticeResponse ar = new ListNoticeResponse();
-					UpdateUtil.copyNullProperties(item, ar);
-					return ar;
-				})
-				.collect(toList()));
-	}
+    /**
+     * 获得分页倒序列表记录
+     *
+     * @param request
+     * @return
+     */
+    @ApiOperation(value = "获得分页倒序列表记录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "分页排序字段", name = "sortVo", required = true, dataTypeClass = SortVo.class, paramType = "query")
+    })
+    @PostMapping("/findAll")
+    public WebResult findAll(@RequestBody FindIsValListRequest request) {
+        SortVo sortVo = request.getSortVo();
+        PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
+        return WebResult.okResult(noticeService.findByIsValidatedDesc(TAKE_EFFECT_OPEN, page)
+                .stream()
+                .filter(Objects::nonNull)
+                .map(item -> {
+                    ListNoticeResponse ar = new ListNoticeResponse();
+                    UpdateUtil.copyNullProperties(item, ar);
+                    return ar;
+                })
+                .collect(toList()));
+    }
 }

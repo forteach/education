@@ -9,7 +9,7 @@ import com.forteach.education.statistics.domain.CountFaculty;
  * @version: 1.0
  * @description：院系统计
  */
-public interface CountFacultyRepository extends BaseRepository<CountFaculty, String>  {
+public interface CountFacultyRepository extends BaseRepository<CountFaculty, String> {
 
 
 }

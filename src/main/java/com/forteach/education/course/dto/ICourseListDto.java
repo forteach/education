@@ -26,6 +26,7 @@ public interface ICourseListDto {
 
     /**
      * 别名
+     *
      * @return
      */
     public String getAlias();
@@ -55,6 +56,7 @@ public interface ICourseListDto {
 
     /**
      * 课程简介或描述
+     *
      * @return
      */
     public String getCourseDescribe();

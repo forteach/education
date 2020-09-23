@@ -22,6 +22,7 @@ public class RoleServiceImplTest {
 
     @Resource
     private RoleServiceImpl roleService;
+
     @Test
     public void findUsersInfo() {
         roleService.findUsersInfo(0, 20)

@@ -21,7 +21,7 @@ import javax.persistence.MappedSuperclass;
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Entitys{
+public abstract class Entitys {
 
     @Column(name = "is_validated", columnDefinition = "CHAR(1) DEFAULT 0 COMMENT '生效标识 0生效 1失效'", nullable = false)
     public String isValidated = "0";

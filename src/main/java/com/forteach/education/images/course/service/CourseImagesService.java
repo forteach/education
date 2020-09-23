@@ -38,7 +38,7 @@ public class CourseImagesService {
         return courseImagesRepository.findByIsValidatedEqualsAndCourseIdOrderByIndexNumAsc(TAKE_EFFECT_OPEN, courseId);
     }
 
-    public int deleteImagesByCourseId(String courseId){
+    public int deleteImagesByCourseId(String courseId) {
         return courseImagesRepository.deleteAllByCourseId(courseId);
     }
 }

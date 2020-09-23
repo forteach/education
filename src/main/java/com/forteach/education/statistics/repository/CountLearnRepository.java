@@ -1,7 +1,6 @@
 package com.forteach.education.statistics.repository;
 
 import com.forteach.education.statistics.domain.CountLearn;
-import com.forteach.education.statistics.domain.CountScore;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -17,6 +16,7 @@ public interface CountLearnRepository extends BaseRepository<CountLearn, String>
 
     /**
      * 查询专业对应的学习
+     *
      * @param isValidated
      * @param specialtyId
      * @return

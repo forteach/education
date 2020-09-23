@@ -23,8 +23,8 @@ public interface RoleService {
     /**
      * 用户列表
      *
-     * @param page    分页位
-     * @param size    分页数量
+     * @param page 分页位
+     * @param size 分页数量
      * @return
      */
     Page<SysUsers> findUsersInfo(int page, int size);

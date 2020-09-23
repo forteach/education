@@ -16,6 +16,7 @@ public interface CoursePrepareDescriptionRepository extends JpaRepository<Course
 
     /**
      * 获取练习详情
+     *
      * @param isValidated
      * @param courseId
      * @param chapterId

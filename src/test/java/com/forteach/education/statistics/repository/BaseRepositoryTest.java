@@ -34,7 +34,7 @@ public class BaseRepositoryTest {
     private CountViewsRepository countViewsRepository;
 
     @Test
-    public void save(){
+    public void save() {
         CountCourse countCourse = new CountCourse();
         countCourse.setChapterNum(121);
         countCourse.setCourseId("2324");

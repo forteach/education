@@ -40,10 +40,10 @@ public class CountFacultyServiceImpl implements BaseCountService<CountFaculty> {
     @Override
     public List<ChartCakeVo> findAllChartCake() {
         List<ChartCakeVo> list = new ArrayList<>();
-        list.add(new ChartCakeVo("英语教研室",12));
-        list.add(new ChartCakeVo("数学教研室",6));
-        list.add(new ChartCakeVo("信息技术教研室",12));
-        list.add(new ChartCakeVo("体育教研室",12));
+        list.add(new ChartCakeVo("英语教研室", 12));
+        list.add(new ChartCakeVo("数学教研室", 6));
+        list.add(new ChartCakeVo("信息技术教研室", 12));
+        list.add(new ChartCakeVo("体育教研室", 12));
         return list;
     }
 

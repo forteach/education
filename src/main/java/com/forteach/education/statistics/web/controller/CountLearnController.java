@@ -36,6 +36,7 @@ import java.util.Map;
 public class CountLearnController extends BaseCountController<CountLearn> {
 
     private final CountLearnServiceImpl countLearnService;
+
     public CountLearnController(BaseCountService<CountLearn> baseCountService, CountLearnServiceImpl countLearnService) {
         super(baseCountService);
         this.countLearnService = countLearnService;
@@ -49,15 +50,15 @@ public class CountLearnController extends BaseCountController<CountLearn> {
             @ApiImplicitParam(name = "className", value = "班级名称", dataType = "string", paramType = "body"),
             @ApiImplicitParam(name = "specialtyName", value = "专业名称", dataType = "string", paramType = "body")
     })
-    public WebResult findAllPage(@RequestBody @Validated CountLearnPageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest){
+    public WebResult findAllPage(@RequestBody @Validated CountLearnPageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest) {
         Map<String, Object> map = new HashMap<>(16);
-        if (StrUtil.isNotBlank(pageAll.getClassName())){
+        if (StrUtil.isNotBlank(pageAll.getClassName())) {
             map.put("className", pageAll.getClassName());
         }
-        if (StrUtil.isNotBlank(pageAll.getSpecialtyName())){
+        if (StrUtil.isNotBlank(pageAll.getSpecialtyName())) {
             map.put("specialtyName", pageAll.getSpecialtyName());
         }
-        if (StrUtil.isNotBlank(pageAll.getStudentName())){
+        if (StrUtil.isNotBlank(pageAll.getStudentName())) {
             map.put("studentName", pageAll.getStudentName());
         }
         return WebResult.okResult(baseCountService.findAllPage(map, pageAll.getSortVo()));
@@ -66,7 +67,7 @@ public class CountLearnController extends BaseCountController<CountLearn> {
     @PassToken
     @ApiOperation(value = "查询专业图表信息")
     @PostMapping("/findAllSpecialty")
-    public WebResult findAllSpecialty(@ApiIgnore HttpServletRequest httpServletRequest){
+    public WebResult findAllSpecialty(@ApiIgnore HttpServletRequest httpServletRequest) {
         return WebResult.okResult(countLearnService.findAllColumnarBySpecialty());
     }
 }

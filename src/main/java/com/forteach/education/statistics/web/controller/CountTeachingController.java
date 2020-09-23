@@ -32,7 +32,7 @@ import java.util.Map;
 @Api(value = "教学统计信息", tags = {"教学统计信息"})
 @RestController
 @RequestMapping(path = "/statistics/teaching", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class CountTeachingController extends BaseCountController<CountTeaching>{
+public class CountTeachingController extends BaseCountController<CountTeaching> {
 
     public CountTeachingController(BaseCountService<CountTeaching> baseCountService) {
         super(baseCountService);
@@ -45,12 +45,12 @@ public class CountTeachingController extends BaseCountController<CountTeaching>{
             @ApiImplicitParam(name = "teacherName", value = "教师名称", dataType = "string", paramType = "body"),
             @ApiImplicitParam(name = "teachingOfficeName", value = "教研室名称", dataType = "string", paramType = "body")
     })
-    public WebResult findAllPage(@RequestBody @Validated CountTeachingPageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest){
+    public WebResult findAllPage(@RequestBody @Validated CountTeachingPageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest) {
         Map<String, Object> map = new HashMap<>(8);
-        if (StrUtil.isNotBlank(pageAll.getTeacherName())){
+        if (StrUtil.isNotBlank(pageAll.getTeacherName())) {
             map.put("teacherName", pageAll.getTeacherName());
         }
-        if (StrUtil.isNotBlank(pageAll.getTeachingOfficeName())){
+        if (StrUtil.isNotBlank(pageAll.getTeachingOfficeName())) {
             map.put("teachingOfficeName", pageAll.getTeachingOfficeName());
         }
         return WebResult.okResult(baseCountService.findAllPage(map, pageAll.getSortVo()));

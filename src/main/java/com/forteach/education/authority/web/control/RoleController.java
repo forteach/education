@@ -16,6 +16,7 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -165,7 +166,7 @@ public class RoleController extends BaseController {
     @UserLoginToken
     @GetMapping("/col/loginColumn")
     @ApiOperation(value = "获取当前登录的用户栏目操作列表", notes = "使用token获取当前登录的用户栏目操作列表")
-    public WebResult loginColumn(HttpServletRequest request){
+    public WebResult loginColumn(HttpServletRequest request) {
         String userId = tokenService.getUserId(request);
         return WebResult.okResult(authorityMgrService.findColumnOperationListByUserId(userId));
     }
@@ -232,7 +233,7 @@ public class RoleController extends BaseController {
             @ApiImplicitParam(name = "colImgUrl", value = "链接图标", required = true, dataType = "string", paramType = "form"),
             @ApiImplicitParam(name = "isOrder", value = "栏目顺序", dataType = "int", paramType = "form")
     })
-    public WebResult saveEdit(@RequestBody ActionColumnReq actionColumnReq){
+    public WebResult saveEdit(@RequestBody ActionColumnReq actionColumnReq) {
         return WebResult.okResult(actionColumnService.editSaveActionColumn(actionColumnReq));
     }
 }

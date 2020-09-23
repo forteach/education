@@ -14,6 +14,7 @@ import java.util.List;
 public interface UserMgrService {
     /**
      * 分配角色
+     *
      * @param roleId
      * @param userIds
      */
@@ -21,6 +22,7 @@ public interface UserMgrService {
 
     /**
      * 编辑/保存用户
+     *
      * @param user
      * @return
      */

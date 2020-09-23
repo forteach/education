@@ -11,7 +11,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,23 +50,24 @@ public class CountScoreController extends BaseCountController<CountScore> {
             @ApiImplicitParam(name = "className", value = "班级名称", dataType = "string", paramType = "body"),
             @ApiImplicitParam(name = "specialtyName", value = "专业名称", dataType = "string", paramType = "body")
     })
-    public WebResult findAllPage(@RequestBody @Validated CountScorePageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest){
+    public WebResult findAllPage(@RequestBody @Validated CountScorePageAll pageAll, @ApiIgnore HttpServletRequest httpServletRequest) {
         Map<String, Object> map = new HashMap<>(8);
-        if (StrUtil.isNotBlank(pageAll.getClassName())){
+        if (StrUtil.isNotBlank(pageAll.getClassName())) {
             map.put("className", pageAll.getClassName());
         }
-        if (StrUtil.isNotBlank(pageAll.getSpecialtyName())){
+        if (StrUtil.isNotBlank(pageAll.getSpecialtyName())) {
             map.put("specialtyName", pageAll.getSpecialtyName());
         }
-        if (StrUtil.isNotBlank(pageAll.getStudentName())){
+        if (StrUtil.isNotBlank(pageAll.getStudentName())) {
             map.put("studentName", pageAll.getStudentName());
         }
         return WebResult.okResult(baseCountService.findAllPage(map, pageAll.getSortVo()));
     }
+
     @PassToken
     @PostMapping(path = "/findAllBySpecialty")
     @ApiOperation(value = "根据专业查询图表信息")
-    public WebResult findAllSpecialty(@ApiIgnore HttpServletRequest httpServletRequest){
+    public WebResult findAllSpecialty(@ApiIgnore HttpServletRequest httpServletRequest) {
         return WebResult.okResult(countScoreService.findAllBySpecialty(""));
     }
 

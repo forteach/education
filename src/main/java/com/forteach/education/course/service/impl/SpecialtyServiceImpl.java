@@ -42,7 +42,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     @Transactional(rollbackFor = Exception.class)
     public Specialty edit(Specialty specialty) {
         Optional<Specialty> optionalSpecialty = specialtyRepository.findById(specialty.getSpecialtyId());
-        if (optionalSpecialty.isPresent()){
+        if (optionalSpecialty.isPresent()) {
             UpdateUtil.copyNullProperties(optionalSpecialty.get(), specialty);
             return specialtyRepository.save(specialty);
         }

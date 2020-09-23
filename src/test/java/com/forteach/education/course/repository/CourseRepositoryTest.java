@@ -30,7 +30,7 @@ public class CourseRepositoryTest {
     private TeacherClassCourseRepository teacherClassCourseRepository;
 
     @Test
-    public void saveCourse(){
+    public void saveCourse() {
         List<TeacherClassCourse> list = teacherClassCourseRepository.findAll();
         courseEntrityRepository.findAll()
                 .stream()

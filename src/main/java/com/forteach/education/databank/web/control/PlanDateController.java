@@ -67,7 +67,7 @@ public class PlanDateController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "主键id", dataType = "string", paramType = "path", required = true)
     })
-    public WebResult deleteById(@PathVariable @Validated @NotBlank(message = "id is bank") String id){
+    public WebResult deleteById(@PathVariable @Validated @NotBlank(message = "id is bank") String id) {
         planDateService.deleteById(id);
         return WebResult.okResult();
     }

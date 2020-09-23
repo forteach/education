@@ -78,8 +78,8 @@ public class ArticleController {
 
         //调用微信信息内容校验是否合法
         final WxMaSecCheckService checkService = WeChatMiniAppConfig.getMaService().getSecCheckService();
-        MyAssert.isFalse(checkService.checkMessage(request.getTitle()),DefineCode.ERR0010,"输入标题不合法");
-        MyAssert.isFalse(checkService.checkMessage(request.getArticleConten()),DefineCode.ERR0010,"输入内容不合法");
+        MyAssert.isFalse(checkService.checkMessage(request.getTitle()), DefineCode.ERR0010, "输入标题不合法");
+        MyAssert.isFalse(checkService.checkMessage(request.getArticleConten()), DefineCode.ERR0010, "输入内容不合法");
 
         // 设置资讯数据
         Article article = articleService.setDoMain(request);
@@ -202,11 +202,11 @@ public class ArticleController {
         MyAssert.blank(req.getUserId(), DefineCode.ERR0010, "本人用户字段不为空");
         PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
         //查询我的对应对应的发布章节列表
-        if (StrUtil.isNotBlank(req.getType())){
+        if (StrUtil.isNotBlank(req.getType())) {
             MyAssert.isFalse(NumberUtil.isNumber(req.getType()), DefineCode.ERR0010, "不是数字类型");
             return WebResult.okResult(setListResponse(articleService.findMyArticle(page, req.getUserId(), Integer.parseInt(req.getType()), req.getTitle()), req.getUserId()));
         }
-        if (StrUtil.isNotBlank(req.getTitle())){
+        if (StrUtil.isNotBlank(req.getTitle())) {
             return WebResult.okResult(setListResponse(articleService.findAllAndTitleDesc(page, req.getTitle()), req.getUserId()));
         }
         //没有条件查询

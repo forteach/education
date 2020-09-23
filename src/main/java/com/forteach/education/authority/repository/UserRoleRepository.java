@@ -37,6 +37,7 @@ public interface UserRoleRepository extends JpaRepository<UserRole, UserRoleFund
 
     /**
      * 获得用户对应的角色
+     *
      * @param userId
      * @return
      */

@@ -2,6 +2,7 @@ package com.forteach.education.wechat.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import java.util.List;
 
 /**

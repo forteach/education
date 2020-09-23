@@ -18,6 +18,7 @@ public interface SysUsersRepository extends JpaRepository<SysUsers, String> {
 
     /**
      * 有效的教师信息
+     *
      * @param isValidated
      * @return
      */

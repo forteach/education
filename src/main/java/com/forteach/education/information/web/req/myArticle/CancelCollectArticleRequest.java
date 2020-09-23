@@ -7,17 +7,16 @@ import lombok.NoArgsConstructor;
 
 /**
  * 取消收藏
- *
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CancelCollectArticleRequest  {
-	
-	private String articleId;
-	
-	private String userId;
+public class CancelCollectArticleRequest {
 
-	private String postUserId;
+    private String articleId;
+
+    private String userId;
+
+    private String postUserId;
 
 }

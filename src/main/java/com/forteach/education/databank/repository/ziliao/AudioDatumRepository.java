@@ -15,6 +15,7 @@ public interface AudioDatumRepository extends IDatumRepoitory<AudioDatum, String
 
     /**
      * 修改资料领域
+     *
      * @param fileId
      * @param datumArea
      */
@@ -24,6 +25,7 @@ public interface AudioDatumRepository extends IDatumRepoitory<AudioDatum, String
 
     /**
      * 修改教师分享
+     *
      * @param fileId
      * @param teachShare
      */
@@ -33,6 +35,7 @@ public interface AudioDatumRepository extends IDatumRepoitory<AudioDatum, String
 
     /**
      * 修改学生可见
+     *
      * @param fileId
      * @param stuShare
      */

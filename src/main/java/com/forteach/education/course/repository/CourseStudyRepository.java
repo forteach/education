@@ -19,6 +19,7 @@ public interface CourseStudyRepository extends JpaRepository<CourseStudy, String
 
     /**
      * 查询学生学习课程的状态信息
+     *
      * @param studentId
      * @return
      */

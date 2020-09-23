@@ -40,7 +40,7 @@ public abstract class BaseCountController<T> {
     @PassToken
     @ApiOperation(value = "查询柱状图(教研室)")
     @GetMapping("/columnar")
-    public WebResult findColumnarList(@ApiIgnore HttpServletRequest httpServletRequest){
+    public WebResult findColumnarList(@ApiIgnore HttpServletRequest httpServletRequest) {
         return WebResult.okResult(baseCountService.findAllColumnarList());
     }
 }

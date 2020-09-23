@@ -72,7 +72,7 @@ public class ConverPPTFileToImageUtil {
      * @param orignalPPTFileName    //PPTX文件路径 如:d:/demo/demo1.pptx
      * @param targetImageFileDir    //转换后的图片保存路径 如:d:/demo/pptxImg
      * @param imageFormatNameString //图片转化的格式字符串 ,如:"jpg"、"jpeg"、"bmp" "png" "gif" "tiff"
-     * @return Map<String   ,       Object>
+     * @return Map<String, Object>
      * key: converReturnResult   类型:boolean 转化结果 true 代表转换成功,false 代表转换失败
      * key:imgNames			  类型:List<String> 转换成功后图片的全部名称集合
      * 注:获取“imgNames”图片名称集合时,请先判断“converReturnResult” 是否为true;如果有一张转换失败则为false
@@ -203,7 +203,7 @@ public class ConverPPTFileToImageUtil {
      * @param orignalPPTFileName    //PPT文件路径 如:d:/demo/demo1.ppt
      * @param targetImageFileDir    //转换后的图片保存路径 如:d:/demo/pptImg
      * @param imageFormatNameString //图片转化的格式字符串 ,如:"jpg"、"jpeg"、"bmp" "png" "gif" "tiff"
-     * @return Map<String                                                               ,                                                               Object>
+     * @return Map<String, Object>
      * key: converReturnResult   类型:boolean 转化结果 true 代表转换成功,false 代表转换失败
      * key:imgNames			  类型:List<String> 转换成功后图片的全部名称集合
      * 注:获取“imgNames”图片名称集合时,请先判断“converReturnResult” 是否为true;如果有一张转换失败则为false

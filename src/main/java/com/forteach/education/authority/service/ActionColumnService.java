@@ -13,6 +13,7 @@ import com.forteach.education.authority.web.req.ActionColumnReq;
 public interface ActionColumnService {
     /**
      * 　编辑或保存菜单栏目
+     *
      * @param actionColumnReq
      * @return
      */

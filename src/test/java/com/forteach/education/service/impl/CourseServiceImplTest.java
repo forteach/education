@@ -115,19 +115,19 @@ public class CourseServiceImplTest {
     }
 
     @Test
-    public void saveCourse(){
+    public void saveCourse() {
         List<String> courseIds = teacherClassCourseRepository.findByClassId("201720903413201");
-                courseEntrityRepository.findByIsValidatedEqualsAndCourseIdIn(TAKE_EFFECT_OPEN, courseIds)
-                        .parallelStream()
-                        .filter(Objects::nonNull)
-                        .forEach(courseEntity -> {
-                            Course course = new Course();
-                            course.setCourseId(courseEntity.getCourseId());
-                            course.setCourseName(courseEntity.getCourseName());
-                            course.setCourseDescribe(courseEntity.getCourseDescribe());
-                            course.setShareType("1");
-                            course.setTopPicSrc("http://s7.sinaimg.cn/middle/559d9d83g99ed0955e096&690");
-                            courseRepository.save(course);
-                        });
+        courseEntrityRepository.findByIsValidatedEqualsAndCourseIdIn(TAKE_EFFECT_OPEN, courseIds)
+                .parallelStream()
+                .filter(Objects::nonNull)
+                .forEach(courseEntity -> {
+                    Course course = new Course();
+                    course.setCourseId(courseEntity.getCourseId());
+                    course.setCourseName(courseEntity.getCourseName());
+                    course.setCourseDescribe(courseEntity.getCourseDescribe());
+                    course.setShareType("1");
+                    course.setTopPicSrc("http://s7.sinaimg.cn/middle/559d9d83g99ed0955e096&690");
+                    courseRepository.save(course);
+                });
     }
 }

@@ -17,6 +17,7 @@ public interface CourseChapterReviewRepository extends JpaRepository<CourseChapt
 
     /**
      * 查询根据章节id查询
+     *
      * @param isValidated
      * @param chapterId
      * @return

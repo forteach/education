@@ -17,7 +17,6 @@ import com.forteach.education.databank.web.res.DatumResp;
 import com.forteach.education.web.req.CourseDataDatumReq;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tools.ant.types.resources.Tokens;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -128,7 +127,7 @@ public class CourseDataController {
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataTypeClass = String.class, required = true),
             @ApiImplicitParam(name = "files", value = "多个文件列表", dataTypeClass = List.class, example = "传入需要删除的文件id,不传全部删除")
     })
-    public WebResult removeCourseData(@RequestBody CourseDataDeleteReq courseDataDeleteReq, HttpServletRequest request){
+    public WebResult removeCourseData(@RequestBody CourseDataDeleteReq courseDataDeleteReq, HttpServletRequest request) {
         courseDataDeleteReq.setUpdateUser(tokenService.getUserId(request));
         courseDataService.removeCourseData(courseDataDeleteReq);
         return WebResult.okResult();
@@ -141,7 +140,7 @@ public class CourseDataController {
             @ApiImplicitParam(name = "chapterId", value = "章节编号", dataTypeClass = String.class, required = true),
             @ApiImplicitParam(name = "files", value = "多个文件列表", dataTypeClass = List.class, example = "传入需要删除的文件id,不传全部删除")
     })
-    public WebResult deleteCourseData(@RequestBody CourseDataDeleteReq courseDataDeleteReq, HttpServletRequest request){
+    public WebResult deleteCourseData(@RequestBody CourseDataDeleteReq courseDataDeleteReq, HttpServletRequest request) {
         courseDataDeleteReq.setUpdateUser(tokenService.getUserId(request));
         courseDataService.deleteCourseData(courseDataDeleteReq);
         return WebResult.okResult();

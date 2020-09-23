@@ -71,8 +71,8 @@ public class ArtcileControlTest {
     public void findAllDesc() {
 
         FindAllRequest req = new FindAllRequest();
-       // req.setStudentId("130133199203182776");
-       // req.setCourseId("2c9180846827407401682b57f4a60000");
+        // req.setStudentId("130133199203182776");
+        // req.setCourseId("2c9180846827407401682b57f4a60000");
         SortVo sv = new SortVo();
         req.setSortVo(sv);
 
@@ -85,7 +85,7 @@ public class ArtcileControlTest {
     public void findStuAllDesc() {
 
         FindAllRequest req = new FindAllRequest();
-         req.setUserId("130133199203182776");
+        req.setUserId("130133199203182776");
         // req.setCourseId("2c9180846827407401682b57f4a60000");
         SortVo sv = new SortVo();
         req.setSortVo(sv);

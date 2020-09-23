@@ -20,6 +20,7 @@ public interface CourseDatumAreaRepository extends JpaRepository<CourseDatumArea
 
     /**
      * 文件编号、单个资料领域
+     *
      * @param fileId
      * @param datumArea
      * @return
@@ -29,6 +30,7 @@ public interface CourseDatumAreaRepository extends JpaRepository<CourseDatumArea
 
     /**
      * 文件编号、单个资料领域
+     *
      * @param fileId
      * @return
      */
@@ -38,6 +40,7 @@ public interface CourseDatumAreaRepository extends JpaRepository<CourseDatumArea
 
     /**
      * 章节，资料领域
+     *
      * @param chapterId
      * @param datumAreas
      * @param pageable
@@ -48,6 +51,7 @@ public interface CourseDatumAreaRepository extends JpaRepository<CourseDatumArea
 
     /**
      * 章节、知识点、资料领域
+     *
      * @param chapterId
      * @param kNodeId
      * @param datumAreas
@@ -62,6 +66,7 @@ public interface CourseDatumAreaRepository extends JpaRepository<CourseDatumArea
 
     /**
      * 删除文件挂载
+     *
      * @param chapterId
      * @param fileIds
      * @return
@@ -70,6 +75,7 @@ public interface CourseDatumAreaRepository extends JpaRepository<CourseDatumArea
 
     /**
      * 根据文件编号和资料领域删除信息
+     *
      * @param fileId
      * @param datumArea
      * @return
@@ -80,6 +86,7 @@ public interface CourseDatumAreaRepository extends JpaRepository<CourseDatumArea
 
     /**
      * 查询章节资料领域对照表
+     *
      * @param chapterId
      * @return
      */
