@@ -1,6 +1,7 @@
 package com.forteach.education.course.repository;
 
 import com.forteach.education.course.domain.CourseChapter;
+import com.forteach.education.course.dto.ChapterNumDto;
 import com.forteach.education.course.dto.ICourseChapterDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -102,4 +103,7 @@ public interface CourseChapterRepository extends JpaRepository<CourseChapter, St
     @Modifying(clearAutomatically = true)
     @Query(value = " update CourseChapter c set c.isValidated = :isValidated where c.chapterId in (:ids) ")
     int updateIsValidatedIds(@Param("isValidated") String isValidated, @Param("ids") Set<String> ids);
+
+    @Query(value = "select courseId, count(chapterId) as chapterNum from CourseChapter where isValidated = '0' group by chapterId")
+    List<ChapterNumDto> findAllByIsValidatedGroupByCourseId();
 }

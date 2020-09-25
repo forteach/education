@@ -1,10 +1,12 @@
 package com.forteach.education.databank.repository.ziliao;
 
 import com.forteach.education.databank.domain.ziliao.DatumArea;
+import com.forteach.education.databank.dto.ChapterDataNumDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -93,4 +95,10 @@ public interface DatumAreaRepository extends JpaRepository<DatumArea, String> {
     @Modifying(clearAutomatically = true)
     public int deleteAllByChapterIdAndCourseId(String chapterId, String courseId);
 
+    /**
+     * 按照课程统计分组章节资料信息
+     * @return
+     */
+    @Query(value = "select courseId, chapterId, count(fileId) as dataNum from DatumArea where isValidated = '0' group by courseId")
+    List<ChapterDataNumDto> findAllByIsValidatedGroupByCourseId();
 }

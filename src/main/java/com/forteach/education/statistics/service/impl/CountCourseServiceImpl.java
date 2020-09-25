@@ -65,4 +65,9 @@ public class CountCourseServiceImpl implements BaseCountService<CountCourse> {
         return baseService.findAllPage(map, sortVo.getPage(), sortVo.getSize(), sortVo.getSort(),
                 countCourseRepository);
     }
+
+
+    public void saveCourse(){
+
+    }
 }

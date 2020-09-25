@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotBlank;
 
 
 /**
@@ -87,8 +88,9 @@ public class WeChatUserController {
      * @return
      */
     @PassToken
+    @ApiOperation(value = "删除绑定的微信用户")
     @GetMapping("/restart/{studentId}")
-    public WebResult restart(@PathVariable("studentId") String studentId) {
+    public WebResult restart(@PathVariable("studentId") @NotBlank(message = "用户编号不为空") String studentId) {
         return weChatUserService.restart(studentId);
     }
 }

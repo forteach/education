@@ -1,8 +1,11 @@
 package com.forteach.education.databank.repository.ziliao;
 
 import com.forteach.education.databank.domain.ziliao.AudioDatum;
+import com.forteach.education.databank.dto.ChapterDataNumDto;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -46,4 +49,11 @@ public interface AudioDatumRepository extends IDatumRepoitory<AudioDatum, String
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE AudioDatum set isValidated = :isValidated WHERE courseId = :courseId and chapterId = :chapterId")
     public int updateIsValidated(String isValidated, String courseId, String chapterId);
+
+    /**
+     * 按照课程统计分组音频资料信息
+     * @return
+     */
+    @Query(value = "select courseId, chapterId, count(fileId) as dataNum from AudioDatum where isValidated = '0' group by courseId")
+    List<ChapterDataNumDto> findAllByIsValidatedGroupByCourseId();
 }

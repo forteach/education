@@ -33,11 +33,4 @@ public class BaseService<T> {
             return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
         }, PageRequest.of(page, size, anEnum, "createTime"));
     }
-
-
-//    public List<ChartColumnarVo> findChatColumnarVo(BaseRepository baseRepository){
-//         baseRepository.findAllByIsValidatedEquals(Dic.TAKE_EFFECT_OPEN)
-//                .stream()
-//                .collect(Collectors.groupingBy(t -> t.getClass()));
-//    }
 }
