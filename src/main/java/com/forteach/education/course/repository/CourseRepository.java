@@ -91,4 +91,11 @@ public interface CourseRepository extends JpaRepository<Course, String> {
             " LEFT JOIN teacher as t on v.c_user = t.teacher_id ORDER BY v.c_time ", nativeQuery = true)
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     List<ICourseChapterListDto> findByIsValidatedEqualsAndCourseIdInOrderByCreateTime(String classId);
+
+    /**
+     * 查询有效的课程信息
+     * @param isValidated
+     * @return
+     */
+    List<Course> findAllByIsValidated(String isValidated);
 }
