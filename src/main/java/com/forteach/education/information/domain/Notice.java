@@ -30,16 +30,22 @@ public class Notice extends Entitys implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    /** 文章编号.**/
+    /**
+     * 文章编号.
+     **/
     @Id
     @Column(length = 40, nullable = false, name = "notice_id", columnDefinition = "VARCHAR(40) COMMENT '文章编号'")
     private String noticeId;
 
-    /** 公告内容.**/
+    /**
+     * 公告内容.
+     **/
     @Column(name = "content", columnDefinition = "VARCHAR(10000) COMMENT '公告内容'")
     private String content;
 
-    /** 公告所属领域.**/
+    /**
+     * 公告所属领域.
+     **/
     @Column(name = "area", columnDefinition = "VARCHAR(32) COMMENT '公告所属领域'")
     private String area;
 

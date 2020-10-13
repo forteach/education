@@ -10,12 +10,14 @@ package com.forteach.education.classes.dto;
 public interface IClassesDto {
     /**
      * 班级id
+     *
      * @return
      */
     public String getClassId();
 
     /**
      * 班级名称
+     *
      * @return
      */
     public String getClassName();

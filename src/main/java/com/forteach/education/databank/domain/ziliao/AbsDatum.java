@@ -1,10 +1,14 @@
 package com.forteach.education.databank.domain.ziliao;
 
 import com.forteach.education.common.domain.Entitys;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EntityListeners;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 
 /**

@@ -6,9 +6,9 @@ import com.forteach.education.course.domain.CourseChapter;
 import com.forteach.education.course.dto.ICourseChapterDto;
 import com.forteach.education.course.repository.CourseChapterRepository;
 import com.forteach.education.course.service.CourseChapterService;
+import com.forteach.education.course.web.req.CourseChapterEditReq;
 import com.forteach.education.course.web.res.CourseChapterSaveResp;
 import com.forteach.education.util.UpdateUtil;
-import com.forteach.education.course.web.req.CourseChapterEditReq;
 import com.forteach.education.web.resp.CourseTreeResp;
 import com.forteach.education.web.resp.State;
 import com.forteach.education.web.vo.CourseChapterVo;
@@ -18,7 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.forteach.education.common.keyword.Dic.*;

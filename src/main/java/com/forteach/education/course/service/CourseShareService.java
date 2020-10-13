@@ -30,6 +30,7 @@ public interface CourseShareService {
 
     /**
      * 根据课程编号查询所有领域信息
+     *
      * @param courseId
      * @return
      */

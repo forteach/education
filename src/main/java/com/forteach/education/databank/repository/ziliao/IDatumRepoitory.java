@@ -59,6 +59,7 @@ public interface IDatumRepoitory<T, ID> extends JpaRepository<T, ID> {
 
     /**
      * 通过章节和课程id查询
+     *
      * @param chapterId
      * @param courseId
      * @return
@@ -68,6 +69,7 @@ public interface IDatumRepoitory<T, ID> extends JpaRepository<T, ID> {
 
     /**
      * 删除对应资料信息
+     *
      * @param chapterId
      * @param courseId
      * @return

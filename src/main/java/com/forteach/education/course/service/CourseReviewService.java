@@ -16,18 +16,21 @@ import org.springframework.data.domain.Page;
 public interface CourseReviewService {
     /**
      * 保存课程提交的记录
+     *
      * @param courseReviewDescribe
      */
     CourseReviewDescribe save(CourseReviewDescribe courseReviewDescribe);
 
     /**
      * 禁用课程记录
+     *
      * @param reviewId
      */
     void deleteReview(String reviewId);
 
     /**
      * 查询最近一条评论记录节评分
+     *
      * @param courseId
      * @return
      */
@@ -35,6 +38,7 @@ public interface CourseReviewService {
 
     /**
      * 分页查询课程评论
+     *
      * @param reviewReq
      * @return
      */

@@ -18,38 +18,38 @@ import java.util.List;
 public class NoticeService {
 
 
-	@Autowired
-	private NoticeDao noticeDao;
+    @Autowired
+    private NoticeDao noticeDao;
 
-	@Transactional
-	public Notice save(String noticeId,String content,String area) {
+    @Transactional
+    public Notice save(String noticeId, String content, String area) {
 
-		Notice nc=null;
-		if(StrUtil.isNotBlank(noticeId)){
-			nc=findById(noticeId);
-		}else{
-			nc=new Notice();
-			nc.setNoticeId(IdUtil.fastSimpleUUID());
-		}
+        Notice nc = null;
+        if (StrUtil.isNotBlank(noticeId)) {
+            nc = findById(noticeId);
+        } else {
+            nc = new Notice();
+            nc.setNoticeId(IdUtil.fastSimpleUUID());
+        }
 
-		nc.setArea(area);
-		nc.setContent(content);
-		return noticeDao.save(nc);
-	}
+        nc.setArea(area);
+        nc.setContent(content);
+        return noticeDao.save(nc);
+    }
 
-	public Notice findById(String id){
-		return noticeDao.findByNoticeId(id);
-	}
+    public Notice findById(String id) {
+        return noticeDao.findByNoticeId(id);
+    }
 
 
-	public List<Notice> findByIsValidatedDesc(String isVal, Pageable pageable){
-		return noticeDao.findByIsValidatedOrderByCreateTimeDesc(isVal,pageable).getContent();
-	}
+    public List<Notice> findByIsValidatedDesc(String isVal, Pageable pageable) {
+        return noticeDao.findByIsValidatedOrderByCreateTimeDesc(isVal, pageable).getContent();
+    }
 
-	@Transactional
-	public String deleteByNoticeId(String noticeId){
-		 noticeDao.deleteByNoticeId(noticeId);
-		 return "Y";
-	}
+    @Transactional
+    public String deleteByNoticeId(String noticeId) {
+        noticeDao.deleteByNoticeId(noticeId);
+        return "Y";
+    }
 
 }

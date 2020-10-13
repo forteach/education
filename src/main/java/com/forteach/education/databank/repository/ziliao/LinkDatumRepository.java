@@ -1,8 +1,11 @@
 package com.forteach.education.databank.repository.ziliao;
 
 import com.forteach.education.databank.domain.ziliao.LinkDatum;
+import com.forteach.education.databank.dto.ChapterDataNumDto;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -14,6 +17,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface LinkDatumRepository extends IDatumRepoitory<LinkDatum, String> {
     /**
      * 修改资料领域
+     *
      * @param fileId
      * @param datumArea
      */
@@ -23,6 +27,7 @@ public interface LinkDatumRepository extends IDatumRepoitory<LinkDatum, String> 
 
     /**
      * 修改教师分享
+     *
      * @param fileId
      * @param teachShare
      */
@@ -32,10 +37,18 @@ public interface LinkDatumRepository extends IDatumRepoitory<LinkDatum, String> 
 
     /**
      * 修改学生可见
+     *
      * @param fileId
      * @param stuShare
      */
     @Modifying(clearAutomatically = true)
     @Query("UPDATE LinkDatum p SET p.stuShare = :stuShare where p.fileId = :fileId")
     public void updateStuShare(String fileId, String stuShare);
+
+    /**
+     * 按照课程统计分组链接资料信息
+     * @return
+     */
+    @Query(value = "select courseId, chapterId, count(fileId) as dataNum from LinkDatum where isValidated = '0' group by courseId")
+    List<ChapterDataNumDto> findAllByIsValidatedGroupByCourseId();
 }

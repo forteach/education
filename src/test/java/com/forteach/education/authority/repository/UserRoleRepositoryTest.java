@@ -31,8 +31,9 @@ public class UserRoleRepositoryTest {
     private SysUsersRepository sysUsersRepository;
     @Resource
     private SysRoleRepository sysRoleRepository;
+
     @Test
-    public void save(){
+    public void save() {
         Optional<String> sysRoleId = sysRoleRepository.findByIsValidatedEquals(Dic.TAKE_EFFECT_OPEN).stream().filter(sysRole -> "teacher".equals(sysRole.getRoleName()))
                 .map(SysRole::getRoleId).findFirst();
         ArrayList<UserRole> userRoles = new ArrayList<>();
@@ -40,9 +41,9 @@ public class UserRoleRepositoryTest {
         sysRoleId.ifPresent(s -> sysUsers.forEach(sy -> {
             userRoles.add(
                     UserRole.builder()
-                    .userId(sy.getId())
-                    .roleId(s)
-                    .build());
+                            .userId(sy.getId())
+                            .roleId(s)
+                            .build());
         }));
         userRoleRepository.saveAll(userRoles);
     }

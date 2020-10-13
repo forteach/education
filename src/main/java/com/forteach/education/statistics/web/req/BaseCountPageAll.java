@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @auther: zhangyy
+ * @author: zhangyy
  * @email: zhang10092009@hotmail.com
  * @date: 2020/8/19 20:39
  * @version: 1.0

@@ -4,26 +4,16 @@ import com.alibaba.fastjson.JSON;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.common.web.vo.SortVo;
 import com.forteach.education.information.web.control.ArticleCommentController;
-import com.forteach.education.information.web.control.ArticleController;
 import com.forteach.education.information.web.req.artComment.AddCommentGoodRequest;
 import com.forteach.education.information.web.req.artComment.FindArticleIdRequest;
 import com.forteach.education.information.web.req.artComment.SaveArtCommentRequest;
 import com.forteach.education.information.web.req.artComment.SaveReplyRequest;
-import com.forteach.education.information.web.req.article.AddClickGoodRequest;
-import com.forteach.education.information.web.req.article.ByIdRequest;
-import com.forteach.education.information.web.req.article.FindAllRequest;
-import com.forteach.education.information.web.req.article.SaveArticleRequest;
-import com.forteach.education.information.web.req.myArticle.DeleteMyArticleRequest;
-import com.forteach.education.web.vo.DataDatumVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @RunWith(SpringRunner.class)

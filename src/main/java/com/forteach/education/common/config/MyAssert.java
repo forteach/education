@@ -1,10 +1,9 @@
 package com.forteach.education.common.config;
 
-import java.util.Collection;
-
 import cn.hutool.core.util.StrUtil;
-
 import com.forteach.education.exception.AssertErrorException;
+
+import java.util.Collection;
 
 /**
  * 服务断言.

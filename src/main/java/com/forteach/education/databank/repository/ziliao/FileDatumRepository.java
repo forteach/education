@@ -1,8 +1,11 @@
 package com.forteach.education.databank.repository.ziliao;
 
 import com.forteach.education.databank.domain.ziliao.FileDatum;
+import com.forteach.education.databank.dto.ChapterDataNumDto;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * @Auther: zhangyy
@@ -15,6 +18,7 @@ public interface FileDatumRepository extends IDatumRepoitory<FileDatum, String> 
 
     /**
      * 修改资料领域
+     *
      * @param fileId
      * @param datumArea
      */
@@ -24,6 +28,7 @@ public interface FileDatumRepository extends IDatumRepoitory<FileDatum, String> 
 
     /**
      * 修改教师分享
+     *
      * @param fileId
      * @param teachShare
      */
@@ -33,6 +38,7 @@ public interface FileDatumRepository extends IDatumRepoitory<FileDatum, String> 
 
     /**
      * 修改学生可见
+     *
      * @param fileId
      * @param stuShare
      */
@@ -40,4 +46,10 @@ public interface FileDatumRepository extends IDatumRepoitory<FileDatum, String> 
     @Query("UPDATE FileDatum p SET p.stuShare = :stuShare where p.fileId = :fileId")
     public void updateStuShare(String fileId, String stuShare);
 
+    /**
+     * 按照课程统计分组文件资料信息
+     * @return
+     */
+    @Query(value = "select courseId, chapterId, count(fileId) as dataNum from FileDatum where isValidated = '0' group by courseId")
+    List<ChapterDataNumDto> findAllByIsValidatedGroupByCourseId();
 }

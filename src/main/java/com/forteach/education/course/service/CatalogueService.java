@@ -1,12 +1,9 @@
 package com.forteach.education.course.service;
 
 import com.forteach.education.course.domain.Catalogue;
-import com.forteach.education.course.domain.CourseChapter;
-import com.forteach.education.course.dto.ICourseChapterDto;
 import com.forteach.education.course.web.req.CourseChapterEditReq;
 import com.forteach.education.course.web.res.CourseChapterSaveResp;
 import com.forteach.education.web.resp.CourseTreeResp;
-import com.forteach.education.web.vo.CourseChapterVo;
 
 import java.util.List;
 

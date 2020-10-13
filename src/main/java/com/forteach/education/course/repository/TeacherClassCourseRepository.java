@@ -20,6 +20,7 @@ public interface TeacherClassCourseRepository extends JpaRepository<TeacherClass
 
     /**
      * 依创建时间根据班级id倒叙查询课程信息
+     *
      * @param classId
      * @return
      */
@@ -29,6 +30,7 @@ public interface TeacherClassCourseRepository extends JpaRepository<TeacherClass
 
     /**
      * 教师id 查询所教的班级信息
+     *
      * @param teacherId
      * @return
      */
@@ -44,6 +46,7 @@ public interface TeacherClassCourseRepository extends JpaRepository<TeacherClass
 
     /**
      * 查询从信息数字话校园课程对应的教师信息
+     *
      * @param courseNumber 课程ID
      * @return List<TeacherCourseDto>
      */
@@ -54,6 +57,7 @@ public interface TeacherClassCourseRepository extends JpaRepository<TeacherClass
 
     /**
      * 查询全部对应的课程信息
+     *
      * @return　List<TeacherCourseDto>
      */
     @Query(value = "select teacherId as teacherId, teacherName as teacherName from Teacher where isValidated = '0' and teacherId in " +

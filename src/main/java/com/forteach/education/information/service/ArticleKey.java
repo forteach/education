@@ -14,12 +14,18 @@ public class ArticleKey {
 
     public static final String ARTCOMMENTGOOD = "ArtCommentGood";
 
-    /** 发布*/
-    public static final  int FABUVALUE = 0;
-    /** 收藏*/
-    public static final  int SHOUCANGVALUE = 1;
-    /** 点赞*/
-    public static final  int GOODVALUE = 2;
+    /**
+     * 发布
+     */
+    public static final int FABUVALUE = 0;
+    /**
+     * 收藏
+     */
+    public static final int SHOUCANGVALUE = 1;
+    /**
+     * 点赞
+     */
+    public static final int GOODVALUE = 2;
 
     public static final String STUDENT = "S";
     public static final String TEACHER = "T";

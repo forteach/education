@@ -1,7 +1,7 @@
 package com.forteach.education.course.web.control.verify;
 
-import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.course.web.req.CourseSaveReq;
 import org.springframework.stereotype.Component;
 

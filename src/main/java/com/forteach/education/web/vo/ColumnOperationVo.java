@@ -10,18 +10,21 @@ public interface ColumnOperationVo {
 
     /**
      * 动作编号
+     *
      * @return
      */
     String getActId();
 
     /**
      * 动作名称
+     *
      * @return
      */
     String getActName();
 
     /**
      * 是否有效
+     *
      * @return
      */
     String getIsValidated();

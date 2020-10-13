@@ -18,6 +18,7 @@ public interface CourseJoinChapterDescriptionRepository extends JpaRepository<Co
 
     /**
      * 根据课程id 查询加入信息
+     *
      * @param isValidated
      * @param circleId
      * @return

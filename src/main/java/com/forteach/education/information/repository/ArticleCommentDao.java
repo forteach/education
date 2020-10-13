@@ -15,20 +15,22 @@ public interface ArticleCommentDao extends JpaRepository<ArticleComment, String>
     public ArticleComment findByCommentId(String CommentId);
 
     /**
-     *评论回复
-     * @param reContent   回复内容
-     * @param commentId   评论Id
+     * 评论回复
+     *
+     * @param reContent     回复内容
+     * @param commentId     评论Id
      * @param reContenTime  回复时间
-     * @param replyUserName  回复人名称
+     * @param replyUserName 回复人名称
      * @return
      */
 
     @Modifying(clearAutomatically = true)
-    @Query( "update ArticleComment set reContent=?1 ,reContenTime=?2 ,replyUserName=?3 where commentId=?4")
-    public int saveReply( String reContent,String reContenTime,String replyUserName,String commentId);
+    @Query("update ArticleComment set reContent=?1 ,reContenTime=?2 ,replyUserName=?3 where commentId=?4")
+    public int saveReply(String reContent, String reContenTime, String replyUserName, String commentId);
 
     /**
      * 评论点赞数量
+     *
      * @return
      */
     @Modifying(clearAutomatically = true)
@@ -37,6 +39,7 @@ public interface ArticleCommentDao extends JpaRepository<ArticleComment, String>
 
     /**
      * 获得资讯评论分页信息
+     *
      * @param articleId
      * @param pageable
      * @return

@@ -16,9 +16,9 @@ public interface UserRepository extends JpaRepository<SysUsers, String> {
 
     /**
      * 找到生效的用户列表
+     *
      * @param isValidated
-     * @param pageable
-     * findByIsValidatedEqualsOrderByCreateTimeDesc
+     * @param pageable    findByIsValidatedEqualsOrderByCreateTimeDesc
      * @return
      */
     @Transactional(readOnly = true)
@@ -26,6 +26,7 @@ public interface UserRepository extends JpaRepository<SysUsers, String> {
 
     /**
      * 根据用户查询用户信息
+     *
      * @param userName
      * @return
      */
@@ -34,6 +35,7 @@ public interface UserRepository extends JpaRepository<SysUsers, String> {
 
     /**
      * 根据教师id 查询教师信息
+     *
      * @param teacherId
      * @return
      */

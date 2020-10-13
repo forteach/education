@@ -8,18 +8,18 @@ import java.io.Serializable;
 
 /**
  * 取消收藏
- * @author admin
  *
+ * @author admin
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CancelCollectArticleResponse implements Serializable{
+public class CancelCollectArticleResponse implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private String flag;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    private String flag;
 }

@@ -9,7 +9,6 @@ import com.forteach.education.course.web.control.CourseChapterController;
 import com.forteach.education.course.web.control.CourseController;
 import com.forteach.education.course.web.req.CourseChapterReq;
 import com.forteach.education.course.web.req.CourseFindAllReq;
-
 import com.forteach.education.course.web.req.CourseSaveReq;
 import com.forteach.education.course.web.vo.RCourse;
 import lombok.extern.slf4j.Slf4j;

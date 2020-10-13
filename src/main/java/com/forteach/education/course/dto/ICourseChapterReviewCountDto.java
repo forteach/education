@@ -10,12 +10,14 @@ package com.forteach.education.course.dto;
 public interface ICourseChapterReviewCountDto {
     /**
      * 回答人数
+     *
      * @return
      */
     public Integer getReviewAmount();
 
     /**
      * 平均分
+     *
      * @return
      */
     public Double getAverageScore();

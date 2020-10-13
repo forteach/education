@@ -56,7 +56,7 @@ public class ArticleService {
         //保存资讯内容图片列表信息
 //        if (dataList != null && dataList.size() > 0) {
 //            MyAssert.isNull(dataList.get(0), DefineCode.ERR0013, "保存资料的图片信息不能为空");
-            //设置列表头图片
+        //设置列表头图片
 //            article.setImgUrl(dataList.get(0).getFileUrl());
 //            boolean saveImg = artIcleImagesService.saveImages(article.getArticleId(), dataList);
 //            MyAssert.isFalse(saveImg, DefineCode.ERR0013, "保存资料图片失败");

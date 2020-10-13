@@ -33,7 +33,8 @@ public class CourseReviewController {
 
     private final TokenService tokenService;
     private final CourseReviewService courseReviewService;
-    private CourseReviewController(TokenService tokenService, CourseReviewService courseReviewService){
+
+    private CourseReviewController(TokenService tokenService, CourseReviewService courseReviewService) {
         this.tokenService = tokenService;
         this.courseReviewService = courseReviewService;
     }
@@ -49,7 +50,7 @@ public class CourseReviewController {
             @ApiImplicitParam(name = "reply", value = "老师回复内容", dataType = "string", paramType = "form", example = "当教师回复调用不能为空")
 
     })
-    public WebResult save(@RequestBody CourseReviewDescribe courseReviewDescribe, HttpServletRequest request){
+    public WebResult save(@RequestBody CourseReviewDescribe courseReviewDescribe, HttpServletRequest request) {
         MyAssert.isNull(courseReviewDescribe.getCourseId(), DefineCode.ERR0010, "课程id不为空");
         courseReviewDescribe.setStudentId(tokenService.getStudentId(request));
         courseReviewDescribe.setTeacherId(tokenService.getTeacherId(request));
@@ -60,7 +61,7 @@ public class CourseReviewController {
     @ApiOperation(value = "删除评论", notes = "逻辑删除课程评论信息")
     @PostMapping("/delete")
     @ApiImplicitParam(name = "reviewId", value = "评论id", dataType = "string", paramType = "from", required = true)
-    public WebResult delete(@RequestBody String reviewId){
+    public WebResult delete(@RequestBody String reviewId) {
         MyAssert.isNull(reviewId, DefineCode.ERR0010, "评论id不为空");
         courseReviewService.deleteReview(JSONObject.parseObject(reviewId).getString("reviewId"));
         return WebResult.okResult();
@@ -70,7 +71,7 @@ public class CourseReviewController {
     @GetMapping("/findReviewFirst")
     @ApiOperation(value = "查询课程评论", notes = "查询最近一条课程评论和评分")
     @ApiImplicitParam(name = "courseId", value = "课程id", dataType = "string", required = true, paramType = "from")
-    public WebResult findReviewCourse(@RequestBody String courseId){
+    public WebResult findReviewCourse(@RequestBody String courseId) {
         MyAssert.isNull(courseId, DefineCode.ERR0010, "课程id 不能为空");
         return WebResult.okResult(courseReviewService.findFirstReview(JSONObject.parseObject(courseId).getString("courseId")));
     }
@@ -81,7 +82,7 @@ public class CourseReviewController {
             @ApiImplicitParam(name = "courseId", value = "课程id", dataType = "string", required = true, paramType = "query"),
             @ApiImplicitParam(name = "sortVo", value = "分页字段", dataTypeClass = SortVo.class, required = true, paramType = "query")
     })
-    public WebResult findReviewPage(@RequestBody CourseReviewReq reviewReq){
+    public WebResult findReviewPage(@RequestBody CourseReviewReq reviewReq) {
         MyAssert.isNull(reviewReq.getCourseId(), DefineCode.ERR0010, "课程id 不能为空");
         MyAssert.blank(String.valueOf(reviewReq.getSortVo().getPage()), DefineCode.ERR0010, "当前页码不为空");
         MyAssert.blank(String.valueOf(reviewReq.getSortVo().getSize()), DefineCode.ERR0010, "每页数量不为空");

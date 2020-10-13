@@ -19,6 +19,7 @@ public interface StudentRepository extends JpaRepository<StudentEntitys, String>
 
     /**
      * 查询有效的班级学生信息
+     *
      * @param classId
      * @return
      */
@@ -28,9 +29,19 @@ public interface StudentRepository extends JpaRepository<StudentEntitys, String>
 
     /**
      * 通过身份证号码查询有效状态的学生信息
+     *
      * @param isValidated 有效状态
-     * @param IDCardNo 身份证号码
+     * @param IDCardNo    身份证号码
      * @return
      */
     List<StudentEntitys> findByIsValidatedEqualsAndIdCardNo(String isValidated, String IDCardNo);
+
+    /**
+     * 查询所有学生信息，用于更新缓存中的数据
+     *
+     * @param isValidated
+     * @return
+     */
+    @Transactional(readOnly = true)
+    List<StudentEntitys> findAllByIsValidatedEqualsOrderByClassId(String isValidated);
 }

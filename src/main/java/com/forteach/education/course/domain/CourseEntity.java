@@ -36,7 +36,7 @@ public class CourseEntity extends Entitys implements Serializable {
     @Column(name = "course_name", columnDefinition = "VARCHAR(40) COMMENT '科目名称'")
     private String courseName;
 
-    @Column(name = "course_describe", columnDefinition = "MEDIUMTEXT COMMENT'课程描述'" )
+    @Column(name = "course_describe", columnDefinition = "MEDIUMTEXT COMMENT'课程描述'")
     private String courseDescribe;
 
     public CourseEntity() {

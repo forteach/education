@@ -53,7 +53,7 @@ public class WebResult implements Serializable {
      **/
     public static WebResult okResult(Object data) {
         WebResult wr = okResult(getOkCode(), data);
-        if (log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("response**:{}", JSON.toJSONString(wr));
         }
         return wr;
@@ -107,15 +107,16 @@ public class WebResult implements Serializable {
      **/
     public static WebResult failResult(int code, Object data) {
         WebResult wr = okResult(getOkCode(), data);
-        if (log.isErrorEnabled()){
+        if (log.isErrorEnabled()) {
             log.error("response error failResult msg : [{}]", JSON.toJSONString(wr));
         }
         return failResult(getFailCode(), String.valueOf(code), data);
     }
 
-    public static WebResult failResult(int code, List<ObjectError> allError){
+    public static WebResult failResult(int code, List<ObjectError> allError) {
         return getWebResult(code, "9000", allError);
     }
+
     /**
      * 失败操作 操作码默认为9999  只有提示码 和 数据
      **/

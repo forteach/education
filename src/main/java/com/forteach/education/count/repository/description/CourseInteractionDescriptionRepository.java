@@ -16,6 +16,7 @@ public interface CourseInteractionDescriptionRepository extends JpaRepository<Co
 
     /**
      * 获取互动详情
+     *
      * @param isValidated
      * @param courseId
      * @param chapterId

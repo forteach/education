@@ -21,6 +21,7 @@ public interface CourseReviewDescribeRepository extends JpaRepository<CourseRevi
 
     /**
      * 查询最近一条课程评论详情
+     *
      * @param courseId
      * @return
      */
@@ -53,6 +54,7 @@ public interface CourseReviewDescribeRepository extends JpaRepository<CourseRevi
 
     /**
      * 查询计算评价平均分
+     *
      * @param courseId
      * @return
      */
@@ -62,6 +64,7 @@ public interface CourseReviewDescribeRepository extends JpaRepository<CourseRevi
 
     /**
      * 查询评论列表
+     *
      * @param courseId
      * @return
      */

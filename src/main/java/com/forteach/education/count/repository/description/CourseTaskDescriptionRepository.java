@@ -16,6 +16,7 @@ public interface CourseTaskDescriptionRepository extends JpaRepository<CourseTas
 
     /**
      * 获取任务详情
+     *
      * @param isValidated
      * @param courseId
      * @param chapterId

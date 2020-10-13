@@ -10,18 +10,21 @@ package com.forteach.education.classes.dto;
 public interface ITeacherInfoDto {
     /**
      * 教师id
+     *
      * @return
      */
     public String getTeacherId();
 
     /**
      * 教师代码
+     *
      * @return
      */
     public String getTeacherCode();
 
     /**
      * 教师名称
+     *
      * @return
      */
     public String getTeacherName();

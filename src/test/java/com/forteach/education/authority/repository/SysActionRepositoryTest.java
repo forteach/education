@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -24,9 +23,10 @@ import java.util.List;
 public class SysActionRepositoryTest {
     @Resource
     private SysActionRepository sysActionRepository;
+
     @Test
 //    @Transactional(rollbackFor = Exception.class)
-    public void save(){
+    public void save() {
         List<SysAction> list = new ArrayList<>();
         SysAction sysActionAdd = new SysAction();
         sysActionAdd.setSysActName("添加");

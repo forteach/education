@@ -17,6 +17,7 @@ public interface StudentService {
 
     /**
      * 学生id获取学生信息
+     *
      * @param studentId
      * @return
      */
@@ -24,6 +25,7 @@ public interface StudentService {
 
     /**
      * 学生信息students 集合list转换为学生信息
+     *
      * @param stringList
      * @return
      */
@@ -31,6 +33,7 @@ public interface StudentService {
 
     /**
      * 逗号分割的学生id字符串数组转换学生信息
+     *
      * @param studentIds
      * @return
      */

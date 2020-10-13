@@ -17,6 +17,7 @@ import java.util.List;
 public interface CourseDataRepository extends IFileRepoitory<CourseData, String> {
     /**
      * 修改资料领域
+     *
      * @param dataId
      * @param datumArea
      */
@@ -26,6 +27,7 @@ public interface CourseDataRepository extends IFileRepoitory<CourseData, String>
 
     /**
      * 修改教师分享
+     *
      * @param dataId
      * @param teachShare
      */
@@ -35,6 +37,7 @@ public interface CourseDataRepository extends IFileRepoitory<CourseData, String>
 
     /**
      * 修改学生可见
+     *
      * @param dataId
      * @param stuShare
      */
@@ -48,6 +51,7 @@ public interface CourseDataRepository extends IFileRepoitory<CourseData, String>
 
     /**
      * 删除无效挂载文件
+     *
      * @param chapterId
      * @param dataIds
      * @return
@@ -56,6 +60,7 @@ public interface CourseDataRepository extends IFileRepoitory<CourseData, String>
 
     /**
      * 查询章节资料
+     *
      * @param chapterId
      * @return
      */

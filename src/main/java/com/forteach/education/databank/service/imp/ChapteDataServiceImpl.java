@@ -364,16 +364,16 @@ public class ChapteDataServiceImpl implements ChapteDataService {
 
             //全部文件列表信息需要删除
             datumAreaRepository.deleteAllByChapterIdAndCourseId(chapterId, courseId);
-        }else {
+        } else {
             //传值,有具体要删除的类型
             removeTypeDataList(courseId, chapterId, datumType);
         }
     }
 
-    private void removeTypeDataList(String courseId, String chapterId, String datumType){
+    private void removeTypeDataList(String courseId, String chapterId, String datumType) {
         //删除文件信息列表
         datumAreaRepository.deleteAllByCourseIdAndChapterIdAndDatumType(courseId, chapterId, datumType);
-        switch (datumType){
+        switch (datumType) {
             //文档
             case Dic.COURSE_ZILIAO_FILE:
                 fileDatumRepository.deleteAllByCourseIdAndChapterId(courseId, chapterId);
@@ -397,6 +397,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
 
     /**
      * 删除单个文件信息和列表
+     *
      * @param fileId
      * @param datumArea
      */
@@ -408,7 +409,7 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         String datumType = datum.getDatumType();
         //删除文件列表
         datumAreaRepository.deleteByFileIdAndDatumArea(fileId, datumArea);
-        switch (datumType){
+        switch (datumType) {
             //文档
             case Dic.COURSE_ZILIAO_FILE:
                 removeOne(fileId, datumArea, fileDatumRepository);
@@ -430,8 +431,8 @@ public class ChapteDataServiceImpl implements ChapteDataService {
         }
     }
 
-    private void removeOne(String fileId, String datumArea, IDatumRepoitory rep){
-        Optional<AbsDatum> absDatumOptional  = rep.findById(fileId);
+    private void removeOne(String fileId, String datumArea, IDatumRepoitory rep) {
+        Optional<AbsDatum> absDatumOptional = rep.findById(fileId);
         if (absDatumOptional.isPresent()) {
             AbsDatum datum = absDatumOptional.get();
             List<String> area = removeDatumArea(datum.getDatumArea(), datumArea);
@@ -449,15 +450,16 @@ public class ChapteDataServiceImpl implements ChapteDataService {
 
     /**
      * 从领域类型中将要删除的领域数据移除
+     *
      * @param datumAreas
      * @param datumArea
      * @return
      */
-    private List<String> removeDatumArea(String datumAreas, String datumArea){
+    private List<String> removeDatumArea(String datumAreas, String datumArea) {
         List<String> datum = StrUtil.splitTrim(datumAreas, ",");
         List<String> datumList = new ArrayList<>();
         datum.forEach(d -> {
-            if (!datumArea.equals(d)){
+            if (!datumArea.equals(d)) {
                 datumList.add(d);
             }
         });

@@ -19,6 +19,6 @@ public class MyAssertTest {
 
     @Test
     public void between() {
-        MyAssert.between(-1, 0, 2, DefineCode.ERR0010,"不在区间");
+        MyAssert.between(-1, 0, 2, DefineCode.ERR0010, "不在区间");
     }
 }

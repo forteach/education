@@ -37,17 +37,17 @@ public class ClassController {
     @GetMapping("/findAll")
     @UserLoginToken
     @ApiOperation(value = "查询所有班级信息")
-    public WebResult findAll(){
+    public WebResult findAll() {
         return WebResult.okResult(classesService.findAll());
     }
 
     @PostMapping("/editClass")
     @ApiOperation(value = "修改班级信息")
     @UserLoginToken
-    public WebResult editClass(@RequestBody ClassesVo classesVo){
+    public WebResult editClass(@RequestBody ClassesVo classesVo) {
         MyAssert.isNull(classesVo.getClassId(), DefineCode.ERR0010, "班级编号不为空");
         Classes classes = classesService.editClass(classesVo);
-        if (classes == null){
+        if (classes == null) {
             MyAssert.isNull(null, DefineCode.OK, "需要修改的班级不存在");
         }
         return WebResult.okResult(classes);
@@ -60,7 +60,7 @@ public class ClassController {
             @ApiImplicitParam(name = "size", value = "每页数量", required = true, dataType = "int", type = "int", example = "10"),
     })
     @UserLoginToken
-    public WebResult pageFindAll(@RequestBody SortVo sortVo){
+    public WebResult pageFindAll(@RequestBody SortVo sortVo) {
         MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
         MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
         return WebResult.okResult(classesService.pageAll(sortVo));
@@ -70,7 +70,7 @@ public class ClassController {
     @UserLoginToken
     @ApiOperation(value = "逻辑删除班级信息")
     @PostMapping(path = "/removeClass")
-    public WebResult removeClass(@RequestBody String classId){
+    public WebResult removeClass(@RequestBody String classId) {
         MyAssert.isNull(classId, DefineCode.ERR0010, "班级id不为空");
         classesService.removeClass(JSONObject.parseObject(classId).getString("classId"));
         return WebResult.okResult();
@@ -80,7 +80,7 @@ public class ClassController {
     @ApiOperation(value = "查询班级中有效的学生信息")
     @ApiImplicitParam(name = "classId", value = "班级id", dataType = "string", required = true, paramType = "query")
     @PostMapping(path = "/findStudentsByClassId")
-    public WebResult findStudentsByClassId(@RequestBody String classId){
+    public WebResult findStudentsByClassId(@RequestBody String classId) {
         MyAssert.isNull(classId, DefineCode.ERR0010, "班级id不为空");
         return WebResult.okResult(classesService.findStudentsByClassId(JSONObject.parseObject(classId).getString("classId")));
     }

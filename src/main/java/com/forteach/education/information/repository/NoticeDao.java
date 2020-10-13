@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface NoticeDao extends JpaRepository<Notice, String>, JpaSpecificationExecutor<Notice> {
 
-  @Transactional(readOnly = true)
-  public Notice findByNoticeId(String noticeId);
+    @Transactional(readOnly = true)
+    public Notice findByNoticeId(String noticeId);
 
-  @Transactional(readOnly = true)
-  public Page<Notice> findByIsValidatedOrderByCreateTimeDesc(String isVal, Pageable pageable);
+    @Transactional(readOnly = true)
+    public Page<Notice> findByIsValidatedOrderByCreateTimeDesc(String isVal, Pageable pageable);
 
-  @Modifying(clearAutomatically = true)
-  public int deleteByNoticeId(String Id);
+    @Modifying(clearAutomatically = true)
+    public int deleteByNoticeId(String Id);
 }

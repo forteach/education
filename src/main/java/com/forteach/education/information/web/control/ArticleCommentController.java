@@ -38,102 +38,103 @@ import static java.util.stream.Collectors.toList;
 @Api(value = "文章资讯资料", tags = {"文章资讯资料操作信息"})
 public class ArticleCommentController {
 
-	private final ArticleCommentService articleCommentService;
+    private final ArticleCommentService articleCommentService;
 
-	@Autowired
-	public ArticleCommentController(ArticleCommentService articleCommentService) {
-		this.articleCommentService = articleCommentService;
-	}
+    @Autowired
+    public ArticleCommentController(ArticleCommentService articleCommentService) {
+        this.articleCommentService = articleCommentService;
+    }
 
-	/**
-	 * 保存资讯、资讯所属模块信息
-	 */
-	@UserLoginToken
-	@ApiOperation(value = "保存资讯、资讯所属模块信息")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "userId", value = "评论文章用户编号", dataType = "string", paramType = "form", example = "为空是保存，否则修改"),
-			@ApiImplicitParam(name = "commentId", value = "评论编号", dataType = "string", required = true, paramType = "form"),
-			@ApiImplicitParam(name = "articleId", value = "文章编号", dataType = "string", required = true, paramType = "form"),
-			@ApiImplicitParam(name = "content", value = "评论的内容", dataType = "string", required = true, paramType = "form"),
-			@ApiImplicitParam(name = "userType", value = "评论人员类型 S 学生  T 教师", dataType = "string", required = true, paramType = "form")
-	})
-	@PostMapping("/saveOrUpdate")
-	public WebResult save(@RequestBody SaveArtCommentRequest request) {
+    /**
+     * 保存资讯、资讯所属模块信息
+     */
+    @UserLoginToken
+    @ApiOperation(value = "保存资讯、资讯所属模块信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "评论文章用户编号", dataType = "string", paramType = "form", example = "为空是保存，否则修改"),
+            @ApiImplicitParam(name = "commentId", value = "评论编号", dataType = "string", required = true, paramType = "form"),
+            @ApiImplicitParam(name = "articleId", value = "文章编号", dataType = "string", required = true, paramType = "form"),
+            @ApiImplicitParam(name = "content", value = "评论的内容", dataType = "string", required = true, paramType = "form"),
+            @ApiImplicitParam(name = "userType", value = "评论人员类型 S 学生  T 教师", dataType = "string", required = true, paramType = "form")
+    })
+    @PostMapping("/saveOrUpdate")
+    public WebResult save(@RequestBody SaveArtCommentRequest request) {
 
-		MyAssert.isNull(request.getArticleId(), DefineCode.ERR0010,"资料编号不能为空");
-		MyAssert.isNull(request.getUserId(), DefineCode.ERR0010,"评论人编号不能为空");
-		MyAssert.isNull(request.getContent(), DefineCode.ERR0010,"评论内容不能为空");
-		String userType = request.getUserType();
-		MyAssert.isTrue(StrUtil.isBlank(userType), DefineCode.ERR0010,"评论人类型不为空");
+        MyAssert.isNull(request.getArticleId(), DefineCode.ERR0010, "资料编号不能为空");
+        MyAssert.isNull(request.getUserId(), DefineCode.ERR0010, "评论人编号不能为空");
+        MyAssert.isNull(request.getContent(), DefineCode.ERR0010, "评论内容不能为空");
+        String userType = request.getUserType();
+        MyAssert.isTrue(StrUtil.isBlank(userType), DefineCode.ERR0010, "评论人类型不为空");
 
-		//调用微信信息内容校验是否合法
-		final WxMaSecCheckService checkService = WeChatMiniAppConfig.getMaService().getSecCheckService();
-		MyAssert.isFalse(checkService.checkMessage(request.getContent()),DefineCode.ERR0010,"回复内容不合法");
-		ArticleComment artcomment = articleCommentService.save(request);
+        //调用微信信息内容校验是否合法
+        final WxMaSecCheckService checkService = WeChatMiniAppConfig.getMaService().getSecCheckService();
+        MyAssert.isFalse(checkService.checkMessage(request.getContent()), DefineCode.ERR0010, "回复内容不合法");
+        ArticleComment artcomment = articleCommentService.save(request);
 
-		SaveArtCommentResponse res = new SaveArtCommentResponse();
+        SaveArtCommentResponse res = new SaveArtCommentResponse();
 
-		UpdateUtil.copyNullProperties(artcomment, res);
-		// 调用save方法
-		return WebResult.okResult(res);
-	}
+        UpdateUtil.copyNullProperties(artcomment, res);
+        // 调用save方法
+        return WebResult.okResult(res);
+    }
 
-	/**
-	 * 所有资讯倒序分页获取
-	 * @param req
-	 * @return
-	 */
-	@ApiOperation(value = "所有资讯倒序分页获取")
-	@ApiImplicitParams({
-			@ApiImplicitParam(value = "资讯Id", name = "articleId", required = true, dataType = "string", paramType = "query"),
-			@ApiImplicitParam(value = "分页排序字段", name = "sortVo", dataTypeClass = SortVo.class, required = true, paramType = "query")
-	})
-	@PostMapping("/findArticleId")
-	public WebResult findArticleComment(@RequestBody FindArticleIdRequest req){
-		String artId=req.getArticleId();
-		MyAssert.isNull(artId, DefineCode.ERR0010,"资料编号不能为空");
-		SortVo sortVo = req.getSortVo();
-		MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
-		MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
-		PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
-			return WebResult.okResult(articleCommentService.findByArticleId(artId,page)
-					.stream()
-					.filter(Objects::nonNull)
-					.map(item -> {
-						ArtCommentListResponse ar = new ArtCommentListResponse();
-						UpdateUtil.copyNullProperties(item, ar);
-						return ar;
-					})
-					.collect(toList()));
+    /**
+     * 所有资讯倒序分页获取
+     *
+     * @param req
+     * @return
+     */
+    @ApiOperation(value = "所有资讯倒序分页获取")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "资讯Id", name = "articleId", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(value = "分页排序字段", name = "sortVo", dataTypeClass = SortVo.class, required = true, paramType = "query")
+    })
+    @PostMapping("/findArticleId")
+    public WebResult findArticleComment(@RequestBody FindArticleIdRequest req) {
+        String artId = req.getArticleId();
+        MyAssert.isNull(artId, DefineCode.ERR0010, "资料编号不能为空");
+        SortVo sortVo = req.getSortVo();
+        MyAssert.blank(String.valueOf(sortVo.getPage()), DefineCode.ERR0010, "当前页码不为空");
+        MyAssert.blank(String.valueOf(sortVo.getSize()), DefineCode.ERR0010, "每页数量不为空");
+        PageRequest page = PageRequest.of(sortVo.getPage(), sortVo.getSize());
+        return WebResult.okResult(articleCommentService.findByArticleId(artId, page)
+                .stream()
+                .filter(Objects::nonNull)
+                .map(item -> {
+                    ArtCommentListResponse ar = new ArtCommentListResponse();
+                    UpdateUtil.copyNullProperties(item, ar);
+                    return ar;
+                })
+                .collect(toList()));
 
-	}
+    }
 
-	/**
-	 * 点赞数量增加
-	 */
-	@PostMapping("/addGood")
-	@ApiOperation(value = "点赞数量增加")
-	@ApiImplicitParam(name = "commentId", value = "资讯评论编号", dataType = "string", required = true, paramType = "query")
-	public WebResult addClickGood(@RequestBody AddCommentGoodRequest req){
-		MyAssert.isNull(req.getCommentId(), DefineCode.ERR0010,"评论编号不能为空");
-		return WebResult.okResult(String.valueOf(articleCommentService.addClickGood(req.getCommentId())));
-	}
+    /**
+     * 点赞数量增加
+     */
+    @PostMapping("/addGood")
+    @ApiOperation(value = "点赞数量增加")
+    @ApiImplicitParam(name = "commentId", value = "资讯评论编号", dataType = "string", required = true, paramType = "query")
+    public WebResult addClickGood(@RequestBody AddCommentGoodRequest req) {
+        MyAssert.isNull(req.getCommentId(), DefineCode.ERR0010, "评论编号不能为空");
+        return WebResult.okResult(String.valueOf(articleCommentService.addClickGood(req.getCommentId())));
+    }
 
-	/**
-	 * 点赞数量增加
-	 */
-	@UserLoginToken
-	@ApiOperation(value = "点赞数量增加")
-	@PostMapping("/saveReply")
-	@ApiImplicitParams({
-			@ApiImplicitParam(value = "评论ID", name = "commentId", required = true, dataType = "string"),
-			@ApiImplicitParam(value = "回复内容", name = "reply", required = true, dataType = "string"),
-			@ApiImplicitParam(value = "回复人名称", name = "replyUserName", required = true, dataType = "string")
-	})
-	public WebResult saveReply(@RequestBody SaveReplyRequest req){
-		MyAssert.isNull(req.getReply(), DefineCode.ERR0010,"评论回复内容不能为空");
-		MyAssert.isNull(req.getCommentId(), DefineCode.ERR0010,"评论编号不能为空");
-		MyAssert.isNull(req.getReplyUserName(), DefineCode.ERR0010,"评论回复人不能为空");
-		return WebResult.okResult(String.valueOf(articleCommentService.saveReply(req.getReply(),req.getCommentId(),req.getReplyUserName())));
-	}
+    /**
+     * 点赞数量增加
+     */
+    @UserLoginToken
+    @ApiOperation(value = "点赞数量增加")
+    @PostMapping("/saveReply")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "评论ID", name = "commentId", required = true, dataType = "string"),
+            @ApiImplicitParam(value = "回复内容", name = "reply", required = true, dataType = "string"),
+            @ApiImplicitParam(value = "回复人名称", name = "replyUserName", required = true, dataType = "string")
+    })
+    public WebResult saveReply(@RequestBody SaveReplyRequest req) {
+        MyAssert.isNull(req.getReply(), DefineCode.ERR0010, "评论回复内容不能为空");
+        MyAssert.isNull(req.getCommentId(), DefineCode.ERR0010, "评论编号不能为空");
+        MyAssert.isNull(req.getReplyUserName(), DefineCode.ERR0010, "评论回复人不能为空");
+        return WebResult.okResult(String.valueOf(articleCommentService.saveReply(req.getReply(), req.getCommentId(), req.getReplyUserName())));
+    }
 }

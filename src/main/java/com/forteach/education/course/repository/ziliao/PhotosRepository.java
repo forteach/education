@@ -20,6 +20,7 @@ public interface PhotosRepository extends JpaRepository<Photos, String> {
 
     /**
      * 获取图册信息
+     *
      * @param arlitsId
      * @param isValidated
      * @return
@@ -32,6 +33,7 @@ public interface PhotosRepository extends JpaRepository<Photos, String> {
 
     /**
      * 分页获取图册信息
+     *
      * @param arlitsId
      * @param isValidated
      * @param pageable
@@ -42,6 +44,7 @@ public interface PhotosRepository extends JpaRepository<Photos, String> {
 
     /**
      * 删除图集
+     *
      * @param arlitsId
      * @return
      */

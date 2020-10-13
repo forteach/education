@@ -19,6 +19,7 @@ public interface CourseChapterReviewService {
 
     /**
      * 保存评论评分
+     *
      * @param reviewSaveReq
      * @return
      */
@@ -26,6 +27,7 @@ public interface CourseChapterReviewService {
 
     /**
      * 查找课程章节信息
+     *
      * @param chapterId
      * @return
      */
@@ -33,6 +35,7 @@ public interface CourseChapterReviewService {
 
     /**
      * 查询评论过的学生信息
+     *
      * @param chapterId
      * @return
      */

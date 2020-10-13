@@ -16,6 +16,7 @@ public interface UserService {
 
     /**
      * 教师端用户登录
+     *
      * @param userLoginReq
      * @return
      */
@@ -23,6 +24,7 @@ public interface UserService {
 
     /**
      * 教师端用户注册
+     *
      * @param registerUserReq
      * @return
      */
@@ -30,6 +32,7 @@ public interface UserService {
 
     /**
      * 重置用户密码
+     *
      * @param teacherCode
      * @return
      */
@@ -37,6 +40,7 @@ public interface UserService {
 
     /**
      * 添加教师用户信息
+     *
      * @param teacherCode
      * @return
      */
@@ -44,6 +48,7 @@ public interface UserService {
 
     /**
      * 修改密码
+     *
      * @param updatePassWordReq
      * @return
      */
@@ -51,6 +56,7 @@ public interface UserService {
 
     /**
      * 修改教师状态使失效
+     *
      * @param teacherCodeStr
      */
     void updateState(String teacherCodeStr);

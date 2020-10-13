@@ -206,10 +206,10 @@ public class CourseServiceImpl implements CourseService {
                             .stream()
                             .filter(Objects::nonNull)
                             .findFirst();
-                    if (first.isPresent()){
+                    if (first.isPresent()) {
                         chapterId = first.get().getChapterId();
                         Optional<CourseChapter> chapter = courseChapterService.findById(chapterId);
-                        if (chapter.isPresent()){
+                        if (chapter.isPresent()) {
                             chapterName = chapter.get().getChapterName();
                         }
                     }

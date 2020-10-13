@@ -80,12 +80,14 @@ public interface TeacherService {
 
     /**
      * 查询所用有效的教师信息
+     *
      * @return
      */
     List<TeacherInfoResp> findAllTeacherInfo();
 
     /**
      * 教师端查询我的班级信息
+     *
      * @param teacherId
      * @return
      */
@@ -93,6 +95,7 @@ public interface TeacherService {
 
     /**
      * 查询老师课程对应所教的班级
+     *
      * @param courseNumber
      * @return
      */

@@ -26,6 +26,7 @@ public interface ICourseChapterListDto {
 
     /**
      * 别名
+     *
      * @return
      */
     public String getAlias();
@@ -53,18 +54,21 @@ public interface ICourseChapterListDto {
 
     /**
      * 课程简介或描述
+     *
      * @return
      */
     public String getCourseDescribe();
 
     /**
      * 章节id
+     *
      * @return
      */
     public String getChapterId();
 
     /**
      * 章节名字
+     *
      * @return
      */
     public String getChapterName();
@@ -72,12 +76,14 @@ public interface ICourseChapterListDto {
 
     /**
      * 教师名称
+     *
      * @return
      */
     public String getTeacherName();
 
     /**
      * 教师id
+     *
      * @return
      */
     public String getTeacherId();

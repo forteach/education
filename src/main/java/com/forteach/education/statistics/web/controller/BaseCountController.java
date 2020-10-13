@@ -5,33 +5,42 @@ import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.statistics.service.BaseCountService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import springfox.documentation.annotations.ApiIgnore;
 
-import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
- * @auther: zhangyy
+ * @author: zhangyy
  * @email: zhang10092009@hotmail.com
  * @date: 2020/8/19 14:31
  * @version: 1.0
  * @description：
  */
-public class BaseCountController<T> {
+@Component
+public abstract class BaseCountController<T> {
 
 
-    @Qualifier("countCourseServiceImpl")
+    public final BaseCountService<T> baseCountService;
+
     @Autowired
-    private BaseCountService baseCountService;
-
-//    @UserLoginToken
+    public BaseCountController(BaseCountService<T> baseCountService) {
+        this.baseCountService = baseCountService;
+    }
 
     @PassToken
     @ApiOperation(value = "饼状图统计信息")
     @GetMapping("/cake")
-    public WebResult findDatumList() {
+    public WebResult findCakeList(@ApiIgnore HttpServletRequest httpServletRequest) {
         return WebResult.okResult(baseCountService.findAllChartCake());
+    }
+
+
+    @PassToken
+    @ApiOperation(value = "查询柱状图(教研室)")
+    @GetMapping("/columnar")
+    public WebResult findColumnarList(@ApiIgnore HttpServletRequest httpServletRequest) {
+        return WebResult.okResult(baseCountService.findAllColumnarList());
     }
 }

@@ -34,14 +34,14 @@ public class ActionColumnServiceImpl implements ActionColumnService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ActionColumn editSaveActionColumn(ActionColumnReq actionColumnReq){
+    public ActionColumn editSaveActionColumn(ActionColumnReq actionColumnReq) {
         Optional<ActionColumn> actionColumnOptional = actionColumnRepository.findById(actionColumnReq.getColId() != null ? actionColumnReq.getColId() : "");
         ActionColumn actionColumn;
-        if (actionColumnOptional.isPresent()){
+        if (actionColumnOptional.isPresent()) {
             actionColumn = actionColumnOptional.get();
-        }else {
+        } else {
             ActionColumn andColName = actionColumnRepository.findByIsValidatedEqualsAndColName(TAKE_EFFECT_OPEN, actionColumnReq.getColName());
-            if (andColName != null){
+            if (andColName != null) {
                 throw new RuntimeException("存在相同栏目名");
             }
             actionColumn = new ActionColumn();

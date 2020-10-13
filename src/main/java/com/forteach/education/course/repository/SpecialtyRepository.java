@@ -29,6 +29,7 @@ public interface SpecialtyRepository extends JpaRepository<Specialty, String> {
 
     /**
      * 根据名字和有效状态查询课程信息
+     *
      * @param isValidated
      * @param specialtyName
      * @return

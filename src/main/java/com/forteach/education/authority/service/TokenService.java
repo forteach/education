@@ -2,6 +2,7 @@ package com.forteach.education.authority.service;
 
 import com.auth0.jwt.JWTVerifier;
 import com.forteach.education.authority.domain.SysUsers;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public interface TokenService {
     /**
      * 用微信openId生成一个一天有效期的token
+     *
      * @param userId
      * @return
      */
@@ -21,6 +23,7 @@ public interface TokenService {
 
     /**
      * 获取JWT验证
+     *
      * @param openId
      * @return
      */
@@ -28,6 +31,7 @@ public interface TokenService {
 
     /**
      * 根据用户请求token 信息获取请求的用户信息
+     *
      * @param request
      * @return
      */
@@ -35,6 +39,7 @@ public interface TokenService {
 
     /**
      * 查询对应学生id信息
+     *
      * @param request
      * @return
      */
@@ -42,6 +47,7 @@ public interface TokenService {
 
     /**
      * 查找老师id
+     *
      * @param request
      * @return
      */
@@ -49,6 +55,7 @@ public interface TokenService {
 
     /**
      * 通过token 获取学生班级id信息
+     *
      * @param request
      * @return
      */
@@ -56,6 +63,7 @@ public interface TokenService {
 
     /**
      * 保存token 到redis
+     *
      * @param token
      * @param users
      */
@@ -63,18 +71,22 @@ public interface TokenService {
 
     /**
      * 移除 redis 保存的 token 数据信息
+     *
      * @param userId
      */
     void removeToken(String userId);
 
     /**
      * 获取微信openId
+     *
      * @param request
      * @return
      */
     String getOpenId(HttpServletRequest request);
+
     /**
      * 获取用户的 session-key
+     *
      * @param openId
      * @return
      */

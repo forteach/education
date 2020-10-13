@@ -241,15 +241,15 @@ public class CourseDataServiceImpl implements CourseDataService {
         courseDatumAreaRepository.saveAll(courseDatumAreas);
         //修改
         List<CourseData> courseDataList = courseDataRepository.findByChapterId(courseDataDeleteReq.getChapterId())
-                        .stream().filter(Objects::nonNull)
-                        .map(courseData -> {
-                            if (!courseDataDeleteReq.getFileIds().isEmpty() && courseDataDeleteReq.getFileIds().contains(courseData.getDataId())){
-                                courseData.setIsValidated(TAKE_EFFECT_CLOSE);
-                            }else {
-                                courseData.setIsValidated(TAKE_EFFECT_CLOSE);
-                            }
-                            return courseData;
-                        }).collect(toList());
+                .stream().filter(Objects::nonNull)
+                .map(courseData -> {
+                    if (!courseDataDeleteReq.getFileIds().isEmpty() && courseDataDeleteReq.getFileIds().contains(courseData.getDataId())) {
+                        courseData.setIsValidated(TAKE_EFFECT_CLOSE);
+                    } else {
+                        courseData.setIsValidated(TAKE_EFFECT_CLOSE);
+                    }
+                    return courseData;
+                }).collect(toList());
         courseDataRepository.saveAll(courseDataList);
     }
 

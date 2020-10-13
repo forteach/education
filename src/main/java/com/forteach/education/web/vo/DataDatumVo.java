@@ -6,10 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
@@ -37,7 +35,7 @@ public class DataDatumVo implements Serializable {
     @ApiModelProperty(value = "文件路径", name = "fileUrl", dataType = "string", required = true)
     private String fileUrl;
 
-//    @Length(max = 1, message = "是否挂载最大长度为1位")
+    //    @Length(max = 1, message = "是否挂载最大长度为1位")
 //    @Pattern(regexp = "^[Y,Z]$", message = "是否挂载文件参数只能是Y,N")
     @ApiModelProperty(name = "mount", value = "是否挂载文件", notes = "是否挂载文件是Y,否 N", example = "Y", dataType = "string")
     private String mount;

@@ -9,6 +9,7 @@ public interface CoursewareService {
 
     /**
      * 保存除图集以外，主要课件文件信息
+     *
      * @param obj
      * @return
      */
@@ -28,6 +29,7 @@ public interface CoursewareService {
 
     /**
      * 获得图集列表
+     *
      * @param chapterId
      * @return
      */
@@ -35,6 +37,7 @@ public interface CoursewareService {
 
     /**
      * 获取图册列表
+     *
      * @param arlitId
      * @return
      */
@@ -50,6 +53,8 @@ public interface CoursewareService {
 
     public void removeCourseAtlit(String chapterId);
 
-    /** 删除课程重要课件*/
+    /**
+     * 删除课程重要课件
+     */
     void deleteByFileId(String fileId);
 }

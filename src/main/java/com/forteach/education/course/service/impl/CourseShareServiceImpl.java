@@ -2,8 +2,8 @@ package com.forteach.education.course.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.classes.web.req.RTeacher;
-import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.course.domain.Course;
 import com.forteach.education.course.domain.CourseShare;
 import com.forteach.education.course.domain.CourseShareUsers;
@@ -14,9 +14,11 @@ import com.forteach.education.util.UpdateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+
 import static com.forteach.education.common.keyword.Dic.COURSE_SHARE_AREA_ALL;
 import static com.forteach.education.common.keyword.Dic.LESSON_PREPARATION_TYPE_GROUP;
 
@@ -57,8 +59,8 @@ public class CourseShareServiceImpl implements CourseShareService {
                 .build();
         courseShare.setCreateTime(course.getCreateTime());
         UpdateUtil.copyNullProperties(course, courseShare);
-        CourseShare newCourseShare=courseShareRepository.save(courseShare);
-        MyAssert.blank(newCourseShare.getShareId(), DefineCode.ERR0009,"集体课程信息存储错误");
+        CourseShare newCourseShare = courseShareRepository.save(courseShare);
+        MyAssert.blank(newCourseShare.getShareId(), DefineCode.ERR0009, "集体课程信息存储错误");
 
         //2、保存参与分享的教师信息
         List<CourseShareUsers> list = new ArrayList<>();
@@ -72,9 +74,9 @@ public class CourseShareServiceImpl implements CourseShareService {
             UpdateUtil.copyNullProperties(courseShare, cs);
             list.add(cs);
         });
-        List<CourseShareUsers> newlist =courseShareUsersRepository.saveAll(list);
+        List<CourseShareUsers> newlist = courseShareUsersRepository.saveAll(list);
 
-        MyAssert.isTrue(newlist.size()==0, DefineCode.ERR0009,"集体课程教师信息存储错误");
+        MyAssert.isTrue(newlist.size() == 0, DefineCode.ERR0009, "集体课程教师信息存储错误");
 
         //3、集体备课返回课程分享编号
         return newCourseShare.getShareId();
@@ -129,8 +131,9 @@ public class CourseShareServiceImpl implements CourseShareService {
     public CourseShare findByCourseIdAll(String courseId) {
         return courseShareRepository.findByCourseIdAndShareArea(courseId, COURSE_SHARE_AREA_ALL);
     }
+
     @Override
-    public List<String> findAllByUserId(String userId){
+    public List<String> findAllByUserId(String userId) {
         return courseShareRepository.findAllByUserId(userId);
     }
 }

@@ -16,6 +16,7 @@ public interface CourseDrillDescriptionRepository extends JpaRepository<CourseDr
 
     /**
      * 获取练习详情
+     *
      * @param isValidated
      * @param courseId
      * @param chapterId

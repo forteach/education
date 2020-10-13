@@ -20,6 +20,7 @@ public interface ActionColumnRepository extends JpaRepository<ActionColumn, Stri
 
     /**
      * 查询栏目编号和父栏目编号不为空的栏目
+     *
      * @return
      */
     @Transactional(readOnly = true)
@@ -27,6 +28,7 @@ public interface ActionColumnRepository extends JpaRepository<ActionColumn, Stri
 
     /**
      * 查询有效的栏目
+     *
      * @param isValidated
      * @return
      */
@@ -35,6 +37,7 @@ public interface ActionColumnRepository extends JpaRepository<ActionColumn, Stri
 
     /**
      * 根据栏目id 查询需要的有的操作动作
+     *
      * @param colId
      * @return
      */
@@ -50,6 +53,7 @@ public interface ActionColumnRepository extends JpaRepository<ActionColumn, Stri
 
     /**
      * 根据栏目编号找栏目
+     *
      * @param list
      * @return
      */
@@ -58,6 +62,7 @@ public interface ActionColumnRepository extends JpaRepository<ActionColumn, Stri
 
     /**
      * 获取该角色的所有子栏目信息
+     *
      * @param roleId
      * @return
      */
@@ -77,6 +82,7 @@ public interface ActionColumnRepository extends JpaRepository<ActionColumn, Stri
 
     /**
      * 查询是否存在相同列名栏目信息
+     *
      * @param isValidated
      * @param colName
      * @return

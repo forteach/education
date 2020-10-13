@@ -9,24 +9,28 @@ package com.forteach.education.web.vo;
 public interface OperationInfoVo {
     /**
      * 父栏目编号
+     *
      * @return
      */
     String getColParentId();
 
     /**
      * 父栏目名称
+     *
      * @return
      */
     String getColParentName();
 
     /**
      * 栏目编号
+     *
      * @return
      */
     String getColId();
 
     /**
      * 栏目名称
+     *
      * @return
      */
     String getColName();

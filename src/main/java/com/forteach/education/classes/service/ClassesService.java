@@ -19,12 +19,14 @@ public interface ClassesService {
 
     /**
      * 查询所有有效的班级信息按照时间倒叙排列
+     *
      * @return　班级信息列表
      */
     public List<Classes> findAll();
 
     /**
      * 分页查询班级信息倒叙排列
+     *
      * @param sortVo
      * @return　分页的班级信息
      */
@@ -32,6 +34,7 @@ public interface ClassesService {
 
     /**
      * 修改班级信息
+     *
      * @param classesVo
      * @return　修改后的班级信息
      */
@@ -43,6 +46,7 @@ public interface ClassesService {
 
     /**
      * 逻辑删除班级信息
+     *
      * @param classId
      * @return
      */

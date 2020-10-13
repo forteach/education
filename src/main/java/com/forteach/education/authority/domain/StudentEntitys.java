@@ -20,7 +20,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "student_info",indexes = {
+@Table(name = "student_info", indexes = {
         @Index(columnList = "id", name = "id_index"),
         @Index(columnList = "id_card_no", name = "id_card_no_index")
 })
@@ -64,4 +64,10 @@ public class StudentEntitys extends Entitys {
 
     @Column(name = "student_status", columnDefinition = "VARCHAR(32) COMMENT '学籍状态'")
     private String studentStatus;
+
+    @Column(name = "teacher_office_id", columnDefinition = "varchar(32) comment '教研室id'")
+    private String teacherOfficeId;
+
+    @Column(name = "teacher_office_name", columnDefinition = "varchar(32) comment '教研室名称'")
+    private String teacherOfficeName;
 }

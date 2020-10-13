@@ -49,7 +49,7 @@ public class CourseCountController {
             @ApiImplicitParam(name = "classId", value = "班级", required = true, dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "circleId", value = "课程id", example = "0043fb829d984207ac6d6766df7ca2c5", dataType = "string", paramType = "query")
     })
-    public WebResult findCourseCount(@RequestBody CourseCountReq courseCountReq, HttpServletRequest httpServletRequest){
+    public WebResult findCourseCount(@RequestBody CourseCountReq courseCountReq, HttpServletRequest httpServletRequest) {
         MyAssert.isNull(courseCountReq.getCourseId(), DefineCode.ERR0010, "科目编号不为空");
         MyAssert.isNull(courseCountReq.getChapterId(), DefineCode.ERR0010, "章节编号不为空");
         MyAssert.isNull(courseCountReq.getClassId(), DefineCode.ERR0010, "班级编号不为空");
@@ -62,7 +62,7 @@ public class CourseCountController {
     @ApiOperation(value = "查询加入课堂的学生信息")
     @GetMapping("/findJoinCircleStudent")
     @ApiImplicitParam(name = "circleId", value = "课堂id", required = true, dataType = "string", paramType = "query")
-    public WebResult findJoinCircleStudents(@RequestBody String circleId){
+    public WebResult findJoinCircleStudents(@RequestBody String circleId) {
         MyAssert.isNull(circleId, DefineCode.ERR0010, "课堂id不为空");
         return WebResult.okResult(courseCountService.findJoinCircleStudent(JSONObject.parseObject(circleId).getString("circleId")));
     }

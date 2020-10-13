@@ -1,10 +1,8 @@
 package com.forteach.education.web.req;
 
 import com.forteach.education.course.web.vo.RCourseData;
-import com.forteach.education.web.vo.DataDatumVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;

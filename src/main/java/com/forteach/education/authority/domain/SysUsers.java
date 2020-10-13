@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
@@ -80,6 +81,12 @@ public class SysUsers extends Entitys implements Serializable {
     @ApiModelProperty(hidden = true)
     @Column(name = "teacher_id", columnDefinition = "varchar(32) comment '教师id'")
     private String teacherId;
+
+    @Column(name = "teacher_office_id", columnDefinition = "varchar(32) comment '教研室id'")
+    private String teacherOfficeId;
+
+    @Column(name = "teacher_office_name", columnDefinition = "varchar(32) comment '教研室名称'")
+    private String teacherOfficeName;
 
     /**
      * 角色id

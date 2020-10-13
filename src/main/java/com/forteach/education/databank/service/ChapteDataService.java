@@ -19,6 +19,7 @@ public interface ChapteDataService {
 
     /**
      * 修改资料领域和共享可见信息
+     *
      * @param courseId
      * @param chapterId
      * @param kNodeId
@@ -33,6 +34,7 @@ public interface ChapteDataService {
 
     /**
      * 课程资料详细列表
+     *
      * @param chapterId
      * @param kNodeId
      * @param datumType

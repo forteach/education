@@ -2,13 +2,7 @@ package com.forteach.education.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.forteach.education.common.keyword.WebResult;
-import com.forteach.education.common.web.vo.SortVo;
-import com.forteach.education.information.web.control.ArticleCommentController;
 import com.forteach.education.information.web.control.NoticeController;
-import com.forteach.education.information.web.req.artComment.AddCommentGoodRequest;
-import com.forteach.education.information.web.req.artComment.FindArticleIdRequest;
-import com.forteach.education.information.web.req.artComment.SaveArtCommentRequest;
-import com.forteach.education.information.web.req.artComment.SaveReplyRequest;
 import com.forteach.education.information.web.req.notice.ByIdNoticeRequest;
 import com.forteach.education.information.web.req.notice.FindIsValListRequest;
 import com.forteach.education.information.web.req.notice.SaveNoticeRequest;

@@ -32,5 +32,4 @@ import java.io.Serializable;
 public class CourseTaskDescription extends BaseCourseDescription implements Serializable {
 
 
-
 }

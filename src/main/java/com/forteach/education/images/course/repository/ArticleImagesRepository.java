@@ -3,9 +3,12 @@ package com.forteach.education.images.course.repository;
 import com.forteach.education.images.course.domain.ArticleImages;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
-/**资讯内容图片信息
+/**
+ * 资讯内容图片信息
+ *
  * @Auther: zjw
  * @Email:
  * @Date: 18-11-29 14:58

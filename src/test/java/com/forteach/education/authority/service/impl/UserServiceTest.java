@@ -28,7 +28,7 @@ public class UserServiceTest {
     private String salt;
 
     @Test
-    public void saveUser(){
+    public void saveUser() {
         SysUsers sysUsers = new SysUsers();
         sysUsers.setPassWord(Md5Util.macMD5("root".concat(salt)));
         sysUsers.setTeacherId("admin");

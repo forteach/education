@@ -92,13 +92,21 @@ public interface CatalogueRepository extends JpaRepository<Catalogue, String>, J
 
     /**
      * 根据id批量删除
+     * @param ids
+     * @return
      */
     @Modifying
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Query(value = "delete from Catalogue c where c.chapterId in (:ids) ")
     int deleteBathIds(@Param("ids") Set<String> ids);
 
-    @Transactional
+    /**
+     * 修改章节科目的有效性
+     * @param isValidated
+     * @param ids
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
     @Modifying(clearAutomatically = true)
     @Query(value = " update Catalogue c set c.isValidated = :isValidated where c.chapterId in (:ids) ")
     int updateIsValidatedIds(@Param("isValidated") String isValidated, @Param("ids") Set<String> ids);

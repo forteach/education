@@ -4,7 +4,6 @@ import com.forteach.education.course.domain.ziliao.CourseData;
 import com.forteach.education.course.web.req.CourseDataDeleteReq;
 import com.forteach.education.course.web.vo.RCourseData;
 import com.forteach.education.databank.web.res.DatumResp;
-import com.forteach.education.web.req.CourseDataDatumReq;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -20,6 +19,7 @@ public interface CourseDataService {
 
     /**
      * 保存课程挂在文件
+     *
      * @param chapterId
      * @param files
      * @return
@@ -28,6 +28,7 @@ public interface CourseDataService {
 
     /**
      * 单个资料领域修改
+     *
      * @param courseId
      * @param chapterId
      * @param kNodeId
@@ -42,6 +43,7 @@ public interface CourseDataService {
 
     /**
      * 课程资料详细列表
+     *
      * @param chapterId
      * @param datumType
      * @param pageable
@@ -51,6 +53,7 @@ public interface CourseDataService {
 
     /**
      * 课程资料详细列表
+     *
      * @param chapterId
      * @param pageable
      * @return
@@ -59,6 +62,7 @@ public interface CourseDataService {
 
     /**
      * 获得按资料领域、课程章节、知识点、资料列表
+     *
      * @param chapterId
      * @param kNodeId
      * @param datumType
@@ -73,12 +77,14 @@ public interface CourseDataService {
 
     /**
      * 逻辑删除挂接的课程资料信息
+     *
      * @param courseDataDeleteReq
      */
     void removeCourseData(CourseDataDeleteReq courseDataDeleteReq);
 
     /**
      * 物理删除需要挂接的文件信息
+     *
      * @param courseDataDeleteReq
      */
     void deleteCourseData(CourseDataDeleteReq courseDataDeleteReq);

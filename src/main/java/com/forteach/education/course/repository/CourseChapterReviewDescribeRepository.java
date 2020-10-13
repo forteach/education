@@ -21,6 +21,7 @@ public interface CourseChapterReviewDescribeRepository extends JpaRepository<Cou
 
     /**
      * 查询符合条的评论详情数量
+     *
      * @param isValidated
      * @param chapterId
      * @param studentId
@@ -32,6 +33,7 @@ public interface CourseChapterReviewDescribeRepository extends JpaRepository<Cou
 
     /**
      * 查询评价平均分和评价人数 AverageScore ReviewAmount
+     *
      * @param chapterId
      * @return
      */
@@ -42,6 +44,7 @@ public interface CourseChapterReviewDescribeRepository extends JpaRepository<Cou
 
     /**
      * 查询课程章节评价的学生信息
+     *
      * @param chapterId
      * @return
      */
@@ -53,6 +56,7 @@ public interface CourseChapterReviewDescribeRepository extends JpaRepository<Cou
 
     /**
      * 查询有效的学生课程章节评分
+     *
      * @param isValidated
      * @param studentId
      * @param chapterId

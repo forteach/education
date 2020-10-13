@@ -31,7 +31,7 @@ public class TeacherRepositoryTest {
     private TeacherRepository teacherRepository;
 
     @Test
-    public void findByIsValidatedEquals(){
+    public void findByIsValidatedEquals() {
 
         Page<Teacher> teachers = teacherRepository.findByIsValidatedEqualsOrderByCreateTimeDesc(TAKE_EFFECT_OPEN, PageRequest.of(1, 10, SortUtil.getSort(new SortVo())));
         teachers.get().forEach(System.out::println);
