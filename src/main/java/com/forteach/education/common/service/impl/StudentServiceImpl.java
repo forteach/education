@@ -5,12 +5,10 @@ import cn.hutool.core.util.StrUtil;
 import com.forteach.education.authority.domain.StudentEntitys;
 import com.forteach.education.authority.repository.StudentRepository;
 import com.forteach.education.authority.web.req.FindAllPageStudentReq;
-import com.forteach.education.common.config.MyAssert;
-import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.service.StudentService;
 import com.forteach.education.common.web.vo.StudentInfoVo;
-import com.forteach.education.exception.AssertErrorException;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -35,6 +33,7 @@ import static com.forteach.education.common.keyword.Dic.STUDENT_ADO;
  * @version: 1.0
  * @description:
  */
+@Slf4j
 @Service
 public class StudentServiceImpl implements StudentService {
     private final HashOperations<String, String, String> hashOperations;
@@ -139,7 +138,7 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public StudentInfoVo studentInfoByStudentId(String studentId){
+    public StudentInfoVo studentInfoByStudentId(String studentId) {
         StudentEntitys studentEntitys = studentRepository.findById(studentId).orElseGet(StudentEntitys::new);
         StudentInfoVo vo = new StudentInfoVo();
         BeanUtil.copyProperties(studentEntitys, vo);

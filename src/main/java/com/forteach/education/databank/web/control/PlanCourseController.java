@@ -46,4 +46,12 @@ public class PlanCourseController {
         List<PlanCourse> myPlanCourse = planCourseService.findMyPlanCourse(req.getYear(), req.getSemester(), teacherId);
         return WebResult.okResult(myPlanCourse);
     }
+
+    @ApiOperation(value = "学生查询课程表信息")
+    @PostMapping(path = "/planCourseByClassId")
+    public WebResult findPlanCourse(@RequestBody @Validated PlanCourseReq req, @ApiIgnore HttpServletRequest httpServletRequest){
+        String classId = tokenService.getClassId(httpServletRequest);
+        List<PlanCourse> myPlanCourse = planCourseService.findMyPlanCourseByClassId(req.getYear(), req.getSemester(), classId);
+        return WebResult.okResult(myPlanCourse);
+    }
 }

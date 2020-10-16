@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
@@ -105,7 +106,7 @@ public class WeChatUserController {
 
     @ApiOperation(value = "微信学生用户查询自己信息")
     @PostMapping(path = "/myInfo")
-    public WebResult myInfo(HttpServletRequest httpServletRequest) {
+    public WebResult myInfo(@ApiIgnore HttpServletRequest httpServletRequest) {
         String studentId = tokenService.getStudentId(httpServletRequest);
         return WebResult.okResult(studentService.studentInfoByStudentId(studentId));
     }

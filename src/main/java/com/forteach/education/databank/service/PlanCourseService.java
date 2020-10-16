@@ -14,5 +14,21 @@ import java.util.List;
  */
 public interface PlanCourseService {
 
+    /**
+     * 教师端查询课程表信息
+     * @param year 当前年份
+     * @param semester 当前学期
+     * @param teacherId 教师的编号
+     * @return
+     */
     List<PlanCourse> findMyPlanCourse(String year, String semester, String teacherId);
+
+    /**
+     * 学生端查询课程表信息
+     * @param year 当前年份
+     * @param semester 当前学期
+     * @param classId 班级Id
+     * @return
+     */
+    List<PlanCourse> findMyPlanCourseByClassId(String year, String semester, String classId);
 }

@@ -28,4 +28,15 @@ public interface PlanCourseRepository extends JpaRepository<PlanCourse, String> 
      */
     @Transactional(readOnly = true)
     List<PlanCourse> findAllByIsValidatedEqualsAndYearAndSemesterAndTeacherId(String isValidated, String year, String semester, String teacherId);
+
+    /**
+     * 查询班级对应的课程表信息
+     * @param isValidated
+     * @param year
+     * @param semester
+     * @param classId
+     * @return
+     */
+    @Transactional(readOnly = true)
+    List<PlanCourse> findAllByIsValidatedEqualsAndYearAndSemesterAndClassId(String isValidated, String year, String semester, String classId);
 }
