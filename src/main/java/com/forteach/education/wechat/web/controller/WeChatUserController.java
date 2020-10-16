@@ -4,9 +4,11 @@ import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import com.forteach.education.authority.annotation.PassToken;
 import com.forteach.education.authority.annotation.UserLoginToken;
+import com.forteach.education.authority.service.TokenService;
 import com.forteach.education.common.config.MyAssert;
 import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.keyword.WebResult;
+import com.forteach.education.common.service.StudentService;
 import com.forteach.education.wechat.config.WeChatMiniAppConfig;
 import com.forteach.education.wechat.service.WeChatUserService;
 import com.forteach.education.wechat.web.req.BindingUserInfoReq;
@@ -36,9 +38,16 @@ public class WeChatUserController {
 
     private final WeChatUserService weChatUserService;
 
+    private final TokenService tokenService;
+
+
+    private final StudentService studentService;
+
     @Autowired
-    public WeChatUserController(WeChatUserService weChatUserService) {
+    public WeChatUserController(WeChatUserService weChatUserService, TokenService tokenService, StudentService studentService) {
         this.weChatUserService = weChatUserService;
+        this.tokenService = tokenService;
+        this.studentService = studentService;
     }
 
     @PassToken
@@ -92,5 +101,12 @@ public class WeChatUserController {
     @GetMapping("/restart/{studentId}")
     public WebResult restart(@PathVariable("studentId") @NotBlank(message = "用户编号不为空") String studentId) {
         return weChatUserService.restart(studentId);
+    }
+
+    @ApiOperation(value = "微信学生用户查询自己信息")
+    @PostMapping(path = "/myInfo")
+    public WebResult myInfo(HttpServletRequest httpServletRequest) {
+        String studentId = tokenService.getStudentId(httpServletRequest);
+        return WebResult.okResult(studentService.studentInfoByStudentId(studentId));
     }
 }

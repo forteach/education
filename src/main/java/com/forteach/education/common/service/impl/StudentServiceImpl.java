@@ -1,10 +1,15 @@
 package com.forteach.education.common.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.forteach.education.authority.domain.StudentEntitys;
 import com.forteach.education.authority.repository.StudentRepository;
 import com.forteach.education.authority.web.req.FindAllPageStudentReq;
+import com.forteach.education.common.config.MyAssert;
+import com.forteach.education.common.keyword.DefineCode;
 import com.forteach.education.common.service.StudentService;
+import com.forteach.education.common.web.vo.StudentInfoVo;
+import com.forteach.education.exception.AssertErrorException;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -130,5 +135,14 @@ public class StudentServiceImpl implements StudentService {
         long total = count.longValue();
         List<StudentEntitys> content = total > of.getOffset() ? dataQuery.getResultList() : Collections.emptyList();
         return new PageImpl<>(content, of, total);
+    }
+
+
+    @Override
+    public StudentInfoVo studentInfoByStudentId(String studentId){
+        StudentEntitys studentEntitys = studentRepository.findById(studentId).orElseGet(StudentEntitys::new);
+        StudentInfoVo vo = new StudentInfoVo();
+        BeanUtil.copyProperties(studentEntitys, vo);
+        return vo;
     }
 }

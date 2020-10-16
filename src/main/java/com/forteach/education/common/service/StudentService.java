@@ -2,6 +2,7 @@ package com.forteach.education.common.service;
 
 import com.forteach.education.authority.domain.StudentEntitys;
 import com.forteach.education.authority.web.req.FindAllPageStudentReq;
+import com.forteach.education.common.web.vo.StudentInfoVo;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -40,4 +41,11 @@ public interface StudentService {
     public List<StudentEntitys> getStudentListByStr(String studentIds);
 
     Page<StudentEntitys> findAllPage(FindAllPageStudentReq req);
+
+    /**
+     * 微信学生端查询我的信息
+     * @param studentId
+     * @return
+     */
+    public StudentInfoVo studentInfoByStudentId(String studentId);
 }
