@@ -53,16 +53,16 @@ public class CountLearnServiceImpl implements BaseCountService<CountLearn> {
     public List<ChartColumnarVo> findAllColumnarList() {
         ChartColumnarVo chartColumnarVo = new ChartColumnarVo("课程数（教研室）",
                 CollUtil.toList("历史", "电子商务", "语文", "体育"),
-                CollUtil.toList(335, 310, 234, 135));
+                CollUtil.toList(353, 30, 24, 135));
         ChartColumnarVo chartQuestionVo = new ChartColumnarVo("练习数（教研室）",
                 CollUtil.toList("历史", "电子商务", "语文", "体育"),
-                CollUtil.toList(335, 310, 234, 135));
+                CollUtil.toList(33, 31, 34, 13));
         ChartColumnarVo chartHomeworkVo = new ChartColumnarVo("作业数（教研室）",
                 CollUtil.toList("历史", "电子商务", "语文", "体育"),
-                CollUtil.toList(335, 310, 234, 135));
+                CollUtil.toList(35, 50, 24, 15));
         ChartColumnarVo chartExperienceExchangeVo = new ChartColumnarVo("心得交流数（教研室）",
                 CollUtil.toList("历史", "电子商务", "语文", "体育"),
-                CollUtil.toList(335, 310, 234, 135));
+                CollUtil.toList(33, 30, 24, 35));
         return CollUtil.toList(chartColumnarVo, chartQuestionVo, chartHomeworkVo, chartExperienceExchangeVo);
     }
 

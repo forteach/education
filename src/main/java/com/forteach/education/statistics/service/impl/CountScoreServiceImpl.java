@@ -46,6 +46,7 @@ public class CountScoreServiceImpl implements BaseCountService<CountScore> {
         list.add(new ChartCakeVo("数学", 79));
         list.add(new ChartCakeVo("语文", 90));
         list.add(new ChartCakeVo("英语", 99));
+        list.add(new ChartCakeVo("电子商务", 87));
         list.add(new ChartCakeVo("生物", 62.5));
         return list;
     }

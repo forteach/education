@@ -49,7 +49,9 @@ public class CountFacultyServiceImpl implements BaseCountService<CountFaculty> {
 
     @Override
     public List<ChartColumnarVo> findAllColumnarList() {
-        ChartColumnarVo chartColumnarVo = new ChartColumnarVo("", CollUtil.toList("电工电子", "美容美发", "英语", "历史", "体育"), CollUtil.toList(2, 44, 66, 23.9, 33));
+        ChartColumnarVo chartColumnarVo = new ChartColumnarVo("",
+                CollUtil.toList("电工电子", "美容美发", "英语", "历史", "体育", "电子商务"),
+                CollUtil.toList(2, 44, 66, 23.9, 33, 72));
         return CollUtil.toList(chartColumnarVo);
     }
 

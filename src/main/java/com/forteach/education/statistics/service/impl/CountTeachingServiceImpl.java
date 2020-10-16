@@ -42,9 +42,9 @@ public class CountTeachingServiceImpl implements BaseCountService<CountTeaching>
     public List<ChartCakeVo> findAllChartCake() {
         List<ChartCakeVo> list = new ArrayList<>(16);
         list.add(new ChartCakeVo("课程数", 62));
-        list.add(new ChartCakeVo("资料数", 62222));
-        list.add(new ChartCakeVo("题目数", 23562));
-        list.add(new ChartCakeVo("习题数", 12162));
+        list.add(new ChartCakeVo("资料数", 6222));
+        list.add(new ChartCakeVo("题目数", 2362));
+        list.add(new ChartCakeVo("习题数", 1062));
         return list;
     }
 

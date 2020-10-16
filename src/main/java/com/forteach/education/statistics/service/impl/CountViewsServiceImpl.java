@@ -43,9 +43,9 @@ public class CountViewsServiceImpl implements BaseCountService<CountViews> {
     public List<ChartCakeVo> findAllChartCake() {
         List<ChartCakeVo> list = new ArrayList<>();
         list.add(new ChartCakeVo("课程数", 62));
-        list.add(new ChartCakeVo("资料数", 62222));
-        list.add(new ChartCakeVo("题目数", 23562));
-        list.add(new ChartCakeVo("习题数", 12162));
+        list.add(new ChartCakeVo("资料数", 237));
+        list.add(new ChartCakeVo("题目数", 2342));
+        list.add(new ChartCakeVo("习题数", 1212));
         return list;
     }
 

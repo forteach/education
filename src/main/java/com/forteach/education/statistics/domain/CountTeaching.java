@@ -63,7 +63,7 @@ public class CountTeaching extends Entitys implements Serializable {
      * 课程数
      */
     @ApiModelProperty(name = "courseNum", value = "课程数", dataType = "int")
-    @Column(name = "coure_num", columnDefinition = "int(11) DEFAULT 0 comment '课程数'")
+    @Column(name = "course_num", columnDefinition = "int(11) DEFAULT 0 comment '课程数'")
     private Integer courseNum;
     /**
      * 章节数
