@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ArticleService {
@@ -125,6 +126,9 @@ public class ArticleService {
             stringRedisTemplate.opsForValue().set(gdkey, "0");
             stringRedisTemplate.opsForValue().set(replykey, "0");
 
+            stringRedisTemplate.expire(sckey, 365, TimeUnit.DAYS);
+            stringRedisTemplate.expire(gdkey, 365, TimeUnit.DAYS);
+            stringRedisTemplate.expire(replykey, 365, TimeUnit.DAYS);
             //获得班级信息
             Classes cla = classesService.findById(request.getClassId());
             MyAssert.isNull(cla, DefineCode.ERR0013, "班级信息不存在");

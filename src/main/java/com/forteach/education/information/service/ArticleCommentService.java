@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.forteach.education.information.service.ArticleKey.STUDENT;
 import static com.forteach.education.information.service.ArticleKey.STUDENT_ADO;
@@ -70,6 +71,8 @@ public class ArticleCommentService {
             int newCount = StrUtil.isNotBlank(count) ? Integer.valueOf(count).intValue() + 1 : 1;
             stringRedisTemplate.opsForValue().set(replykey, String.valueOf(newCount));
 
+            stringRedisTemplate.expire(artcommentkey, 365, TimeUnit.DAYS);
+            stringRedisTemplate.expire(replykey, 356, TimeUnit.DAYS);
             if (STUDENT.equals(request.getUserType())) {
                 //学生名称
                 String key = STUDENT_ADO.concat(request.getUserId());
@@ -141,6 +144,7 @@ public class ArticleCommentService {
         String count = stringRedisTemplate.opsForValue().get(key);
         int newcount = Integer.valueOf(count).intValue() + 1;
         stringRedisTemplate.opsForValue().set(key, String.valueOf(newcount));
+        stringRedisTemplate.expire(key, 365, TimeUnit.DAYS);
         return newcount;
     }
 
