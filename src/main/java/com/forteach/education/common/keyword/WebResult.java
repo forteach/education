@@ -28,7 +28,7 @@ public class WebResult implements Serializable {
     @ApiModelProperty(required = true, value = "返回码", dataType = "int", example = "0", position = 0)
     private int ret;
 
-    @ApiModelProperty(required = true, value = "返回数据", dataType = "string", example = "{'id': '5c06d23bc8737b1dc8068da8'}", position = 1)
+    @ApiModelProperty(required = true, value = "返回数据", dataType = "string", example = "5c06d23bc8737b1dc8068da8", position = 1)
     private Object data;
 
     @ApiModelProperty(required = true, value = "msg信息", dataType = "string", example = "OK", position = 2)

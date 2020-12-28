@@ -67,7 +67,7 @@ public class CountCourseServiceImpl implements BaseCountService<CountCourse> {
     }
 
 
-    public void saveCourse(){
+    public void saveCourse() {
 
     }
 }

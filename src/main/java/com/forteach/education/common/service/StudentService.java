@@ -44,6 +44,7 @@ public interface StudentService {
 
     /**
      * 微信学生端查询我的信息
+     *
      * @param studentId
      * @return
      */

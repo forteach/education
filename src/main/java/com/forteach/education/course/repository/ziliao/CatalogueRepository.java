@@ -92,6 +92,7 @@ public interface CatalogueRepository extends JpaRepository<Catalogue, String>, J
 
     /**
      * 根据id批量删除
+     *
      * @param ids
      * @return
      */
@@ -102,6 +103,7 @@ public interface CatalogueRepository extends JpaRepository<Catalogue, String>, J
 
     /**
      * 修改章节科目的有效性
+     *
      * @param isValidated
      * @param ids
      * @return

@@ -48,6 +48,7 @@ public interface FileDatumRepository extends IDatumRepoitory<FileDatum, String> 
 
     /**
      * 按照课程统计分组文件资料信息
+     *
      * @return
      */
     @Query(value = "select courseId, chapterId, count(fileId) as dataNum from FileDatum where isValidated = '0' group by courseId")

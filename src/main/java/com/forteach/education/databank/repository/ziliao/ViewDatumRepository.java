@@ -48,6 +48,7 @@ public interface ViewDatumRepository extends IDatumRepoitory<ViewDatum, String> 
 
     /**
      * 按照课程统计分组视频资料信息
+     *
      * @return
      */
     @Query(value = "select courseId, chapterId, count(fileId) as dataNum from ViewDatum where isValidated = '0' group by courseId")

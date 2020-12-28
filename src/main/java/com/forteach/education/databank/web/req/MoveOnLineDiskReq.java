@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -23,12 +22,12 @@ import java.io.Serializable;
 @ApiModel(value = "移动文件文件夹")
 public class MoveOnLineDiskReq implements Serializable {
 
-//    @NotBlank(message = "id不为空")
+    //    @NotBlank(message = "id不为空")
     @ApiModelProperty(name = "id", value = "主键Id", dataType = "string", required = true)
     private String id;
 
 
-//    @NotBlank(message = "pId不为空")
+    //    @NotBlank(message = "pId不为空")
     @ApiModelProperty(name = "pId", value = "要移动到的文件夹下的父id", dataType = "string", required = true)
     private String pId;
 }

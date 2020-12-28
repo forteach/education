@@ -9,5 +9,6 @@ package com.forteach.education.course.dto;
  */
 public interface ChapterNumDto {
     public String getCourseId();
+
     public Long getChapterNum();
 }

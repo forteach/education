@@ -97,6 +97,7 @@ public class WeChatUserController {
      * @param studentId
      * @return
      */
+    @ApiIgnore
     @PassToken
     @ApiOperation(value = "删除绑定的微信用户")
     @GetMapping("/restart/{studentId}")

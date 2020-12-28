@@ -70,8 +70,10 @@ public class WebMvcConfg implements WebMvcConfigurer {
         // 判断是否有@LoginRequired需要进行拦截
         registry.addInterceptor(sysUserLoginInterceptor())
                 .excludePathPatterns("*.css", "*.js").addPathPatterns("/**")
+                .addPathPatterns("/doc.html")
                 .excludePathPatterns("*").addPathPatterns("/error")
                 .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/swagger-ui.html/**", "/error/**")
+//                .excludePathPatterns("/doc.html")
                 .excludePathPatterns("/actuator/**");
     }
 

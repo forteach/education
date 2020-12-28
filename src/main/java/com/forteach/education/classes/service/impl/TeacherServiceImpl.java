@@ -184,6 +184,7 @@ public class TeacherServiceImpl implements TeacherService {
         }
     }
 
+    @Override
     public Teacher findById(String teacherId) {
         Optional<Teacher> optional = teacherRepository.findById(teacherId);
         MyAssert.isFalse(optional.isPresent(), DefineCode.ERR0014, "不存在对应教师");

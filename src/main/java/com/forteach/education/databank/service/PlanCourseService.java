@@ -16,8 +16,9 @@ public interface PlanCourseService {
 
     /**
      * 教师端查询课程表信息
-     * @param year 当前年份
-     * @param semester 当前学期
+     *
+     * @param year      当前年份
+     * @param semester  当前学期
      * @param teacherId 教师的编号
      * @return
      */
@@ -25,9 +26,10 @@ public interface PlanCourseService {
 
     /**
      * 学生端查询课程表信息
-     * @param year 当前年份
+     *
+     * @param year     当前年份
      * @param semester 当前学期
-     * @param classId 班级Id
+     * @param classId  班级Id
      * @return
      */
     List<PlanCourse> findMyPlanCourseByClassId(String year, String semester, String classId);

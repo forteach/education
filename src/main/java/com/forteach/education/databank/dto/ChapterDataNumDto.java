@@ -10,18 +10,21 @@ package com.forteach.education.databank.dto;
 public interface ChapterDataNumDto {
     /**
      * 课程id
+     *
      * @return
      */
     public String getCourseId();
 
     /**
      * 课程章节id
+     *
      * @return
      */
     public String getChapterId();
 
     /**
      * 资料信息统计数，音频，视频，资料，图片，链接等
+     *
      * @return
      */
     public Long getDataNum();

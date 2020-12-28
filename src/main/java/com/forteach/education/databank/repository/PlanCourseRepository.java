@@ -31,6 +31,7 @@ public interface PlanCourseRepository extends JpaRepository<PlanCourse, String> 
 
     /**
      * 查询班级对应的课程表信息
+     *
      * @param isValidated
      * @param year
      * @param semester

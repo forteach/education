@@ -8,7 +8,6 @@ import com.forteach.education.databank.repository.ziliao.DatumAreaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.annotation.Schedules;
 
@@ -41,13 +40,12 @@ public class CountCourseTask {
     private DatumAreaRepository datumAreaRepository;
 
 
-
     @Schedules({
             // TODO 注释每分钟执行任务
 //            @Scheduled(cron = "0 0/30 * * * ?")
             @Scheduled(cron = "0 30 4 * * ?")
     })
-    public void countCourse(){
+    public void countCourse() {
         log.info("开始执行定时任务统计课程 ==> {}", LocalDateTime.now());
         if (log.isDebugEnabled()) {
             log.debug("执行线程 : {}", Thread.currentThread().getName());

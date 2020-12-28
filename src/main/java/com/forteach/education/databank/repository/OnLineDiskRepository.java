@@ -23,6 +23,7 @@ public interface OnLineDiskRepository extends JpaRepository<OnLineDisk, Long> {
 
     /**
      * 删除文件列表信息
+     *
      * @param ids
      */
     @Modifying(clearAutomatically = true)

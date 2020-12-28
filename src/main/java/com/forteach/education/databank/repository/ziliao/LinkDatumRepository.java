@@ -47,6 +47,7 @@ public interface LinkDatumRepository extends IDatumRepoitory<LinkDatum, String> 
 
     /**
      * 按照课程统计分组链接资料信息
+     *
      * @return
      */
     @Query(value = "select courseId, chapterId, count(fileId) as dataNum from LinkDatum where isValidated = '0' group by courseId")

@@ -7,6 +7,6 @@ package com.forteach.education.statistics.service;
  * @modified By：
  * @version: V1.0
  */
-public interface CountCourseService extends BaseCountService{
+public interface CountCourseService extends BaseCountService {
 
 }

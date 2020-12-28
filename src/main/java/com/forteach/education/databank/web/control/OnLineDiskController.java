@@ -6,7 +6,6 @@ import cn.hutool.core.util.StrUtil;
 import com.forteach.education.common.keyword.WebResult;
 import com.forteach.education.databank.domain.OnLineDisk;
 import com.forteach.education.databank.service.OnLineDiskService;
-import com.forteach.education.databank.web.req.MoveOnLineDiskReq;
 import com.forteach.education.databank.web.req.OnLineDiskListReq;
 import com.forteach.education.databank.web.req.OnLineDiskSaveReq;
 import io.swagger.annotations.Api;

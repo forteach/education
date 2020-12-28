@@ -52,6 +52,7 @@ public interface AudioDatumRepository extends IDatumRepoitory<AudioDatum, String
 
     /**
      * 按照课程统计分组音频资料信息
+     *
      * @return
      */
     @Query(value = "select courseId, chapterId, count(fileId) as dataNum from AudioDatum where isValidated = '0' group by courseId")
