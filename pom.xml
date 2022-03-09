@@ -55,18 +55,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
+            <!--            <exclusions>-->
+            <!--                <exclusion>-->
+            <!--                    <groupId>org.springframework.boot</groupId>-->
+            <!--                    <artifactId>spring-boot-starter-tomcat</artifactId>-->
+            <!--                </exclusion>-->
+            <!--            </exclusions>-->
         </dependency>
         <!--使用undertow web容器-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-undertow</artifactId>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -87,7 +87,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.58</version>
+            <version>1.2.79</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -99,26 +99,31 @@
             <artifactId>hutool-all</artifactId>
             <version>5.4.1</version>
         </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>io.springfox</groupId>-->
+        <!--            <artifactId>springfox-swagger2</artifactId>-->
+        <!--            <version>2.9.2</version>-->
+        <!--            <exclusions>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>io.swagger</groupId>-->
+        <!--                    <artifactId>swagger-models</artifactId>-->
+        <!--                </exclusion>-->
+        <!--            </exclusions>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.springfox</groupId>-->
+        <!--            <artifactId>springfox-swagger-ui</artifactId>-->
+        <!--            <version>2.9.2</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.swagger</groupId>-->
+        <!--            <artifactId>swagger-models</artifactId>-->
+        <!--            <version>1.5.22</version>-->
+        <!--        </dependency>-->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.swagger</groupId>
-                    <artifactId>swagger-models</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-models</artifactId>
-            <version>1.5.22</version>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>2.0.5</version>
         </dependency>
         <!--　ppt 转换　图片-->
         <dependency>
@@ -238,6 +243,95 @@
                     </resources>
                 </configuration>
             </plugin>
+            <!-- 数据库导出文档插件 -->
+<!--            <plugin>-->
+<!--                <groupId>cn.smallbun.screw</groupId>-->
+<!--                <artifactId>screw-maven-plugin</artifactId>-->
+<!--                <version>1.0.5</version>-->
+<!--                <dependencies>-->
+<!--                    &lt;!&ndash; HikariCP &ndash;&gt;-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.zaxxer</groupId>-->
+<!--                        <artifactId>HikariCP</artifactId>-->
+<!--                        <version>3.4.5</version>-->
+<!--                    </dependency>-->
+<!--                    &lt;!&ndash;mysql driver&ndash;&gt;-->
+<!--                    <dependency>-->
+<!--                        <groupId>mysql</groupId>-->
+<!--                        <artifactId>mysql-connector-java</artifactId>-->
+<!--                        <version>8.0.20</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash;username&ndash;&gt;-->
+<!--                    <username>root</username>-->
+<!--                    &lt;!&ndash;password&ndash;&gt;-->
+<!--                    <password>123456</password>-->
+<!--                    &lt;!&ndash;driver&ndash;&gt;-->
+<!--                    <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>-->
+<!--                    &lt;!&ndash;jdbc url&ndash;&gt;-->
+<!--                    <jdbcUrl>jdbc:mysql://localhost:3306/forteach</jdbcUrl>-->
+<!--                    &lt;!&ndash;生成文件类型&ndash;&gt;-->
+<!--                    <fileType>MD</fileType>-->
+<!--                    &lt;!&ndash;打开文件输出目录&ndash;&gt;-->
+<!--                    <openOutputDir>false</openOutputDir>-->
+<!--                    &lt;!&ndash;生成模板&ndash;&gt;-->
+<!--                    <produceType>freemarker</produceType>-->
+<!--                    &lt;!&ndash;文档名称 为空时:将采用[数据库名称-描述-版本号]作为文档名称&ndash;&gt;-->
+<!--                    <fileName>河南外贸教辅系统数据库forteach字段说明文档</fileName>-->
+<!--                    &lt;!&ndash;描述&ndash;&gt;-->
+<!--                    <description>数据库文档生成</description>-->
+<!--                    &lt;!&ndash;版本&ndash;&gt;-->
+<!--                    <version>${project.version}</version>-->
+<!--                    &lt;!&ndash;标题&ndash;&gt;-->
+<!--                    <title>数据库文档</title>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>compile</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>run</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
+<!--            <plugin>-->
+<!--                <groupId>io.fabric8</groupId>-->
+<!--                <artifactId>docker-maven-plugin</artifactId>-->
+<!--                <version>0.33.0</version>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash; Docker 远程管理地址&ndash;&gt;-->
+<!--                    <dockerHost>http://192.168.3.101:2375</dockerHost>-->
+<!--                    &lt;!&ndash; Docker 推送镜像仓库地址&ndash;&gt;-->
+<!--                    <pushRegistry>http://192.168.3.101:5000</pushRegistry>-->
+<!--                    <images>-->
+<!--                        <image>-->
+<!--                            &lt;!&ndash;由于推送到私有镜像仓库，镜像名需要添加仓库地址&ndash;&gt;-->
+<!--                            <name>192.168.3.101:5000/mall-tiny/${project.name}:${project.version}</name>-->
+<!--                            &lt;!&ndash;定义镜像构建行为&ndash;&gt;-->
+<!--                            <build>-->
+<!--                                &lt;!&ndash;定义基础镜像&ndash;&gt;-->
+<!--                                <from>java:8</from>-->
+<!--                                <args>-->
+<!--                                    <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>-->
+<!--                                </args>-->
+<!--                                &lt;!&ndash;定义哪些文件拷贝到容器中&ndash;&gt;-->
+<!--                                <assembly>-->
+<!--                                    &lt;!&ndash;定义拷贝到容器的目录&ndash;&gt;-->
+<!--                                    <targetDir>/</targetDir>-->
+<!--                                    &lt;!&ndash;只拷贝生成的jar包&ndash;&gt;-->
+<!--                                    <descriptorRef>artifact</descriptorRef>-->
+<!--                                </assembly>-->
+<!--                                &lt;!&ndash;定义容器启动命令&ndash;&gt;-->
+<!--                                <entryPoint>["java", "-jar","/${project.build.finalName}.jar"]</entryPoint>-->
+<!--                                &lt;!&ndash;定义维护者&ndash;&gt;-->
+<!--                                <maintainer>macrozheng</maintainer>-->
+<!--                            </build>-->
+<!--                        </image>-->
+<!--                    </images>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
