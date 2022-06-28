@@ -31,7 +31,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <file.encoding>utf-8</file.encoding>
-        <poi.version>3.17</poi.version>
+        <poi.version>5.2.1</poi.version>
         <docker.image.prefix>ang00</docker.image.prefix>
     </properties>
 
